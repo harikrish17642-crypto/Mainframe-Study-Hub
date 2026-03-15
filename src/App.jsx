@@ -1149,7 +1149,7 @@ Behavior guidelines:
   const chatJoinRole = ""; const setChatJoinRole = ()=>{};
   const chatAddModal = false; const setChatAddModal = ()=>{};
   const chatNid = {current:999};
-  const chatJoin = () => { if(!user){setAuthModal("signup");setAuthError("");setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});} else{setChatJoined(true);goPage("community");setChatPopup(false);} };
+  const chatJoin = () => { if(!user){setAuthModal("signup");setAuthError("");setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});} else{setChatJoined(true);setPage("community");setCommunityView("chat");setChatPopup(false);} };
 
   /* ─── WELCOME SEQUENCE + TOP BANNER ─── */
   const [topBanner, setTopBanner] = useState(true);
