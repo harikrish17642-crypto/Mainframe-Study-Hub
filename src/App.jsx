@@ -947,12 +947,14 @@ Behavior guidelines:
   // Load user blogs from Supabase
   useEffect(() => {
     const load = async () => {
-      const { data } = await supabase.from("user_blogs").select("*").order("created_at",{ascending:false});
-      if (data) setUserBlogs(data.map(b => ({
-        id:b.id, title:b.title, content:b.content, category:b.category,
-        date:(b.created_at||"").slice(0,10), readTime:Math.max(1,Math.round((b.content||"").split(/\s+/).length/200))+" min read",
-        author:b.author, authorRole:b.author_role, isUserBlog:true, likes:0
-      })));
+      try {
+        const { data } = await supabase.from("user_blogs").select("*").order("created_at",{ascending:false});
+        if (data) setUserBlogs(data.map(b => ({
+          id:b.id, title:b.title, content:b.content, category:b.category,
+          date:(b.created_at||"").slice(0,10), readTime:Math.max(1,Math.round((b.content||"").split(/\s+/).length/200))+" min read",
+          author:b.author, authorRole:b.author_role, isUserBlog:true, likes:0
+        })));
+      } catch {}
     };
     load();
   }, []);
@@ -994,24 +996,27 @@ Behavior guidelines:
   // Load Q&A from Supabase
   useEffect(() => {
     const loadQA = async () => {
-      const { data: posts } = await supabase.from("qa_posts").select("*").order("created_at",{ascending:false});
-      const { data: answers } = await supabase.from("qa_answers").select("*").order("created_at",{ascending:true});
-      if (posts) {
-        const mapped = posts.map(p => ({
-          id:p.id, title:p.title, body:p.body, topic:p.topic, author:p.author,
-          authorRole:p.author_role, date:(p.created_at||"").slice(0,10), votes:p.votes||1,
-          answers:(answers||[]).filter(a=>a.post_id===p.id).map(a=>({
-            id:a.id, body:a.body, author:a.author, authorRole:a.author_role,
-            date:(a.created_at||"").slice(0,10), votes:a.votes||1
-          }))
-        }));
-        setCommunityPosts(mapped);
-      }
+      try {
+        const { data: posts } = await supabase.from("qa_posts").select("*").order("created_at",{ascending:false});
+        const { data: answers } = await supabase.from("qa_answers").select("*").order("created_at",{ascending:true});
+        if (posts) {
+          const mapped = posts.map(p => ({
+            id:p.id, title:p.title, body:p.body, topic:p.topic, author:p.author,
+            authorRole:p.author_role, date:(p.created_at||"").slice(0,10), votes:p.votes||1,
+            answers:(answers||[]).filter(a=>a.post_id===p.id).map(a=>({
+              id:a.id, body:a.body, author:a.author, authorRole:a.author_role,
+              date:(a.created_at||"").slice(0,10), votes:a.votes||1
+            }))
+          }));
+          setCommunityPosts(mapped);
+        }
+      } catch {}
     };
     loadQA();
-    // Realtime for new posts
-    const ch = supabase.channel("qa").on("postgres_changes",{event:"*",schema:"public",table:"qa_posts"},()=>loadQA()).on("postgres_changes",{event:"*",schema:"public",table:"qa_answers"},()=>loadQA()).subscribe();
-    return () => supabase.removeChannel(ch);
+    try {
+      const ch = supabase.channel("qa").on("postgres_changes",{event:"*",schema:"public",table:"qa_posts"},()=>loadQA()).on("postgres_changes",{event:"*",schema:"public",table:"qa_answers"},()=>loadQA()).subscribe();
+      return () => supabase.removeChannel(ch);
+    } catch {}
   }, []);
 
   const votePost = async (postId, dir) => {
@@ -1072,24 +1077,29 @@ Behavior guidelines:
   // Load chat messages from Supabase
   useEffect(() => {
     const load = async () => {
-      const { data } = await supabase.from("chat_messages").select("*").order("created_at",{ascending:true}).limit(200);
-      if (data) setChatMsgs(data.map(fmtMsg));
+      try {
+        const { data } = await supabase.from("chat_messages").select("*").order("created_at",{ascending:true}).limit(200);
+        if (data) setChatMsgs(data.map(fmtMsg));
+      } catch {}
     };
     load();
-    // Realtime subscription
-    const channel = supabase.channel("chat").on("postgres_changes",{event:"INSERT",schema:"public",table:"chat_messages"}, (payload) => {
-      setChatMsgs(prev => [...prev, fmtMsg(payload.new)]);
-    }).on("postgres_changes",{event:"UPDATE",schema:"public",table:"chat_messages"}, (payload) => {
-      setChatMsgs(prev => prev.map(m => m.id === payload.new.id ? fmtMsg(payload.new) : m));
-    }).subscribe();
-    return () => { supabase.removeChannel(channel); };
+    try {
+      const channel = supabase.channel("chat").on("postgres_changes",{event:"INSERT",schema:"public",table:"chat_messages"}, (payload) => {
+        setChatMsgs(prev => [...prev, fmtMsg(payload.new)]);
+      }).on("postgres_changes",{event:"UPDATE",schema:"public",table:"chat_messages"}, (payload) => {
+        setChatMsgs(prev => prev.map(m => m.id === payload.new.id ? fmtMsg(payload.new) : m));
+      }).subscribe();
+      return () => { supabase.removeChannel(channel); };
+    } catch {}
   }, [user]);
 
   // Load online users
   useEffect(() => {
     const load = async () => {
-      const { data } = await supabase.from("user_presence").select("*").gte("last_seen", new Date(Date.now()-5*60000).toISOString());
-      if (data) setChatOnlineUsers(data);
+      try {
+        const { data } = await supabase.from("user_presence").select("*").gte("last_seen", new Date(Date.now()-5*60000).toISOString());
+        if (data) setChatOnlineUsers(data);
+      } catch {}
     };
     load();
     const iv = setInterval(load, 30000);
@@ -1100,10 +1110,12 @@ Behavior guidelines:
   useEffect(() => {
     if (!user) return;
     const update = async () => {
-      await supabase.from("user_presence").upsert({
-        user_id:user.id, name:user.name, role:user.role,
-        emoji:"🧑‍💻", color:"#0071e3", last_seen:new Date().toISOString()
-      });
+      try {
+        await supabase.from("user_presence").upsert({
+          user_id:user.id, name:user.name, role:user.role,
+          emoji:"🧑‍💻", color:"#0071e3", last_seen:new Date().toISOString()
+        });
+      } catch {}
     };
     update();
     const iv = setInterval(update, 60000);
