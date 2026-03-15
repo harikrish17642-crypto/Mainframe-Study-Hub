@@ -207,6 +207,9 @@ export default function App() {
   const [activeTab, setActiveTab] = useState(0);
   const [quiz, setQuiz] = useState({ index: 0, score: 0, selected: null, done: false, showExp: false });
   const [quizTopicFilter, setQuizTopicFilter] = useState("All");
+  
+  /* ─── AUTH STATE (moved up to avoid TDZ) ─── */
+  const [user, setUser] = useState(null);
   const quizQuestions = quizTopicFilter === "All" ? QUIZ_QUESTIONS : QUIZ_QUESTIONS.filter(q => q.topic === quizTopicFilter);
   const QUIZ_TOPICS = ["All", ...Array.from(new Set(QUIZ_QUESTIONS.map(q => q.topic)))];
 
@@ -311,7 +314,6 @@ export default function App() {
   const [weeklyTab, setWeeklyTab] = useState("tip");
 
   /* ─── AUTH STATE (Supabase) ─── */
-  const [user, setUser] = useState(null);
   const [authModal, setAuthModal] = useState(null); // null, "signin", "signup"
   const [authForm, setAuthForm] = useState({ name:"", email:"", password:"", role:"", itYears:"", mfYears:"" });
   const [authError, setAuthError] = useState("");
