@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://mainframestudyhub.com/sitemap.xml
-
-# Disallow admin/auth paths
-Disallow: /reset-password.html
-Disallow: /confirm.html
