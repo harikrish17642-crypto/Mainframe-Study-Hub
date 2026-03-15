@@ -77,8 +77,9 @@ function CA({m,sz=34}){return(<div style={{width:sz,height:sz,borderRadius:"50%"
 /* ─── CHAT MESSAGE ────────────────────────────────────────────────────── */
 function ChatBubble({msg,members,self,onReact,onReply,onDel,onStar,starred}){
   const[showR,setShowR]=useState(false);const[hov,setHov]=useState(false);
-  const isSelf=msg.sender===self,isSys=msg.type===CT.SYS,sender=msg.sender>=0?members[msg.sender]:null;
-  const replyMsg=msg.replyTo!=null?CHAT_SEED.find(m=>m.id===msg.replyTo):null;
+  const isSelf=msg._isSelf||false,isSys=msg.type===CT.SYS;
+  const sender=isSys?null:{name:msg._name||"User",role:msg._role||"",color:msg._color||"#0071e3",emoji:msg._emoji||"🧑‍💻",status:"online"};
+  const replyMsg=msg.replyTo!=null?null:null; // reply preview disabled for DB messages
   if(msg.del)return<div style={{display:"flex",justifyContent:isSelf?"flex-end":"flex-start",padding:"2px 16px",opacity:0.4}}><div style={{padding:"6px 14px",borderRadius:12,background:"#f5f5f7",fontStyle:"italic",fontSize:13,color:"#86868b"}}>🚫 Deleted</div></div>;
   if(isSys)return<div style={{display:"flex",justifyContent:"center",padding:"8px 16px"}}><div style={{padding:"4px 16px",borderRadius:20,background:"#f0f7ff",border:"1px solid #d0e3ff",fontSize:12,color:"#6e6e73"}}>{msg.text}</div></div>;
   const tc={[CT.JOB]:{bg:"#f5f0ff",bd:"#e0d0ff",ic:"💼",lb:"Job"}, [CT.DOUBT]:{bg:"#fff8f0",bd:"#ffe0c0",ic:"❓",lb:"Doubt"}, [CT.THOUGHT]:{bg:"#f0f7ff",bd:"#c0d8ff",ic:"💭",lb:"Thought"}, [CT.POLL]:{bg:"#faf0ff",bd:"#e0c8ff",ic:"📊",lb:"Poll"}}[msg.type];
@@ -188,25 +189,26 @@ async function fetchWeeklyUpdate(topic) {
   };
 }
 
-/* ─── STORAGE HELPERS (localStorage) ────────────────────────────────────── */
+/* ─── STORAGE HELPERS (Supabase with localStorage fallback) ──────────── */
 async function saveUpdate(topicId, update) {
+  try { localStorage.setItem("weekly_" + topicId, JSON.stringify(update)); localStorage.setItem("lastUpdate", new Date().toISOString()); } catch {}
   try {
-    localStorage.setItem("weekly_" + topicId, JSON.stringify(update));
-    localStorage.setItem("lastUpdate", new Date().toISOString());
-  } catch (e) { console.error("Storage error:", e); }
+    const { data:{session} } = await (await import("./supabaseClient.js")).supabase.auth.getSession();
+    if (session?.user) await (await import("./supabaseClient.js")).supabase.from("user_data").upsert({ user_id:session.user.id, key:"weekly_"+topicId, value:update },{onConflict:"user_id,key"});
+  } catch {}
 }
-
 async function loadUpdate(topicId) {
   try {
-    const r = localStorage.getItem("weekly_" + topicId);
-    return r ? JSON.parse(r) : null;
-  } catch { return null; }
+    const { data:{session} } = await (await import("./supabaseClient.js")).supabase.auth.getSession();
+    if (session?.user) {
+      const { data } = await (await import("./supabaseClient.js")).supabase.from("user_data").select("value").eq("user_id",session.user.id).eq("key","weekly_"+topicId).single();
+      if (data?.value) return data.value;
+    }
+  } catch {}
+  try { const r = localStorage.getItem("weekly_" + topicId); return r ? JSON.parse(r) : null; } catch { return null; }
 }
-
 async function loadLastUpdate() {
-  try {
-    return localStorage.getItem("lastUpdate");
-  } catch { return null; }
+  try { return localStorage.getItem("lastUpdate"); } catch { return null; }
 }
 
 /* ─── MAIN APP ───────────────────────────────────────────────────────────── */
@@ -237,26 +239,49 @@ export default function App() {
   };
   const [dailyQuestions] = useState(getDailyQuestions);
   const dailyDoneKey = "mfsh_daily_" + new Date().toISOString().slice(0, 10);
-  const [dailyCompleted, setDailyCompleted] = useState(() => {
-    try { return JSON.parse(localStorage.getItem(dailyDoneKey) || "null"); } catch { return null; }
-  });
+  const [dailyCompleted, setDailyCompleted] = useState(null);
+
+  // Load daily completion from Supabase
+  useEffect(() => {
+    const load = async () => {
+      if (user) {
+        const { data } = await supabase.from("user_data").select("value").eq("user_id",user.id).eq("key",dailyDoneKey).single();
+        if (data?.value) { setDailyCompleted(data.value); return; }
+      }
+      try { const s = localStorage.getItem(dailyDoneKey); if(s) setDailyCompleted(JSON.parse(s)); } catch {}
+    };
+    load();
+  }, [user]);
+
   const startDaily = () => {
     setDailyMode(true);
     setQuiz({ index: 0, score: 0, selected: null, done: false, showExp: false });
     setDailyTimer(0);
     dailyTimerRef.current = setInterval(() => setDailyTimer(t => t + 1), 1000);
   };
-  const finishDaily = (score) => {
+  const finishDaily = async (score) => {
     clearInterval(dailyTimerRef.current);
     const result = { score, total: 5, time: dailyTimer, date: new Date().toISOString().slice(0, 10) };
-    localStorage.setItem(dailyDoneKey, JSON.stringify(result));
     setDailyCompleted(result);
+    try { localStorage.setItem(dailyDoneKey, JSON.stringify(result)); } catch {}
     // Save streak
-    const streakKey = "mfsh_streak";
     const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-    const prevStreak = JSON.parse(localStorage.getItem(streakKey) || '{"count":0,"lastDate":""}');
+    let prevStreak = {count:0,lastDate:""};
+    if (user) {
+      try {
+        const { data } = await supabase.from("user_data").select("value").eq("user_id",user.id).eq("key","streak").single();
+        if (data?.value) prevStreak = data.value;
+      } catch {}
+    } else {
+      try { prevStreak = JSON.parse(localStorage.getItem("mfsh_streak") || '{"count":0,"lastDate":""}'); } catch {}
+    }
     const newStreak = prevStreak.lastDate === yesterday ? prevStreak.count + 1 : 1;
-    localStorage.setItem(streakKey, JSON.stringify({ count: newStreak, lastDate: result.date }));
+    const streakData = { count: newStreak, lastDate: result.date };
+    try { localStorage.setItem("mfsh_streak", JSON.stringify(streakData)); } catch {}
+    if (user) {
+      await supabase.from("user_data").upsert({ user_id:user.id, key:dailyDoneKey, value:result },{onConflict:"user_id,key"}).catch(()=>{});
+      await supabase.from("user_data").upsert({ user_id:user.id, key:"streak", value:streakData },{onConflict:"user_id,key"}).catch(()=>{});
+    }
   };
   const getStreak = () => {
     try {
@@ -365,6 +390,7 @@ export default function App() {
     if (!authForm.name.trim() || !authForm.email.trim() || !authForm.password.trim()) { setAuthError("Name, email, and password are required."); return; }
     if (authForm.password.length < 6) { setAuthError("Password must be at least 6 characters."); return; }
     setAuthLoading(true);
+    const timeout = setTimeout(() => { setAuthLoading(false); setAuthError("Request timed out. Please check your internet and try again."); }, 15000);
     try {
       const { data, error } = await supabase.auth.signUp({
         email: authForm.email.trim().toLowerCase(),
@@ -381,6 +407,7 @@ export default function App() {
         }
       });
       if (error) {
+        clearTimeout(timeout);
         const msg = error.message || "";
         if (msg.includes("already registered") || msg.includes("already exists")) {
           setAuthError("This email is already registered. Try signing in instead.");
@@ -431,37 +458,39 @@ export default function App() {
           alert("Account created! Please check your email to confirm your account, then sign in.");
         }
       }
-    } catch (e) { setAuthError(e.message || "Something went wrong."); }
-    setAuthLoading(false);
+    } catch (e) { clearTimeout(timeout); setAuthError(e.message || "Something went wrong."); }
+    clearTimeout(timeout); setAuthLoading(false);
   };
 
   const authSignIn = async () => {
     setAuthError("");
     if (!authForm.email.trim() || !authForm.password.trim()) { setAuthError("Email and password are required."); return; }
     setAuthLoading(true);
+    // Safety timeout - never stay stuck
+    const timeout = setTimeout(() => { setAuthLoading(false); setAuthError("Request timed out. Please check your internet and try again."); }, 15000);
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: authForm.email.trim().toLowerCase(),
         password: authForm.password,
       });
+      clearTimeout(timeout);
       if (error) {
-        // Friendly error messages
         const msg = error.message || "";
         if (msg.includes("Email not confirmed")) {
-          setAuthError("Please check your email and click the confirmation link first. Check spam folder too.");
+          setAuthError("Please check your email inbox (and spam) for the confirmation link. Click it first, then sign in.");
         } else if (msg.includes("Invalid login")) {
           setAuthError("Invalid email or password. Please try again or sign up for a new account.");
         } else if (msg.includes("rate limit") || msg.includes("too many")) {
           setAuthError("Too many attempts. Please wait a minute and try again.");
         } else {
-          setAuthError(msg);
+          setAuthError(msg || "Sign in failed. Please try again.");
         }
         setAuthLoading(false);
         return;
       }
       if (data.user) {
         let profile = null;
-        try { profile = await fetchProfile(data.user.id); } catch(e) {}
+        try { profile = await fetchProfile(data.user.id); } catch {}
         if (!profile) {
           const meta = data.user.user_metadata || {};
           const fallbackName = meta.name || data.user.email?.split("@")[0] || "User";
@@ -481,7 +510,10 @@ export default function App() {
         setAuthModal(null);
         setAuthForm({ name:"", email:"", password:"", role:"", itYears:"", mfYears:"" });
       }
-    } catch (e) { setAuthError(e.message || "Connection error. Please check your internet and try again."); }
+    } catch (e) {
+      clearTimeout(timeout);
+      setAuthError(e.message || "Connection error. Please check your internet and try again.");
+    }
     setAuthLoading(false);
   };
   const authSignOut = async () => {
@@ -904,99 +936,105 @@ Behavior guidelines:
     });
   };
 
-  /* ─── USER BLOGS STATE ─── */
-  const [userBlogs, setUserBlogs] = useState(() => {
-    try { const s = localStorage.getItem("mfos_user_blogs"); return s ? JSON.parse(s) : []; } catch { return []; }
-  });
+  /* ─── USER BLOGS STATE (Supabase) ─── */
+  const [userBlogs, setUserBlogs] = useState([]);
   const [blogEditorOpen, setBlogEditorOpen] = useState(false);
   const [blogDraft, setBlogDraft] = useState({ title:"", content:"", category:"General" });
   const BLOG_CATEGORIES = ["JCL","COBOL","REXX","VSAM","DB2","CICS","IMS","RACF","z/OS","Modernization","Linux on Z","Career","General"];
 
   const canWriteBlog = user && (parseInt(user.mfYears||0) >= 5 || parseInt(user.itYears||0) >= 5);
 
-  const saveUserBlog = () => {
-    if (!blogDraft.title.trim() || !blogDraft.content.trim() || !user) return;
-    const blog = {
-      id: "ub" + Date.now(),
-      title: blogDraft.title.trim(),
-      content: blogDraft.content.trim(),
-      category: blogDraft.category,
-      date: new Date().toISOString().slice(0,10),
-      readTime: Math.max(1, Math.round(blogDraft.content.split(/\s+/).length / 200)) + " min read",
-      author: user.name,
-      authorRole: user.role,
-      authorMfYears: user.mfYears,
-      isUserBlog: true,
-      likes: 0,
+  // Load user blogs from Supabase
+  useEffect(() => {
+    const load = async () => {
+      const { data } = await supabase.from("user_blogs").select("*").order("created_at",{ascending:false});
+      if (data) setUserBlogs(data.map(b => ({
+        id:b.id, title:b.title, content:b.content, category:b.category,
+        date:(b.created_at||"").slice(0,10), readTime:Math.max(1,Math.round((b.content||"").split(/\s+/).length/200))+" min read",
+        author:b.author, authorRole:b.author_role, isUserBlog:true, likes:0
+      })));
     };
-    const updated = [blog, ...userBlogs];
-    setUserBlogs(updated);
-    try { localStorage.setItem("mfos_user_blogs", JSON.stringify(updated)); } catch {}
+    load();
+  }, []);
+
+  const saveUserBlog = async () => {
+    if (!blogDraft.title.trim() || !blogDraft.content.trim() || !user) return;
+    await supabase.from("user_blogs").insert({
+      user_id:user.id, title:blogDraft.title.trim(), content:blogDraft.content.trim(),
+      category:blogDraft.category, author:user.name, author_role:user.role
+    });
+    // Reload
+    const { data } = await supabase.from("user_blogs").select("*").order("created_at",{ascending:false});
+    if (data) setUserBlogs(data.map(b => ({
+      id:b.id, title:b.title, content:b.content, category:b.category,
+      date:(b.created_at||"").slice(0,10), readTime:Math.max(1,Math.round((b.content||"").split(/\s+/).length/200))+" min read",
+      author:b.author, authorRole:b.author_role, isUserBlog:true, likes:0
+    })));
     setBlogDraft({ title:"", content:"", category:"General" });
     setBlogEditorOpen(false);
   };
 
   const likeUserBlog = (blogId) => {
     if (!user) { setAuthModal("signin"); setAuthError(""); return; }
-    const updated = userBlogs.map(b => b.id === blogId ? { ...b, likes: (b.likes||0) + 1 } : b);
-    setUserBlogs(updated);
-    try { localStorage.setItem("mfos_user_blogs", JSON.stringify(updated)); } catch {}
+    setUserBlogs(p => p.map(b => b.id === blogId ? { ...b, likes: (b.likes||0) + 1 } : b));
   };
 
   const allBlogs = [...userBlogs, ...BLOGS];
 
-  /* ─── COMMUNITY STATE ─── */
-  const SEED_POSTS = [
-    { id:"p1",title:"What is the difference between REGION=0M and REGION=0K in JCL?",body:"I keep seeing both in production JCL. Are they the same? When should I use one vs the other?",topic:"JCL",author:"MainframeNewbie",date:"2025-02-25",votes:12,answers:[
-      {id:"a1",body:"REGION=0M requests the maximum region size available below AND above the 16MB line. REGION=0K does the same but in kilobytes. In practice, both give you the maximum available private area. However, REGION=0M is the modern convention. Some older systems treat 0K slightly differently with IEFUSI exit processing. Stick with REGION=0M for clarity.",author:"SysProg_Expert",date:"2025-02-25",votes:8},
-      {id:"a2",body:"To add to the above — be careful with REGION=0M in production. It bypasses your installation's region limit controls. Many shops enforce limits through the IEALIMIT or IEFUSI exits. Using REGION=0M means the job requests everything, which could impact other workloads. Best practice: size your REGION appropriately for the program.",author:"zOS_Admin",date:"2025-02-26",votes:5}
-    ]},
-    { id:"p2",title:"How to debug S0C7 abend in COBOL batch program?",body:"My COBOL program abends with S0C7 intermittently. It processes fine for 90% of records but fails on some. How do I find the bad data?",topic:"COBOL",author:"COBOLDev_2025",date:"2025-02-24",votes:9,answers:[
-      {id:"a3",body:"S0C7 is a data exception — usually caused by non-numeric data in a numeric field (PIC 9). Steps: 1) Check the PSW offset in the abend dump. 2) Cross-reference with the compiler listing (SYSPRINT from compile) to find the exact COBOL statement. 3) Use DISPLAY statements before the failing line to show the data values. 4) Most common cause: spaces in a PIC 9 field that should have been initialized to zeros. Use INITIALIZE on your working storage group items.",author:"Debug_Master",date:"2025-02-24",votes:11}
-    ]},
-    { id:"p3",title:"Best approach to learn CICS from scratch?",body:"I have 2 years of COBOL batch experience and want to learn CICS. What's the recommended learning path?",topic:"CICS",author:"CareerGrowth",date:"2025-02-23",votes:15,answers:[
-      {id:"a4",body:"Great decision! Here's my recommended path:\n1) Start with CICS concepts — understand regions, transactions, and the CICS API\n2) Learn BMS maps (screen design)\n3) Write your first CICS program (RECEIVE MAP → process → SEND MAP)\n4) Learn CICS commands: READ/WRITE/REWRITE/DELETE for VSAM files\n5) Understand COMMAREA and channel/containers for passing data\n6) Practice with the CICS COBOL sample programs (IBM provides them)\n7) Study CICS abend handling (HANDLE ABEND, RESP/RESP2)\n\nThe MainframeStudyHub Hub CICS section covers all of this!",author:"CICS_Guru",date:"2025-02-23",votes:14}
-    ]},
-    { id:"p4",title:"DB2 BIND vs REBIND — when should I REBIND packages?",body:"Our DBA team says we should REBIND after RUNSTATS. Is this always necessary? What about production packages?",topic:"DB2",author:"DB2_Developer",date:"2025-02-22",votes:7,answers:[]},
-    { id:"p5",title:"How to set up Zowe CLI for the first time?",body:"I want to use Zowe CLI from my Mac to connect to our z/OS system. What are the prerequisites and steps?",topic:"Modernization",author:"ModernDev",date:"2025-02-20",votes:10,answers:[
-      {id:"a5",body:"Prerequisites: Node.js 18+ installed. Steps:\n1) npm install -g @zowe/cli\n2) zowe config init (creates zowe.config.json)\n3) Edit the config with your z/OSMF host, port, user, password\n4) zowe zosmf check status — verify connection\n5) zowe files list ds 'YOUR.ID.*' — test it works!\n\nTip: Use 'zowe config auto-init' if your shop has z/OSMF configured — it discovers settings automatically.",author:"ZoweExpert",date:"2025-02-21",votes:6}
-    ]},
-  ];
-  const [communityPosts, setCommunityPosts] = useState(() => {
-    try { const s = localStorage.getItem("community_posts"); return s ? JSON.parse(s) : SEED_POSTS; } catch { return SEED_POSTS; }
-  });
+  /* ─── COMMUNITY Q&A STATE (Supabase) ─── */
+  const [communityPosts, setCommunityPosts] = useState([]);
   const [communitySort, setCommunitySort] = useState("hot");
   const [communityFilter, setCommunityFilter] = useState("All");
   const [communitySearch, setCommunitySearch] = useState("");
-  const [communityView, setCommunityView] = useState(null); // null=list, post id=detail
+  const [communityView, setCommunityView] = useState(null);
   const [newPostOpen, setNewPostOpen] = useState(false);
   const [newPost, setNewPost] = useState({ title:"", body:"", topic:"General", author:"" });
   const [newAnswer, setNewAnswer] = useState("");
 
-  const saveCommunity = (posts) => { setCommunityPosts(posts); try { localStorage.setItem("community_posts", JSON.stringify(posts)); } catch {} };
-  const votePost = (postId, dir) => {
+  // Load Q&A from Supabase
+  useEffect(() => {
+    const loadQA = async () => {
+      const { data: posts } = await supabase.from("qa_posts").select("*").order("created_at",{ascending:false});
+      const { data: answers } = await supabase.from("qa_answers").select("*").order("created_at",{ascending:true});
+      if (posts) {
+        const mapped = posts.map(p => ({
+          id:p.id, title:p.title, body:p.body, topic:p.topic, author:p.author,
+          authorRole:p.author_role, date:(p.created_at||"").slice(0,10), votes:p.votes||1,
+          answers:(answers||[]).filter(a=>a.post_id===p.id).map(a=>({
+            id:a.id, body:a.body, author:a.author, authorRole:a.author_role,
+            date:(a.created_at||"").slice(0,10), votes:a.votes||1
+          }))
+        }));
+        setCommunityPosts(mapped);
+      }
+    };
+    loadQA();
+    // Realtime for new posts
+    const ch = supabase.channel("qa").on("postgres_changes",{event:"*",schema:"public",table:"qa_posts"},()=>loadQA()).on("postgres_changes",{event:"*",schema:"public",table:"qa_answers"},()=>loadQA()).subscribe();
+    return () => supabase.removeChannel(ch);
+  }, []);
+
+  const votePost = async (postId, dir) => {
     if (!user) { setAuthModal("signin"); setAuthError(""); setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}); return; }
-    const posts = communityPosts.map(p => p.id === postId ? { ...p, votes: p.votes + dir } : p);
-    saveCommunity(posts);
+    const post = communityPosts.find(p=>p.id===postId); if (!post) return;
+    await supabase.from("qa_posts").update({votes:(post.votes||0)+dir}).eq("id",postId);
+    setCommunityPosts(p=>p.map(x=>x.id===postId?{...x,votes:x.votes+dir}:x));
   };
-  const voteAnswer = (postId, ansId, dir) => {
+  const voteAnswer = async (postId, ansId, dir) => {
     if (!user) { setAuthModal("signin"); setAuthError(""); setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}); return; }
-    const posts = communityPosts.map(p => p.id === postId ? { ...p, answers: p.answers.map(a => a.id === ansId ? { ...a, votes: a.votes + dir } : a) } : p);
-    saveCommunity(posts);
+    await supabase.from("qa_answers").update({votes:dir}).eq("id",ansId);
+    setCommunityPosts(p=>p.map(x=>x.id===postId?{...x,answers:x.answers.map(a=>a.id===ansId?{...a,votes:a.votes+dir}:a)}:x));
   };
-  const submitPost = () => {
+  const submitPost = async () => {
     if (!user) { setAuthModal("signin"); setAuthError(""); setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}); return; }
     if (!newPost.title.trim()) return;
-    const post = { id: "p" + Date.now(), title: newPost.title, body: newPost.body, topic: newPost.topic, author: user.name, authorRole: user.role, date: new Date().toISOString().slice(0,10), votes: 1, answers: [] };
-    saveCommunity([post, ...communityPosts]);
-    setNewPost({ title:"", body:"", topic:"General", author:"" });
-    setNewPostOpen(false);
+    await supabase.from("qa_posts").insert({ user_id:user.id, author:user.name, author_role:user.role, title:newPost.title, body:newPost.body, topic:newPost.topic });
+    setNewPost({ title:"", body:"", topic:"General", author:"" }); setNewPostOpen(false);
   };
-  const submitAnswer = (postId) => {
+  const submitAnswer = async (postId) => {
     if (!user) { setAuthModal("signin"); setAuthError(""); setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}); return; }
     if (!newAnswer.trim()) return;
-    const posts = communityPosts.map(p => p.id === postId ? { ...p, answers: [...p.answers, { id: "a" + Date.now(), body: newAnswer, author: user.name, authorRole: user.role, date: new Date().toISOString().slice(0,10), votes: 1 }] } : p);
-    saveCommunity(posts);
+    await supabase.from("qa_answers").insert({ post_id:postId, user_id:user.id, author:user.name, author_role:user.role, body:newAnswer });
     setNewAnswer("");
   };
   const sortedPosts = [...communityPosts]
@@ -1004,16 +1042,11 @@ Behavior guidelines:
     .filter(p => !communitySearch || p.title.toLowerCase().includes(communitySearch.toLowerCase()) || p.body.toLowerCase().includes(communitySearch.toLowerCase()))
     .sort((a,b) => communitySort === "new" ? b.date.localeCompare(a.date) : communitySort === "top" ? b.votes - a.votes : (b.votes + b.answers.length*2) - (a.votes + a.answers.length*2));
 
-  /* ─── WHATSAPP CHAT STATE ─── */
-  const [chatMembers, setChatMembers] = useState(CHAT_MEMBERS);
-  const [chatMsgs, setChatMsgs] = useState(CHAT_SEED);
+  /* ─── REAL COMMUNITY CHAT (Supabase) ─── */
+  const [chatMsgs, setChatMsgs] = useState([]);
   const [grpInput, setGrpInput] = useState("");
-  const [chatSelf, setChatSelf] = useState(null);
-  const [chatJoinName, setChatJoinName] = useState("");
-  const [chatJoinRole, setChatJoinRole] = useState("");
   const [chatJoined, setChatJoined] = useState(false);
   const [chatSidebar, setChatSidebar] = useState(false);
-  const [chatAddModal, setChatAddModal] = useState(false);
   const [chatMsgType, setChatMsgType] = useState(CT.TEXT);
   const [chatReply, setChatReply] = useState(null);
   const [chatSrch, setChatSrch] = useState("");
@@ -1022,31 +1055,98 @@ Behavior guidelines:
   const [chatShowStars, setChatShowStars] = useState(false);
   const [chatPopup, setChatPopup] = useState(false);
   const [chatPopPhase, setChatPopPhase] = useState(0);
+  const [chatOnlineUsers, setChatOnlineUsers] = useState([]);
   const chatEnd = useRef(null);
   const chatInpRef = useRef(null);
-  const chatNid = useRef(20);
+
+  // Format DB row to UI message
+  const fmtMsg = (r) => ({
+    id:r.id, type:r.msg_type||"text", text:r.content, del:r.deleted||false,
+    reactions:r.reactions||{}, replyTo:r.reply_to,
+    time: new Date(r.created_at).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),
+    _name:r.sender_name, _role:r.sender_role, _color:r.sender_color||"#0071e3",
+    _emoji:r.sender_emoji||"🧑‍💻", _userId:r.user_id,
+    _isSelf: r.user_id === user?.id,
+  });
+
+  // Load chat messages from Supabase
+  useEffect(() => {
+    const load = async () => {
+      const { data } = await supabase.from("chat_messages").select("*").order("created_at",{ascending:true}).limit(200);
+      if (data) setChatMsgs(data.map(fmtMsg));
+    };
+    load();
+    // Realtime subscription
+    const channel = supabase.channel("chat").on("postgres_changes",{event:"INSERT",schema:"public",table:"chat_messages"}, (payload) => {
+      setChatMsgs(prev => [...prev, fmtMsg(payload.new)]);
+    }).on("postgres_changes",{event:"UPDATE",schema:"public",table:"chat_messages"}, (payload) => {
+      setChatMsgs(prev => prev.map(m => m.id === payload.new.id ? fmtMsg(payload.new) : m));
+    }).subscribe();
+    return () => { supabase.removeChannel(channel); };
+  }, [user]);
+
+  // Load online users
+  useEffect(() => {
+    const load = async () => {
+      const { data } = await supabase.from("user_presence").select("*").gte("last_seen", new Date(Date.now()-5*60000).toISOString());
+      if (data) setChatOnlineUsers(data);
+    };
+    load();
+    const iv = setInterval(load, 30000);
+    return () => clearInterval(iv);
+  }, []);
+
+  // Update presence when user is logged in
+  useEffect(() => {
+    if (!user) return;
+    const update = async () => {
+      await supabase.from("user_presence").upsert({
+        user_id:user.id, name:user.name, role:user.role,
+        emoji:"🧑‍💻", color:"#0071e3", last_seen:new Date().toISOString()
+      });
+    };
+    update();
+    const iv = setInterval(update, 60000);
+    return () => clearInterval(iv);
+  }, [user]);
 
   useEffect(() => { if(!chatPopup)return; setChatPopPhase(0); const a=setTimeout(()=>setChatPopPhase(1),100),b=setTimeout(()=>setChatPopPhase(2),500),c=setTimeout(()=>setChatPopPhase(3),900); return()=>{clearTimeout(a);clearTimeout(b);clearTimeout(c);}; },[chatPopup]);
-  useEffect(() => { if(page==="community"&&chatJoined) setTimeout(()=>chatEnd.current?.scrollIntoView({behavior:"smooth"}),50); },[chatMsgs,page,chatJoined]);
+  useEffect(() => { if(page==="community"&&(chatJoined||user)) setTimeout(()=>chatEnd.current?.scrollIntoView({behavior:"smooth"}),50); },[chatMsgs,page,chatJoined,user]);
 
-  const chatJoin = () => {
-    if(!chatJoinName.trim()) return;
-    const nid = chatMembers.length;
-    setChatMembers(p=>[...p,{name:chatJoinName.trim(),role:chatJoinRole.trim()||"Member",color:"#0071e3",status:"online",emoji:"🧑‍💻"}]);
-    setChatSelf(nid); setChatJoined(true); setChatPopup(false);
-    setChatMsgs(p=>[...p,{id:chatNid.current++,sender:-1,type:CT.SYS,text:`${chatJoinName.trim()} joined the group`,time:new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),reactions:{},del:false}]);
-    goPage("community");
-  };
-  const chatSend = () => {
-    if(!grpInput.trim()||chatSelf==null)return;
-    setChatMsgs(p=>[...p,{id:chatNid.current++,sender:chatSelf,type:chatMsgType,text:grpInput.trim(),time:new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),reactions:{},replyTo:chatReply?.id,del:false}]);
+  // Auto-join if signed in
+  useEffect(() => { if(user) setChatJoined(true); }, [user]);
+
+  const chatSend = async () => {
+    if(!grpInput.trim()||!user) return;
+    await supabase.from("chat_messages").insert({
+      user_id:user.id, sender_name:user.name, sender_role:user.role||"Member",
+      sender_color:"#0071e3", sender_emoji:"🧑‍💻",
+      msg_type:chatMsgType, content:grpInput.trim(),
+      reply_to:chatReply?.id||null
+    });
     setGrpInput("");setChatMsgType(CT.TEXT);setChatReply(null);chatInpRef.current?.focus();
   };
-  const chatReact = (mid,em) => setChatMsgs(p=>p.map(m=>{if(m.id!==mid)return m;const r={...m.reactions};if(!r[em])r[em]=[];if(r[em].includes(chatSelf)){r[em]=r[em].filter(i=>i!==chatSelf);if(!r[em].length)delete r[em];}else r[em]=[...r[em],chatSelf];return{...m,reactions:r};}));
-  const chatDel = mid => setChatMsgs(p=>p.map(m=>m.id===mid?{...m,del:true}:m));
+  const chatReact = async (mid,em) => {
+    const msg = chatMsgs.find(m=>m.id===mid); if(!msg||!user) return;
+    const r = {...(msg.reactions||{})}; if(!r[em])r[em]=[];
+    if(r[em].includes(user.id)){r[em]=r[em].filter(i=>i!==user.id);if(!r[em].length)delete r[em];}
+    else r[em]=[...r[em],user.id];
+    await supabase.from("chat_messages").update({reactions:r}).eq("id",mid);
+  };
+  const chatDel = async (mid) => {
+    await supabase.from("chat_messages").update({deleted:true}).eq("id",mid);
+  };
   const chatStarFn = mid => setChatStarred(p=>{const s=new Set(p);s.has(mid)?s.delete(mid):s.add(mid);return s;});
   const chatFiltered = (() => { let ms=chatMsgs; if(chatShowStars)ms=ms.filter(m=>chatStarred.has(m.id)); if(chatSrch.trim())ms=ms.filter(m=>m.text.toLowerCase().includes(chatSrch.toLowerCase())); return ms; })();
-  const chatOnline = chatMembers.filter(m=>m.status==="online").length;
+  const chatOnline = chatOnlineUsers.length || 0;
+  const chatMembers = chatOnlineUsers.length > 0 ? chatOnlineUsers.map(u=>({name:u.name,role:u.role,color:u.color||"#0071e3",status:"online",emoji:u.emoji||"🧑‍💻"})) : CHAT_MEMBERS;
+  // Compatibility shims for UI references
+  const chatSelf = user ? 0 : null;
+  const chatJoinName = ""; const setChatJoinName = ()=>{};
+  const chatJoinRole = ""; const setChatJoinRole = ()=>{};
+  const chatAddModal = false; const setChatAddModal = ()=>{};
+  const chatNid = {current:999};
+  const chatJoin = () => { if(!user){setAuthModal("signup");setAuthError("");setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});} else{setChatJoined(true);goPage("community");setChatPopup(false);} };
 
   /* ─── WELCOME SEQUENCE + TOP BANNER ─── */
   const [topBanner, setTopBanner] = useState(true);
@@ -2498,8 +2598,8 @@ Behavior guidelines:
                         {chatMembers.slice(0,6).map((m,i)=><div key={i} style={{ width:36,height:36,borderRadius:"50%",background:`${m.color}25`,border:`2px solid ${m.color}40`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,marginLeft:i>0?-8:0,zIndex:6-i }}>{m.emoji}</div>)}
                       </div>
                       <div style={{ width:"100%",maxWidth:320 }}>
-                        <input value={chatJoinName} onChange={e=>setChatJoinName(e.target.value)} placeholder="Your name" onKeyDown={e=>e.key==="Enter"&&chatJoin()} style={{ width:"100%",boxSizing:"border-box",padding:"11px 14px",borderRadius:12,border:"1px solid rgba(255,255,255,0.15)",background:"rgba(255,255,255,0.06)",color:"#fff",fontSize:14,outline:"none",marginBottom:8,fontFamily:FF }} />
-                        <input value={chatJoinRole} onChange={e=>setChatJoinRole(e.target.value)} placeholder="Role (e.g. COBOL Developer)" onKeyDown={e=>e.key==="Enter"&&chatJoin()} style={{ width:"100%",boxSizing:"border-box",padding:"11px 14px",borderRadius:12,border:"1px solid rgba(255,255,255,0.15)",background:"rgba(255,255,255,0.06)",color:"#fff",fontSize:14,outline:"none",marginBottom:14,fontFamily:FF }} />
+                        <button onClick={chatJoin} style={{ width:"100%",padding:"14px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:FF,boxShadow:"0 4px 16px rgba(0,113,227,0.3)" }}>Sign In to Join Chat →</button>
+                        <p style={{ fontSize:12,color:"rgba(255,255,255,0.35)",marginTop:10 }}>Create a free account to start chatting with the community</p>
                         <button onClick={chatJoin} style={{ width:"100%",padding:"13px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:FF,boxShadow:"0 4px 16px rgba(0,113,227,0.3)" }}>Join Group Chat →</button>
                       </div>
                     </div>
@@ -3094,8 +3194,10 @@ Behavior guidelines:
               <div style={{ width:32,height:32,borderRadius:"50%",background:"#e8f4fd",border:"2px solid #c0d8ff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:"#0071e3",fontWeight:700,marginLeft:-6 }}>+{Math.max(0,chatMembers.length-6)}</div>
             </div>
             <div style={{ padding:"0 26px 26px",opacity:chatPopPhase>=3?1:0,transform:chatPopPhase>=3?"translateY(0)":"translateY(10px)",transition:"all 0.4s ease 0.4s" }}>
-              <input value={chatJoinName} onChange={e=>setChatJoinName(e.target.value)} placeholder="Your name" onKeyDown={e=>e.key==="Enter"&&chatJoin()} style={{ width:"100%",boxSizing:"border-box",padding:"11px 14px",borderRadius:12,border:"1.5px solid #e8e8ed",background:"#f5f5f7",color:"#1d1d1f",fontSize:14,outline:"none",marginBottom:8,fontFamily:FF }} />
-              <input value={chatJoinRole} onChange={e=>setChatJoinRole(e.target.value)} placeholder="Role (e.g. COBOL Developer)" onKeyDown={e=>e.key==="Enter"&&chatJoin()} style={{ width:"100%",boxSizing:"border-box",padding:"11px 14px",borderRadius:12,border:"1.5px solid #e8e8ed",background:"#f5f5f7",color:"#1d1d1f",fontSize:14,outline:"none",marginBottom:14,fontFamily:FF }} />
+              <button onClick={chatJoin} style={{ width:"100%",padding:"13px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:FF,boxShadow:"0 4px 16px rgba(0,113,227,0.25)" }}>
+                Sign In to Join →
+              </button>
+              <p style={{ fontSize:11,color:"#86868b",marginTop:8,textAlign:"center" }}>Free account — real messages, real community</p>
               <button onClick={chatJoin} style={{ width:"100%",padding:"13px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:FF,boxShadow:"0 4px 16px rgba(0,113,227,0.25)" }}>Join Community →</button>
             </div>
           </div>
