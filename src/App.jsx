@@ -189,22 +189,11 @@ async function fetchWeeklyUpdate(topic) {
   };
 }
 
-/* ─── STORAGE HELPERS (Supabase with localStorage fallback) ──────────── */
+/* ─── STORAGE HELPERS ────────────────────────────────────────────────── */
 async function saveUpdate(topicId, update) {
   try { localStorage.setItem("weekly_" + topicId, JSON.stringify(update)); localStorage.setItem("lastUpdate", new Date().toISOString()); } catch {}
-  try {
-    const { data:{session} } = await (await import("./supabaseClient.js")).supabase.auth.getSession();
-    if (session?.user) await (await import("./supabaseClient.js")).supabase.from("user_data").upsert({ user_id:session.user.id, key:"weekly_"+topicId, value:update },{onConflict:"user_id,key"});
-  } catch {}
 }
 async function loadUpdate(topicId) {
-  try {
-    const { data:{session} } = await (await import("./supabaseClient.js")).supabase.auth.getSession();
-    if (session?.user) {
-      const { data } = await (await import("./supabaseClient.js")).supabase.from("user_data").select("value").eq("user_id",session.user.id).eq("key","weekly_"+topicId).single();
-      if (data?.value) return data.value;
-    }
-  } catch {}
   try { const r = localStorage.getItem("weekly_" + topicId); return r ? JSON.parse(r) : null; } catch { return null; }
 }
 async function loadLastUpdate() {
@@ -241,13 +230,15 @@ export default function App() {
   const dailyDoneKey = "mfsh_daily_" + new Date().toISOString().slice(0, 10);
   const [dailyCompleted, setDailyCompleted] = useState(null);
 
-  // Load daily completion from Supabase
+  // Load daily completion
   useEffect(() => {
     const load = async () => {
-      if (user) {
-        const { data } = await supabase.from("user_data").select("value").eq("user_id",user.id).eq("key",dailyDoneKey).single();
-        if (data?.value) { setDailyCompleted(data.value); return; }
-      }
+      try {
+        if (user) {
+          const { data } = await supabase.from("user_data").select("value").eq("user_id",user.id).eq("key",dailyDoneKey).maybeSingle();
+          if (data?.value) { setDailyCompleted(data.value); return; }
+        }
+      } catch {}
       try { const s = localStorage.getItem(dailyDoneKey); if(s) setDailyCompleted(JSON.parse(s)); } catch {}
     };
     load();
@@ -269,7 +260,7 @@ export default function App() {
     let prevStreak = {count:0,lastDate:""};
     if (user) {
       try {
-        const { data } = await supabase.from("user_data").select("value").eq("user_id",user.id).eq("key","streak").single();
+        const { data } = await supabase.from("user_data").select("value").eq("user_id",user.id).eq("key","streak").maybeSingle();
         if (data?.value) prevStreak = data.value;
       } catch {}
     } else {
