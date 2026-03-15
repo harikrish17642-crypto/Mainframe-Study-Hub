@@ -355,14 +355,32 @@ export default function App() {
   };
 
   useEffect(() => {
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      if (session?.user) {
-        try {
-          const profile = await fetchProfile(session.user.id);
-          setUser(profile || profileFromSession(session.user));
-        } catch { setUser(profileFromSession(session.user)); }
-      }
-    }).catch(() => {});
+    // Handle email confirmation token from URL hash (e.g. #access_token=...)
+    const hash = window.location.hash;
+    if (hash && (hash.includes("access_token") || hash.includes("type=signup") || hash.includes("type=recovery"))) {
+      // Supabase auto-detects the hash — just give it a moment to process
+      supabase.auth.getSession().then(async ({ data: { session } }) => {
+        if (session?.user) {
+          try {
+            const profile = await fetchProfile(session.user.id);
+            setUser(profile || profileFromSession(session.user));
+          } catch { setUser(profileFromSession(session.user)); }
+        }
+        // Clean up URL hash
+        if (window.history.replaceState) {
+          window.history.replaceState(null, "", window.location.pathname);
+        }
+      }).catch(() => {});
+    } else {
+      supabase.auth.getSession().then(async ({ data: { session } }) => {
+        if (session?.user) {
+          try {
+            const profile = await fetchProfile(session.user.id);
+            setUser(profile || profileFromSession(session.user));
+          } catch { setUser(profileFromSession(session.user)); }
+        }
+      }).catch(() => {});
+    }
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if ((event === "SIGNED_IN" || event === "TOKEN_REFRESHED") && session?.user) {
@@ -383,7 +401,7 @@ export default function App() {
     if (!authForm.name.trim() || !authForm.email.trim() || !authForm.password.trim()) { setAuthError("Name, email, and password are required."); return; }
     if (authForm.password.length < 6) { setAuthError("Password must be at least 6 characters."); return; }
     setAuthLoading(true);
-    const timeout = setTimeout(() => { setAuthLoading(false); setAuthError("Request timed out. Please check your internet and try again."); }, 15000);
+    const timeout = setTimeout(() => { setAuthLoading(false); setAuthError("Request timed out. Please check your internet and try again."); }, 30000);
     try {
       const { data, error } = await supabase.auth.signUp({
         email: authForm.email.trim().toLowerCase(),
@@ -396,7 +414,7 @@ export default function App() {
             mf_years: parseInt(authForm.mfYears) || 0,
             avatar: authForm.name.trim().charAt(0).toUpperCase(),
           },
-          emailRedirectTo: window.location.origin + "/confirm.html",
+          emailRedirectTo: (window.location.hostname === "localhost" ? window.location.origin : "https://mainframestudyhub.com") + "/confirm.html",
         }
       });
       if (error) {
@@ -460,7 +478,7 @@ export default function App() {
     if (!authForm.email.trim() || !authForm.password.trim()) { setAuthError("Email and password are required."); return; }
     setAuthLoading(true);
     // Safety timeout - never stay stuck
-    const timeout = setTimeout(() => { setAuthLoading(false); setAuthError("Request timed out. Please check your internet and try again."); }, 15000);
+    const timeout = setTimeout(() => { setAuthLoading(false); setAuthError("Request timed out. Please check your internet and try again."); }, 30000);
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: authForm.email.trim().toLowerCase(),
@@ -521,7 +539,7 @@ export default function App() {
     setAuthLoading(true);
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(authForm.email.trim().toLowerCase(), {
-        redirectTo: window.location.origin + "/reset-password.html",
+        redirectTo: (window.location.hostname === "localhost" ? window.location.origin : "https://mainframestudyhub.com") + "/reset-password.html",
       });
       if (error) { setAuthError(error.message); } else {
         setAuthError("");

@@ -110,7 +110,7 @@
       Thank you for joining our <span class="highlight">mainframe learning community</span>.<br>
       We hope you have a great time here!
     </p>
-    <a href="/" class="btn">Start Learning →</a>
+    <a href="/" class="btn" id="startBtn">Start Learning →</a>
     <div class="features">
       <span class="feature-pill">📚 15 Topics</span>
       <span class="feature-pill">🧠 200 Quiz Qs</span>
@@ -132,6 +132,13 @@
       piece.style.animationDuration = (1.5 + Math.random()) + 's';
       card.appendChild(piece);
     }
+    // Update button link to include auth hash
+    var btn = document.getElementById('startBtn');
+    if (window.location.hash) btn.href = '/' + window.location.hash;
+    // Auto-redirect to main page after 3 seconds, preserving hash for auth
+    setTimeout(function() {
+      window.location.href = '/' + window.location.hash;
+    }, 3000);
   </script>
 </body>
 </html>
