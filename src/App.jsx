@@ -1439,7 +1439,7 @@ Behavior guidelines:
         <div className="mesh-orb" style={{ width:400,height:400,top:'40%',right:'20%',background:'radial-gradient(circle,#06b6d4,transparent 70%)',animationDelay:'8s',opacity:0.1 }} />
       </div>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        /* system fonts used — no external fonts needed */
         *{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth}
         body{background:#f8f9fc;overflow-x:hidden}
