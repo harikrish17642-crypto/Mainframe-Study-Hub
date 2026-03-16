@@ -300,7 +300,7 @@ async function loadLastUpdate() {
 export default function App() {
   const [page, setPage] = useState(() => {
     const hash = window.location.hash.replace("#","");
-    return ["home","topics","scenarios","blog","quiz","community","abends","roadmap","weekly","about"].includes(hash) ? hash : "home";
+    return ["home","topics","scenarios","blog","quiz","playground","community","abends","roadmap","weekly","about"].includes(hash) ? hash : "home";
   });
   
   // Sync page state with URL hash
@@ -1329,6 +1329,38 @@ Behavior guidelines:
   /* ─── WELCOME SEQUENCE + TOP BANNER ─── */
   const [topBanner, setTopBanner] = useState(true);
 
+  /* ─── CODE PLAYGROUND ─── */
+  const [pgCode, setPgCode] = useState("//MYJOB   JOB ,'MY JOB',CLASS=A,NOTIFY=&SYSUID\n//STEP1   EXEC PGM=IEBGENER\n//SYSUT1  DD DSN=INPUT.FILE,DISP=SHR\n//SYSUT2  DD DSN=OUTPUT.FILE,\n//           DISP=(NEW,CATLG,DELETE),\n//           SPACE=(TRK,(10,5),RLSE)\n//SYSPRINT DD SYSOUT=*\n//SYSIN   DD DUMMY");
+  const [pgLang, setPgLang] = useState("JCL");
+  const [pgMode, setPgMode] = useState("explain"); // explain, errors, simulate
+  const [pgResult, setPgResult] = useState(null);
+  const [pgLoading, setPgLoading] = useState(false);
+  const pgSamples = {
+    JCL: "//MYJOB   JOB ,'MY JOB',CLASS=A,NOTIFY=&SYSUID\n//STEP1   EXEC PGM=IEBGENER\n//SYSUT1  DD DSN=INPUT.FILE,DISP=SHR\n//SYSUT2  DD DSN=OUTPUT.FILE,\n//           DISP=(NEW,CATLG,DELETE),\n//           SPACE=(TRK,(10,5),RLSE)\n//SYSPRINT DD SYSOUT=*\n//SYSIN   DD DUMMY",
+    COBOL: "       IDENTIFICATION DIVISION.\n       PROGRAM-ID. HELLO.\n       DATA DIVISION.\n       WORKING-STORAGE SECTION.\n       01 WS-NAME PIC X(30) VALUE 'MAINFRAME'.\n       01 WS-COUNT PIC 9(4) COMP VALUE 0.\n       PROCEDURE DIVISION.\n           DISPLAY 'HELLO ' WS-NAME\n           ADD 1 TO WS-COUNT\n           STOP RUN.",
+    REXX: "/* REXX - Check dataset existence */\nPARSE ARG DSNAME\nIF DSNAME = '' THEN DO\n  SAY 'Usage: DSCHK dataset.name'\n  EXIT 8\nEND\nX = SYSDSN(\"'\"DSNAME\"'\")\nIF X = 'OK' THEN\n  SAY DSNAME 'exists'\nELSE\n  SAY DSNAME 'not found:' X\nEXIT 0",
+    "DB2 SQL": "SELECT E.EMPNO, E.LASTNAME, E.SALARY,\n       D.DEPTNAME,\n       AVG(E.SALARY) OVER(PARTITION BY E.WORKDEPT) AS DEPT_AVG\nFROM EMPLOYEE E\nJOIN DEPARTMENT D ON E.WORKDEPT = D.DEPTNO\nWHERE E.SALARY > 50000\nORDER BY E.SALARY DESC\nFETCH FIRST 20 ROWS ONLY;"
+  };
+  const runPlayground = async () => {
+    if (!pgCode.trim()) return;
+    setPgLoading(true); setPgResult(null);
+    const prompts = {
+      explain: `You are an expert IBM z/OS mainframe instructor. Analyze this ${pgLang} code line by line. For EACH statement/line, explain: what it does, why it matters, and any important parameters. Use clear formatting with line references. End with a "Key Takeaways" summary.`,
+      errors: `You are an expert IBM z/OS mainframe debugger. Analyze this ${pgLang} code for errors, potential issues, and bad practices. For each issue found: describe the problem, explain why it's wrong, and provide the corrected code. If the code is correct, say so and suggest optimizations. Be specific with line numbers.`,
+      simulate: `You are an IBM z/OS mainframe simulator. Given this ${pgLang} code, explain step by step what would happen if this ran on z/OS. Include: what z/OS does at each step, what datasets are allocated/accessed, what output is generated, and what the expected return code would be. Make it feel like watching the job run in real-time.`
+    };
+    try {
+      const res = await fetch("/.netlify/functions/chat", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ system: prompts[pgMode], messages: [{ role: "user", content: pgCode }] })
+      });
+      const data = await res.json();
+      if (data.content?.[0]?.text) setPgResult(data.content[0].text);
+      else setPgResult("Error: " + (data.error || "No response"));
+    } catch (e) { setPgResult("Connection error. Please try again."); }
+    setPgLoading(false);
+  };
+
   /* ─── FEEDBACK FORM (appears after 5 min) ─── */
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [feedbackSent, setFeedbackSent] = useState(false);
@@ -1492,6 +1524,8 @@ Behavior guidelines:
         body{background:#f8f9fc;overflow-x:hidden}
         .nav-scroll::-webkit-scrollbar{display:none}
         .nav-scroll{-ms-overflow-style:none;scrollbar-width:none}
+        .topic-sidebar::-webkit-scrollbar{width:3px}
+        .topic-sidebar::-webkit-scrollbar-thumb{background:#e0e0e0;border-radius:3px}
         ::-webkit-scrollbar{width:5px}
         ::-webkit-scrollbar-thumb{background:#d1d1d6;border-radius:3px}
         @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -1606,7 +1640,7 @@ Behavior guidelines:
             <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: "-.3px" }}>MainframeStudyHub</span>
           </button>
           <div className="nav-scroll" style={S.navLinks}>
-            {[["home","Overview"],["topics","Topics"],["scenarios","Scenarios"],["blog","Blog"],["quiz","Quiz"],["community","Community"],["abends","Abend Solver"],["roadmap","Roadmap"],["weekly","Weekly Update"],["about","About"]].map(([p,l]) => (
+            {[["home","Overview"],["topics","Topics"],["scenarios","Scenarios"],["blog","Blog"],["quiz","Quiz"],["playground","Code Lab"],["community","Community"],["abends","Abend Solver"],["roadmap","Roadmap"],["weekly","Weekly Update"],["about","About"]].map(([p,l]) => (
               <button key={p} className="nav-btn" onClick={() => goPage(p)}
                 style={{ ...S.navLink, color: page===p ? "#1d1d1f":"#555", fontWeight: page===p?600:400 }}>
                 {l}
@@ -2195,62 +2229,147 @@ Behavior guidelines:
                 </div>
               </div>
             ) : (
-              /* ── TOPIC DETAIL ── */
+              /* ── TOPIC DETAIL WITH SIDEBAR ── */
               <div className="fi">
                 <div style={{ ...S.inner,paddingTop:24 }}>
-                  <button style={S.backBtn} onClick={() => setActiveTopic(null)}>‹ Topics</button>
+                  <button style={S.backBtn} onClick={() => setActiveTopic(null)}>‹ All Topics</button>
                 </div>
-                <div style={{ background:`linear-gradient(135deg,${activeTopic.color}18 0%,rgba(255,255,255,0.6) 50%,${activeTopic.color}08 100%)`,paddingBottom:32,borderBottom:'1px solid rgba(0,0,0,0.04)' }}>
+                {/* Topic header - compact */}
+                <div style={{ background:`linear-gradient(135deg,${activeTopic.color}12 0%,rgba(255,255,255,0.6) 50%,${activeTopic.color}06 100%)`,padding:"20px 0",borderBottom:'1px solid rgba(0,0,0,0.04)' }}>
                   <div style={S.inner}>
-                    <div style={{ display:"flex",alignItems:"flex-start",gap:20,flexWrap:"wrap" }}>
-                      <span style={{ fontSize:56 }}>{activeTopic.icon}</span>
-                      <div style={{ flex:1,minWidth:200 }}>
-                        <div style={{ fontSize:11,color:"#666",letterSpacing:"1px",textTransform:"uppercase",marginBottom:6 }}>{activeTopic.subtitle} · {activeTopic.level}</div>
-                        <h1 style={{ fontSize:"clamp(28px,4vw,48px)",fontWeight:800,letterSpacing:"-1.5px",color:"#1d1d1f",marginBottom:10 }}>{activeTopic.title}</h1>
-                        <p style={{ fontSize:16,color:"#555",lineHeight:1.6,maxWidth:520 }}>{activeTopic.description}</p>
-                        <button style={{ ...S.btnBlue,marginTop:16,fontSize:13,padding:"8px 18px" }}
-                          onClick={() => { goPage("weekly"); setTimeout(() => fetchUpdate(activeTopic), 100); }}>
-                          🔄 Get Weekly Update for {activeTopic.title}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Tabs */}
-                <div style={{ borderBottom:"1px solid rgba(0,0,0,0.06)",position:"sticky",top:52,background:"rgba(248,249,252,0.85)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",zIndex:100 }}>
-                  <div style={{ ...S.inner,overflowX:"auto" }}>
-                    <div style={{ display:"flex",gap:0 }}>
-                      {activeTopic.sections.map((sec,i) => (
-                        <button key={i} className="tab" onClick={() => setActiveTab(i)}
-                          style={{ background:"none",border:"none",borderBottom:activeTab===i?`2.5px solid ${activeTopic.color}`:"2.5px solid transparent",
-                            color:activeTab===i?activeTopic.color:"#666",padding:"14px 18px",cursor:"pointer",fontSize:13,
-                            fontWeight:activeTab===i?600:400,whiteSpace:"nowrap",fontFamily:FF,transition:"color .2s" }}>
-                          {sec.title}
-                          {sec.level && <span style={{ fontSize:10,marginLeft:6,color:"#666",fontWeight:400 }}>[{sec.level}]</span>}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                {/* Content */}
-                <div style={{ ...S.inner,paddingTop:36,paddingBottom:80,maxWidth:860 }} className="scaleIn" key={activeTab}>
-                  <div className="content-card">
-                    {activeTopic.sections[activeTab].content && renderContent(activeTopic.sections[activeTab].content)}
-                    {activeTopic.sections[activeTab].code && (
-                      <div style={S.codeWrap}>
-                        <div style={S.codeTopBar}>
-                          <div style={{ display:"flex",gap:6 }}>
-                            {["#ff5f57","#febc2e","#28c840"].map(c=><div key={c} style={{ width:12,height:12,borderRadius:"50%",background:c }} />)}
-                          </div>
-                          <span style={{ fontSize:11,color:"#888",letterSpacing:"1px" }}>CODE EXAMPLE</span>
+                    <div style={{ display:"flex",alignItems:"center",gap:16 }}>
+                      <span style={{ fontSize:40 }}>{activeTopic.icon}</span>
+                      <div>
+                        <h1 style={{ fontSize:28,fontWeight:800,letterSpacing:"-1px",color:"#1d1d1f",marginBottom:2 }}>{activeTopic.title} Tutorial</h1>
+                        <div style={{ fontSize:13,color:"#666" }}>
+                          Progress <span style={{ fontWeight:700,color:activeTopic.color }}>{activeTab + 1}</span> of {activeTopic.sections.length} lessons
                         </div>
-                        <pre style={{ ...S.codePre, background:"#0f172a",color:"#e2e8f0" }}
-                          dangerouslySetInnerHTML={{ __html: highlightCode(activeTopic.sections[activeTab].code) }} />
                       </div>
-                    )}
+                    </div>
+                    {/* Progress bar */}
+                    <div style={{ marginTop:12,height:4,background:"rgba(0,0,0,0.06)",borderRadius:4,overflow:"hidden" }}>
+                      <div style={{ height:"100%",width:`${((activeTab+1)/activeTopic.sections.length)*100}%`,background:`linear-gradient(90deg,${activeTopic.color},${activeTopic.color}cc)`,borderRadius:4,transition:"width 0.3s ease" }} />
+                    </div>
                   </div>
                 </div>
-                {/* Prev / Next */}
+                {/* Sidebar + Content layout */}
+                <div style={{ ...S.inner, display:"flex", gap:0, alignItems:"flex-start", paddingTop:0, paddingBottom:60 }}>
+                  {/* ── SIDEBAR ── */}
+                  <div className="topic-sidebar" style={{ width:280,flexShrink:0,borderRight:"1px solid rgba(0,0,0,0.06)",
+                    position:"sticky",top:52,height:"calc(100vh - 52px)",overflowY:"auto",
+                    padding:"16px 0",display:typeof window!=='undefined'&&window.innerWidth<900?"none":"block" }}>
+                    <div style={{ padding:"0 12px",marginBottom:12 }}>
+                      <div style={{ fontSize:12,fontWeight:700,color:"#666",textTransform:"uppercase",letterSpacing:"0.5px" }}>
+                        {activeTopic.sections.length} Lessons
+                      </div>
+                    </div>
+                    {(() => {
+                      /* Group sections by difficulty level as chapters */
+                      const chapters = {};
+                      activeTopic.sections.forEach((sec, i) => {
+                        const ch = sec.level || "General";
+                        if (!chapters[ch]) chapters[ch] = [];
+                        chapters[ch].push({ ...sec, idx: i });
+                      });
+                      return Object.entries(chapters).map(([chName, secs]) => (
+                        <div key={chName} style={{ marginBottom:8 }}>
+                          <div style={{ padding:"8px 16px",fontSize:11,fontWeight:700,color:"#999",textTransform:"uppercase",letterSpacing:"0.5px" }}>
+                            {chName}
+                          </div>
+                          {secs.map(sec => (
+                            <button key={sec.idx} onClick={() => { setActiveTab(sec.idx); window.scrollTo(0,280); }}
+                              style={{ display:"flex",alignItems:"center",gap:10,width:"100%",textAlign:"left",
+                                padding:"10px 16px",background:activeTab===sec.idx?`${activeTopic.color}10`:"transparent",
+                                border:"none",borderLeft:activeTab===sec.idx?`3px solid ${activeTopic.color}`:"3px solid transparent",
+                                cursor:"pointer",fontFamily:FF,fontSize:13,color:activeTab===sec.idx?"#1d1d1f":"#555",
+                                fontWeight:activeTab===sec.idx?600:400,transition:"all 0.15s",lineHeight:1.4 }}>
+                              <span style={{ fontSize:11,color:activeTab===sec.idx?activeTopic.color:"#ccc",flexShrink:0 }}>
+                                {activeTab===sec.idx?"▸":"○"}
+                              </span>
+                              <span style={{ overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap" }}>{sec.title}</span>
+                            </button>
+                          ))}
+                        </div>
+                      ));
+                    })()}
+                  </div>
+                  {/* ── MOBILE SECTION SELECTOR ── */}
+                  {typeof window!=='undefined'&&window.innerWidth<900 && (
+                    <div style={{ width:"100%",padding:"12px 0",borderBottom:"1px solid rgba(0,0,0,0.06)" }}>
+                      <select value={activeTab} onChange={e => setActiveTab(Number(e.target.value))}
+                        aria-label="Select lesson"
+                        style={{ width:"100%",padding:"10px 14px",borderRadius:10,border:"1.5px solid rgba(0,0,0,0.08)",
+                          fontSize:14,fontFamily:FF,background:"#fff",color:"#1d1d1f",cursor:"pointer" }}>
+                        {activeTopic.sections.map((sec,i) => (
+                          <option key={i} value={i}>{i+1}. {sec.title} [{sec.level}]</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                  {/* ── MAIN CONTENT ── */}
+                  <div style={{ flex:1,minWidth:0,padding:"32px 0 32px 40px",maxWidth:800 }} className="scaleIn" key={activeTab}>
+                    {/* Breadcrumb */}
+                    <div style={{ fontSize:12,color:"#999",marginBottom:16 }}>
+                      <span style={{ cursor:"pointer",color:"#0071e3" }} onClick={() => setActiveTopic(null)}>Topics</span>
+                      {" › "}
+                      <span style={{ cursor:"pointer",color:"#0071e3" }} onClick={() => setActiveTab(0)}>{activeTopic.title}</span>
+                      {" › "}
+                      <span style={{ color:"#555" }}>{activeTopic.sections[activeTab].title}</span>
+                    </div>
+                    {/* Lesson header */}
+                    <h2 style={{ fontSize:28,fontWeight:800,color:"#1d1d1f",letterSpacing:"-0.5px",marginBottom:6 }}>
+                      {activeTopic.sections[activeTab].title}
+                    </h2>
+                    <div style={{ display:"flex",gap:12,alignItems:"center",marginBottom:24 }}>
+                      <span style={{ ...S.diffBadge, background: activeTopic.sections[activeTab].level==="Beginner"?"#dcfce7":activeTopic.sections[activeTab].level==="Intermediate"?"#dbeafe":activeTopic.sections[activeTab].level==="Advanced"?"#f3e8ff":"#fee2e2",
+                        color: activeTopic.sections[activeTab].level==="Beginner"?"#166534":activeTopic.sections[activeTab].level==="Intermediate"?"#1e40af":activeTopic.sections[activeTab].level==="Advanced"?"#6b21a8":"#991b1b" }}>
+                        {activeTopic.sections[activeTab].level}
+                      </span>
+                      <span style={{ fontSize:12,color:"#999" }}>
+                        Lesson {activeTab + 1} of {activeTopic.sections.length}
+                      </span>
+                      <span style={{ fontSize:12,color:"#999" }}>
+                        · ~{Math.max(3, Math.round((activeTopic.sections[activeTab].content||"").length / 900))} min read
+                      </span>
+                    </div>
+                    {/* Content */}
+                    <div className="content-card" style={{ border:"none",boxShadow:"none",padding:0 }}>
+                      {activeTopic.sections[activeTab].content && renderContent(activeTopic.sections[activeTab].content)}
+                      {activeTopic.sections[activeTab].code && (
+                        <div style={S.codeWrap}>
+                          <div style={S.codeTopBar}>
+                            <div style={{ display:"flex",gap:6 }}>
+                              {["#ff5f57","#febc2e","#28c840"].map(c=><div key={c} style={{ width:12,height:12,borderRadius:"50%",background:c }} />)}
+                            </div>
+                            <span style={{ fontSize:11,color:"#888",letterSpacing:"1px" }}>CODE EXAMPLE</span>
+                          </div>
+                          <pre style={{ ...S.codePre, background:"#0f172a",color:"#e2e8f0" }}
+                            dangerouslySetInnerHTML={{ __html: highlightCode(activeTopic.sections[activeTab].code) }} />
+                        </div>
+                      )}
+                    </div>
+                    {/* Prev / Next LESSON buttons */}
+                    <div style={{ display:"flex",gap:12,marginTop:40,paddingTop:24,borderTop:"1px solid #f0f0f0" }}>
+                      {activeTab > 0 && (
+                        <button onClick={() => { setActiveTab(activeTab-1); window.scrollTo(0,280); }}
+                          style={{ flex:1,padding:"14px 18px",borderRadius:12,border:"1.5px solid #e8e8ed",background:"#fff",
+                            cursor:"pointer",textAlign:"left",fontFamily:FF }}>
+                          <div style={{ fontSize:11,color:"#999",marginBottom:4 }}>‹ Previous Lesson</div>
+                          <div style={{ fontSize:14,fontWeight:600,color:"#1d1d1f" }}>{activeTopic.sections[activeTab-1].title}</div>
+                        </button>
+                      )}
+                      {activeTab < activeTopic.sections.length - 1 && (
+                        <button onClick={() => { setActiveTab(activeTab+1); window.scrollTo(0,280); }}
+                          style={{ flex:1,padding:"14px 18px",borderRadius:12,border:`1.5px solid ${activeTopic.color}30`,
+                            background:`${activeTopic.color}08`,cursor:"pointer",textAlign:"right",fontFamily:FF }}>
+                          <div style={{ fontSize:11,color:"#999",marginBottom:4 }}>Next Lesson ›</div>
+                          <div style={{ fontSize:14,fontWeight:600,color:activeTopic.color }}>{activeTopic.sections[activeTab+1].title}</div>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                {/* Prev/Next TOPIC buttons */}
                 <div style={{ ...S.inner,paddingBottom:60,borderTop:"1px solid #f5f5f7",paddingTop:28,display:"flex",gap:16,flexWrap:"wrap" }}>
                   {TOPICS[TOPICS.indexOf(activeTopic)-1] && (
                     <button style={S.prevNextBtn} onClick={() => openTopic(TOPICS[TOPICS.indexOf(activeTopic)-1])}>
@@ -2784,6 +2903,93 @@ Behavior guidelines:
                   <div style={{ fontSize:56,marginBottom:16 }}>🔄</div>
                   <div style={{ fontSize:18,fontWeight:600,color:"#1d1d1f",marginBottom:8 }}>Select a topic above</div>
                   <div style={{ fontSize:15 }}>AI will generate fresh tips, a new scenario, a code example, and key facts — every Saturday.</div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* ════════════════ CODE PLAYGROUND ════════════════ */}
+        {page === "playground" && (
+          <div>
+            <div style={S.pageHero}>
+              <h1 style={S.pageHeroTitle}>🧪 Code Lab</h1>
+              <p style={S.pageHeroSub}>Paste JCL, COBOL, REXX, or DB2 SQL — get instant AI-powered explanations, error detection, and execution simulation.</p>
+            </div>
+            <div style={{ ...S.inner, paddingTop:24, paddingBottom:80 }}>
+              {/* Language + Mode selector */}
+              <div style={{ display:"flex",gap:10,flexWrap:"wrap",marginBottom:16,alignItems:"center" }}>
+                {["JCL","COBOL","REXX","DB2 SQL"].map(lang => (
+                  <button key={lang} onClick={() => { setPgLang(lang); setPgCode(pgSamples[lang]); setPgResult(null); }}
+                    style={{ padding:"8px 16px",borderRadius:10,border:pgLang===lang?"2px solid #0071e3":"2px solid #e8e8ed",
+                      background:pgLang===lang?"#e8f4fd":"#fff",color:pgLang===lang?"#0071e3":"#666",
+                      fontSize:13,fontWeight:600,cursor:"pointer",fontFamily:FF }}>{lang}</button>
+                ))}
+                <div style={{ marginLeft:"auto",display:"flex",gap:6 }}>
+                  {[["explain","💡 Explain"],["errors","🔍 Find Errors"],["simulate","▶️ Simulate"]].map(([m,label]) => (
+                    <button key={m} onClick={() => setPgMode(m)}
+                      style={{ padding:"8px 14px",borderRadius:10,border:pgMode===m?"2px solid #7c3aed":"2px solid #e8e8ed",
+                        background:pgMode===m?"#f3e8ff":"#fff",color:pgMode===m?"#7c3aed":"#666",
+                        fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:FF }}>{label}</button>
+                  ))}
+                </div>
+              </div>
+              {/* Code editor */}
+              <div style={{ borderRadius:16,overflow:"hidden",border:"1.5px solid #e0e0e5",boxShadow:"0 4px 20px rgba(0,0,0,0.06)" }}>
+                <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 16px",background:"#1e293b" }}>
+                  <div style={{ display:"flex",gap:6 }}>
+                    {["#ff5f57","#febc2e","#28c840"].map(c=><div key={c} style={{ width:12,height:12,borderRadius:"50%",background:c }} />)}
+                  </div>
+                  <span style={{ fontSize:11,color:"#64748b",letterSpacing:"1px",fontFamily:MONO }}>{pgLang}</span>
+                  <button onClick={runPlayground} disabled={pgLoading}
+                    style={{ background:pgLoading?"#64748b":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",
+                      border:"none",borderRadius:8,padding:"6px 18px",fontSize:12,fontWeight:700,cursor:pgLoading?"wait":"pointer",fontFamily:FF }}>
+                    {pgLoading ? "Analyzing..." : pgMode==="explain" ? "💡 Explain Code" : pgMode==="errors" ? "🔍 Find Errors" : "▶️ Run Simulation"}
+                  </button>
+                </div>
+                <textarea value={pgCode} onChange={e => setPgCode(e.target.value)}
+                  aria-label="Code editor"
+                  spellCheck={false}
+                  style={{ width:"100%",minHeight:280,padding:"20px",margin:0,border:"none",resize:"vertical",
+                    background:"#0f172a",color:"#e2e8f0",fontSize:13.5,lineHeight:1.8,fontFamily:MONO,
+                    outline:"none",tabSize:2 }}
+                  onKeyDown={e => {
+                    if(e.key==="Tab"){ e.preventDefault(); const s=e.target.selectionStart; setPgCode(pgCode.substring(0,s)+"  "+pgCode.substring(e.target.selectionEnd)); setTimeout(()=>{e.target.selectionStart=e.target.selectionEnd=s+2;},0); }
+                  }} />
+              </div>
+              {/* Sample codes */}
+              <div style={{ display:"flex",gap:8,marginTop:12,flexWrap:"wrap" }}>
+                <span style={{ fontSize:12,color:"#999",lineHeight:"32px" }}>Try:</span>
+                {[
+                  ["JCL","SORT Job","//SORTJOB JOB ,'SORT',CLASS=A\n//STEP1  EXEC PGM=SORT\n//SORTIN DD DSN=MY.INPUT.FILE,DISP=SHR\n//SORTOUT DD DSN=MY.OUTPUT.FILE,\n//          DISP=(NEW,CATLG,DELETE),\n//          SPACE=(CYL,(10,5),RLSE)\n//SYSIN DD *\n  SORT FIELDS=(1,10,CH,A)\n  OUTREC FIELDS=(1,80)\n/*"],
+                  ["COBOL","File Processing","       IDENTIFICATION DIVISION.\n       PROGRAM-ID. FILREAD.\n       ENVIRONMENT DIVISION.\n       INPUT-OUTPUT SECTION.\n       FILE-CONTROL.\n           SELECT INFILE ASSIGN TO INDD\n             FILE STATUS IS WS-FS.\n       DATA DIVISION.\n       FILE SECTION.\n       FD INFILE RECORDING MODE F.\n       01 IN-REC PIC X(80).\n       WORKING-STORAGE SECTION.\n       01 WS-FS PIC XX.\n       01 WS-EOF PIC 9 VALUE 0.\n       01 WS-COUNT PIC 9(6) COMP VALUE 0.\n       PROCEDURE DIVISION.\n           OPEN INPUT INFILE\n           PERFORM UNTIL WS-EOF = 1\n             READ INFILE\n               AT END MOVE 1 TO WS-EOF\n               NOT AT END ADD 1 TO WS-COUNT\n             END-READ\n           END-PERFORM\n           CLOSE INFILE\n           DISPLAY 'RECORDS READ: ' WS-COUNT\n           STOP RUN."],
+                  ["DB2 SQL","Employee Report","SELECT D.DEPTNAME,\n       COUNT(*) AS EMP_COUNT,\n       AVG(E.SALARY) AS AVG_SALARY,\n       MAX(E.SALARY) AS MAX_SALARY\nFROM EMPLOYEE E\nINNER JOIN DEPARTMENT D\n  ON E.WORKDEPT = D.DEPTNO\nGROUP BY D.DEPTNAME\nHAVING COUNT(*) > 5\nORDER BY AVG_SALARY DESC;"]
+                ].map(([lang,name,code]) => (
+                  <button key={name} onClick={() => { setPgLang(lang); setPgCode(code); setPgResult(null); }}
+                    style={{ padding:"4px 12px",borderRadius:8,border:"1px solid #e8e8ed",background:"#fafafa",
+                      color:"#555",fontSize:11,cursor:"pointer",fontFamily:FF }}>{name}</button>
+                ))}
+              </div>
+              {/* Result */}
+              {pgResult && (
+                <div style={{ marginTop:24,borderRadius:16,border:"1px solid rgba(0,113,227,0.15)",
+                  background:"rgba(0,113,227,0.03)",padding:"24px 28px",animation:"fadeUp 0.3s ease" }}>
+                  <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:16 }}>
+                    <span style={{ fontSize:20 }}>{pgMode==="explain"?"💡":pgMode==="errors"?"🔍":"▶️"}</span>
+                    <span style={{ fontSize:16,fontWeight:700,color:"#1d1d1f" }}>
+                      {pgMode==="explain"?"Code Explanation":pgMode==="errors"?"Error Analysis":"Execution Simulation"}
+                    </span>
+                  </div>
+                  <div style={S.contentPre}>{renderContent(pgResult)}</div>
+                </div>
+              )}
+              {pgLoading && (
+                <div style={{ marginTop:24,textAlign:"center",padding:"40px 0" }}>
+                  <div style={{ width:40,height:40,border:"3px solid #e8e8ed",borderTop:"3px solid #0071e3",
+                    borderRadius:"50%",animation:"spin 1s linear infinite",margin:"0 auto 16px" }} />
+                  <p style={{ fontSize:14,color:"#666" }}>
+                    {pgMode==="explain"?"Analyzing your code line by line...":pgMode==="errors"?"Checking for errors and bad practices...":"Simulating execution on z/OS..."}
+                  </p>
                 </div>
               )}
             </div>
