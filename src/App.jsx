@@ -42,6 +42,12 @@ const CHAT_SEED = [
 ];
 
 /* ─── COOL USER AVATAR ─────────────────────────────────────────────────── */
+/* ─── Darken color for accessible text contrast ─── */
+function darkenColor(hex, amount=0.35) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `#${Math.round(r*(1-amount)).toString(16).padStart(2,'0')}${Math.round(g*(1-amount)).toString(16).padStart(2,'0')}${Math.round(b*(1-amount)).toString(16).padStart(2,'0')}`;
+}
+
 const AVATAR_GRADIENTS = [
   ["#FF6B6B","#EE5A24"],["#0071e3","#7c3aed"],["#00b894","#00cec9"],
   ["#e17055","#fdcb6e"],["#6c5ce7","#a29bfe"],["#fd79a8","#e84393"],
@@ -1116,7 +1122,8 @@ Behavior guidelines:
   const [newPost, setNewPost] = useState({ title:"", body:"", topic:"General", author:"" });
   const [newAnswer, setNewAnswer] = useState("");
 
-  // Load Q&A from Supabase
+  // Load Q&A from Supabase (defer realtime to community page visit)
+  const qaLoaded = useRef(false);
   useEffect(() => {
     const loadQA = async () => {
       try {
@@ -1135,12 +1142,14 @@ Behavior guidelines:
         }
       } catch {}
     };
-    loadQA();
+    // Only load data + subscribe when user visits community
+    if (page === "community" && !qaLoaded.current) { qaLoaded.current = true; loadQA(); }
+    if (page !== "community") return;
     try {
       const ch = supabase.channel("qa").on("postgres_changes",{event:"*",schema:"public",table:"qa_posts"},()=>loadQA()).on("postgres_changes",{event:"*",schema:"public",table:"qa_answers"},()=>loadQA()).subscribe();
       return () => supabase.removeChannel(ch);
     } catch {}
-  }, []);
+  }, [page]);
 
   const votePost = async (postId, dir) => {
     if (!user) { setAuthModal("signin"); setAuthError(""); setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}); return; }
@@ -1197,8 +1206,11 @@ Behavior guidelines:
     _isSelf: r.user_id === user?.id,
   });
 
-  // Load chat messages from Supabase
+  // Load chat messages from Supabase (only when visiting community)
+  const chatLoaded = useRef(false);
   useEffect(() => {
+    if (page !== "community" && !chatLoaded.current) return;
+    chatLoaded.current = true;
     const load = async () => {
       try {
         const { data } = await supabase.from("chat_messages").select("*").order("created_at",{ascending:true}).limit(200);
@@ -1214,10 +1226,11 @@ Behavior guidelines:
       }).subscribe();
       return () => { supabase.removeChannel(channel); };
     } catch {}
-  }, [user]);
+  }, [user, page]);
 
-  // Load online users
+  // Load online users (only when visiting community)
   useEffect(() => {
+    if (page !== "community") return;
     const load = async () => {
       try {
         const { data } = await supabase.from("user_presence").select("*").gte("last_seen", new Date(Date.now()-5*60000).toISOString());
@@ -1227,7 +1240,7 @@ Behavior guidelines:
     load();
     const iv = setInterval(load, 30000);
     return () => clearInterval(iv);
-  }, []);
+  }, [page]);
 
   // Update presence when user is logged in
   useEffect(() => {
@@ -2013,7 +2026,7 @@ Behavior guidelines:
                       <div style={S.tcTitle}>{t.title}</div>
                       <div style={S.tcSub}>{t.subtitle}</div>
                       <div style={{ fontSize:11,color:"#666",marginBottom:10 }}>{t.level}</div>
-                      <div style={{ ...S.tcMore, color:t.color }}>Learn more →</div>
+                      <div style={{ ...S.tcMore, color:darkenColor(t.color) }}>Learn more →</div>
                     </button>
                   ))}
                 </div>
@@ -2135,7 +2148,7 @@ Behavior guidelines:
                         <div style={S.tcTitle}>{t.title}</div>
                         <div style={S.tcSub}>{t.subtitle}</div>
                         <div style={{ fontSize:11,color:"#666",marginBottom:10 }}>{t.level}</div>
-                        <div style={{ ...S.tcMore, color:t.color }}>Learn more →</div>
+                        <div style={{ ...S.tcMore, color:darkenColor(t.color) }}>Learn more →</div>
                       </button>
                     ))}
                   </div>
