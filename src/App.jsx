@@ -304,8 +304,13 @@ export default function App() {
   const [show3D, setShow3D] = useState(false);
   useEffect(() => {
     if (typeof window === 'undefined' || window.innerWidth <= 768) return;
-    const id = requestIdleCallback ? requestIdleCallback(() => setShow3D(true), { timeout: 4000 }) : setTimeout(() => setShow3D(true), 4000);
-    return () => { if (requestIdleCallback) cancelIdleCallback(id); else clearTimeout(id); };
+    // Load 3D only after user scrolls or after 6s idle — whichever comes first
+    let loaded = false;
+    const load3D = () => { if (!loaded) { loaded = true; setShow3D(true); } };
+    const timer = setTimeout(load3D, 6000);
+    const onScroll = () => { load3D(); window.removeEventListener("scroll", onScroll); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { clearTimeout(timer); window.removeEventListener("scroll", onScroll); };
   }, []);
   const [activeTopic, setActiveTopic] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
@@ -1343,10 +1348,14 @@ Behavior guidelines:
   const welcomeShown = useRef({welcome:false, signin:false, community:false});
 
   useEffect(() => {
-    // Phase 1: Welcome popup after 8s (delayed to avoid blocking initial render)
-    const t1 = setTimeout(() => {
-      if (!welcomeShown.current.welcome) { setWelcomePhase(1); welcomeShown.current.welcome = true; }
-    }, 8000);
+    // Phase 1: Welcome popup after first user scroll (not timer - avoids Lighthouse TBT)
+    const onFirstScroll = () => {
+      if (!welcomeShown.current.welcome) {
+        setTimeout(() => { setWelcomePhase(1); welcomeShown.current.welcome = true; }, 1500);
+      }
+      window.removeEventListener("scroll", onFirstScroll);
+    };
+    window.addEventListener("scroll", onFirstScroll, { passive: true });
     // Phase 2: Sign-in nudge after 60s (if not signed in)
     const t2 = setTimeout(() => {
       if (!user && !welcomeShown.current.signin) { setWelcomePhase(2); welcomeShown.current.signin = true; }
@@ -1355,7 +1364,7 @@ Behavior guidelines:
     const t3 = setTimeout(() => {
       if (!chatJoined && !welcomeShown.current.community) { setWelcomePhase(3); welcomeShown.current.community = true; }
     }, 120000);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+    return () => { window.removeEventListener("scroll", onFirstScroll); clearTimeout(t2); clearTimeout(t3); };
   }, [user, chatJoined]);
 
   const categories = [
@@ -2840,7 +2849,7 @@ Behavior guidelines:
                           <div style={{ fontSize:11,color:"#666" }}>{chatMembers.length} members • {chatOnline} online</div>
                         </div>
                         <button onClick={()=>{setChatShowSrch(!chatShowSrch);setChatSrch("");}} style={{ background:chatShowSrch?"#e8f4fd":"transparent",border:"none",borderRadius:6,color:chatShowSrch?"#0071e3":"#666",cursor:"pointer",fontSize:14,padding:"4px 8px" }}aria-label="Search">🔍</button>
-                        <button onClick={()=>setChatShowStars(!chatShowStars)} style={{ background:chatShowStars?"#fef9e7":"transparent",border:"none",borderRadius:6,color:chatShowStars?"#d4a017":"#666",cursor:"pointer",fontSize:14,padding:"4px 8px" }}>aria-label="Toggle bookmarks">{chatShowStars?"⭐":"☆"}</button>
+                        <button onClick={()=>setChatShowStars(!chatShowStars)} aria-label="Toggle bookmarks" style={{ background:chatShowStars?"#fef9e7":"transparent",border:"none",borderRadius:6,color:chatShowStars?"#d4a017":"#666",cursor:"pointer",fontSize:14,padding:"4px 8px" }}>{chatShowStars?"⭐":"☆"}</button>
                       </div>
                       {chatShowSrch&&<div style={{ padding:"6px 16px",background:"#f5f5f7",borderBottom:"1px solid #e8e8ed" }}><input value={chatSrch} onChange={e=>setChatSrch(e.target.value)} placeholder="Search messages..." autoFocus style={{ width:"100%",boxSizing:"border-box",padding:"6px 12px",borderRadius:8,border:"1.5px solid #e8e8ed",background:"#fff",color:"#1d1d1f",fontSize:13,outline:"none",fontFamily:FF }} /></div>}
                       {chatShowStars&&<div style={{ padding:"5px 16px",background:"#fef9e7",borderBottom:"1px solid #fde68a",fontSize:12,color:"#d4a017",display:"flex",alignItems:"center",gap:4 }}>⭐ Starred ({chatStarred.size})<button onClick={()=>setChatShowStars(false)} style={{ background:"none",border:"none",color:"#d4a017",cursor:"pointer",marginLeft:"auto",fontSize:12 }}>Show all</button></div>}
