@@ -329,6 +329,11 @@ export default function App() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => { clearTimeout(timer); window.removeEventListener("scroll", onScroll); };
   }, []);
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 900);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
   const [activeTopic, setActiveTopic] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
   const [quiz, setQuiz] = useState({ index: 0, score: 0, selected: null, done: false, showExp: false });
@@ -428,6 +433,7 @@ export default function App() {
   const [cat, setCat] = useState("all");
   const [navOpen, setNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(typeof window!=='undefined' ? window.innerWidth < 900 : false);
   const [scenarioCat, setScenarioCat] = useState("All");
   const [scenarioDiff, setScenarioDiff] = useState("All");
   const [expandedScenario, setExpandedScenario] = useState(null);
@@ -1606,14 +1612,6 @@ Behavior guidelines:
         @keyframes glow3d{0%{box-shadow:0 0 20px rgba(0,113,227,0.15)}50%{box-shadow:0 0 40px rgba(124,58,237,0.2)}100%{box-shadow:0 0 20px rgba(0,113,227,0.15)}}
         .card:hover .card-icon{transform:scale(1.3) rotate(-8deg) translateZ(20px)!important;transition:transform 0.4s cubic-bezier(.34,1.56,.64,1)!important}
 
-        /* ═══ RESPONSIVE — TOPIC LAYOUT (≤900px) ═══ */
-        .mobile-lesson-select{display:none}
-        @media(max-width:900px){
-          .topic-sidebar{display:none!important}
-          .mobile-lesson-select{display:block!important}
-          .topic-content-main{padding:20px 0 32px 0!important;width:100%!important}
-        }
-
         /* ═══ RESPONSIVE — TABLET (≤768px) ═══ */
         @media(max-width:768px){
           .content-card{padding:24px 20px!important;border-radius:16px!important}
@@ -2279,8 +2277,9 @@ Behavior guidelines:
                   </div>
                 </div>
                 {/* Sidebar + Content layout */}
-                <div style={{ ...S.inner, display:"flex", gap:0, alignItems:"flex-start", paddingTop:0, paddingBottom:60, flexWrap:"wrap" }}>
-                  {/* ── SIDEBAR ── */}
+                <div style={{ ...S.inner, display:"flex", gap:0, alignItems:"flex-start", paddingTop:0, paddingBottom:60 }}>
+                  {/* ── SIDEBAR (desktop only) ── */}
+                  {!isMobile && (
                   <div className="topic-sidebar" style={{ width:280,flexShrink:0,borderRight:"1px solid rgba(255,255,255,0.06)",
                     position:"sticky",top:52,height:"calc(100vh - 52px)",overflowY:"auto",
                     padding:"16px 0" }}>
@@ -2319,8 +2318,10 @@ Behavior guidelines:
                       ));
                     })()}
                   </div>
+                  )}
                   {/* ── MOBILE SECTION SELECTOR ── */}
-                  <div className="mobile-lesson-select" style={{ width:"100%",padding:"12px 0",borderBottom:"1px solid rgba(255,255,255,0.06)" }}>
+                  {isMobile && (
+                  <div style={{ width:"100%",padding:"12px 0",borderBottom:"1px solid rgba(255,255,255,0.06)" }}>
                       <select value={activeTab} onChange={e => setActiveTab(Number(e.target.value))}
                         aria-label="Select lesson"
                         style={{ width:"100%",padding:"10px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.1)",
@@ -2330,8 +2331,9 @@ Behavior guidelines:
                         ))}
                       </select>
                   </div>
+                  )}
                   {/* ── MAIN CONTENT ── */}
-                  <div className="topic-content-main scaleIn" style={{ flex:1,minWidth:0,padding:"32px 0 32px 40px",maxWidth:800 }} key={activeTab}>
+                  <div className="topic-content-main scaleIn" style={{ flex:1,minWidth:0,padding:isMobile?"20px 0 32px 0":"32px 0 32px 40px",maxWidth:800,width:isMobile?"100%":"auto" }} key={activeTab}>
                     {/* Breadcrumb */}
                     <div style={{ fontSize:12,color:"#64748b",marginBottom:16 }}>
                       <span style={{ cursor:"pointer",color:"#0071e3" }} onClick={() => setActiveTopic(null)}>Topics</span>
