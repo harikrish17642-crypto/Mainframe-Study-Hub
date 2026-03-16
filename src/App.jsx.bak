@@ -176,7 +176,7 @@ function ChatBubble({msg,members,self,onReact,onReply,onDel,onStar,starred}){
   const isSelf=msg._isSelf||false,isSys=msg.type===CT.SYS;
   const sender=isSys?null:{name:msg._name||"User",role:msg._role||"",color:msg._color||"#0071e3",emoji:msg._emoji||"🧑‍💻",status:"online"};
   const replyMsg=msg.replyTo!=null?null:null; // reply preview disabled for DB messages
-  if(msg.del)return<div style={{display:"flex",justifyContent:isSelf?"flex-end":"flex-start",padding:"2px 16px",opacity:0.4}}><div style={{padding:"6px 14px",borderRadius:12,background:"#1e293b",fontStyle:"italic",fontSize:13,color:"#94a3b8"}}>🚫 Deleted</div></div>;
+  if(msg.del)return<div style={{display:"flex",justifyContent:isSelf?"flex-end":"flex-start",padding:"2px 16px",opacity:0.4}}><div style={{padding:"6px 14px",borderRadius:12,background:"#1e293b",fontStyle:"italic",fontSize:13,color:"#666"}}>🚫 Deleted</div></div>;
   if(isSys)return<div style={{display:"flex",justifyContent:"center",padding:"8px 16px"}}><div style={{padding:"4px 16px",borderRadius:20,background:"rgba(0,113,227,0.12)",border:"1px solid rgba(0,113,227,0.2)",fontSize:12,color:"#94a3b8"}}>{msg.text}</div></div>;
   const tc={[CT.JOB]:{bg:"rgba(124,58,237,0.15)",bd:"rgba(124,58,237,0.3)",ic:"💼",lb:"Job"}, [CT.DOUBT]:{bg:"rgba(251,191,36,0.12)",bd:"rgba(251,191,36,0.25)",ic:"❓",lb:"Doubt"}, [CT.THOUGHT]:{bg:"rgba(0,113,227,0.12)",bd:"rgba(0,113,227,0.25)",ic:"💭",lb:"Thought"}, [CT.POLL]:{bg:"rgba(168,85,247,0.12)",bd:"rgba(168,85,247,0.25)",ic:"📊",lb:"Poll"}}[msg.type];
   return(
@@ -189,16 +189,16 @@ function ChatBubble({msg,members,self,onReact,onReply,onDel,onStar,starred}){
         {showR&&<div style={{position:"absolute",top:-40,[isSelf?"left":"right"]:0,display:"flex",gap:2,background:"#111827",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"4px 6px",zIndex:10,boxShadow:"0 4px 16px rgba(0,0,0,0.1)"}}>
           {CHAT_REACTIONS.map(r=><button key={r} onClick={()=>{onReact(msg.id,r);setShowR(false);}} style={{background:"none",border:"none",cursor:"pointer",fontSize:18,padding:"2px 4px",borderRadius:6}} aria-label={"React with "+r}>{r}</button>)}
         </div>}
-        <div style={{background:isSelf?"linear-gradient(135deg,#0071e3,#0055b0)":tc?tc.bg:"#1e293b",border:`1px solid ${isSelf?"#0060c0":tc?tc.bd:"rgba(255,255,255,0.1)"}`,borderRadius:isSelf?"16px 16px 4px 16px":"16px 16px 16px 4px",padding:"8px 12px"}}>
-          {tc&&<div style={{fontSize:10,fontWeight:700,color:"#94a3b8",marginBottom:4,textTransform:"uppercase",letterSpacing:"0.5px"}}>{tc.ic} {tc.lb}</div>}
+        <div style={{background:isSelf?"linear-gradient(135deg,#0071e3,#0055b0)":tc?tc.bg:"#f5f5f7",border:`1px solid ${isSelf?"#0060c0":tc?tc.bd:"rgba(255,255,255,0.1)"}`,borderRadius:isSelf?"16px 16px 4px 16px":"16px 16px 16px 4px",padding:"8px 12px"}}>
+          {tc&&<div style={{fontSize:10,fontWeight:700,color:"#666",marginBottom:4,textTransform:"uppercase",letterSpacing:"0.5px"}}>{tc.ic} {tc.lb}</div>}
           {!isSelf&&sender&&<div style={{fontSize:12,fontWeight:700,color:sender.color,marginBottom:3}}>{sender.name} {sender.emoji}</div>}
-          {replyMsg&&<div style={{padding:"4px 8px",marginBottom:6,borderLeft:`3px solid ${members[replyMsg.sender]?.color||"#0071e3"}`,background:"rgba(255,255,255,0.05)",borderRadius:"0 6px 6px 0",fontSize:11,color:"#94a3b8"}}><span style={{color:members[replyMsg.sender]?.color,fontWeight:600}}>{members[replyMsg.sender]?.name}</span><div style={{overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",maxWidth:220}}>{replyMsg.text}</div></div>}
-          {msg.type===CT.POLL&&msg.pollOpts?<div><div style={{fontSize:14,color:isSelf?"#fff":"#e2e8f0",marginBottom:8,fontWeight:600}}>{msg.text}</div>{msg.pollOpts.map((o,i)=>{const tot=msg.pollOpts.reduce((s,x)=>s+x.votes.length,0);const pct=tot>0?(o.votes.length/tot)*100:0;return<div key={i} style={{marginBottom:6,position:"relative",borderRadius:8,overflow:"hidden",background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.06)"}}><div style={{position:"absolute",top:0,left:0,height:"100%",width:`${pct}%`,background:"rgba(0,113,227,0.1)"}} /><div style={{position:"relative",padding:"6px 10px",display:"flex",justifyContent:"space-between",fontSize:13,color:"#f1f5f9"}}><span>{o.text}</span><span style={{color:"#0071e3",fontWeight:600}}>{o.votes.length} ({Math.round(pct)}%)</span></div></div>;})}</div>
-          :<div style={{fontSize:14,color:isSelf?"#fff":"#e2e8f0",whiteSpace:"pre-wrap",lineHeight:1.45}}>{msg.text}</div>}
-          <div style={{fontSize:10,color:isSelf?"rgba(255,255,255,0.6)":"#64748b",marginTop:4,textAlign:"right"}}>{msg.time}{isSelf&&" ✓✓"}</div>
+          {replyMsg&&<div style={{padding:"4px 8px",marginBottom:6,borderLeft:`3px solid ${members[replyMsg.sender]?.color||"#0071e3"}`,background:"rgba(0,0,0,0.03)",borderRadius:"0 6px 6px 0",fontSize:11,color:"#666"}}><span style={{color:members[replyMsg.sender]?.color,fontWeight:600}}>{members[replyMsg.sender]?.name}</span><div style={{overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",maxWidth:220}}>{replyMsg.text}</div></div>}
+          {msg.type===CT.POLL&&msg.pollOpts?<div><div style={{fontSize:14,color:isSelf?"#fff":"#1d1d1f",marginBottom:8,fontWeight:600}}>{msg.text}</div>{msg.pollOpts.map((o,i)=>{const tot=msg.pollOpts.reduce((s,x)=>s+x.votes.length,0);const pct=tot>0?(o.votes.length/tot)*100:0;return<div key={i} style={{marginBottom:6,position:"relative",borderRadius:8,overflow:"hidden",background:"rgba(0,0,0,0.03)",border:"1px solid rgba(0,0,0,0.05)"}}><div style={{position:"absolute",top:0,left:0,height:"100%",width:`${pct}%`,background:"rgba(0,113,227,0.1)"}} /><div style={{position:"relative",padding:"6px 10px",display:"flex",justifyContent:"space-between",fontSize:13,color:"#f1f5f9"}}><span>{o.text}</span><span style={{color:"#0071e3",fontWeight:600}}>{o.votes.length} ({Math.round(pct)}%)</span></div></div>;})}</div>
+          :<div style={{fontSize:14,color:isSelf?"#fff":"#1d1d1f",whiteSpace:"pre-wrap",lineHeight:1.45}}>{msg.text}</div>}
+          <div style={{fontSize:10,color:isSelf?"rgba(255,255,255,0.6)":"#666",marginTop:4,textAlign:"right"}}>{msg.time}{isSelf&&" ✓✓"}</div>
         </div>
         {Object.keys(msg.reactions).length>0&&<div style={{display:"flex",gap:4,marginTop:2,flexWrap:"wrap",justifyContent:isSelf?"flex-end":"flex-start"}}>
-          {Object.entries(msg.reactions).map(([em,us])=><span key={em} onClick={()=>onReact(msg.id,em)} style={{background:us.includes(self)?"rgba(0,113,227,0.2)":"rgba(30,41,59,0.6)",border:`1px solid ${us.includes(self)?"rgba(0,113,227,0.35)":"rgba(255,255,255,0.1)"}`,borderRadius:12,padding:"1px 6px",fontSize:12,cursor:"pointer",display:"flex",alignItems:"center",gap:3}}>{em}<span style={{fontSize:10,color:"#94a3b8"}}>{us.length}</span></span>)}
+          {Object.entries(msg.reactions).map(([em,us])=><span key={em} onClick={()=>onReact(msg.id,em)} style={{background:us.includes(self)?"#e8f4fd":"#f5f5f7",border:`1px solid ${us.includes(self)?"#b0d4f1":"rgba(255,255,255,0.1)"}`,borderRadius:12,padding:"1px 6px",fontSize:12,cursor:"pointer",display:"flex",alignItems:"center",gap:3}}>{em}<span style={{fontSize:10,color:"#666"}}>{us.length}</span></span>)}
         </div>}
       </div>
     </div>
@@ -218,10 +218,10 @@ function AddMemModal({onClose,onAdd,existing}){
         <h3 style={{margin:"0 0 20px",fontSize:18,fontWeight:700,color:"#f1f5f9"}}>Add New Member</h3>
         <input value={nm} onChange={e=>setNm(e.target.value)} placeholder="Name" style={{width:"100%",boxSizing:"border-box",padding:"10px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.1)",background:"#1e293b",color:"#f1f5f9",fontSize:14,outline:"none",marginBottom:10}} />
         <input value={rl} onChange={e=>setRl(e.target.value)} placeholder="Role (e.g. COBOL Developer)" style={{width:"100%",boxSizing:"border-box",padding:"10px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.1)",background:"#1e293b",color:"#f1f5f9",fontSize:14,outline:"none",marginBottom:16}} />
-        <div style={{marginBottom:12}}><div style={{fontSize:12,color:"#94a3b8",marginBottom:6}}>Color</div><div style={{display:"flex",gap:6,flexWrap:"wrap"}}>{cols.map(c=><div key={c} onClick={()=>setCol(c)} style={{width:28,height:28,borderRadius:"50%",background:c,cursor:"pointer",border:col===c?"3px solid #60a5fa":"3px solid transparent"}} />)}</div></div>
-        <div style={{marginBottom:20}}><div style={{fontSize:12,color:"#94a3b8",marginBottom:6}}>Avatar</div><div style={{display:"flex",gap:6,flexWrap:"wrap"}}>{emos.map(e=><div key={e} onClick={()=>setEmo(e)} style={{width:36,height:36,borderRadius:8,background:emo===e?"rgba(0,113,227,0.2)":"rgba(30,41,59,0.6)",border:emo===e?"2px solid #0071e3":"2px solid transparent",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,cursor:"pointer"}}>{e}</div>)}</div></div>
+        <div style={{marginBottom:12}}><div style={{fontSize:12,color:"#666",marginBottom:6}}>Color</div><div style={{display:"flex",gap:6,flexWrap:"wrap"}}>{cols.map(c=><div key={c} onClick={()=>setCol(c)} style={{width:28,height:28,borderRadius:"50%",background:c,cursor:"pointer",border:col===c?"3px solid #1d1d1f":"3px solid transparent"}} />)}</div></div>
+        <div style={{marginBottom:20}}><div style={{fontSize:12,color:"#666",marginBottom:6}}>Avatar</div><div style={{display:"flex",gap:6,flexWrap:"wrap"}}>{emos.map(e=><div key={e} onClick={()=>setEmo(e)} style={{width:36,height:36,borderRadius:8,background:emo===e?"#e8f4fd":"#f5f5f7",border:emo===e?"2px solid #0071e3":"2px solid transparent",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,cursor:"pointer"}}>{e}</div>)}</div></div>
         <div style={{display:"flex",gap:10}}>
-          <button onClick={onClose} style={{flex:1,padding:"10px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.1)",background:"transparent",color:"#94a3b8",cursor:"pointer",fontSize:14}}>Cancel</button>
+          <button onClick={onClose} style={{flex:1,padding:"10px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.1)",background:"transparent",color:"#666",cursor:"pointer",fontSize:14}}>Cancel</button>
           <button onClick={()=>{if(!nm.trim())return;if(existing.includes(nm.trim())){alert("Exists!");return;}onAdd({name:nm.trim(),role:rl.trim()||"Member",color:col,emoji:emo,status:"online"});onClose();}} style={{flex:1,padding:"10px",borderRadius:10,border:"none",background:"#0071e3",color:"#fff",cursor:"pointer",fontWeight:700,fontSize:14}}>Add</button>
         </div>
       </div>
@@ -1038,10 +1038,10 @@ Behavior guidelines:
         const sepMatch = line.match(/^([A-Z][A-Z0-9\/\-_]{1,20})\s*(—|–|-|=|:)\s*(.*)/);
         if (sepMatch) {
           elements.push(
-            <div key={i} style={{ margin:"6px 0", padding:"10px 16px", background:"rgba(30,41,59,0.6)",
+            <div key={i} style={{ margin:"6px 0", padding:"10px 16px", background:"rgba(245,245,247,0.6)",
               borderRadius:10, borderLeft:`3px solid ${activeTopic?.color||"#0071e3"}` }}>
               <span style={{ fontWeight:700, color:"#f1f5f9", fontFamily:"'SF Mono',Menlo,Consolas,monospace", fontSize:14 }}>{sepMatch[1]}</span>
-              <span style={{ color:"#94a3b8" }}> {sepMatch[2]} </span>
+              <span style={{ color:"#666" }}> {sepMatch[2]} </span>
               <span style={{ color:"#cbd5e1", fontSize:14.5 }}>{sepMatch[3]}</span>
             </div>
           );
@@ -1051,7 +1051,7 @@ Behavior guidelines:
 
       // Regular paragraph
       elements.push(
-        <p key={i} style={{ fontSize:15.5, color:"#cbd5e1", lineHeight:2, margin:"8px 0",
+        <p key={i} style={{ fontSize:15.5, color:"#2d2d30", lineHeight:2, margin:"8px 0",
           fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif" }}>
           {line}
         </p>
@@ -1543,7 +1543,7 @@ Behavior guidelines:
         .nav-scroll::-webkit-scrollbar{display:none}
         .nav-scroll{-ms-overflow-style:none;scrollbar-width:none}
         .topic-sidebar::-webkit-scrollbar{width:3px}
-        .topic-sidebar::-webkit-scrollbar-thumb{background:#334155;border-radius:3px}
+        .topic-sidebar::-webkit-scrollbar-thumb{background:#e0e0e0;border-radius:3px}
         ::-webkit-scrollbar{width:5px}
         ::-webkit-scrollbar-thumb{background:#334155;border-radius:3px}
         @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -1568,10 +1568,10 @@ Behavior guidelines:
         .card:hover{transform:translateY(-8px) rotateX(2deg) rotateY(-1deg) scale(1.01)!important;box-shadow:0 24px 60px rgba(0,0,0,0.12),0 0 0 1px rgba(0,113,227,0.08)!important}
         .content-card{background:rgba(17,24,39,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:44px 48px;box-shadow:0 4px 30px rgba(0,0,0,0.3),0 1px 3px rgba(0,0,0,0.15);transition:box-shadow 0.3s ease}
         .content-card:hover{box-shadow:0 8px 40px rgba(0,0,0,0.06)}
-        .content-card pre{font-size:15px!important;line-height:2!important;color:#cbd5e1!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif!important}
+        .content-card pre{font-size:15px!important;line-height:2!important;color:#2d2d30!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif!important}
         .mesh-bg{position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;pointer-events:none;overflow:hidden}
         .mesh-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.18;animation:float 12s ease-in-out infinite}
-        .tab:hover{background:rgba(255,255,255,0.06)!important}
+        .tab:hover{background:rgba(0,0,0,0.03)!important}
         .glow-line{height:2px;background:linear-gradient(90deg,transparent,#0071e3,#7c3aed,transparent);background-size:200% 100%;animation:shimmer 3s linear infinite}
         .hero-glow{position:absolute;width:320px;height:320px;border-radius:50%;filter:blur(100px);opacity:0.2;animation:pulse 5s ease-in-out infinite}
         .card{transition:all 0.35s cubic-bezier(.25,.46,.45,.94)!important;transform-style:preserve-3d!important;perspective:800px!important}
@@ -1596,9 +1596,9 @@ Behavior guidelines:
         .chat-msg-enter{animation:fadeUp 0.3s ease both}
         .chat-input:focus{border-color:#7c3aed!important;box-shadow:0 0 0 3px rgba(124,58,237,0.1)!important}
         .card{transition:transform .22s ease,box-shadow .22s ease!important}
-        .nav-btn:hover{color:#ffffff!important}
+        .nav-btn:hover{color:#1d1d1f!important}
         .pill:hover{opacity:.85!important}
-        .tab:hover{color:#ffffff!important}
+        .tab:hover{color:#1d1d1f!important}
         .scenario-card:hover{border-color:#0071e3!important}
         .scenario-card{transition:border-color .2s ease!important}
         @keyframes revealUp{from{opacity:0;transform:translateY(40px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
@@ -1640,14 +1640,14 @@ Behavior guidelines:
         /* ═══ PRINT ═══ */
         @media print{
           .chat-fab,.chat-window,.mesh-bg,.mesh-orb,.hero-glow{display:none!important}
-          body{background:#080b16!important}
-          .content-card{box-shadow:none!important;border:1px solid rgba(255,255,255,0.08)!important}
+          body{background:#fff!important}
+          .content-card{box-shadow:none!important;border:1px solid #ddd!important}
         }
       `}</style>
 
       {/* ══ NAV ══ */}
       <nav role="navigation" aria-label="Main navigation" style={{ ...S.nav,
-        background: scrolled ? "rgba(8,11,22,0.95)" : "rgba(8,11,22,0.8)",
+        background: scrolled ? "rgba(248,249,252,0.88)" : "rgba(248,249,252,0.6)",
         boxShadow: scrolled ? "0 1px 0 rgba(0,0,0,0.1)" : "none",
         backdropFilter: "saturate(180%) blur(20px)",
         WebkitBackdropFilter: "saturate(180%) blur(20px)",
@@ -1660,7 +1660,7 @@ Behavior guidelines:
           <div className="nav-scroll" style={S.navLinks}>
             {[["home","Overview"],["topics","Topics"],["scenarios","Scenarios"],["blog","Blog"],["quiz","Quiz"],["playground","Code Lab"],["community","Community"],["abends","Abend Solver"],["roadmap","Roadmap"],["weekly","Weekly Update"],["about","About"]].map(([p,l]) => (
               <button key={p} className="nav-btn" onClick={() => goPage(p)}
-                style={{ ...S.navLink, color: page===p ? "#ffffff":"#94a3b8", fontWeight: page===p?600:400 }}>
+                style={{ ...S.navLink, color: page===p ? "#1d1d1f":"#555", fontWeight: page===p?600:400 }}>
                 {l}
               </button>
             ))}
@@ -1678,9 +1678,9 @@ Behavior guidelines:
             </button>
           )}
           <button aria-label="Menu" style={S.hamburger} onClick={() => setNavOpen(o => !o)}>
-            <div style={{ width:18,height:1.5,background:"#e2e8f0",marginBottom:5,transform:navOpen?"rotate(45deg) translate(4px,4px)":"none",transition:"all .2s" }} />
-            <div style={{ width:18,height:1.5,background:"#e2e8f0",marginBottom:5,opacity:navOpen?0:1,transition:"all .2s" }} />
-            <div style={{ width:18,height:1.5,background:"#e2e8f0",transform:navOpen?"rotate(-45deg) translate(4px,-4px)":"none",transition:"all .2s" }} />
+            <div style={{ width:18,height:1.5,background:"#1d1d1f",marginBottom:5,transform:navOpen?"rotate(45deg) translate(4px,4px)":"none",transition:"all .2s" }} />
+            <div style={{ width:18,height:1.5,background:"#1d1d1f",marginBottom:5,opacity:navOpen?0:1,transition:"all .2s" }} />
+            <div style={{ width:18,height:1.5,background:"#1d1d1f",transform:navOpen?"rotate(-45deg) translate(4px,-4px)":"none",transition:"all .2s" }} />
           </button>
         </div>
       </nav>
@@ -1695,7 +1695,7 @@ Behavior guidelines:
               <UserAvatar name={user.name} size={36} showRing />
               <div style={{ flex:1,minWidth:0 }}>
                 <div style={{ fontSize:14,fontWeight:700,color:"#f1f5f9" }}>{user.name}</div>
-                <div style={{ fontSize:11,color:"#94a3b8" }}>{user.role} · {user.mfYears}yr MF</div>
+                <div style={{ fontSize:11,color:"#666" }}>{user.role} · {user.mfYears}yr MF</div>
               </div>
               <button onClick={() => { authSignOut(); setNavOpen(false); }}
                 style={{ fontSize:11,color:"#fca5a5",background:"rgba(239,68,68,0.15)",border:"none",borderRadius:6,padding:"4px 10px",cursor:"pointer",fontFamily:FF }}>
@@ -1713,7 +1713,7 @@ Behavior guidelines:
           )}
           {[["home","🏠 Overview"],["topics","📚 Topics"],["scenarios","🎯 Scenarios"],["blog","📰 Blog"],["quiz","🧠 Quiz"],["community","💬 Community"],["abends","🔍 Abend Solver"],["roadmap","🗺️ Roadmap"],["weekly","🔄 Weekly Update"],["about","👤 About"]].map(([p,l]) => (
             <button key={p} onClick={() => goPage(p)}
-              style={{ ...S.drawerLink, color: page===p?"#0071e3":"#e2e8f0" }}>{l}</button>
+              style={{ ...S.drawerLink, color: page===p?"#0071e3":"#1d1d1f" }}>{l}</button>
           ))}
           <div style={{ height:1,background:"#1e293b",margin:"8px 0" }} />
           {TOPICS.map(t => (
@@ -1754,26 +1754,26 @@ Behavior guidelines:
                 <h2 style={{ fontSize:24,fontWeight:800,letterSpacing:"-0.5px",color:"#f1f5f9",marginBottom:4 }}>
                   {authModal==="signin" ? "Welcome Back" : "Join MainframeStudyHub"}
                 </h2>
-                <p style={{ fontSize:14,color:"#94a3b8" }}>
+                <p style={{ fontSize:14,color:"#666" }}>
                   {authModal==="signin" ? "Sign in to your account" : "Create your account to join the community"}
                 </p>
               </div>
 
               {/* Google OAuth Button */}
               <button onClick={authSignInWithGoogle} disabled={authLoading}
-                style={{ width:"100%",padding:"11px",background:"#1e293b",color:"#f1f5f9",border:"1.5px solid rgba(255,255,255,0.15)",
+                style={{ width:"100%",padding:"11px",background:"#111827",color:"#f1f5f9",border:"1.5px solid #e0e0e0",
                   borderRadius:12,fontSize:14,fontWeight:600,cursor:authLoading?"wait":"pointer",fontFamily:FF,
                   display:"flex",alignItems:"center",justifyContent:"center",gap:10,marginBottom:16,
                   transition:"background 0.2s,box-shadow 0.2s" }}
-                onMouseEnter={e => { e.currentTarget.style.background="rgba(30,41,59,0.8)"; e.currentTarget.style.boxShadow="0 2px 8px rgba(0,0,0,0.08)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background="rgba(30,41,59,0.5)"; e.currentTarget.style.boxShadow="none"; }}>
+                onMouseEnter={e => { e.currentTarget.style.background="#f8f8f8"; e.currentTarget.style.boxShadow="0 2px 8px rgba(0,0,0,0.08)"; }}
+                onMouseLeave={e => { e.currentTarget.style.background="#fff"; e.currentTarget.style.boxShadow="none"; }}>
                 <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
                 {authModal==="signin" ? "Sign in with Google" : "Sign up with Google"}
               </button>
 
               <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:16 }}>
                 <div style={{ flex:1,height:1,background:"rgba(255,255,255,0.1)" }} />
-                <span style={{ fontSize:12,color:"#94a3b8",fontWeight:500 }}>or</span>
+                <span style={{ fontSize:12,color:"#666",fontWeight:500 }}>or</span>
                 <div style={{ flex:1,height:1,background:"rgba(255,255,255,0.1)" }} />
               </div>
 
@@ -1797,21 +1797,21 @@ Behavior guidelines:
               {authModal==="signup" && (
                 <>
                   <div style={{ marginBottom:16 }}>
-                    <label style={{ fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4 }}>Current Role</label>
+                    <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>Current Role</label>
                     <select value={authForm.role} onChange={e => setAuthForm({...authForm, role:e.target.value})}
-                      style={{ ...modalInput, marginBottom:0,cursor:"pointer",color:authForm.role?"#f1f5f9":"#64748b" }}>
+                      style={{ ...modalInput, marginBottom:0,cursor:"pointer",color:authForm.role?"#1d1d1f":"#666" }}>
                       <option value="">Select your role...</option>
                       {ROLE_OPTIONS.map(r => <option key={r} value={r}>{r}</option>)}
                     </select>
                   </div>
                   <div style={{ display:"flex",gap:10,marginBottom:20 }}>
                     <div style={{ flex:1 }}>
-                      <label style={{ fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4 }}>IT Experience (years)</label>
+                      <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>IT Experience (years)</label>
                       <input value={authForm.itYears} onChange={e => setAuthForm({...authForm, itYears:e.target.value})}
                         aria-label="IT experience years" placeholder="e.g. 5" type="number" min="0" max="50" style={{ ...modalInput, marginBottom:0 }} />
                     </div>
                     <div style={{ flex:1 }}>
-                      <label style={{ fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4 }}>Mainframe Exp (years)</label>
+                      <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>Mainframe Exp (years)</label>
                       <input value={authForm.mfYears} onChange={e => setAuthForm({...authForm, mfYears:e.target.value})}
                         aria-label="Mainframe experience years" placeholder="e.g. 2" type="number" min="0" max="50" style={{ ...modalInput, marginBottom:0 }} />
                     </div>
@@ -1822,7 +1822,7 @@ Behavior guidelines:
               <button onClick={authModal==="signin" ? authSignIn : authSignUp}
                 disabled={authLoading}
                 className="glow-btn"
-                style={{ width:"100%",padding:"12px",background:authLoading?"#334155":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",
+                style={{ width:"100%",padding:"12px",background:authLoading?"#a0a0a5":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",
                   border:"none",borderRadius:12,fontSize:15,fontWeight:700,cursor:authLoading?"wait":"pointer",fontFamily:FF,marginTop:authModal==="signin"?16:0 }}>
                 {authLoading ? "Please wait..." : authModal==="signin" ? "Sign In" : "Create Account"}
               </button>
@@ -1831,13 +1831,13 @@ Behavior guidelines:
               {authModal==="signin" && (
                 <div style={{ textAlign:"center",marginTop:10 }}>
                   <button onClick={authForgotPassword}
-                    style={{ background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontFamily:FF,fontSize:12,fontWeight:500 }}>
+                    style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontFamily:FF,fontSize:12,fontWeight:500 }}>
                     Forgot your password?
                   </button>
                 </div>
               )}
 
-              <div style={{ textAlign:"center",marginTop:12,fontSize:13,color:"#94a3b8" }}>
+              <div style={{ textAlign:"center",marginTop:12,fontSize:13,color:"#666" }}>
                 {authModal==="signin" ? (
                   <>Don't have an account? <button onClick={() => { setAuthModal("signup"); setAuthError(""); }}
                     style={{ background:"none",border:"none",color:"#0071e3",cursor:"pointer",fontWeight:600,fontFamily:FF,fontSize:13 }}>Sign Up</button></>
@@ -1862,20 +1862,20 @@ Behavior guidelines:
                 <div>
                   <div style={{ fontSize:17,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.3px" }}>{user?.name}</div>
                   <div style={{ fontSize:12,color:"#0071e3",fontWeight:600 }}>{user?.role}</div>
-                  <div style={{ fontSize:11,color:"#94a3b8" }}>{user?.email}</div>
+                  <div style={{ fontSize:11,color:"#666" }}>{user?.email}</div>
                 </div>
               </div>
               <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:18 }}>
                 <div style={{ background:"rgba(30,41,59,0.8)",borderRadius:12,padding:"12px",textAlign:"center" }}>
                   <div style={{ fontSize:22,fontWeight:800,color:"#f1f5f9" }}>{user?.itYears}</div>
-                  <div style={{ fontSize:10,color:"#94a3b8",fontWeight:600 }}>IT YEARS</div>
+                  <div style={{ fontSize:10,color:"#666",fontWeight:600 }}>IT YEARS</div>
                 </div>
                 <div style={{ background:"rgba(30,41,59,0.8)",borderRadius:12,padding:"12px",textAlign:"center" }}>
                   <div style={{ fontSize:22,fontWeight:800,color:"#f1f5f9" }}>{user?.mfYears}</div>
-                  <div style={{ fontSize:10,color:"#94a3b8",fontWeight:600 }}>MF YEARS</div>
+                  <div style={{ fontSize:10,color:"#666",fontWeight:600 }}>MF YEARS</div>
                 </div>
               </div>
-              <div style={{ fontSize:12,color:"#94a3b8",marginBottom:16,textAlign:"center" }}>
+              <div style={{ fontSize:12,color:"#666",marginBottom:16,textAlign:"center" }}>
                 Member since {user?.joinDate}
               </div>
               <div style={{ display:"flex",flexDirection:"column",gap:8 }}>
@@ -1908,7 +1908,7 @@ Behavior guidelines:
               padding:"40px 32px",maxWidth:400,width:"90%",textAlign:"center",boxShadow:"0 24px 80px rgba(0,0,0,0.2)" }}>
               <div style={{ fontSize:56,marginBottom:16 }}>📧</div>
               <h2 style={{ fontSize:22,fontWeight:800,color:"#f1f5f9",marginBottom:8 }}>Check Your Email</h2>
-              <p style={{ fontSize:14,color:"#94a3b8",lineHeight:1.6,marginBottom:24 }}>
+              <p style={{ fontSize:14,color:"#666",lineHeight:1.6,marginBottom:24 }}>
                 We've sent a password reset link to <strong style={{ color:"#f1f5f9" }}>{authForm.email}</strong>. Click the link in the email to set a new password.
               </p>
               <button onClick={() => { setAuthModal("signin"); setAuthError(""); }}
@@ -1935,10 +1935,10 @@ Behavior guidelines:
                 </div>
                 <h2 style={{ fontSize:22,fontWeight:800,color:"#f1f5f9" }}>Edit Profile</h2>
               </div>
-              <label style={{ fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4 }}>Full Name</label>
+              <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>Full Name</label>
               <input value={editForm.name} onChange={e => setEditForm({...editForm, name:e.target.value})}
                 aria-label="Full name" placeholder="Full Name *" style={modalInput} />
-              <label style={{ fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4 }}>Current Role</label>
+              <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>Current Role</label>
               <select value={editForm.role} onChange={e => setEditForm({...editForm, role:e.target.value})}
                 style={{ ...modalInput, cursor:"pointer",color:"#f1f5f9" }}>
                 <option value="">Select your role...</option>
@@ -1946,19 +1946,19 @@ Behavior guidelines:
               </select>
               <div style={{ display:"flex",gap:10,marginBottom:20 }}>
                 <div style={{ flex:1 }}>
-                  <label style={{ fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4 }}>IT Experience (years)</label>
+                  <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>IT Experience (years)</label>
                   <input value={editForm.itYears} onChange={e => setEditForm({...editForm, itYears:e.target.value})}
                     type="number" min="0" max="50" style={{ ...modalInput, marginBottom:0 }} />
                 </div>
                 <div style={{ flex:1 }}>
-                  <label style={{ fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4 }}>Mainframe Exp (years)</label>
+                  <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>Mainframe Exp (years)</label>
                   <input value={editForm.mfYears} onChange={e => setEditForm({...editForm, mfYears:e.target.value})}
                     type="number" min="0" max="50" style={{ ...modalInput, marginBottom:0 }} />
                 </div>
               </div>
               <div style={{ display:"flex",gap:10 }}>
                 <button onClick={saveProfile} disabled={authLoading} className="glow-btn"
-                  style={{ flex:1,padding:"12px",background:authLoading?"#334155":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",
+                  style={{ flex:1,padding:"12px",background:authLoading?"#a0a0a5":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",
                     border:"none",borderRadius:12,fontSize:14,fontWeight:700,cursor:authLoading?"wait":"pointer",fontFamily:FF }}>
                   {authLoading ? "Saving..." : "Save Changes"}
                 </button>
@@ -1994,7 +1994,7 @@ Behavior guidelines:
                 onKeyDown={e => { if(e.key==="Enter") changePassword(); }} />
               <div style={{ display:"flex",gap:10 }}>
                 <button onClick={changePassword} disabled={authLoading} className="glow-btn"
-                  style={{ flex:1,padding:"12px",background:authLoading?"#334155":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",
+                  style={{ flex:1,padding:"12px",background:authLoading?"#a0a0a5":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",
                     border:"none",borderRadius:12,fontSize:14,fontWeight:700,cursor:authLoading?"wait":"pointer",fontFamily:FF }}>
                   {authLoading ? "Updating..." : "Update Password"}
                 </button>
@@ -2094,7 +2094,7 @@ Behavior guidelines:
                       borderRadius:12,animationDelay:`${i*60}ms`,cursor:"default" }}>
                       <div style={{ fontSize:11,marginBottom:4 }}>{icon}</div>
                       <div style={{ fontSize:24,fontWeight:800,color:"#f1f5f9",letterSpacing:"-1px",lineHeight:1 }}>{n}</div>
-                      <div style={{ fontSize:11,color:"#94a3b8",fontWeight:600,marginTop:4 }}>{l}</div>
+                      <div style={{ fontSize:11,color:"#666",fontWeight:600,marginTop:4 }}>{l}</div>
                     </div>
                   ))}
                 </div>
@@ -2111,7 +2111,7 @@ Behavior guidelines:
                       <div style={{ fontSize:32,marginBottom:12 }}>{t.icon}</div>
                       <div style={S.tcTitle}>{t.title}</div>
                       <div style={S.tcSub}>{t.subtitle}</div>
-                      <div style={{ fontSize:11,color:"#94a3b8",marginBottom:10 }}>{t.level}</div>
+                      <div style={{ fontSize:11,color:"#666",marginBottom:10 }}>{t.level}</div>
                       <div style={{ ...S.tcMore, color:darkenColor(t.color) }}>Learn more →</div>
                     </button>
                   ))}
@@ -2163,7 +2163,7 @@ Behavior guidelines:
             </section>
 
             {/* ─── 3D ANIMATED COMMUNITY CTA ─── */}
-            <section style={{ padding:"72px 0", background:"linear-gradient(180deg, rgba(8,11,22,0.95) 0%, rgba(12,18,32,0.95) 100%)" }}>
+            <section style={{ padding:"72px 0", background:"linear-gradient(180deg, #f0f4ff 0%, #f8f9fc 100%)" }}>
               <div style={{ ...S.inner, display:"flex", flexDirection:"column", alignItems:"center" }}>
                 <div style={{ position:"relative", width:"100%", maxWidth:820, borderRadius:28, overflow:"hidden", background:"linear-gradient(135deg, #0a1628, #0d2040, #0a1628)", border:"1.5px solid rgba(0,113,227,0.15)", minHeight:420, cursor:"pointer", boxShadow:"0 24px 80px rgba(0,0,0,0.18), 0 0 60px rgba(0,113,227,0.06)" }} onClick={() => { setChatPopup(true); setChatPopPhase(0); }}>
                   <CommCanvas />
@@ -2210,16 +2210,16 @@ Behavior guidelines:
                   <h1 style={S.pageHeroTitle}>Topics</h1>
                   <p style={S.pageHeroSub}>Every IBM Z topic from absolute beginner to ultra pro. {TOPICS.length} subjects, hundreds of code examples.</p>
                 </div>
-                <div style={{ borderBottom:"1px solid rgba(255,255,255,0.06)",padding:"14px 0",position:"sticky",top:52,background:"rgba(8,11,22,0.95)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",zIndex:100 }}>
+                <div style={{ borderBottom:"1px solid rgba(255,255,255,0.06)",padding:"14px 0",position:"sticky",top:52,background:"rgba(248,249,252,0.88)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",zIndex:100 }}>
                   <div style={{ ...S.inner,display:"flex",alignItems:"center",gap:12,flexWrap:"wrap" }}>
                     <div style={{ position:"relative",flexShrink:0 }}>
-                      <span style={{ position:"absolute",left:11,top:"50%",transform:"translateY(-50%)",color:"#64748b",fontSize:14 }}>⌕</span>
+                      <span style={{ position:"absolute",left:11,top:"50%",transform:"translateY(-50%)",color:"#666",fontSize:14 }}>⌕</span>
                       <input role="searchbox" style={S.searchInput} placeholder="Search all topics…" value={search} onChange={e => setSearch(e.target.value)} />
                     </div>
                     <div style={{ display:"flex",gap:6,flexWrap:"wrap" }}>
                       {categories.map(c => (
                         <button key={c.id} className="pill"
-                          style={{ ...S.pill, background:cat===c.id?"#0071e3":"rgba(30,41,59,0.8)", color:cat===c.id?"#fff":"#94a3b8" }}
+                          style={{ ...S.pill, background:cat===c.id?"#1d1d1f":"rgba(255,255,255,0.1)", color:cat===c.id?"#fff":"#1d1d1f" }}
                           onClick={() => setCat(c.id)}>{c.label}</button>
                       ))}
                     </div>
@@ -2233,13 +2233,13 @@ Behavior guidelines:
                         <div style={{ fontSize:32,marginBottom:12 }}>{t.icon}</div>
                         <div style={S.tcTitle}>{t.title}</div>
                         <div style={S.tcSub}>{t.subtitle}</div>
-                        <div style={{ fontSize:11,color:"#94a3b8",marginBottom:10 }}>{t.level}</div>
+                        <div style={{ fontSize:11,color:"#666",marginBottom:10 }}>{t.level}</div>
                         <div style={{ ...S.tcMore, color:darkenColor(t.color) }}>Learn more →</div>
                       </button>
                     ))}
                   </div>
                   {filteredTopics.length === 0 && (
-                    <div style={{ textAlign:"center",padding:"80px 0",color:"#94a3b8" }}>
+                    <div style={{ textAlign:"center",padding:"80px 0",color:"#666" }}>
                       <div style={{ fontSize:48,marginBottom:12 }}>🔍</div>
                       No results for "{search}"
                     </div>
@@ -2259,7 +2259,7 @@ Behavior guidelines:
                       <span style={{ fontSize:40 }}>{activeTopic.icon}</span>
                       <div>
                         <h1 style={{ fontSize:28,fontWeight:800,letterSpacing:"-1px",color:"#f1f5f9",marginBottom:2 }}>{activeTopic.title} Tutorial</h1>
-                        <div style={{ fontSize:13,color:"#94a3b8" }}>
+                        <div style={{ fontSize:13,color:"#666" }}>
                           Progress <span style={{ fontWeight:700,color:activeTopic.color }}>{activeTab + 1}</span> of {activeTopic.sections.length} lessons
                         </div>
                       </div>
@@ -2277,7 +2277,7 @@ Behavior guidelines:
                     position:"sticky",top:52,height:"calc(100vh - 52px)",overflowY:"auto",
                     padding:"16px 0",display:typeof window!=='undefined'&&window.innerWidth<900?"none":"block" }}>
                     <div style={{ padding:"0 12px",marginBottom:12 }}>
-                      <div style={{ fontSize:12,fontWeight:700,color:"#94a3b8",textTransform:"uppercase",letterSpacing:"0.5px" }}>
+                      <div style={{ fontSize:12,fontWeight:700,color:"#666",textTransform:"uppercase",letterSpacing:"0.5px" }}>
                         {activeTopic.sections.length} Lessons
                       </div>
                     </div>
@@ -2291,7 +2291,7 @@ Behavior guidelines:
                       });
                       return Object.entries(chapters).map(([chName, secs]) => (
                         <div key={chName} style={{ marginBottom:8 }}>
-                          <div style={{ padding:"8px 16px",fontSize:11,fontWeight:700,color:"#64748b",textTransform:"uppercase",letterSpacing:"0.5px" }}>
+                          <div style={{ padding:"8px 16px",fontSize:11,fontWeight:700,color:"#999",textTransform:"uppercase",letterSpacing:"0.5px" }}>
                             {chName}
                           </div>
                           {secs.map(sec => (
@@ -2299,7 +2299,7 @@ Behavior guidelines:
                               style={{ display:"flex",alignItems:"center",gap:10,width:"100%",textAlign:"left",
                                 padding:"10px 16px",background:activeTab===sec.idx?`${activeTopic.color}10`:"transparent",
                                 border:"none",borderLeft:activeTab===sec.idx?`3px solid ${activeTopic.color}`:"3px solid transparent",
-                                cursor:"pointer",fontFamily:FF,fontSize:13,color:activeTab===sec.idx?"#ffffff":"#94a3b8",
+                                cursor:"pointer",fontFamily:FF,fontSize:13,color:activeTab===sec.idx?"#1d1d1f":"#555",
                                 fontWeight:activeTab===sec.idx?600:400,transition:"all 0.15s",lineHeight:1.4 }}>
                               <span style={{ fontSize:11,color:activeTab===sec.idx?activeTopic.color:"#ccc",flexShrink:0 }}>
                                 {activeTab===sec.idx?"▸":"○"}
@@ -2327,7 +2327,7 @@ Behavior guidelines:
                   {/* ── MAIN CONTENT ── */}
                   <div style={{ flex:1,minWidth:0,padding:"32px 0 32px 40px",maxWidth:800 }} className="scaleIn" key={activeTab}>
                     {/* Breadcrumb */}
-                    <div style={{ fontSize:12,color:"#64748b",marginBottom:16 }}>
+                    <div style={{ fontSize:12,color:"#999",marginBottom:16 }}>
                       <span style={{ cursor:"pointer",color:"#0071e3" }} onClick={() => setActiveTopic(null)}>Topics</span>
                       {" › "}
                       <span style={{ cursor:"pointer",color:"#0071e3" }} onClick={() => setActiveTab(0)}>{activeTopic.title}</span>
@@ -2343,10 +2343,10 @@ Behavior guidelines:
                         color: activeTopic.sections[activeTab].level==="Beginner"?"#166534":activeTopic.sections[activeTab].level==="Intermediate"?"#1e40af":activeTopic.sections[activeTab].level==="Advanced"?"#6b21a8":"#991b1b" }}>
                         {activeTopic.sections[activeTab].level}
                       </span>
-                      <span style={{ fontSize:12,color:"#64748b" }}>
+                      <span style={{ fontSize:12,color:"#999" }}>
                         Lesson {activeTab + 1} of {activeTopic.sections.length}
                       </span>
-                      <span style={{ fontSize:12,color:"#64748b" }}>
+                      <span style={{ fontSize:12,color:"#999" }}>
                         · ~{Math.max(3, Math.round((activeTopic.sections[activeTab].content||"").length / 900))} min read
                       </span>
                     </div>
@@ -2359,7 +2359,7 @@ Behavior guidelines:
                             <div style={{ display:"flex",gap:6 }}>
                               {["#ff5f57","#febc2e","#28c840"].map(c=><div key={c} style={{ width:12,height:12,borderRadius:"50%",background:c }} />)}
                             </div>
-                            <span style={{ fontSize:11,color:"#94a3b8",letterSpacing:"1px" }}>CODE EXAMPLE</span>
+                            <span style={{ fontSize:11,color:"#888",letterSpacing:"1px" }}>CODE EXAMPLE</span>
                           </div>
                           <pre style={{ ...S.codePre, background:"#0f172a",color:"#f8fafc" }}
                             dangerouslySetInnerHTML={{ __html: highlightCode(activeTopic.sections[activeTab].code) }} />
@@ -2372,7 +2372,7 @@ Behavior guidelines:
                         <button onClick={() => { setActiveTab(activeTab-1); window.scrollTo(0,280); }}
                           style={{ flex:1,padding:"14px 18px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",
                             cursor:"pointer",textAlign:"left",fontFamily:FF }}>
-                          <div style={{ fontSize:11,color:"#64748b",marginBottom:4 }}>‹ Previous Lesson</div>
+                          <div style={{ fontSize:11,color:"#999",marginBottom:4 }}>‹ Previous Lesson</div>
                           <div style={{ fontSize:14,fontWeight:600,color:"#f1f5f9" }}>{activeTopic.sections[activeTab-1].title}</div>
                         </button>
                       )}
@@ -2380,7 +2380,7 @@ Behavior guidelines:
                         <button onClick={() => { setActiveTab(activeTab+1); window.scrollTo(0,280); }}
                           style={{ flex:1,padding:"14px 18px",borderRadius:12,border:`1.5px solid ${activeTopic.color}50`,
                             background:`${activeTopic.color}08`,cursor:"pointer",textAlign:"right",fontFamily:FF }}>
-                          <div style={{ fontSize:11,color:"#64748b",marginBottom:4 }}>Next Lesson ›</div>
+                          <div style={{ fontSize:11,color:"#999",marginBottom:4 }}>Next Lesson ›</div>
                           <div style={{ fontSize:14,fontWeight:600,color:activeTopic.color }}>{activeTopic.sections[activeTab+1].title}</div>
                         </button>
                       )}
@@ -2391,13 +2391,13 @@ Behavior guidelines:
                 <div style={{ ...S.inner,paddingBottom:60,borderTop:"1px solid rgba(255,255,255,0.06)",paddingTop:28,display:"flex",gap:16,flexWrap:"wrap" }}>
                   {TOPICS[TOPICS.indexOf(activeTopic)-1] && (
                     <button style={S.prevNextBtn} onClick={() => openTopic(TOPICS[TOPICS.indexOf(activeTopic)-1])}>
-                      <span style={{ fontSize:11,color:"#94a3b8",display:"block",marginBottom:4 }}>Previous</span>
+                      <span style={{ fontSize:11,color:"#666",display:"block",marginBottom:4 }}>Previous</span>
                       <span style={{ fontSize:15,fontWeight:500 }}>{TOPICS[TOPICS.indexOf(activeTopic)-1].icon} {TOPICS[TOPICS.indexOf(activeTopic)-1].title}</span>
                     </button>
                   )}
                   {TOPICS[TOPICS.indexOf(activeTopic)+1] && (
                     <button style={{ ...S.prevNextBtn,textAlign:"right",marginLeft:"auto" }} onClick={() => openTopic(TOPICS[TOPICS.indexOf(activeTopic)+1])}>
-                      <span style={{ fontSize:11,color:"#94a3b8",display:"block",marginBottom:4 }}>Next</span>
+                      <span style={{ fontSize:11,color:"#666",display:"block",marginBottom:4 }}>Next</span>
                       <span style={{ fontSize:15,fontWeight:500 }}>{TOPICS[TOPICS.indexOf(activeTopic)+1].icon} {TOPICS[TOPICS.indexOf(activeTopic)+1].title}</span>
                     </button>
                   )}
@@ -2416,16 +2416,16 @@ Behavior guidelines:
             </div>
             <div style={{ borderBottom:"1px solid rgba(255,255,255,0.06)",padding:"12px 0",position:"sticky",top:52,background:"rgba(8,11,22,0.95)",backdropFilter:"blur(20px)",zIndex:100 }}>
               <div style={{ ...S.inner,display:"flex",gap:10,flexWrap:"wrap",alignItems:"center" }}>
-                <span style={{ fontSize:12,color:"#94a3b8",fontWeight:500 }}>Category:</span>
+                <span style={{ fontSize:12,color:"#666",fontWeight:500 }}>Category:</span>
                 {scenCats.map(c => (
                   <button key={c} className="pill"
-                    style={{ ...S.pill,fontSize:11,padding:"5px 12px",background:scenarioCat===c?"#0071e3":"rgba(30,41,59,0.8)",color:scenarioCat===c?"#fff":"#94a3b8" }}
+                    style={{ ...S.pill,fontSize:11,padding:"5px 12px",background:scenarioCat===c?"#1d1d1f":"rgba(255,255,255,0.1)",color:scenarioCat===c?"#fff":"#1d1d1f" }}
                     onClick={() => setScenarioCat(c)}>{c}</button>
                 ))}
-                <span style={{ fontSize:12,color:"#94a3b8",fontWeight:500,marginLeft:8 }}>Level:</span>
+                <span style={{ fontSize:12,color:"#666",fontWeight:500,marginLeft:8 }}>Level:</span>
                 {scenDiffs.map(d => (
                   <button key={d} className="pill"
-                    style={{ ...S.pill,fontSize:11,padding:"5px 12px",background:scenarioDiff===d?"#0071e3":"rgba(255,255,255,0.1)",color:scenarioDiff===d?"#fff":"#94a3b8" }}
+                    style={{ ...S.pill,fontSize:11,padding:"5px 12px",background:scenarioDiff===d?"#0071e3":"rgba(255,255,255,0.1)",color:scenarioDiff===d?"#fff":"#1d1d1f" }}
                     onClick={() => setScenarioDiff(d)}>{d}</button>
                 ))}
               </div>
@@ -2443,7 +2443,7 @@ Behavior guidelines:
                       </span>
                       <span style={{ ...S.diffBadge,background:"#eff6ff",color:"#60a5fa" }}>{sc.category}</span>
                       <h3 style={{ fontSize:16,fontWeight:600,color:"#f1f5f9",flex:1,textAlign:"left" }}>{sc.question}</h3>
-                      <span style={{ fontSize:20,color:"#94a3b8",transition:"transform .2s",transform:expandedScenario===sc.id?"rotate(180deg)":"none" }}>⌄</span>
+                      <span style={{ fontSize:20,color:"#666",transition:"transform .2s",transform:expandedScenario===sc.id?"rotate(180deg)":"none" }}>⌄</span>
                     </div>
                   </button>
                   {expandedScenario === sc.id && (
@@ -2494,7 +2494,7 @@ Behavior guidelines:
                   </button>
                 )}
                 {user && !canWriteBlog && (
-                  <div style={{ fontSize:12,color:"#94a3b8",background:"rgba(30,41,59,0.8)",borderRadius:10,padding:"8px 14px",maxWidth:220,marginTop:8 }}>
+                  <div style={{ fontSize:12,color:"#666",background:"rgba(30,41,59,0.8)",borderRadius:10,padding:"8px 14px",maxWidth:220,marginTop:8 }}>
                     💡 Members with 5+ years experience can write expert blogs
                   </div>
                 )}
@@ -2510,7 +2510,7 @@ Behavior guidelines:
                     <UserAvatar name={user.name} size={40} showRing />
                     <div>
                       <div style={{ fontSize:15,fontWeight:700 }}>{user.name}</div>
-                      <div style={{ fontSize:12,color:"#94a3b8" }}>{user.role} · {user.mfYears} yrs mainframe experience</div>
+                      <div style={{ fontSize:12,color:"#666" }}>{user.role} · {user.mfYears} yrs mainframe experience</div>
                     </div>
                     <span style={{ marginLeft:"auto",fontSize:11,fontWeight:600,padding:"4px 10px",borderRadius:980,
                       background:"linear-gradient(135deg,#059669,#0d9488)",color:"#fff" }}>✦ Expert Author</span>
@@ -2518,14 +2518,14 @@ Behavior guidelines:
                   <input value={blogDraft.title} onChange={e => setBlogDraft({...blogDraft, title:e.target.value})}
                     placeholder="Blog title — make it compelling *"
                     style={{ width:"100%",padding:"14px 16px",fontSize:18,fontWeight:700,border:"1.5px solid rgba(255,255,255,0.1)",
-                      borderRadius:12,outline:"none",fontFamily:FF,background:"rgba(30,41,59,0.6)",marginBottom:14,color:"#f1f5f9" }} />
+                      borderRadius:12,outline:"none",fontFamily:FF,background:"rgba(245,245,247,0.6)",marginBottom:14,color:"#f1f5f9" }} />
                   <div style={{ display:"flex",gap:10,marginBottom:14 }}>
                     <select value={blogDraft.category} onChange={e => setBlogDraft({...blogDraft, category:e.target.value})}
                       style={{ padding:"8px 14px",fontSize:13,border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:10,
-                        outline:"none",fontFamily:FF,background:"rgba(30,41,59,0.6)",cursor:"pointer",color:"#f1f5f9" }}>
+                        outline:"none",fontFamily:FF,background:"rgba(245,245,247,0.6)",cursor:"pointer",color:"#f1f5f9" }}>
                       {BLOG_CATEGORIES.map(c => <option key={c}>{c}</option>)}
                     </select>
-                    <span style={{ fontSize:12,color:"#94a3b8",alignSelf:"center" }}>
+                    <span style={{ fontSize:12,color:"#666",alignSelf:"center" }}>
                       {blogDraft.content ? Math.max(1, Math.round(blogDraft.content.split(/\s+/).length / 200)) + " min read" : ""}
                     </span>
                   </div>
@@ -2533,8 +2533,8 @@ Behavior guidelines:
                     placeholder={"Share your expertise...\n\nWrite about real-world experiences, technical deep dives, best practices, lessons learned, or career advice.\n\nTip: Use clear paragraphs and include code examples where relevant."}
                     rows={14}
                     style={{ width:"100%",padding:"16px",fontSize:15,lineHeight:1.8,border:"1.5px solid rgba(255,255,255,0.1)",
-                      borderRadius:12,outline:"none",fontFamily:FF,background:"rgba(30,41,59,0.6)",resize:"vertical",
-                      minHeight:200,color:"#cbd5e1" }} />
+                      borderRadius:12,outline:"none",fontFamily:FF,background:"rgba(245,245,247,0.6)",resize:"vertical",
+                      minHeight:200,color:"#2d2d30" }} />
                   <div style={{ display:"flex",gap:10,marginTop:16 }}>
                     <button onClick={saveUserBlog} className="glow-btn"
                       style={{ ...S.btnBlue,fontSize:14,padding:"10px 24px",opacity:blogDraft.title&&blogDraft.content?1:0.5 }}>
@@ -2559,11 +2559,11 @@ Behavior guidelines:
                         )}
                       </div>
                       <h3 style={{ fontSize:18,fontWeight:700,color:"#f1f5f9",lineHeight:1.4,marginBottom:12,textAlign:"left" }}>{b.title}</h3>
-                      <p style={{ fontSize:13,color:"#94a3b8",marginBottom:16,textAlign:"left" }}>
+                      <p style={{ fontSize:13,color:"#666",marginBottom:16,textAlign:"left" }}>
                         {b.content.substring(0,150)}…
                       </p>
                       <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center" }}>
-                        <div style={{ fontSize:12,color:"#94a3b8",textAlign:"left" }}>
+                        <div style={{ fontSize:12,color:"#666",textAlign:"left" }}>
                           {b.isUserBlog ? (<><strong style={{ color:"#f1f5f9" }}>{b.author}</strong> · {b.authorRole} · </>) : ""}
                           {b.date}
                         </div>
@@ -2594,14 +2594,14 @@ Behavior guidelines:
                         <h1 style={{ fontSize:"clamp(24px,4vw,40px)",fontWeight:800,letterSpacing:"-1px",color:"#f1f5f9",marginBottom:16,lineHeight:1.2 }}>{b.title}</h1>
                         {b.isUserBlog && (
                           <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:28,padding:"16px 20px",
-                            background:"rgba(30,41,59,0.7)",borderRadius:14,border:"1px solid rgba(255,255,255,0.06)" }}>
+                            background:"rgba(245,245,247,0.7)",borderRadius:14,border:"1px solid rgba(0,0,0,0.04)" }}>
                             <div style={{ width:44,height:44,borderRadius:"50%",background:"linear-gradient(135deg,#0071e3,#7c3aed)",
                               color:"#fff",fontSize:18,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center" }}>
                               {b.author?.charAt(0)}
                             </div>
                             <div>
                               <div style={{ fontSize:15,fontWeight:700,color:"#f1f5f9" }}>{b.author}</div>
-                              <div style={{ fontSize:12,color:"#94a3b8" }}>{b.authorRole} · {b.authorMfYears} years mainframe experience</div>
+                              <div style={{ fontSize:12,color:"#666" }}>{b.authorRole} · {b.authorMfYears} years mainframe experience</div>
                             </div>
                             <button onClick={(e) => { e.stopPropagation(); likeUserBlog(b.id); }}
                               style={{ marginLeft:"auto",background:"none",border:"1.5px solid #fecaca",borderRadius:10,padding:"6px 14px",
@@ -2684,7 +2684,7 @@ Behavior guidelines:
                     </span>
                   </div>
                   <button onClick={() => { setDailyMode(false); clearInterval(dailyTimerRef.current); setQuiz({ index:0,score:0,selected:null,done:false,showExp:false }); }}
-                    style={{ background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:13,fontFamily:FF }}>✕ Exit Challenge</button>
+                    style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:13,fontFamily:FF }}>✕ Exit Challenge</button>
                 </div>
               )}
 
@@ -2694,8 +2694,8 @@ Behavior guidelines:
                 {QUIZ_TOPICS.map(t => (
                   <button key={t} onClick={() => { setQuizTopicFilter(t); setQuiz({ index:0,score:0,selected:null,done:false,showExp:false }); }}
                     style={{ padding:"6px 14px",borderRadius:980,fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:FF,border:"none",
-                      background:quizTopicFilter===t?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(30,41,59,0.8)",
-                      color:quizTopicFilter===t?"#fff":"#94a3b8",transition:"all .15s" }}>
+                      background:quizTopicFilter===t?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(245,245,247,0.8)",
+                      color:quizTopicFilter===t?"#fff":"#555",transition:"all .15s" }}>
                     {t === "All" ? `All (${QUIZ_QUESTIONS.length})` : `${t} (${QUIZ_QUESTIONS.filter(q=>q.topic===t).length})`}
                   </button>
                 ))}
@@ -2704,13 +2704,13 @@ Behavior guidelines:
               {(() => { const activeQs = dailyMode ? dailyQuestions : quizQuestions; return (
               <div style={{ maxWidth:640,margin:"0 auto" }}>
                 {activeQs.length === 0 ? (
-                  <div style={{ textAlign:"center",padding:60,color:"#94a3b8" }}>No questions for this topic yet.</div>
+                  <div style={{ textAlign:"center",padding:60,color:"#666" }}>No questions for this topic yet.</div>
                 ) : !quiz.done ? (
                   <div className="fi" key={quiz.index}>
                     <div style={{ height:4,background:"#1e293b",borderRadius:2,marginBottom:20,overflow:"hidden" }}>
                       <div style={{ height:"100%",background:dailyMode?"#f59e0b":"#0071e3",borderRadius:2,width:`${(quiz.index/activeQs.length)*100}%`,transition:"width .4s ease" }} />
                     </div>
-                    <div style={{ display:"flex",justifyContent:"space-between",marginBottom:24,fontSize:13,color:"#94a3b8" }}>
+                    <div style={{ display:"flex",justifyContent:"space-between",marginBottom:24,fontSize:13,color:"#666" }}>
                       <span>Question {quiz.index+1} of {activeQs.length}</span>
                       <span>Score: {quiz.score}/{quiz.index}</span>
                     </div>
@@ -2723,7 +2723,7 @@ Behavior guidelines:
                     </h2>
                     <div style={{ display:"flex",flexDirection:"column",gap:10 }}>
                       {activeQs[quiz.index].options.map((opt,i) => {
-                        let bg="#1e293b", border="1.5px solid rgba(255,255,255,0.12)", color="#e2e8f0", lblBg="rgba(30,41,59,0.8)", lblColor="#94a3b8";
+                        let bg="#fff", border="1.5px solid #d2d2d7", color="#1d1d1f", lblBg="#f5f5f7", lblColor="#666";
                         if (quiz.selected !== null) {
                           if (i === activeQs[quiz.index].answer) { bg="#f0fdf4";border="1.5px solid #22c55e";color="#166534";lblBg="#22c55e";lblColor="#fff"; }
                           else if (i === quiz.selected) { bg="#fff1f0";border="1.5px solid #ef4444";color="#991b1b";lblBg="#ef4444";lblColor="#fff"; }
@@ -2796,7 +2796,7 @@ Behavior guidelines:
               <h1 style={S.pageHeroTitle}>Weekly AI Update</h1>
               <p style={S.pageHeroSub}>
                 Every Saturday, fresh mainframe content generated by AI. Pick any topic — get new tips, scenarios, and code examples.
-                {lastUpdate && <span style={{ display:"block",fontSize:13,color:"#94a3b8",marginTop:6 }}>Last updated: {new Date(lastUpdate).toLocaleDateString()}</span>}
+                {lastUpdate && <span style={{ display:"block",fontSize:13,color:"#666",marginTop:6 }}>Last updated: {new Date(lastUpdate).toLocaleDateString()}</span>}
               </p>
             </div>
             <div style={{ ...S.inner,paddingBottom:80 }}>
@@ -2806,8 +2806,8 @@ Behavior guidelines:
                 <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(160px,1fr))",gap:10 }}>
                   {TOPICS.map(t => (
                     <button key={t.id} onClick={() => fetchUpdate(t)}
-                      style={{ background:weeklyTopic?.id===t.id?"#0071e3":"rgba(30,41,59,0.8)",
-                        color:weeklyTopic?.id===t.id?"#fff":"#94a3b8",
+                      style={{ background:weeklyTopic?.id===t.id?"#1d1d1f":"#f5f5f7",
+                        color:weeklyTopic?.id===t.id?"#fff":"#1d1d1f",
                         border:"none",borderRadius:12,padding:"12px 16px",cursor:"pointer",
                         fontSize:13,fontWeight:500,fontFamily:FF,textAlign:"left",
                         display:"flex",alignItems:"center",gap:8,
@@ -2821,9 +2821,9 @@ Behavior guidelines:
               {/* Loading */}
               {weeklyLoading && (
                 <div style={{ textAlign:"center",padding:"60px 0" }}>
-                  <div style={{ width:40,height:40,border:"3px solid rgba(255,255,255,0.1)",borderTop:"3px solid #0071e3",borderRadius:"50%",animation:"spin 0.8s linear infinite",margin:"0 auto 16px" }} />
+                  <div style={{ width:40,height:40,border:"3px solid #f5f5f7",borderTop:"3px solid #0071e3",borderRadius:"50%",animation:"spin 0.8s linear infinite",margin:"0 auto 16px" }} />
                   <div style={{ fontSize:16,color:"#94a3b8" }}>Fetching fresh content for {weeklyTopic?.title}…</div>
-                  <div style={{ fontSize:13,color:"#94a3b8",marginTop:6 }}>This may take a moment</div>
+                  <div style={{ fontSize:13,color:"#666",marginTop:6 }}>This may take a moment</div>
                 </div>
               )}
 
@@ -2843,7 +2843,7 @@ Behavior guidelines:
                       <h2 style={{ fontSize:22,fontWeight:700,color:"#f1f5f9" }}>
                         {weeklyTopic?.icon} {weeklyTopic?.title} — Weekly Update
                       </h2>
-                      <div style={{ fontSize:13,color:"#94a3b8",marginTop:4 }}>Generated: {weeklyUpdate.generatedDate}</div>
+                      <div style={{ fontSize:13,color:"#666",marginTop:4 }}>Generated: {weeklyUpdate.generatedDate}</div>
                     </div>
                     <button style={{ ...S.btnGhost,fontSize:13,padding:"8px 16px" }} onClick={refreshUpdate}>
                       ↻ Refresh Content
@@ -2854,7 +2854,7 @@ Behavior guidelines:
                   <div style={{ display:"flex",gap:4,marginBottom:24,flexWrap:"wrap" }}>
                     {["tip","scenario","code","facts"].map(tab => (
                       <button key={tab} onClick={() => setWeeklyTab(tab)}
-                        style={{ background:weeklyTab===tab?"#0071e3":"rgba(30,41,59,0.8)",color:weeklyTab===tab?"#fff":"#94a3b8",
+                        style={{ background:weeklyTab===tab?"#1d1d1f":"#f5f5f7",color:weeklyTab===tab?"#fff":"#1d1d1f",
                           border:"none",borderRadius:8,padding:"8px 16px",cursor:"pointer",fontSize:13,fontWeight:500,fontFamily:FF,
                           textTransform:"capitalize" }}>
                         {tab==="tip"?"💡 New Tip":tab==="scenario"?"🎯 New Scenario":tab==="code"?"💻 Code Example":"📊 Key Facts"}
@@ -2917,7 +2917,7 @@ Behavior guidelines:
 
               {/* Empty state */}
               {!weeklyLoading && !weeklyUpdate && !weeklyError && (
-                <div style={{ textAlign:"center",padding:"60px 0",color:"#94a3b8" }}>
+                <div style={{ textAlign:"center",padding:"60px 0",color:"#666" }}>
                   <div style={{ fontSize:56,marginBottom:16 }}>🔄</div>
                   <div style={{ fontSize:18,fontWeight:600,color:"#f1f5f9",marginBottom:8 }}>Select a topic above</div>
                   <div style={{ fontSize:15 }}>AI will generate fresh tips, a new scenario, a code example, and key facts — every Saturday.</div>
@@ -2939,15 +2939,15 @@ Behavior guidelines:
               <div style={{ display:"flex",gap:10,flexWrap:"wrap",marginBottom:16,alignItems:"center" }}>
                 {["JCL","COBOL","REXX","DB2 SQL"].map(lang => (
                   <button key={lang} onClick={() => { setPgLang(lang); setPgCode(pgSamples[lang]); setPgResult(null); }}
-                    style={{ padding:"8px 16px",borderRadius:10,border:pgLang===lang?"2px solid #0071e3":"2px solid rgba(255,255,255,0.12)",
-                      background:pgLang===lang?"rgba(0,113,227,0.15)":"rgba(30,41,59,0.6)",color:pgLang===lang?"#60a5fa":"#94a3b8",
+                    style={{ padding:"8px 16px",borderRadius:10,border:pgLang===lang?"2px solid #0071e3":"2px solid #e8e8ed",
+                      background:pgLang===lang?"#e8f4fd":"#fff",color:pgLang===lang?"#0071e3":"#666",
                       fontSize:13,fontWeight:600,cursor:"pointer",fontFamily:FF }}>{lang}</button>
                 ))}
                 <div style={{ marginLeft:"auto",display:"flex",gap:6 }}>
                   {[["explain","💡 Explain"],["errors","🔍 Find Errors"],["simulate","▶️ Simulate"]].map(([m,label]) => (
                     <button key={m} onClick={() => setPgMode(m)}
-                      style={{ padding:"8px 14px",borderRadius:10,border:pgMode===m?"2px solid #7c3aed":"2px solid rgba(255,255,255,0.12)",
-                        background:pgMode===m?"rgba(124,58,237,0.15)":"rgba(30,41,59,0.6)",color:pgMode===m?"#a78bfa":"#94a3b8",
+                      style={{ padding:"8px 14px",borderRadius:10,border:pgMode===m?"2px solid #7c3aed":"2px solid #e8e8ed",
+                        background:pgMode===m?"#f3e8ff":"#fff",color:pgMode===m?"#7c3aed":"#666",
                         fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:FF }}>{label}</button>
                   ))}
                 </div>
@@ -2977,7 +2977,7 @@ Behavior guidelines:
               </div>
               {/* Sample codes */}
               <div style={{ display:"flex",gap:8,marginTop:12,flexWrap:"wrap" }}>
-                <span style={{ fontSize:12,color:"#64748b",lineHeight:"32px" }}>Try:</span>
+                <span style={{ fontSize:12,color:"#999",lineHeight:"32px" }}>Try:</span>
                 {[
                   ["JCL","SORT Job","//SORTJOB JOB ,'SORT',CLASS=A\n//STEP1  EXEC PGM=SORT\n//SORTIN DD DSN=MY.INPUT.FILE,DISP=SHR\n//SORTOUT DD DSN=MY.OUTPUT.FILE,\n//          DISP=(NEW,CATLG,DELETE),\n//          SPACE=(CYL,(10,5),RLSE)\n//SYSIN DD *\n  SORT FIELDS=(1,10,CH,A)\n  OUTREC FIELDS=(1,80)\n/*"],
                   ["COBOL","File Processing","       IDENTIFICATION DIVISION.\n       PROGRAM-ID. FILREAD.\n       ENVIRONMENT DIVISION.\n       INPUT-OUTPUT SECTION.\n       FILE-CONTROL.\n           SELECT INFILE ASSIGN TO INDD\n             FILE STATUS IS WS-FS.\n       DATA DIVISION.\n       FILE SECTION.\n       FD INFILE RECORDING MODE F.\n       01 IN-REC PIC X(80).\n       WORKING-STORAGE SECTION.\n       01 WS-FS PIC XX.\n       01 WS-EOF PIC 9 VALUE 0.\n       01 WS-COUNT PIC 9(6) COMP VALUE 0.\n       PROCEDURE DIVISION.\n           OPEN INPUT INFILE\n           PERFORM UNTIL WS-EOF = 1\n             READ INFILE\n               AT END MOVE 1 TO WS-EOF\n               NOT AT END ADD 1 TO WS-COUNT\n             END-READ\n           END-PERFORM\n           CLOSE INFILE\n           DISPLAY 'RECORDS READ: ' WS-COUNT\n           STOP RUN."],
@@ -3003,9 +3003,9 @@ Behavior guidelines:
               )}
               {pgLoading && (
                 <div style={{ marginTop:24,textAlign:"center",padding:"40px 0" }}>
-                  <div style={{ width:40,height:40,border:"3px solid rgba(255,255,255,0.12)",borderTop:"3px solid #0071e3",
+                  <div style={{ width:40,height:40,border:"3px solid #e8e8ed",borderTop:"3px solid #0071e3",
                     borderRadius:"50%",animation:"spin 1s linear infinite",margin:"0 auto 16px" }} />
-                  <p style={{ fontSize:14,color:"#94a3b8" }}>
+                  <p style={{ fontSize:14,color:"#666" }}>
                     {pgMode==="explain"?"Analyzing your code line by line...":pgMode==="errors"?"Checking for errors and bad practices...":"Simulating execution on z/OS..."}
                   </p>
                 </div>
@@ -3022,8 +3022,8 @@ Behavior guidelines:
               <h1 style={S.pageHeroTitle}>💬 Community</h1>
               <p style={S.pageHeroSub}>Real-time group chat, job postings, doubt solving & Q&A — all in one place.</p>
               <div style={{ display:"flex",gap:8,marginTop:20 }}>
-                <button onClick={()=>setCommunityView("chat")} style={{ padding:"10px 24px",borderRadius:980,border:communityView==="chat"||communityView===null?"none":"1.5px solid rgba(255,255,255,0.12)",background:communityView==="chat"||communityView===null?"#0071e3":"rgba(30,41,59,0.8)",color:communityView==="chat"||communityView===null?"#fff":"#94a3b8",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:FF }}>🖥️ Group Chat</button>
-                <button onClick={()=>setCommunityView("qa")} style={{ padding:"10px 24px",borderRadius:980,border:communityView==="qa"?"none":"1.5px solid rgba(255,255,255,0.12)",background:communityView==="qa"?"#0071e3":"rgba(30,41,59,0.8)",color:communityView==="qa"?"#fff":"#94a3b8",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:FF }}>❓ Q&A Forum</button>
+                <button onClick={()=>setCommunityView("chat")} style={{ padding:"10px 24px",borderRadius:980,border:communityView==="chat"||communityView===null?"none":"1.5px solid #e8e8ed",background:communityView==="chat"||communityView===null?"#1d1d1f":"#fff",color:communityView==="chat"||communityView===null?"#fff":"#1d1d1f",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:FF }}>🖥️ Group Chat</button>
+                <button onClick={()=>setCommunityView("qa")} style={{ padding:"10px 24px",borderRadius:980,border:communityView==="qa"?"none":"1.5px solid #e8e8ed",background:communityView==="qa"?"#1d1d1f":"#fff",color:communityView==="qa"?"#fff":"#1d1d1f",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:FF }}>❓ Q&A Forum</button>
               </div>
             </div>
 
@@ -3058,12 +3058,12 @@ Behavior guidelines:
                   /* Full chat UI */
                   <div style={{ border:"1.5px solid rgba(255,255,255,0.1)", borderRadius:20, overflow:"hidden", boxShadow:"0 4px 20px rgba(0,0,0,0.06)", height:"70vh", display:"flex" }}>
                     {/* Sidebar */}
-                    <div style={{ width:chatSidebar?260:0, minWidth:chatSidebar?260:0, background:"#0f172a", borderRight:"1px solid rgba(255,255,255,0.12)", transition:"all 0.3s", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+                    <div style={{ width:chatSidebar?260:0, minWidth:chatSidebar?260:0, background:"#0f172a", borderRight:"1px solid #e8e8ed", transition:"all 0.3s", overflow:"hidden", display:"flex", flexDirection:"column" }}>
                       <div style={{ padding:"12px 16px", borderBottom:"1px solid rgba(255,255,255,0.06)", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
                         <span style={{ fontSize:13,fontWeight:700,color:"#f1f5f9" }}>Members ({chatMembers.length})</span>
                         <div style={{ display:"flex",gap:6 }}>
                           <button onClick={()=>setChatAddModal(true)} style={{ background:"rgba(0,113,227,0.15)",border:"none",borderRadius:8,color:"#0071e3",padding:"3px 8px",cursor:"pointer",fontSize:11,fontWeight:600 }}>+ Add</button>
-                          <button onClick={()=>setChatSidebar(false)} style={{ background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:14 }}aria-label="Close">✕</button>
+                          <button onClick={()=>setChatSidebar(false)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:14 }}aria-label="Close">✕</button>
                         </div>
                       </div>
                       <div style={{ flex:1,overflowY:"auto",padding:"4px 0" }}>
@@ -3072,7 +3072,7 @@ Behavior guidelines:
                             <CA m={m} sz={30}/>
                             <div style={{ flex:1,minWidth:0 }}>
                               <div style={{ fontSize:12,color:"#f1f5f9",fontWeight:600,display:"flex",alignItems:"center",gap:4 }}>{m.name}{i===0&&<span style={{ fontSize:9,background:"#e8f8f0",color:"#00b365",padding:"1px 5px",borderRadius:6 }}>Admin</span>}{i===chatSelf&&<span style={{ fontSize:9,background:"rgba(0,113,227,0.15)",color:"#0071e3",padding:"1px 5px",borderRadius:6 }}>You</span>}</div>
-                              <div style={{ fontSize:10,color:"#94a3b8" }}>{m.role}</div>
+                              <div style={{ fontSize:10,color:"#666" }}>{m.role}</div>
                             </div>
                             {i!==0&&i!==chatSelf&&<button onClick={()=>setChatMsgs(p=>[...p,{id:chatNid.current++,sender:-1,type:CT.SYS,text:`${m.name} was removed`,time:new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),reactions:{},del:false}])} style={{ background:"none",border:"none",color:"rgba(255,255,255,0.1)",cursor:"pointer",fontSize:12 }} onMouseEnter={e=>e.target.style.color="#e74c3c"} onMouseLeave={e=>e.target.style.color="rgba(255,255,255,0.1)"}aria-label="Close">✕</button>}
                           </div>
@@ -3083,41 +3083,41 @@ Behavior guidelines:
                     <div style={{ flex:1,display:"flex",flexDirection:"column",minWidth:0 }}>
                       {/* Header */}
                       <div style={{ padding:"10px 16px",background:"#111827",borderBottom:"1px solid rgba(255,255,255,0.06)",display:"flex",alignItems:"center",gap:10 }}>
-                        <button onClick={()=>setChatSidebar(!chatSidebar)} style={{ background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16,padding:2 }}aria-label="Toggle menu">☰</button>
-                        <div style={{ width:36,height:36,borderRadius:10,background:"linear-gradient(135deg,rgba(0,113,227,0.15),rgba(0,113,227,0.08))",border:"1px solid rgba(0,113,227,0.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18 }}>🖥️</div>
+                        <button onClick={()=>setChatSidebar(!chatSidebar)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:16,padding:2 }}aria-label="Toggle menu">☰</button>
+                        <div style={{ width:36,height:36,borderRadius:10,background:"linear-gradient(135deg,#e8f4fd,#f0f7ff)",border:"1px solid rgba(0,113,227,0.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18 }}>🖥️</div>
                         <div style={{ flex:1 }}>
                           <div style={{ fontSize:14,fontWeight:700,color:"#f1f5f9" }}>MainframeStudyHub</div>
-                          <div style={{ fontSize:11,color:"#94a3b8" }}>{chatMembers.length} members • {chatOnline} online</div>
+                          <div style={{ fontSize:11,color:"#666" }}>{chatMembers.length} members • {chatOnline} online</div>
                         </div>
-                        <button onClick={()=>{setChatShowSrch(!chatShowSrch);setChatSrch("");}} style={{ background:chatShowSrch?"rgba(0,113,227,0.15)":"transparent",border:"none",borderRadius:6,color:chatShowSrch?"#60a5fa":"#94a3b8",cursor:"pointer",fontSize:14,padding:"4px 8px" }}aria-label="Search">🔍</button>
-                        <button onClick={()=>setChatShowStars(!chatShowStars)} aria-label="Toggle bookmarks" style={{ background:chatShowStars?"rgba(212,160,23,0.15)":"transparent",border:"none",borderRadius:6,color:chatShowStars?"#d4a017":"#94a3b8",cursor:"pointer",fontSize:14,padding:"4px 8px" }}>{chatShowStars?"⭐":"☆"}</button>
+                        <button onClick={()=>{setChatShowSrch(!chatShowSrch);setChatSrch("");}} style={{ background:chatShowSrch?"#e8f4fd":"transparent",border:"none",borderRadius:6,color:chatShowSrch?"#0071e3":"#666",cursor:"pointer",fontSize:14,padding:"4px 8px" }}aria-label="Search">🔍</button>
+                        <button onClick={()=>setChatShowStars(!chatShowStars)} aria-label="Toggle bookmarks" style={{ background:chatShowStars?"#fef9e7":"transparent",border:"none",borderRadius:6,color:chatShowStars?"#d4a017":"#666",cursor:"pointer",fontSize:14,padding:"4px 8px" }}>{chatShowStars?"⭐":"☆"}</button>
                       </div>
-                      {chatShowSrch&&<div style={{ padding:"6px 16px",background:"#1e293b",borderBottom:"1px solid rgba(255,255,255,0.12)" }}><input value={chatSrch} onChange={e=>setChatSrch(e.target.value)} placeholder="Search messages..." autoFocus style={{ width:"100%",boxSizing:"border-box",padding:"6px 12px",borderRadius:8,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",color:"#f1f5f9",fontSize:13,outline:"none",fontFamily:FF }} /></div>}
+                      {chatShowSrch&&<div style={{ padding:"6px 16px",background:"#1e293b",borderBottom:"1px solid #e8e8ed" }}><input value={chatSrch} onChange={e=>setChatSrch(e.target.value)} placeholder="Search messages..." autoFocus style={{ width:"100%",boxSizing:"border-box",padding:"6px 12px",borderRadius:8,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",color:"#f1f5f9",fontSize:13,outline:"none",fontFamily:FF }} /></div>}
                       {chatShowStars&&<div style={{ padding:"5px 16px",background:"rgba(251,191,36,0.15)",borderBottom:"1px solid #fde68a",fontSize:12,color:"#d4a017",display:"flex",alignItems:"center",gap:4 }}>⭐ Starred ({chatStarred.size})<button onClick={()=>setChatShowStars(false)} style={{ background:"none",border:"none",color:"#d4a017",cursor:"pointer",marginLeft:"auto",fontSize:12 }}>Show all</button></div>}
                       {/* Messages */}
                       <div style={{ flex:1,overflowY:"auto",padding:"12px 0",background:"#0f172a" }}>
                         {chatFiltered.map(msg=><ChatBubble key={msg.id} msg={msg} members={chatMembers} self={chatSelf} onReact={chatReact} onReply={setChatReply} onDel={chatDel} onStar={chatStarFn} starred={chatStarred.has(msg.id)} />)}
-                        {chatFiltered.length===0&&<div style={{ textAlign:"center",padding:40,color:"#94a3b8",fontSize:13 }}>{chatShowStars?"No starred messages":"No messages found"}</div>}
+                        {chatFiltered.length===0&&<div style={{ textAlign:"center",padding:40,color:"#666",fontSize:13 }}>{chatShowStars?"No starred messages":"No messages found"}</div>}
                         <div ref={chatEnd} />
                       </div>
                       {/* Reply */}
-                      {chatReply&&<div style={{ padding:"6px 16px",background:"#1e293b",borderTop:"1px solid rgba(255,255,255,0.12)",display:"flex",alignItems:"center",gap:8 }}>
+                      {chatReply&&<div style={{ padding:"6px 16px",background:"#1e293b",borderTop:"1px solid #e8e8ed",display:"flex",alignItems:"center",gap:8 }}>
                         <div style={{ width:3,height:24,borderRadius:2,background:chatMembers[chatReply.sender]?.color||"#0071e3" }} />
-                        <div style={{ flex:1,minWidth:0 }}><div style={{ fontSize:11,color:chatMembers[chatReply.sender]?.color,fontWeight:600 }}>{chatMembers[chatReply.sender]?.name}</div><div style={{ fontSize:11,color:"#94a3b8",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis" }}>{chatReply.text}</div></div>
-                        <button onClick={()=>setChatReply(null)} style={{ background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:14 }}aria-label="Close">✕</button>
+                        <div style={{ flex:1,minWidth:0 }}><div style={{ fontSize:11,color:chatMembers[chatReply.sender]?.color,fontWeight:600 }}>{chatMembers[chatReply.sender]?.name}</div><div style={{ fontSize:11,color:"#666",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis" }}>{chatReply.text}</div></div>
+                        <button onClick={()=>setChatReply(null)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:14 }}aria-label="Close">✕</button>
                       </div>}
                       {/* Input */}
                       <div style={{ padding:"8px 12px",background:"#111827",borderTop:"1px solid rgba(255,255,255,0.06)" }}>
                         <div style={{ display:"flex",gap:4,marginBottom:6 }}>
                           {[{t:CT.TEXT,i:"💬",l:"Message"},{t:CT.JOB,i:"💼",l:"Job"},{t:CT.DOUBT,i:"❓",l:"Doubt"},{t:CT.THOUGHT,i:"💭",l:"Thought"}].map(x=>
-                            <button key={x.t} onClick={()=>setChatMsgType(x.t)} style={{ padding:"3px 10px",borderRadius:980,border:`1.5px solid ${chatMsgType===x.t?"#0071e3":"rgba(255,255,255,0.1)"}`,background:chatMsgType===x.t?"rgba(0,113,227,0.15)":"rgba(30,41,59,0.6)",color:chatMsgType===x.t?"#60a5fa":"#94a3b8",fontSize:11,cursor:"pointer",fontFamily:FF,display:"flex",alignItems:"center",gap:3 }}>{x.i} {x.l}</button>
+                            <button key={x.t} onClick={()=>setChatMsgType(x.t)} style={{ padding:"3px 10px",borderRadius:980,border:`1.5px solid ${chatMsgType===x.t?"#0071e3":"rgba(255,255,255,0.1)"}`,background:chatMsgType===x.t?"#e8f4fd":"#fff",color:chatMsgType===x.t?"#0071e3":"#666",fontSize:11,cursor:"pointer",fontFamily:FF,display:"flex",alignItems:"center",gap:3 }}>{x.i} {x.l}</button>
                           )}
                         </div>
                         <div style={{ display:"flex",gap:8,alignItems:"flex-end" }}>
                           <textarea ref={chatInpRef} value={grpInput} onChange={e=>setGrpInput(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();chatSend();}}}
                             placeholder={chatMsgType===CT.JOB?"Paste job details...":chatMsgType===CT.DOUBT?"Ask your doubt...":chatMsgType===CT.THOUGHT?"Share your thought...":"Type a message..."} rows={1}
                             style={{ flex:1,padding:"9px 12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"#1e293b",color:"#f1f5f9",fontSize:13,fontFamily:FF,outline:"none",resize:"none",minHeight:38,maxHeight:90 }} />
-                          <button onClick={chatSend} disabled={!grpInput.trim()} style={{ width:38,height:38,borderRadius:10,border:"none",background:grpInput.trim()?"#0071e3":"rgba(255,255,255,0.1)",color:grpInput.trim()?"#fff":"#64748b",fontSize:16,cursor:grpInput.trim()?"pointer":"default",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>➤</button>
+                          <button onClick={chatSend} disabled={!grpInput.trim()} style={{ width:38,height:38,borderRadius:10,border:"none",background:grpInput.trim()?"#0071e3":"rgba(255,255,255,0.1)",color:grpInput.trim()?"#fff":"#666",fontSize:16,cursor:grpInput.trim()?"pointer":"default",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>➤</button>
                         </div>
                       </div>
                     </div>
@@ -3132,15 +3132,15 @@ Behavior guidelines:
               <div style={{ ...S.inner, maxWidth:900, paddingBottom:80 }}>
                 <div style={{ display:"flex",gap:10,flexWrap:"wrap",marginBottom:24,alignItems:"center" }}>
                   <div style={{ position:"relative",flex:"1 1 200px" }}>
-                    <span style={{ position:"absolute",left:10,top:"50%",transform:"translateY(-50%)",fontSize:14,color:"#94a3b8" }}>🔍</span>
+                    <span style={{ position:"absolute",left:10,top:"50%",transform:"translateY(-50%)",fontSize:14,color:"#666" }}>🔍</span>
                     <input value={communitySearch} onChange={e => setCommunitySearch(e.target.value)}
                       aria-label="Search questions" placeholder="Search questions..." style={{ ...S.searchInput, width:"100%",paddingLeft:32 }} />
                   </div>
                   <div style={{ display:"flex",gap:4 }}>
                     {["hot","new","top"].map(s => (
                       <button key={s} onClick={() => setCommunitySort(s)}
-                        style={{ ...S.pill, background:communitySort===s?"#0071e3":"rgba(30,41,59,0.8)", color:communitySort===s?"#fff":"#94a3b8",
-                          border:communitySort===s?"none":"1.5px solid rgba(255,255,255,0.12)",textTransform:"capitalize" }}>{s==="hot"?"🔥 Hot":s==="new"?"🕐 New":"⬆️ Top"}</button>
+                        style={{ ...S.pill, background:communitySort===s?"#1d1d1f":"rgba(255,255,255,0.7)", color:communitySort===s?"#fff":"#1d1d1f",
+                          border:communitySort===s?"none":"1.5px solid #e8e8ed",textTransform:"capitalize" }}>{s==="hot"?"🔥 Hot":s==="new"?"🕐 New":"⬆️ Top"}</button>
                     ))}
                   </div>
                   <select value={communityFilter} onChange={e => setCommunityFilter(e.target.value)}
@@ -3159,24 +3159,24 @@ Behavior guidelines:
                         {TOPICS.map(t => <option key={t.id} value={t.title}>{t.title}</option>)}<option>General</option>
                       </select>
                       <button onClick={submitPost} style={{ ...S.btnBlue,padding:"8px 20px",fontSize:13 }}>Post Question</button>
-                      <button onClick={() => setNewPostOpen(false)} style={{ background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:13,fontFamily:FF }}>Cancel</button>
+                      <button onClick={() => setNewPostOpen(false)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:13,fontFamily:FF }}>Cancel</button>
                     </div>
                   </div>
                 )}
-                {sortedPosts.length === 0 && <div style={{ textAlign:"center",padding:"48px 0",color:"#94a3b8" }}><div style={{ fontSize:40,marginBottom:12 }}>🔍</div>No questions found.</div>}
+                {sortedPosts.length === 0 && <div style={{ textAlign:"center",padding:"48px 0",color:"#666" }}><div style={{ fontSize:40,marginBottom:12 }}>🔍</div>No questions found.</div>}
                 {sortedPosts.map(post => (
                   <div key={post.id} className="card" style={{ border:"1.5px solid rgba(255,255,255,0.1)", borderRadius:16, padding:"20px 24px", marginBottom:16, cursor:"pointer", boxShadow:"0 2px 8px rgba(0,0,0,0.03)" }}
                     onClick={() => setCommunityView(post.id)}>
                     <div style={{ display:"flex",gap:16,alignItems:"flex-start" }}>
                       <div style={{ display:"flex",flexDirection:"column",alignItems:"center",gap:4,minWidth:40 }}>
-                        <button onClick={e => { e.stopPropagation(); votePost(post.id, 1); }} style={{ background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16 }}>▲</button>
+                        <button onClick={e => { e.stopPropagation(); votePost(post.id, 1); }} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:16 }}>▲</button>
                         <span style={{ fontSize:16,fontWeight:800,color:"#f1f5f9" }}>{post.votes}</span>
-                        <button onClick={e => { e.stopPropagation(); votePost(post.id, -1); }} style={{ background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16 }}>▼</button>
+                        <button onClick={e => { e.stopPropagation(); votePost(post.id, -1); }} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:16 }}>▼</button>
                       </div>
                       <div style={{ flex:1 }}>
                         <div style={{ fontSize:16,fontWeight:700,color:"#f1f5f9",marginBottom:6,lineHeight:1.4 }}>{post.title}</div>
                         {post.body && <div style={{ fontSize:13,color:"#94a3b8",lineHeight:1.5,marginBottom:8,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden" }}>{post.body}</div>}
-                        <div style={{ display:"flex",gap:10,alignItems:"center",fontSize:12,color:"#94a3b8" }}>
+                        <div style={{ display:"flex",gap:10,alignItems:"center",fontSize:12,color:"#666" }}>
                           <span style={{ ...S.pill, background:"rgba(0,113,227,0.12)",color:"#0071e3",padding:"3px 10px",fontSize:11 }}>{post.topic}</span>
                           <span>by <strong style={{ color:"#f1f5f9" }}>{post.author}</strong></span>
                           <span>{post.date}</span>
@@ -3199,9 +3199,9 @@ Behavior guidelines:
                   <div style={{ border:"1.5px solid rgba(255,255,255,0.1)", borderRadius:20, padding:"28px 32px", marginBottom:32, background:"#111827" }}>
                     <div style={{ display:"flex",gap:16 }}>
                       <div style={{ display:"flex",flexDirection:"column",alignItems:"center",gap:4 }}>
-                        <button onClick={() => votePost(post.id, 1)} style={{ background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:20 }}>▲</button>
+                        <button onClick={() => votePost(post.id, 1)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:20 }}>▲</button>
                         <span style={{ fontSize:24,fontWeight:800,color:"#f1f5f9" }}>{post.votes}</span>
-                        <button onClick={() => votePost(post.id, -1)} style={{ background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:20 }}>▼</button>
+                        <button onClick={() => votePost(post.id, -1)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:20 }}>▼</button>
                       </div>
                       <div style={{ flex:1 }}>
                         <div style={{ display:"flex",gap:8,marginBottom:12 }}>
@@ -3209,7 +3209,7 @@ Behavior guidelines:
                         </div>
                         <h2 style={{ fontSize:22,fontWeight:800,color:"#f1f5f9",marginBottom:12,letterSpacing:"-.3px" }}>{post.title}</h2>
                         {post.body && <div style={{ fontSize:15,color:"#cbd5e1",lineHeight:1.8,marginBottom:16,whiteSpace:"pre-wrap" }}>{post.body}</div>}
-                        <div style={{ fontSize:13,color:"#94a3b8" }}>Asked by <strong style={{ color:"#f1f5f9" }}>{post.author}</strong>{post.authorRole && <span style={{ color:"#0071e3" }}> • {post.authorRole}</span>} on {post.date}</div>
+                        <div style={{ fontSize:13,color:"#666" }}>Asked by <strong style={{ color:"#f1f5f9" }}>{post.author}</strong>{post.authorRole && <span style={{ color:"#0071e3" }}> • {post.authorRole}</span>} on {post.date}</div>
                       </div>
                     </div>
                   </div>
@@ -3218,13 +3218,13 @@ Behavior guidelines:
                     <div key={ans.id} style={{ border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:16,padding:"20px 24px",marginBottom:16,background:"#111827" }}>
                       <div style={{ display:"flex",gap:12 }}>
                         <div style={{ display:"flex",flexDirection:"column",alignItems:"center",gap:4 }}>
-                          <button onClick={() => voteAnswer(post.id, ans.id, 1)} style={{ background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16 }}>▲</button>
+                          <button onClick={() => voteAnswer(post.id, ans.id, 1)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:16 }}>▲</button>
                           <span style={{ fontSize:16,fontWeight:800,color:"#f1f5f9" }}>{ans.votes}</span>
-                          <button onClick={() => voteAnswer(post.id, ans.id, -1)} style={{ background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16 }}>▼</button>
+                          <button onClick={() => voteAnswer(post.id, ans.id, -1)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:16 }}>▼</button>
                         </div>
                         <div style={{ flex:1 }}>
                           <div style={{ fontSize:14,color:"#cbd5e1",lineHeight:1.8,whiteSpace:"pre-wrap" }}>{ans.body}</div>
-                          <div style={{ fontSize:12,color:"#94a3b8",marginTop:10 }}>Answered by <strong style={{ color:"#f1f5f9" }}>{ans.author}</strong>{ans.authorRole && <span style={{ color:"#0071e3" }}> • {ans.authorRole}</span>} on {ans.date}</div>
+                          <div style={{ fontSize:12,color:"#666",marginTop:10 }}>Answered by <strong style={{ color:"#f1f5f9" }}>{ans.author}</strong>{ans.authorRole && <span style={{ color:"#0071e3" }}> • {ans.authorRole}</span>} on {ans.date}</div>
                         </div>
                       </div>
                     </div>
@@ -3237,7 +3237,7 @@ Behavior guidelines:
                     </div>
                   ) : (
                     <div style={{ border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:16,padding:"24px 20px",textAlign:"center",background:"#0f172a" }}>
-                      <p style={{ color:"#94a3b8",marginBottom:12 }}>Sign in to post your answer</p>
+                      <p style={{ color:"#666",marginBottom:12 }}>Sign in to post your answer</p>
                       <button onClick={() => { setAuthModal("signin"); setAuthError(""); setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}); }} style={S.btnBlue}>Sign In</button>
                     </div>
                   )}
@@ -3268,7 +3268,7 @@ Behavior guidelines:
                       onFocus={e => e.target.style.borderColor="#7c3aed"}
                       onBlur={e => e.target.style.borderColor="rgba(0,0,0,0.08)"} />
                   </div>
-                  <div style={{ fontSize:13,color:"#94a3b8",fontWeight:600 }}>{filteredAbends.length} codes</div>
+                  <div style={{ fontSize:13,color:"#666",fontWeight:600 }}>{filteredAbends.length} codes</div>
                 </div>
                 <div style={{ display:"flex",gap:6,flexWrap:"wrap" }}>
                   {ABEND_CATEGORIES.map(cat => (
@@ -3276,7 +3276,7 @@ Behavior guidelines:
                       style={{ padding:"6px 16px",borderRadius:980,border:"1.5px solid",fontSize:12,fontWeight:600,
                         cursor:"pointer",fontFamily:"inherit",transition:"all 0.2s",
                         background:abendCategory===cat?"linear-gradient(135deg,#0071e3,#7c3aed)":"transparent",
-                        color:abendCategory===cat?"#fff":"#94a3b8",
+                        color:abendCategory===cat?"#fff":"#555",
                         borderColor:abendCategory===cat?"transparent":"rgba(0,0,0,0.1)" }}>
                       {cat}
                     </button>
@@ -3287,7 +3287,7 @@ Behavior guidelines:
               {/* Results */}
               <div style={{ display:"flex",flexDirection:"column",gap:12 }}>
                 {filteredAbends.length === 0 && (
-                  <div style={{ textAlign:"center",padding:"48px 0",color:"#94a3b8" }}>
+                  <div style={{ textAlign:"center",padding:"48px 0",color:"#666" }}>
                     <div style={{ fontSize:48,marginBottom:12 }}>🔎</div>
                     <p>No abend codes found. Try a different search term.</p>
                   </div>
@@ -3309,10 +3309,10 @@ Behavior guidelines:
                         <div style={{ fontSize:15,fontWeight:700,color:"#f1f5f9",marginBottom:2 }}>{a.name}</div>
                         <div style={{ display:"flex",gap:8,alignItems:"center",flexWrap:"wrap" }}>
                           <span style={{ fontSize:11,color:SEVERITY_COLORS[a.severity],fontWeight:700 }}>{SEVERITY_LABELS[a.severity]}</span>
-                          <span style={{ fontSize:11,color:"#94a3b8",background:"rgba(30,41,59,0.8)",padding:"2px 8px",borderRadius:980 }}>{a.category}</span>
+                          <span style={{ fontSize:11,color:"#666",background:"rgba(30,41,59,0.8)",padding:"2px 8px",borderRadius:980 }}>{a.category}</span>
                         </div>
                       </div>
-                      <span style={{ fontSize:18,color:"#94a3b8",transition:"transform 0.3s",
+                      <span style={{ fontSize:18,color:"#666",transition:"transform 0.3s",
                         transform:abendExpanded===a.code?"rotate(180deg)":"rotate(0)" }}>▼</span>
                     </div>
 
@@ -3394,21 +3394,21 @@ Behavior guidelines:
                           <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:4 }}>
                             <span style={{ fontSize:11,fontWeight:800,color:lvl.color,background:lvl.color+"15",
                               padding:"3px 10px",borderRadius:980 }}>LEVEL {lvl.level}</span>
-                            <span style={{ fontSize:11,color:"#94a3b8" }}>{lvl.duration}</span>
+                            <span style={{ fontSize:11,color:"#666" }}>{lvl.duration}</span>
                           </div>
                           <div style={{ fontSize:20,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.3px" }}>
                             {lvl.icon} {lvl.title}
                           </div>
-                          <div style={{ fontSize:13,color:"#94a3b8" }}>{lvl.subtitle}</div>
+                          <div style={{ fontSize:13,color:"#666" }}>{lvl.subtitle}</div>
                         </div>
-                        <span style={{ fontSize:18,color:"#94a3b8",transition:"transform 0.3s",
+                        <span style={{ fontSize:18,color:"#666",transition:"transform 0.3s",
                           transform:roadmapLevel===lvl.level?"rotate(180deg)":"rotate(0)",flexShrink:0 }}>▼</span>
                       </div>
 
                       {/* Expanded skills */}
                       {roadmapLevel===lvl.level && (
                         <div style={{ borderTop:"1px solid rgba(0,0,0,0.06)",paddingTop:16 }}>
-                          <div style={{ fontSize:12,fontWeight:700,color:"#94a3b8",marginBottom:12,textTransform:"uppercase",letterSpacing:"0.5px" }}>Skills to Master</div>
+                          <div style={{ fontSize:12,fontWeight:700,color:"#666",marginBottom:12,textTransform:"uppercase",letterSpacing:"0.5px" }}>Skills to Master</div>
                           <div style={{ display:"flex",flexDirection:"column",gap:8,marginBottom:16 }}>
                             {lvl.skills.map((skill, j) => (
                               <div key={j} style={{ display:"flex",alignItems:"center",gap:10 }}>
@@ -3452,7 +3452,7 @@ Behavior guidelines:
                     display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,flexShrink:0 }}>🎯</div>
                   <div>
                     <h2 style={{ fontSize:24,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.5px" }}>About This Platform</h2>
-                    <p style={{ fontSize:14,color:"#94a3b8" }}>Built with passion for the Mainframe community</p>
+                    <p style={{ fontSize:14,color:"#666" }}>Built with passion for the Mainframe community</p>
                   </div>
                 </div>
                 <div style={{ fontSize:15,color:"#cbd5e1",lineHeight:1.85 }}>
@@ -3486,11 +3486,11 @@ Behavior guidelines:
                     ["📰","Expert Blogs","Insights from experienced mainframe professionals"],
                     ["🤖","AI Assistant","Get instant help with mainframe concepts and debugging"],
                   ].map(([icon,title,desc],i) => (
-                    <div key={i} style={{ background:"rgba(30,41,59,0.6)",borderRadius:14,padding:"18px 16px",
-                      border:"1px solid rgba(255,255,255,0.06)" }}>
+                    <div key={i} style={{ background:"rgba(245,245,247,0.6)",borderRadius:14,padding:"18px 16px",
+                      border:"1px solid rgba(0,0,0,0.04)" }}>
                       <div style={{ fontSize:24,marginBottom:8 }}>{icon}</div>
                       <div style={{ fontSize:14,fontWeight:700,color:"#f1f5f9",marginBottom:4 }}>{title}</div>
-                      <div style={{ fontSize:12,color:"#94a3b8",lineHeight:1.5 }}>{desc}</div>
+                      <div style={{ fontSize:12,color:"#666",lineHeight:1.5 }}>{desc}</div>
                     </div>
                   ))}
                 </div>
@@ -3595,7 +3595,7 @@ Behavior guidelines:
                     Sign in to save progress, post in Q&A, get personalized recommendations, and track your learning journey.
                   </p>
                   <div style={{ display:"flex",gap:10 }}>
-                    <button onClick={()=>setWelcomePhase(0)} style={{ flex:1,padding:"12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"transparent",color:"#94a3b8",cursor:"pointer",fontSize:14,fontFamily:FF }}>Maybe Later</button>
+                    <button onClick={()=>setWelcomePhase(0)} style={{ flex:1,padding:"12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"transparent",color:"#666",cursor:"pointer",fontSize:14,fontFamily:FF }}>Maybe Later</button>
                     <button onClick={()=>{setWelcomePhase(0);setAuthModal("signup");setAuthError("");setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});}}
                       style={{ flex:1,padding:"12px",borderRadius:12,border:"none",background:"linear-gradient(135deg,#7c3aed,#0071e3)",color:"#fff",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:FF }}>Sign Up Free</button>
                   </div>
@@ -3618,7 +3618,7 @@ Behavior guidelines:
                     {chatMembers.length}+ mainframe professionals are chatting right now. Share knowledge, find jobs, solve doubts in real-time!
                   </p>
                   <div style={{ display:"flex",gap:10 }}>
-                    <button onClick={()=>setWelcomePhase(0)} style={{ flex:1,padding:"12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"transparent",color:"#94a3b8",cursor:"pointer",fontSize:14,fontFamily:FF }}>Later</button>
+                    <button onClick={()=>setWelcomePhase(0)} style={{ flex:1,padding:"12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"transparent",color:"#666",cursor:"pointer",fontSize:14,fontFamily:FF }}>Later</button>
                     <button onClick={()=>{setWelcomePhase(0);setChatPopup(true);setChatPopPhase(0);}}
                       style={{ flex:1,padding:"12px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:FF }}>Join Community</button>
                   </div>
@@ -3645,14 +3645,14 @@ Behavior guidelines:
               <div style={{ textAlign:"center",padding:"20px 0" }}>
                 <div style={{ fontSize:56,marginBottom:12 }}>🎉</div>
                 <h3 style={{ fontSize:22,fontWeight:800,color:"#f1f5f9",marginBottom:8 }}>Thank You!</h3>
-                <p style={{ fontSize:14,color:"#94a3b8" }}>Your feedback helps us improve.</p>
+                <p style={{ fontSize:14,color:"#666" }}>Your feedback helps us improve.</p>
               </div>
             ) : (
               <>
                 <div style={{ textAlign:"center",marginBottom:20 }}>
                   <div style={{ fontSize:40,marginBottom:8 }}>💬</div>
                   <h3 style={{ fontSize:22,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.5px",marginBottom:4 }}>How's your experience?</h3>
-                  <p style={{ fontSize:13,color:"#94a3b8" }}>We'd love your feedback to make MainframeStudyHub even better</p>
+                  <p style={{ fontSize:13,color:"#666" }}>We'd love your feedback to make MainframeStudyHub even better</p>
                 </div>
                 {/* Star Rating */}
                 <div style={{ display:"flex",justifyContent:"center",gap:8,marginBottom:20 }}>
@@ -3680,7 +3680,7 @@ Behavior guidelines:
                 <div style={{ display:"flex",gap:10 }}>
                   <button onClick={()=>{ setFeedbackOpen(false); localStorage.setItem("mfsh_feedback_done","1"); }}
                     style={{ flex:1,padding:"12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"transparent",
-                      color:"#94a3b8",cursor:"pointer",fontSize:14,fontFamily:FF }}>Maybe Later</button>
+                      color:"#666",cursor:"pointer",fontSize:14,fontFamily:FF }}>Maybe Later</button>
                   <button onClick={submitFeedback} disabled={feedbackLoading || !feedbackForm.message.trim()}
                     style={{ flex:1,padding:"12px",borderRadius:12,border:"none",
                       background:feedbackForm.message.trim()?"linear-gradient(135deg,#0071e3,#7c3aed)":"#d1d1d6",
@@ -3727,7 +3727,7 @@ Behavior guidelines:
               <button onClick={() => {setChatPopup(false);setWelcomePhase(0);setAuthModal("signin");setAuthError("");setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});}} style={{ width:"100%",padding:"13px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:FF,boxShadow:"0 4px 16px rgba(0,113,227,0.25)" }}>
                 Sign In →
               </button>
-              <p style={{ fontSize:11,color:"#94a3b8",marginTop:8,textAlign:"center" }}>New here? Create a free account</p>
+              <p style={{ fontSize:11,color:"#666",marginTop:8,textAlign:"center" }}>New here? Create a free account</p>
               <button onClick={chatJoin} style={{ width:"100%",padding:"13px",borderRadius:12,border:"none",background:"linear-gradient(135deg,#7c3aed,#0071e3)",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:FF,boxShadow:"0 4px 16px rgba(0,113,227,0.25)" }}>Join Community →</button>
             </div>
           </div>
@@ -3795,8 +3795,8 @@ Behavior guidelines:
                     color:"#fff",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>🤖</div>
                 )}
                 <div style={{ maxWidth:chatMax?"90%":"82%",padding:chatMax?"16px 20px":"12px 16px",borderRadius:msg.role==="user"?"18px 18px 4px 18px":"18px 18px 18px 4px",
-                  background:msg.role==="user"?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(30,41,59,0.9)",
-                  color:msg.role==="user"?"#fff":"#e2e8f0",fontSize:chatMax?15:13.5,lineHeight:1.7,
+                  background:msg.role==="user"?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(245,245,247,0.9)",
+                  color:msg.role==="user"?"#fff":"#1d1d1f",fontSize:chatMax?15:13.5,lineHeight:1.7,
                   border:msg.role==="user"?"none":"1px solid rgba(0,0,0,0.04)" }}>
                   {renderChatMd(msg.content)}
                 </div>
@@ -3809,8 +3809,8 @@ Behavior guidelines:
               <div style={{ display:"flex",gap:10 }}>
                 <div style={{ width:30,height:30,borderRadius:10,background:"linear-gradient(135deg,#0071e3,#7c3aed)",
                   color:"#fff",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>🤖</div>
-                <div style={{ padding:"14px 20px",background:"rgba(30,41,59,0.9)",borderRadius:"18px 18px 18px 4px",
-                  display:"flex",gap:6,alignItems:"center",border:"1px solid rgba(255,255,255,0.06)" }}>
+                <div style={{ padding:"14px 20px",background:"rgba(245,245,247,0.9)",borderRadius:"18px 18px 18px 4px",
+                  display:"flex",gap:6,alignItems:"center",border:"1px solid rgba(0,0,0,0.04)" }}>
                   {[0,1,2].map(j => (
                     <div key={j} style={{ width:8,height:8,borderRadius:"50%",background:"#7c3aed",animation:"dotPulse 1.2s ease infinite",
                       animationDelay:`${j*0.2}s` }} />
@@ -3845,11 +3845,11 @@ Behavior guidelines:
                 aria-label="Ask about mainframes" placeholder="Ask about mainframes..."
                 onKeyDown={e => { if(e.key==="Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); } }}
                 style={{ flex:1,padding:chatMax?"14px 18px":"10px 14px",fontSize:chatMax?16:14,border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:14,
-                  outline:"none",fontFamily:FF,background:"rgba(30,41,59,0.6)",color:"#f1f5f9",transition:"all 0.2s" }} />
+                  outline:"none",fontFamily:FF,background:"rgba(245,245,247,0.6)",color:"#f1f5f9",transition:"all 0.2s" }} />
               <button onClick={sendChat} disabled={chatLoading || !chatInput.trim()}
                 style={{ width:42,height:42,borderRadius:14,border:"none",cursor:chatInput.trim()?"pointer":"default",
-                  background:chatInput.trim()?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(30,41,59,0.8)",
-                  color:chatInput.trim()?"#fff":"#64748b",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",
+                  background:chatInput.trim()?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(245,245,247,0.8)",
+                  color:chatInput.trim()?"#fff":"#666",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",
                   transition:"all 0.2s",flexShrink:0 }}>
                 ↑
               </button>
@@ -3864,10 +3864,10 @@ Behavior guidelines:
       {/* Footer */}
       <footer style={{ borderTop:"1px solid rgba(0,0,0,0.06)",background:"rgba(17,24,39,0.6)",backdropFilter:"blur(20px)",padding:"28px 0" }}>
         <div style={{ ...S.inner,display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12 }}>
-          <span style={{ fontSize:12,color:"#94a3b8",display:"flex",alignItems:"center",gap:6 }}><img src="/favicon.svg" alt="" style={{ width:16,height:16,borderRadius:3 }} /> MainframeStudyHub Hub — The complete IBM Z knowledge platform. A to Z, Beginner to Professional.</span>
+          <span style={{ fontSize:12,color:"#666",display:"flex",alignItems:"center",gap:6 }}><img src="/favicon.svg" alt="" style={{ width:16,height:16,borderRadius:3 }} /> MainframeStudyHub Hub — The complete IBM Z knowledge platform. A to Z, Beginner to Professional.</span>
           <div style={{ display:"flex",gap:16,flexWrap:"wrap" }}>
             {[["home","Overview"],["topics","Topics"],["scenarios","Scenarios"],["blog","Blog"],["quiz","Quiz"],["community","Community"],["weekly","Weekly"]].map(([p,l]) => (
-              <button key={p} onClick={() => goPage(p)} style={{ background:"none",border:"none",color:"#94a3b8",fontSize:12,cursor:"pointer",fontFamily:FF }}>{l}</button>
+              <button key={p} onClick={() => goPage(p)} style={{ background:"none",border:"none",color:"#666",fontSize:12,cursor:"pointer",fontFamily:FF }}>{l}</button>
             ))}
           </div>
         </div>
@@ -3909,7 +3909,7 @@ const S = {
   topicsGrid:{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(185px,1fr))",gap:14 },
   topicCard:{ background:"rgba(17,24,39,0.8)",borderRadius:16,border:"1px solid rgba(255,255,255,0.08)",padding:"20px 18px",cursor:"pointer",textAlign:"left",boxShadow:"0 2px 16px rgba(0,0,0,0.3)",backdropFilter:"blur(12px)",transition:"transform 0.3s ease,box-shadow 0.3s ease" },
   tcTitle:{ fontSize:16,fontWeight:700,color:"#f1f5f9",marginBottom:4 },
-  tcSub:{ fontSize:12,color:"#94a3b8",marginBottom:6,lineHeight:1.4 },
+  tcSub:{ fontSize:12,color:"#666",marginBottom:6,lineHeight:1.4 },
   tcMore:{ fontSize:13,fontWeight:600 },
   featureCard:{ background:"rgba(17,24,39,0.8)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:20,padding:"32px 28px",cursor:"pointer",textAlign:"left",boxShadow:"0 4px 20px rgba(0,0,0,0.3)",backdropFilter:"blur(12px)",transition:"transform 0.3s ease,box-shadow 0.3s ease" },
   fcTitle:{ fontSize:20,fontWeight:700,color:"#f1f5f9",marginBottom:10 },

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to MainframeStudyHub!</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f9fc;
+      overflow: hidden;
+    }
+    .mesh-bg {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    }
+    .orb {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.18;
+      animation: float 12s ease-in-out infinite;
+    }
+    .orb-1 { width: 400px; height: 400px; background: radial-gradient(circle, #7c3aed, transparent); top: -10%; left: -5%; }
+    .orb-2 { width: 350px; height: 350px; background: radial-gradient(circle, #0071e3, transparent); bottom: -10%; right: -5%; animation-delay: 4s; }
+    .orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, #06b6d4, transparent); top: 40%; right: 20%; animation-delay: 8s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes confetti {
+      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(60px) rotate(360deg); opacity: 0; }
+    }
+    .card {
+      position: relative; z-index: 1;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 28px;
+      padding: 48px 40px;
+      max-width: 480px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.08);
+      animation: scaleIn 0.6s ease both;
+    }
+    .logo {
+      width: 72px; height: 72px; border-radius: 18px;
+      margin: 0 auto 20px;
+    }
+    .check {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, #22c55e, #059669);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 40px; color: #fff;
+      box-shadow: 0 8px 30px rgba(34,197,94,0.3);
+    }
+    h1 {
+      font-size: 28px; font-weight: 800; color: #1d1d1f;
+      letter-spacing: -0.5px; margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 16px; color: #86868b; line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .highlight { color: #0071e3; font-weight: 600; }
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #0071e3, #7c3aed);
+      color: #fff; text-decoration: none;
+      padding: 14px 36px; border-radius: 14px;
+      font-size: 16px; font-weight: 700;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,113,227,0.3);
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,113,227,0.4); }
+    .features {
+      display: flex; gap: 12px; justify-content: center;
+      margin-top: 28px; flex-wrap: wrap;
+    }
+    .feature-pill {
+      background: rgba(245,245,247,0.8); border-radius: 980px;
+      padding: 6px 14px; font-size: 12px; color: #6e6e73; font-weight: 600;
+    }
+    .confetti-piece {
+      position: absolute; width: 8px; height: 8px; border-radius: 2px;
+      animation: confetti 2s ease-out forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="mesh-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="card" id="card">
+    <div class="check">✓</div>
+    <h1>Welcome to MainframeStudyHub! 🎉</h1>
+    <p class="subtitle">
+      Your email has been confirmed successfully.<br>
+      Thank you for joining our <span class="highlight">mainframe learning community</span>.<br>
+      We hope you have a great time here!
+    </p>
+    <a href="/" class="btn" id="startBtn">Start Learning →</a>
+    <div class="features">
+      <span class="feature-pill">📚 15 Topics</span>
+      <span class="feature-pill">🧠 200 Quiz Qs</span>
+      <span class="feature-pill">💬 Community</span>
+      <span class="feature-pill">🤖 AI Chat</span>
+    </div>
+  </div>
+  <script>
+    // Confetti burst
+    const colors = ['#0071e3','#7c3aed','#22c55e','#f59e0b','#ef4444','#06b6d4'];
+    const card = document.getElementById('card');
+    for (let i = 0; i < 30; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.left = Math.random() * 100 + '%';
+      piece.style.top = Math.random() * 40 + '%';
+      piece.style.animationDelay = Math.random() * 1 + 's';
+      piece.style.animationDuration = (1.5 + Math.random()) + 's';
+      card.appendChild(piece);
+    }
+    // Update button link to include auth hash
+    var btn = document.getElementById('startBtn');
+    if (window.location.hash) btn.href = '/' + window.location.hash;
+    // Auto-redirect to main page after 3 seconds, preserving hash for auth
+    setTimeout(function() {
+      window.location.href = '/' + window.location.hash;
+    }, 3000);
+  </script>
+</body>
+</html>
