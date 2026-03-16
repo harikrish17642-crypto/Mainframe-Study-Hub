@@ -170,29 +170,29 @@ function ChatBubble({msg,members,self,onReact,onReply,onDel,onStar,starred}){
   const isSelf=msg._isSelf||false,isSys=msg.type===CT.SYS;
   const sender=isSys?null:{name:msg._name||"User",role:msg._role||"",color:msg._color||"#0071e3",emoji:msg._emoji||"🧑‍💻",status:"online"};
   const replyMsg=msg.replyTo!=null?null:null; // reply preview disabled for DB messages
-  if(msg.del)return<div style={{display:"flex",justifyContent:isSelf?"flex-end":"flex-start",padding:"2px 16px",opacity:0.4}}><div style={{padding:"6px 14px",borderRadius:12,background:"#f5f5f7",fontStyle:"italic",fontSize:13,color:"#86868b"}}>🚫 Deleted</div></div>;
-  if(isSys)return<div style={{display:"flex",justifyContent:"center",padding:"8px 16px"}}><div style={{padding:"4px 16px",borderRadius:20,background:"#f0f7ff",border:"1px solid #d0e3ff",fontSize:12,color:"#6e6e73"}}>{msg.text}</div></div>;
+  if(msg.del)return<div style={{display:"flex",justifyContent:isSelf?"flex-end":"flex-start",padding:"2px 16px",opacity:0.4}}><div style={{padding:"6px 14px",borderRadius:12,background:"#f5f5f7",fontStyle:"italic",fontSize:13,color:"#666"}}>🚫 Deleted</div></div>;
+  if(isSys)return<div style={{display:"flex",justifyContent:"center",padding:"8px 16px"}}><div style={{padding:"4px 16px",borderRadius:20,background:"#f0f7ff",border:"1px solid #d0e3ff",fontSize:12,color:"#555"}}>{msg.text}</div></div>;
   const tc={[CT.JOB]:{bg:"#f5f0ff",bd:"#e0d0ff",ic:"💼",lb:"Job"}, [CT.DOUBT]:{bg:"#fff8f0",bd:"#ffe0c0",ic:"❓",lb:"Doubt"}, [CT.THOUGHT]:{bg:"#f0f7ff",bd:"#c0d8ff",ic:"💭",lb:"Thought"}, [CT.POLL]:{bg:"#faf0ff",bd:"#e0c8ff",ic:"📊",lb:"Poll"}}[msg.type];
   return(
     <div style={{display:"flex",justifyContent:isSelf?"flex-end":"flex-start",padding:"3px 16px",alignItems:"flex-end",gap:8}} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>{setHov(false);setShowR(false);}}>
       {!isSelf&&sender&&<CA m={sender} sz={28}/>}
       <div style={{maxWidth:"75%",minWidth:100,position:"relative"}}>
         {hov&&<div style={{position:"absolute",top:-8,[isSelf?"left":"right"]:0,display:"flex",gap:2,background:"#fff",border:"1px solid #e8e8ed",borderRadius:8,padding:"2px 4px",zIndex:5,boxShadow:"0 2px 8px rgba(0,0,0,0.08)"}}>
-          <button onClick={()=>setShowR(!showR)} style={_ab}>😊</button><button onClick={()=>onReply(msg)} style={_ab}>↩️</button><button onClick={()=>onStar(msg.id)} style={_ab}>{starred?"⭐":"☆"}</button>{isSelf&&<button onClick={()=>onDel(msg.id)} style={_ab}>🗑️</button>}
+          <button onClick={()=>setShowR(!showR)} style={_ab} aria-label="React">😊</button><button onClick={()=>onReply(msg)} style={_ab} aria-label="Reply">↩️</button><button onClick={()=>onStar(msg.id)} style={_ab} aria-label="Bookmark">{starred?"⭐":"☆"}</button>{isSelf&&<button onClick={()=>onDel(msg.id)} style={_ab} aria-label="Delete">🗑️</button>}
         </div>}
         {showR&&<div style={{position:"absolute",top:-40,[isSelf?"left":"right"]:0,display:"flex",gap:2,background:"#fff",border:"1px solid #e8e8ed",borderRadius:12,padding:"4px 6px",zIndex:10,boxShadow:"0 4px 16px rgba(0,0,0,0.1)"}}>
-          {CHAT_REACTIONS.map(r=><button key={r} onClick={()=>{onReact(msg.id,r);setShowR(false);}} style={{background:"none",border:"none",cursor:"pointer",fontSize:18,padding:"2px 4px",borderRadius:6}}>{r}</button>)}
+          {CHAT_REACTIONS.map(r=><button key={r} onClick={()=>{onReact(msg.id,r);setShowR(false);}} style={{background:"none",border:"none",cursor:"pointer",fontSize:18,padding:"2px 4px",borderRadius:6}} aria-label={"React with "+r}>{r}</button>)}
         </div>}
         <div style={{background:isSelf?"linear-gradient(135deg,#0071e3,#0055b0)":tc?tc.bg:"#f5f5f7",border:`1px solid ${isSelf?"#0060c0":tc?tc.bd:"#e8e8ed"}`,borderRadius:isSelf?"16px 16px 4px 16px":"16px 16px 16px 4px",padding:"8px 12px"}}>
-          {tc&&<div style={{fontSize:10,fontWeight:700,color:"#86868b",marginBottom:4,textTransform:"uppercase",letterSpacing:"0.5px"}}>{tc.ic} {tc.lb}</div>}
+          {tc&&<div style={{fontSize:10,fontWeight:700,color:"#666",marginBottom:4,textTransform:"uppercase",letterSpacing:"0.5px"}}>{tc.ic} {tc.lb}</div>}
           {!isSelf&&sender&&<div style={{fontSize:12,fontWeight:700,color:sender.color,marginBottom:3}}>{sender.name} {sender.emoji}</div>}
-          {replyMsg&&<div style={{padding:"4px 8px",marginBottom:6,borderLeft:`3px solid ${members[replyMsg.sender]?.color||"#0071e3"}`,background:"rgba(0,0,0,0.03)",borderRadius:"0 6px 6px 0",fontSize:11,color:"#86868b"}}><span style={{color:members[replyMsg.sender]?.color,fontWeight:600}}>{members[replyMsg.sender]?.name}</span><div style={{overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",maxWidth:220}}>{replyMsg.text}</div></div>}
+          {replyMsg&&<div style={{padding:"4px 8px",marginBottom:6,borderLeft:`3px solid ${members[replyMsg.sender]?.color||"#0071e3"}`,background:"rgba(0,0,0,0.03)",borderRadius:"0 6px 6px 0",fontSize:11,color:"#666"}}><span style={{color:members[replyMsg.sender]?.color,fontWeight:600}}>{members[replyMsg.sender]?.name}</span><div style={{overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",maxWidth:220}}>{replyMsg.text}</div></div>}
           {msg.type===CT.POLL&&msg.pollOpts?<div><div style={{fontSize:14,color:isSelf?"#fff":"#1d1d1f",marginBottom:8,fontWeight:600}}>{msg.text}</div>{msg.pollOpts.map((o,i)=>{const tot=msg.pollOpts.reduce((s,x)=>s+x.votes.length,0);const pct=tot>0?(o.votes.length/tot)*100:0;return<div key={i} style={{marginBottom:6,position:"relative",borderRadius:8,overflow:"hidden",background:"rgba(0,0,0,0.03)",border:"1px solid rgba(0,0,0,0.05)"}}><div style={{position:"absolute",top:0,left:0,height:"100%",width:`${pct}%`,background:"rgba(0,113,227,0.1)"}} /><div style={{position:"relative",padding:"6px 10px",display:"flex",justifyContent:"space-between",fontSize:13,color:"#1d1d1f"}}><span>{o.text}</span><span style={{color:"#0071e3",fontWeight:600}}>{o.votes.length} ({Math.round(pct)}%)</span></div></div>;})}</div>
           :<div style={{fontSize:14,color:isSelf?"#fff":"#1d1d1f",whiteSpace:"pre-wrap",lineHeight:1.45}}>{msg.text}</div>}
-          <div style={{fontSize:10,color:isSelf?"rgba(255,255,255,0.6)":"#86868b",marginTop:4,textAlign:"right"}}>{msg.time}{isSelf&&" ✓✓"}</div>
+          <div style={{fontSize:10,color:isSelf?"rgba(255,255,255,0.6)":"#666",marginTop:4,textAlign:"right"}}>{msg.time}{isSelf&&" ✓✓"}</div>
         </div>
         {Object.keys(msg.reactions).length>0&&<div style={{display:"flex",gap:4,marginTop:2,flexWrap:"wrap",justifyContent:isSelf?"flex-end":"flex-start"}}>
-          {Object.entries(msg.reactions).map(([em,us])=><span key={em} onClick={()=>onReact(msg.id,em)} style={{background:us.includes(self)?"#e8f4fd":"#f5f5f7",border:`1px solid ${us.includes(self)?"#b0d4f1":"#e8e8ed"}`,borderRadius:12,padding:"1px 6px",fontSize:12,cursor:"pointer",display:"flex",alignItems:"center",gap:3}}>{em}<span style={{fontSize:10,color:"#86868b"}}>{us.length}</span></span>)}
+          {Object.entries(msg.reactions).map(([em,us])=><span key={em} onClick={()=>onReact(msg.id,em)} style={{background:us.includes(self)?"#e8f4fd":"#f5f5f7",border:`1px solid ${us.includes(self)?"#b0d4f1":"#e8e8ed"}`,borderRadius:12,padding:"1px 6px",fontSize:12,cursor:"pointer",display:"flex",alignItems:"center",gap:3}}>{em}<span style={{fontSize:10,color:"#666"}}>{us.length}</span></span>)}
         </div>}
       </div>
     </div>
@@ -212,10 +212,10 @@ function AddMemModal({onClose,onAdd,existing}){
         <h3 style={{margin:"0 0 20px",fontSize:18,fontWeight:700,color:"#1d1d1f"}}>Add New Member</h3>
         <input value={nm} onChange={e=>setNm(e.target.value)} placeholder="Name" style={{width:"100%",boxSizing:"border-box",padding:"10px 14px",borderRadius:10,border:"1.5px solid #e8e8ed",background:"#f5f5f7",color:"#1d1d1f",fontSize:14,outline:"none",marginBottom:10}} />
         <input value={rl} onChange={e=>setRl(e.target.value)} placeholder="Role (e.g. COBOL Developer)" style={{width:"100%",boxSizing:"border-box",padding:"10px 14px",borderRadius:10,border:"1.5px solid #e8e8ed",background:"#f5f5f7",color:"#1d1d1f",fontSize:14,outline:"none",marginBottom:16}} />
-        <div style={{marginBottom:12}}><div style={{fontSize:12,color:"#86868b",marginBottom:6}}>Color</div><div style={{display:"flex",gap:6,flexWrap:"wrap"}}>{cols.map(c=><div key={c} onClick={()=>setCol(c)} style={{width:28,height:28,borderRadius:"50%",background:c,cursor:"pointer",border:col===c?"3px solid #1d1d1f":"3px solid transparent"}} />)}</div></div>
-        <div style={{marginBottom:20}}><div style={{fontSize:12,color:"#86868b",marginBottom:6}}>Avatar</div><div style={{display:"flex",gap:6,flexWrap:"wrap"}}>{emos.map(e=><div key={e} onClick={()=>setEmo(e)} style={{width:36,height:36,borderRadius:8,background:emo===e?"#e8f4fd":"#f5f5f7",border:emo===e?"2px solid #0071e3":"2px solid transparent",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,cursor:"pointer"}}>{e}</div>)}</div></div>
+        <div style={{marginBottom:12}}><div style={{fontSize:12,color:"#666",marginBottom:6}}>Color</div><div style={{display:"flex",gap:6,flexWrap:"wrap"}}>{cols.map(c=><div key={c} onClick={()=>setCol(c)} style={{width:28,height:28,borderRadius:"50%",background:c,cursor:"pointer",border:col===c?"3px solid #1d1d1f":"3px solid transparent"}} />)}</div></div>
+        <div style={{marginBottom:20}}><div style={{fontSize:12,color:"#666",marginBottom:6}}>Avatar</div><div style={{display:"flex",gap:6,flexWrap:"wrap"}}>{emos.map(e=><div key={e} onClick={()=>setEmo(e)} style={{width:36,height:36,borderRadius:8,background:emo===e?"#e8f4fd":"#f5f5f7",border:emo===e?"2px solid #0071e3":"2px solid transparent",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,cursor:"pointer"}}>{e}</div>)}</div></div>
         <div style={{display:"flex",gap:10}}>
-          <button onClick={onClose} style={{flex:1,padding:"10px",borderRadius:10,border:"1.5px solid #e8e8ed",background:"transparent",color:"#86868b",cursor:"pointer",fontSize:14}}>Cancel</button>
+          <button onClick={onClose} style={{flex:1,padding:"10px",borderRadius:10,border:"1.5px solid #e8e8ed",background:"transparent",color:"#666",cursor:"pointer",fontSize:14}}>Cancel</button>
           <button onClick={()=>{if(!nm.trim())return;if(existing.includes(nm.trim())){alert("Exists!");return;}onAdd({name:nm.trim(),role:rl.trim()||"Member",color:col,emoji:emo,status:"online"});onClose();}} style={{flex:1,padding:"10px",borderRadius:10,border:"none",background:"#0071e3",color:"#fff",cursor:"pointer",fontWeight:700,fontSize:14}}>Add</button>
         </div>
       </div>
@@ -1005,7 +1005,7 @@ Behavior guidelines:
             <div key={i} style={{ margin:"6px 0", padding:"10px 16px", background:"rgba(245,245,247,0.6)",
               borderRadius:10, borderLeft:`3px solid ${activeTopic?.color||"#0071e3"}` }}>
               <span style={{ fontWeight:700, color:"#1d1d1f", fontFamily:"'SF Mono',Menlo,Consolas,monospace", fontSize:14 }}>{sepMatch[1]}</span>
-              <span style={{ color:"#86868b" }}> {sepMatch[2]} </span>
+              <span style={{ color:"#666" }}> {sepMatch[2]} </span>
               <span style={{ color:"#3a3a3c", fontSize:14.5 }}>{sepMatch[3]}</span>
             </div>
           );
@@ -1322,10 +1322,10 @@ Behavior guidelines:
   const welcomeShown = useRef({welcome:false, signin:false, community:false});
 
   useEffect(() => {
-    // Phase 1: Welcome popup after 2s
+    // Phase 1: Welcome popup after 8s (delayed to avoid blocking initial render)
     const t1 = setTimeout(() => {
       if (!welcomeShown.current.welcome) { setWelcomePhase(1); welcomeShown.current.welcome = true; }
-    }, 2000);
+    }, 8000);
     // Phase 2: Sign-in nudge after 60s (if not signed in)
     const t2 = setTimeout(() => {
       if (!user && !welcomeShown.current.signin) { setWelcomePhase(2); welcomeShown.current.signin = true; }
@@ -1547,7 +1547,7 @@ Behavior guidelines:
       `}</style>
 
       {/* ══ NAV ══ */}
-      <nav style={{ ...S.nav,
+      <nav role="navigation" aria-label="Main navigation" style={{ ...S.nav,
         background: scrolled ? "rgba(248,249,252,0.88)" : "rgba(248,249,252,0.6)",
         boxShadow: scrolled ? "0 1px 0 rgba(0,0,0,0.1)" : "none",
         backdropFilter: "saturate(180%) blur(20px)",
@@ -1561,7 +1561,7 @@ Behavior guidelines:
           <div className="nav-scroll" style={S.navLinks}>
             {[["home","Overview"],["topics","Topics"],["scenarios","Scenarios"],["blog","Blog"],["quiz","Quiz"],["community","Community"],["abends","Abend Solver"],["roadmap","Roadmap"],["weekly","Weekly Update"],["about","About"]].map(([p,l]) => (
               <button key={p} className="nav-btn" onClick={() => goPage(p)}
-                style={{ ...S.navLink, color: page===p ? "#1d1d1f":"#6e6e73", fontWeight: page===p?600:400 }}>
+                style={{ ...S.navLink, color: page===p ? "#1d1d1f":"#555", fontWeight: page===p?600:400 }}>
                 {l}
               </button>
             ))}
@@ -1578,7 +1578,7 @@ Behavior guidelines:
               Sign In
             </button>
           )}
-          <button style={S.hamburger} onClick={() => setNavOpen(o => !o)}>
+          <button aria-label="Menu" style={S.hamburger} onClick={() => setNavOpen(o => !o)}>
             <div style={{ width:18,height:1.5,background:"#1d1d1f",marginBottom:5,transform:navOpen?"rotate(45deg) translate(4px,4px)":"none",transition:"all .2s" }} />
             <div style={{ width:18,height:1.5,background:"#1d1d1f",marginBottom:5,opacity:navOpen?0:1,transition:"all .2s" }} />
             <div style={{ width:18,height:1.5,background:"#1d1d1f",transform:navOpen?"rotate(-45deg) translate(4px,-4px)":"none",transition:"all .2s" }} />
@@ -1596,7 +1596,7 @@ Behavior guidelines:
               <UserAvatar name={user.name} size={36} showRing />
               <div style={{ flex:1,minWidth:0 }}>
                 <div style={{ fontSize:14,fontWeight:700,color:"#1d1d1f" }}>{user.name}</div>
-                <div style={{ fontSize:11,color:"#86868b" }}>{user.role} · {user.mfYears}yr MF</div>
+                <div style={{ fontSize:11,color:"#666" }}>{user.role} · {user.mfYears}yr MF</div>
               </div>
               <button onClick={() => { authSignOut(); setNavOpen(false); }}
                 style={{ fontSize:11,color:"#991b1b",background:"#fee2e2",border:"none",borderRadius:6,padding:"4px 10px",cursor:"pointer",fontFamily:FF }}>
@@ -1635,12 +1635,12 @@ Behavior guidelines:
             <span style={{ fontSize:13,color:"rgba(255,255,255,0.8)",fontWeight:500 }}>🖥️ <strong style={{color:"#fff"}}>MainframeStudyHub Community</strong> is live — {chatOnline} members online</span>
             <button onClick={() => { setChatPopup(true); setChatPopPhase(0); setTopBanner(false); }}
               style={{ background:"rgba(0,113,227,0.9)",color:"#fff",border:"none",borderRadius:980,padding:"5px 16px",fontSize:12,fontWeight:700,cursor:"pointer",fontFamily:FF,flexShrink:0 }}>Join Now</button>
-            <button onClick={() => setTopBanner(false)} style={{ position:"absolute",right:24,background:"none",border:"none",color:"rgba(255,255,255,0.3)",cursor:"pointer",fontSize:16,padding:4 }}>✕</button>
+            <button onClick={() => setTopBanner(false)} style={{ position:"absolute",right:24,background:"none",border:"none",color:"rgba(255,255,255,0.3)",cursor:"pointer",fontSize:16,padding:4 }}aria-label="Close">✕</button>
           </div>
         </div>
       )}
 
-      <main style={{ paddingTop: 52, minHeight: "100vh" }}>
+      <main id="main-content" role="main" style={{ paddingTop: 52, minHeight: "100vh" }}>
 
         {/* ══ AUTH MODAL ══ */}
         {(authModal==="signin" || authModal==="signup") && (
@@ -1655,7 +1655,7 @@ Behavior guidelines:
                 <h2 style={{ fontSize:24,fontWeight:800,letterSpacing:"-0.5px",color:"#1d1d1f",marginBottom:4 }}>
                   {authModal==="signin" ? "Welcome Back" : "Join MainframeStudyHub"}
                 </h2>
-                <p style={{ fontSize:14,color:"#86868b" }}>
+                <p style={{ fontSize:14,color:"#666" }}>
                   {authModal==="signin" ? "Sign in to your account" : "Create your account to join the community"}
                 </p>
               </div>
@@ -1674,7 +1674,7 @@ Behavior guidelines:
 
               <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:16 }}>
                 <div style={{ flex:1,height:1,background:"#e8e8ed" }} />
-                <span style={{ fontSize:12,color:"#86868b",fontWeight:500 }}>or</span>
+                <span style={{ fontSize:12,color:"#666",fontWeight:500 }}>or</span>
                 <div style={{ flex:1,height:1,background:"#e8e8ed" }} />
               </div>
 
@@ -1687,10 +1687,10 @@ Behavior guidelines:
               {/* Sign Up extra fields */}
               {authModal==="signup" && (
                 <input value={authForm.name} onChange={e => setAuthForm({...authForm, name:e.target.value})}
-                  placeholder="Full Name *" style={modalInput} />
+                  aria-label="Full name" placeholder="Full Name *" style={modalInput} />
               )}
               <input value={authForm.email} onChange={e => setAuthForm({...authForm, email:e.target.value})}
-                placeholder="Email *" type="email" style={modalInput} />
+                aria-label="Email address" placeholder="Email *" type="email" style={modalInput} />
               <input value={authForm.password} onChange={e => setAuthForm({...authForm, password:e.target.value})}
                 placeholder={authModal==="signup" ? "Password (min 6 chars) *" : "Password *"} type="password" style={modalInput}
                 onKeyDown={e => { if(e.key==="Enter" && !authLoading) { e.preventDefault(); authModal==="signin"?authSignIn():authSignUp(); }}} />
@@ -1698,23 +1698,23 @@ Behavior guidelines:
               {authModal==="signup" && (
                 <>
                   <div style={{ marginBottom:16 }}>
-                    <label style={{ fontSize:12,fontWeight:600,color:"#86868b",display:"block",marginBottom:4 }}>Current Role</label>
+                    <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>Current Role</label>
                     <select value={authForm.role} onChange={e => setAuthForm({...authForm, role:e.target.value})}
-                      style={{ ...modalInput, marginBottom:0,cursor:"pointer",color:authForm.role?"#1d1d1f":"#86868b" }}>
+                      style={{ ...modalInput, marginBottom:0,cursor:"pointer",color:authForm.role?"#1d1d1f":"#666" }}>
                       <option value="">Select your role...</option>
                       {ROLE_OPTIONS.map(r => <option key={r} value={r}>{r}</option>)}
                     </select>
                   </div>
                   <div style={{ display:"flex",gap:10,marginBottom:20 }}>
                     <div style={{ flex:1 }}>
-                      <label style={{ fontSize:12,fontWeight:600,color:"#86868b",display:"block",marginBottom:4 }}>IT Experience (years)</label>
+                      <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>IT Experience (years)</label>
                       <input value={authForm.itYears} onChange={e => setAuthForm({...authForm, itYears:e.target.value})}
-                        placeholder="e.g. 5" type="number" min="0" max="50" style={{ ...modalInput, marginBottom:0 }} />
+                        aria-label="IT experience years" placeholder="e.g. 5" type="number" min="0" max="50" style={{ ...modalInput, marginBottom:0 }} />
                     </div>
                     <div style={{ flex:1 }}>
-                      <label style={{ fontSize:12,fontWeight:600,color:"#86868b",display:"block",marginBottom:4 }}>Mainframe Exp (years)</label>
+                      <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>Mainframe Exp (years)</label>
                       <input value={authForm.mfYears} onChange={e => setAuthForm({...authForm, mfYears:e.target.value})}
-                        placeholder="e.g. 2" type="number" min="0" max="50" style={{ ...modalInput, marginBottom:0 }} />
+                        aria-label="Mainframe experience years" placeholder="e.g. 2" type="number" min="0" max="50" style={{ ...modalInput, marginBottom:0 }} />
                     </div>
                   </div>
                 </>
@@ -1732,13 +1732,13 @@ Behavior guidelines:
               {authModal==="signin" && (
                 <div style={{ textAlign:"center",marginTop:10 }}>
                   <button onClick={authForgotPassword}
-                    style={{ background:"none",border:"none",color:"#86868b",cursor:"pointer",fontFamily:FF,fontSize:12,fontWeight:500 }}>
+                    style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontFamily:FF,fontSize:12,fontWeight:500 }}>
                     Forgot your password?
                   </button>
                 </div>
               )}
 
-              <div style={{ textAlign:"center",marginTop:12,fontSize:13,color:"#86868b" }}>
+              <div style={{ textAlign:"center",marginTop:12,fontSize:13,color:"#666" }}>
                 {authModal==="signin" ? (
                   <>Don't have an account? <button onClick={() => { setAuthModal("signup"); setAuthError(""); }}
                     style={{ background:"none",border:"none",color:"#0071e3",cursor:"pointer",fontWeight:600,fontFamily:FF,fontSize:13 }}>Sign Up</button></>
@@ -1763,20 +1763,20 @@ Behavior guidelines:
                 <div>
                   <div style={{ fontSize:17,fontWeight:800,color:"#1d1d1f",letterSpacing:"-0.3px" }}>{user?.name}</div>
                   <div style={{ fontSize:12,color:"#0071e3",fontWeight:600 }}>{user?.role}</div>
-                  <div style={{ fontSize:11,color:"#86868b" }}>{user?.email}</div>
+                  <div style={{ fontSize:11,color:"#666" }}>{user?.email}</div>
                 </div>
               </div>
               <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:18 }}>
                 <div style={{ background:"rgba(245,245,247,0.8)",borderRadius:12,padding:"12px",textAlign:"center" }}>
                   <div style={{ fontSize:22,fontWeight:800,color:"#1d1d1f" }}>{user?.itYears}</div>
-                  <div style={{ fontSize:10,color:"#86868b",fontWeight:600 }}>IT YEARS</div>
+                  <div style={{ fontSize:10,color:"#666",fontWeight:600 }}>IT YEARS</div>
                 </div>
                 <div style={{ background:"rgba(245,245,247,0.8)",borderRadius:12,padding:"12px",textAlign:"center" }}>
                   <div style={{ fontSize:22,fontWeight:800,color:"#1d1d1f" }}>{user?.mfYears}</div>
-                  <div style={{ fontSize:10,color:"#86868b",fontWeight:600 }}>MF YEARS</div>
+                  <div style={{ fontSize:10,color:"#666",fontWeight:600 }}>MF YEARS</div>
                 </div>
               </div>
-              <div style={{ fontSize:12,color:"#86868b",marginBottom:16,textAlign:"center" }}>
+              <div style={{ fontSize:12,color:"#666",marginBottom:16,textAlign:"center" }}>
                 Member since {user?.joinDate}
               </div>
               <div style={{ display:"flex",flexDirection:"column",gap:8 }}>
@@ -1809,7 +1809,7 @@ Behavior guidelines:
               padding:"40px 32px",maxWidth:400,width:"90%",textAlign:"center",boxShadow:"0 24px 80px rgba(0,0,0,0.2)" }}>
               <div style={{ fontSize:56,marginBottom:16 }}>📧</div>
               <h2 style={{ fontSize:22,fontWeight:800,color:"#1d1d1f",marginBottom:8 }}>Check Your Email</h2>
-              <p style={{ fontSize:14,color:"#86868b",lineHeight:1.6,marginBottom:24 }}>
+              <p style={{ fontSize:14,color:"#666",lineHeight:1.6,marginBottom:24 }}>
                 We've sent a password reset link to <strong style={{ color:"#1d1d1f" }}>{authForm.email}</strong>. Click the link in the email to set a new password.
               </p>
               <button onClick={() => { setAuthModal("signin"); setAuthError(""); }}
@@ -1836,10 +1836,10 @@ Behavior guidelines:
                 </div>
                 <h2 style={{ fontSize:22,fontWeight:800,color:"#1d1d1f" }}>Edit Profile</h2>
               </div>
-              <label style={{ fontSize:12,fontWeight:600,color:"#86868b",display:"block",marginBottom:4 }}>Full Name</label>
+              <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>Full Name</label>
               <input value={editForm.name} onChange={e => setEditForm({...editForm, name:e.target.value})}
-                placeholder="Full Name *" style={modalInput} />
-              <label style={{ fontSize:12,fontWeight:600,color:"#86868b",display:"block",marginBottom:4 }}>Current Role</label>
+                aria-label="Full name" placeholder="Full Name *" style={modalInput} />
+              <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>Current Role</label>
               <select value={editForm.role} onChange={e => setEditForm({...editForm, role:e.target.value})}
                 style={{ ...modalInput, cursor:"pointer",color:"#1d1d1f" }}>
                 <option value="">Select your role...</option>
@@ -1847,12 +1847,12 @@ Behavior guidelines:
               </select>
               <div style={{ display:"flex",gap:10,marginBottom:20 }}>
                 <div style={{ flex:1 }}>
-                  <label style={{ fontSize:12,fontWeight:600,color:"#86868b",display:"block",marginBottom:4 }}>IT Experience (years)</label>
+                  <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>IT Experience (years)</label>
                   <input value={editForm.itYears} onChange={e => setEditForm({...editForm, itYears:e.target.value})}
                     type="number" min="0" max="50" style={{ ...modalInput, marginBottom:0 }} />
                 </div>
                 <div style={{ flex:1 }}>
-                  <label style={{ fontSize:12,fontWeight:600,color:"#86868b",display:"block",marginBottom:4 }}>Mainframe Exp (years)</label>
+                  <label style={{ fontSize:12,fontWeight:600,color:"#666",display:"block",marginBottom:4 }}>Mainframe Exp (years)</label>
                   <input value={editForm.mfYears} onChange={e => setEditForm({...editForm, mfYears:e.target.value})}
                     type="number" min="0" max="50" style={{ ...modalInput, marginBottom:0 }} />
                 </div>
@@ -1914,8 +1914,10 @@ Behavior guidelines:
           <div>
             <section style={{ position:"relative",overflow:"hidden",background:"linear-gradient(135deg,#030712 0%,#0a0e27 40%,#0f1642 70%,#1a0a3e 100%)",
               padding:"100px 0 70px",minHeight:"85vh",display:"flex",alignItems:"center" }}>
-              {/* 3D Background */}
-              <Suspense fallback={null}><Hero3D /></Suspense>
+              {/* 3D Background — skip on mobile for performance */}
+              {typeof window !== 'undefined' && window.innerWidth > 768 && (
+                <Suspense fallback={null}><Hero3D /></Suspense>
+              )}
               {/* Gradient overlay for text readability */}
               <div style={{ position:"absolute",inset:0,background:"radial-gradient(ellipse at 30% 50%,rgba(0,113,227,0.12) 0%,transparent 60%)",pointerEvents:"none" }} />
               <div style={{ position:"absolute",inset:0,background:"radial-gradient(ellipse at 70% 60%,rgba(124,58,237,0.1) 0%,transparent 50%)",pointerEvents:"none" }} />
@@ -1993,7 +1995,7 @@ Behavior guidelines:
                       borderRadius:12,animationDelay:`${i*60}ms`,cursor:"default" }}>
                       <div style={{ fontSize:11,marginBottom:4 }}>{icon}</div>
                       <div style={{ fontSize:24,fontWeight:800,color:"#1d1d1f",letterSpacing:"-1px",lineHeight:1 }}>{n}</div>
-                      <div style={{ fontSize:11,color:"#86868b",fontWeight:600,marginTop:4 }}>{l}</div>
+                      <div style={{ fontSize:11,color:"#666",fontWeight:600,marginTop:4 }}>{l}</div>
                     </div>
                   ))}
                 </div>
@@ -2010,7 +2012,7 @@ Behavior guidelines:
                       <div style={{ fontSize:32,marginBottom:12 }}>{t.icon}</div>
                       <div style={S.tcTitle}>{t.title}</div>
                       <div style={S.tcSub}>{t.subtitle}</div>
-                      <div style={{ fontSize:11,color:"#86868b",marginBottom:10 }}>{t.level}</div>
+                      <div style={{ fontSize:11,color:"#666",marginBottom:10 }}>{t.level}</div>
                       <div style={{ ...S.tcMore, color:t.color }}>Learn more →</div>
                     </button>
                   ))}
@@ -2112,8 +2114,8 @@ Behavior guidelines:
                 <div style={{ borderBottom:"1px solid rgba(0,0,0,0.06)",padding:"14px 0",position:"sticky",top:52,background:"rgba(248,249,252,0.88)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",zIndex:100 }}>
                   <div style={{ ...S.inner,display:"flex",alignItems:"center",gap:12,flexWrap:"wrap" }}>
                     <div style={{ position:"relative",flexShrink:0 }}>
-                      <span style={{ position:"absolute",left:11,top:"50%",transform:"translateY(-50%)",color:"#86868b",fontSize:14 }}>⌕</span>
-                      <input style={S.searchInput} placeholder="Search all topics…" value={search} onChange={e => setSearch(e.target.value)} />
+                      <span style={{ position:"absolute",left:11,top:"50%",transform:"translateY(-50%)",color:"#666",fontSize:14 }}>⌕</span>
+                      <input role="searchbox" style={S.searchInput} placeholder="Search all topics…" value={search} onChange={e => setSearch(e.target.value)} />
                     </div>
                     <div style={{ display:"flex",gap:6,flexWrap:"wrap" }}>
                       {categories.map(c => (
@@ -2132,13 +2134,13 @@ Behavior guidelines:
                         <div style={{ fontSize:32,marginBottom:12 }}>{t.icon}</div>
                         <div style={S.tcTitle}>{t.title}</div>
                         <div style={S.tcSub}>{t.subtitle}</div>
-                        <div style={{ fontSize:11,color:"#86868b",marginBottom:10 }}>{t.level}</div>
+                        <div style={{ fontSize:11,color:"#666",marginBottom:10 }}>{t.level}</div>
                         <div style={{ ...S.tcMore, color:t.color }}>Learn more →</div>
                       </button>
                     ))}
                   </div>
                   {filteredTopics.length === 0 && (
-                    <div style={{ textAlign:"center",padding:"80px 0",color:"#86868b" }}>
+                    <div style={{ textAlign:"center",padding:"80px 0",color:"#666" }}>
                       <div style={{ fontSize:48,marginBottom:12 }}>🔍</div>
                       No results for "{search}"
                     </div>
@@ -2156,9 +2158,9 @@ Behavior guidelines:
                     <div style={{ display:"flex",alignItems:"flex-start",gap:20,flexWrap:"wrap" }}>
                       <span style={{ fontSize:56 }}>{activeTopic.icon}</span>
                       <div style={{ flex:1,minWidth:200 }}>
-                        <div style={{ fontSize:11,color:"#86868b",letterSpacing:"1px",textTransform:"uppercase",marginBottom:6 }}>{activeTopic.subtitle} · {activeTopic.level}</div>
+                        <div style={{ fontSize:11,color:"#666",letterSpacing:"1px",textTransform:"uppercase",marginBottom:6 }}>{activeTopic.subtitle} · {activeTopic.level}</div>
                         <h1 style={{ fontSize:"clamp(28px,4vw,48px)",fontWeight:800,letterSpacing:"-1.5px",color:"#1d1d1f",marginBottom:10 }}>{activeTopic.title}</h1>
-                        <p style={{ fontSize:16,color:"#6e6e73",lineHeight:1.6,maxWidth:520 }}>{activeTopic.description}</p>
+                        <p style={{ fontSize:16,color:"#555",lineHeight:1.6,maxWidth:520 }}>{activeTopic.description}</p>
                         <button style={{ ...S.btnBlue,marginTop:16,fontSize:13,padding:"8px 18px" }}
                           onClick={() => { goPage("weekly"); setTimeout(() => fetchUpdate(activeTopic), 100); }}>
                           🔄 Get Weekly Update for {activeTopic.title}
@@ -2174,10 +2176,10 @@ Behavior guidelines:
                       {activeTopic.sections.map((sec,i) => (
                         <button key={i} className="tab" onClick={() => setActiveTab(i)}
                           style={{ background:"none",border:"none",borderBottom:activeTab===i?`2.5px solid ${activeTopic.color}`:"2.5px solid transparent",
-                            color:activeTab===i?activeTopic.color:"#86868b",padding:"14px 18px",cursor:"pointer",fontSize:13,
+                            color:activeTab===i?activeTopic.color:"#666",padding:"14px 18px",cursor:"pointer",fontSize:13,
                             fontWeight:activeTab===i?600:400,whiteSpace:"nowrap",fontFamily:FF,transition:"color .2s" }}>
                           {sec.title}
-                          {sec.level && <span style={{ fontSize:10,marginLeft:6,color:"#86868b",fontWeight:400 }}>[{sec.level}]</span>}
+                          {sec.level && <span style={{ fontSize:10,marginLeft:6,color:"#666",fontWeight:400 }}>[{sec.level}]</span>}
                         </button>
                       ))}
                     </div>
@@ -2205,13 +2207,13 @@ Behavior guidelines:
                 <div style={{ ...S.inner,paddingBottom:60,borderTop:"1px solid #f5f5f7",paddingTop:28,display:"flex",gap:16,flexWrap:"wrap" }}>
                   {TOPICS[TOPICS.indexOf(activeTopic)-1] && (
                     <button style={S.prevNextBtn} onClick={() => openTopic(TOPICS[TOPICS.indexOf(activeTopic)-1])}>
-                      <span style={{ fontSize:11,color:"#86868b",display:"block",marginBottom:4 }}>Previous</span>
+                      <span style={{ fontSize:11,color:"#666",display:"block",marginBottom:4 }}>Previous</span>
                       <span style={{ fontSize:15,fontWeight:500 }}>{TOPICS[TOPICS.indexOf(activeTopic)-1].icon} {TOPICS[TOPICS.indexOf(activeTopic)-1].title}</span>
                     </button>
                   )}
                   {TOPICS[TOPICS.indexOf(activeTopic)+1] && (
                     <button style={{ ...S.prevNextBtn,textAlign:"right",marginLeft:"auto" }} onClick={() => openTopic(TOPICS[TOPICS.indexOf(activeTopic)+1])}>
-                      <span style={{ fontSize:11,color:"#86868b",display:"block",marginBottom:4 }}>Next</span>
+                      <span style={{ fontSize:11,color:"#666",display:"block",marginBottom:4 }}>Next</span>
                       <span style={{ fontSize:15,fontWeight:500 }}>{TOPICS[TOPICS.indexOf(activeTopic)+1].icon} {TOPICS[TOPICS.indexOf(activeTopic)+1].title}</span>
                     </button>
                   )}
@@ -2230,13 +2232,13 @@ Behavior guidelines:
             </div>
             <div style={{ borderBottom:"1px solid #f5f5f7",padding:"12px 0",position:"sticky",top:52,background:"rgba(255,255,255,0.95)",backdropFilter:"blur(20px)",zIndex:100 }}>
               <div style={{ ...S.inner,display:"flex",gap:10,flexWrap:"wrap",alignItems:"center" }}>
-                <span style={{ fontSize:12,color:"#86868b",fontWeight:500 }}>Category:</span>
+                <span style={{ fontSize:12,color:"#666",fontWeight:500 }}>Category:</span>
                 {scenCats.map(c => (
                   <button key={c} className="pill"
                     style={{ ...S.pill,fontSize:11,padding:"5px 12px",background:scenarioCat===c?"#1d1d1f":"#e8e8ed",color:scenarioCat===c?"#fff":"#1d1d1f" }}
                     onClick={() => setScenarioCat(c)}>{c}</button>
                 ))}
-                <span style={{ fontSize:12,color:"#86868b",fontWeight:500,marginLeft:8 }}>Level:</span>
+                <span style={{ fontSize:12,color:"#666",fontWeight:500,marginLeft:8 }}>Level:</span>
                 {scenDiffs.map(d => (
                   <button key={d} className="pill"
                     style={{ ...S.pill,fontSize:11,padding:"5px 12px",background:scenarioDiff===d?"#0071e3":"#e8e8ed",color:scenarioDiff===d?"#fff":"#1d1d1f" }}
@@ -2257,7 +2259,7 @@ Behavior guidelines:
                       </span>
                       <span style={{ ...S.diffBadge,background:"#eff6ff",color:"#1e40af" }}>{sc.category}</span>
                       <h3 style={{ fontSize:16,fontWeight:600,color:"#1d1d1f",flex:1,textAlign:"left" }}>{sc.question}</h3>
-                      <span style={{ fontSize:20,color:"#86868b",transition:"transform .2s",transform:expandedScenario===sc.id?"rotate(180deg)":"none" }}>⌄</span>
+                      <span style={{ fontSize:20,color:"#666",transition:"transform .2s",transform:expandedScenario===sc.id?"rotate(180deg)":"none" }}>⌄</span>
                     </div>
                   </button>
                   {expandedScenario === sc.id && (
@@ -2281,7 +2283,7 @@ Behavior guidelines:
                       </div>
                       <div style={{ marginTop:12,display:"flex",gap:6,flexWrap:"wrap" }}>
                         {sc.tags.map(tag => (
-                          <span key={tag} style={{ fontSize:11,background:"#f5f5f7",color:"#6e6e73",padding:"3px 10px",borderRadius:980 }}>#{tag}</span>
+                          <span key={tag} style={{ fontSize:11,background:"#f5f5f7",color:"#555",padding:"3px 10px",borderRadius:980 }}>#{tag}</span>
                         ))}
                       </div>
                     </div>
@@ -2308,7 +2310,7 @@ Behavior guidelines:
                   </button>
                 )}
                 {user && !canWriteBlog && (
-                  <div style={{ fontSize:12,color:"#86868b",background:"rgba(245,245,247,0.8)",borderRadius:10,padding:"8px 14px",maxWidth:220,marginTop:8 }}>
+                  <div style={{ fontSize:12,color:"#666",background:"rgba(245,245,247,0.8)",borderRadius:10,padding:"8px 14px",maxWidth:220,marginTop:8 }}>
                     💡 Members with 5+ years experience can write expert blogs
                   </div>
                 )}
@@ -2324,7 +2326,7 @@ Behavior guidelines:
                     <UserAvatar name={user.name} size={40} showRing />
                     <div>
                       <div style={{ fontSize:15,fontWeight:700 }}>{user.name}</div>
-                      <div style={{ fontSize:12,color:"#86868b" }}>{user.role} · {user.mfYears} yrs mainframe experience</div>
+                      <div style={{ fontSize:12,color:"#666" }}>{user.role} · {user.mfYears} yrs mainframe experience</div>
                     </div>
                     <span style={{ marginLeft:"auto",fontSize:11,fontWeight:600,padding:"4px 10px",borderRadius:980,
                       background:"linear-gradient(135deg,#059669,#0d9488)",color:"#fff" }}>✦ Expert Author</span>
@@ -2339,7 +2341,7 @@ Behavior guidelines:
                         outline:"none",fontFamily:FF,background:"rgba(245,245,247,0.6)",cursor:"pointer",color:"#1d1d1f" }}>
                       {BLOG_CATEGORIES.map(c => <option key={c}>{c}</option>)}
                     </select>
-                    <span style={{ fontSize:12,color:"#86868b",alignSelf:"center" }}>
+                    <span style={{ fontSize:12,color:"#666",alignSelf:"center" }}>
                       {blogDraft.content ? Math.max(1, Math.round(blogDraft.content.split(/\s+/).length / 200)) + " min read" : ""}
                     </span>
                   </div>
@@ -2367,17 +2369,17 @@ Behavior guidelines:
                       style={{ ...S.blogCard,animationDelay:`${i*60}ms` }}>
                       <div style={{ display:"flex",gap:8,marginBottom:16,flexWrap:"wrap",alignItems:"center" }}>
                         <span style={{ ...S.diffBadge,background:"#eff6ff",color:"#1e40af" }}>{b.category}</span>
-                        <span style={{ ...S.diffBadge,background:"#f5f5f7",color:"#6e6e73" }}>{b.readTime}</span>
+                        <span style={{ ...S.diffBadge,background:"#f5f5f7",color:"#555" }}>{b.readTime}</span>
                         {b.isUserBlog && (
                           <span style={{ ...S.diffBadge,background:"linear-gradient(135deg,#059669,#0d9488)",color:"#fff" }}>✦ Community</span>
                         )}
                       </div>
                       <h3 style={{ fontSize:18,fontWeight:700,color:"#1d1d1f",lineHeight:1.4,marginBottom:12,textAlign:"left" }}>{b.title}</h3>
-                      <p style={{ fontSize:13,color:"#86868b",marginBottom:16,textAlign:"left" }}>
+                      <p style={{ fontSize:13,color:"#666",marginBottom:16,textAlign:"left" }}>
                         {b.content.substring(0,150)}…
                       </p>
                       <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center" }}>
-                        <div style={{ fontSize:12,color:"#86868b",textAlign:"left" }}>
+                        <div style={{ fontSize:12,color:"#666",textAlign:"left" }}>
                           {b.isUserBlog ? (<><strong style={{ color:"#1d1d1f" }}>{b.author}</strong> · {b.authorRole} · </>) : ""}
                           {b.date}
                         </div>
@@ -2399,8 +2401,8 @@ Behavior guidelines:
                       <div>
                         <div style={{ display:"flex",gap:8,marginBottom:20,flexWrap:"wrap",alignItems:"center" }}>
                           <span style={{ ...S.diffBadge,background:"#eff6ff",color:"#1e40af" }}>{b.category}</span>
-                          <span style={{ ...S.diffBadge,background:"#f5f5f7",color:"#6e6e73" }}>{b.readTime}</span>
-                          <span style={{ ...S.diffBadge,background:"#f5f5f7",color:"#6e6e73" }}>{b.date}</span>
+                          <span style={{ ...S.diffBadge,background:"#f5f5f7",color:"#555" }}>{b.readTime}</span>
+                          <span style={{ ...S.diffBadge,background:"#f5f5f7",color:"#555" }}>{b.date}</span>
                           {b.isUserBlog && (
                             <span style={{ ...S.diffBadge,background:"linear-gradient(135deg,#059669,#0d9488)",color:"#fff" }}>✦ Community Expert</span>
                           )}
@@ -2415,7 +2417,7 @@ Behavior guidelines:
                             </div>
                             <div>
                               <div style={{ fontSize:15,fontWeight:700,color:"#1d1d1f" }}>{b.author}</div>
-                              <div style={{ fontSize:12,color:"#86868b" }}>{b.authorRole} · {b.authorMfYears} years mainframe experience</div>
+                              <div style={{ fontSize:12,color:"#666" }}>{b.authorRole} · {b.authorMfYears} years mainframe experience</div>
                             </div>
                             <button onClick={(e) => { e.stopPropagation(); likeUserBlog(b.id); }}
                               style={{ marginLeft:"auto",background:"none",border:"1.5px solid #fecaca",borderRadius:10,padding:"6px 14px",
@@ -2498,7 +2500,7 @@ Behavior guidelines:
                     </span>
                   </div>
                   <button onClick={() => { setDailyMode(false); clearInterval(dailyTimerRef.current); setQuiz({ index:0,score:0,selected:null,done:false,showExp:false }); }}
-                    style={{ background:"none",border:"none",color:"#86868b",cursor:"pointer",fontSize:13,fontFamily:FF }}>✕ Exit Challenge</button>
+                    style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:13,fontFamily:FF }}>✕ Exit Challenge</button>
                 </div>
               )}
 
@@ -2509,7 +2511,7 @@ Behavior guidelines:
                   <button key={t} onClick={() => { setQuizTopicFilter(t); setQuiz({ index:0,score:0,selected:null,done:false,showExp:false }); }}
                     style={{ padding:"6px 14px",borderRadius:980,fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:FF,border:"none",
                       background:quizTopicFilter===t?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(245,245,247,0.8)",
-                      color:quizTopicFilter===t?"#fff":"#6e6e73",transition:"all .15s" }}>
+                      color:quizTopicFilter===t?"#fff":"#555",transition:"all .15s" }}>
                     {t === "All" ? `All (${QUIZ_QUESTIONS.length})` : `${t} (${QUIZ_QUESTIONS.filter(q=>q.topic===t).length})`}
                   </button>
                 ))}
@@ -2518,13 +2520,13 @@ Behavior guidelines:
               {(() => { const activeQs = dailyMode ? dailyQuestions : quizQuestions; return (
               <div style={{ maxWidth:640,margin:"0 auto" }}>
                 {activeQs.length === 0 ? (
-                  <div style={{ textAlign:"center",padding:60,color:"#86868b" }}>No questions for this topic yet.</div>
+                  <div style={{ textAlign:"center",padding:60,color:"#666" }}>No questions for this topic yet.</div>
                 ) : !quiz.done ? (
                   <div className="fi" key={quiz.index}>
                     <div style={{ height:4,background:"#f5f5f7",borderRadius:2,marginBottom:20,overflow:"hidden" }}>
                       <div style={{ height:"100%",background:dailyMode?"#f59e0b":"#0071e3",borderRadius:2,width:`${(quiz.index/activeQs.length)*100}%`,transition:"width .4s ease" }} />
                     </div>
-                    <div style={{ display:"flex",justifyContent:"space-between",marginBottom:24,fontSize:13,color:"#86868b" }}>
+                    <div style={{ display:"flex",justifyContent:"space-between",marginBottom:24,fontSize:13,color:"#666" }}>
                       <span>Question {quiz.index+1} of {activeQs.length}</span>
                       <span>Score: {quiz.score}/{quiz.index}</span>
                     </div>
@@ -2537,7 +2539,7 @@ Behavior guidelines:
                     </h2>
                     <div style={{ display:"flex",flexDirection:"column",gap:10 }}>
                       {activeQs[quiz.index].options.map((opt,i) => {
-                        let bg="#fff", border="1.5px solid #d2d2d7", color="#1d1d1f", lblBg="#f5f5f7", lblColor="#86868b";
+                        let bg="#fff", border="1.5px solid #d2d2d7", color="#1d1d1f", lblBg="#f5f5f7", lblColor="#666";
                         if (quiz.selected !== null) {
                           if (i === activeQs[quiz.index].answer) { bg="#f0fdf4";border="1.5px solid #22c55e";color="#166534";lblBg="#22c55e";lblColor="#fff"; }
                           else if (i === quiz.selected) { bg="#fff1f0";border="1.5px solid #ef4444";color="#991b1b";lblBg="#ef4444";lblColor="#fff"; }
@@ -2580,7 +2582,7 @@ Behavior guidelines:
                     <div style={{ fontSize:24,fontWeight:700,letterSpacing:"-.5px",color:"#1d1d1f",marginBottom:10 }}>
                       {quiz.score===activeQs.length?"🏆 Perfect — Mainframe Master!":quiz.score>=activeQs.length*0.8?"🎉 Expert Level":quiz.score>=activeQs.length*0.5?"📚 Solid Knowledge":"💪 Keep Learning"}
                     </div>
-                    <p style={{ color:"#6e6e73",fontSize:15,marginBottom:28 }}>
+                    <p style={{ color:"#555",fontSize:15,marginBottom:28 }}>
                       {dailyMode
                         ? `Daily Challenge — ${new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}${getStreak()>0?` • 🔥 ${getStreak()}-day streak`:""}`
                         : `${Math.round((quiz.score/activeQs.length)*100)}% correct${quizTopicFilter !== "All" ? ` in ${quizTopicFilter}` : ""}`
@@ -2610,7 +2612,7 @@ Behavior guidelines:
               <h1 style={S.pageHeroTitle}>Weekly AI Update</h1>
               <p style={S.pageHeroSub}>
                 Every Saturday, fresh mainframe content generated by AI. Pick any topic — get new tips, scenarios, and code examples.
-                {lastUpdate && <span style={{ display:"block",fontSize:13,color:"#86868b",marginTop:6 }}>Last updated: {new Date(lastUpdate).toLocaleDateString()}</span>}
+                {lastUpdate && <span style={{ display:"block",fontSize:13,color:"#666",marginTop:6 }}>Last updated: {new Date(lastUpdate).toLocaleDateString()}</span>}
               </p>
             </div>
             <div style={{ ...S.inner,paddingBottom:80 }}>
@@ -2636,8 +2638,8 @@ Behavior guidelines:
               {weeklyLoading && (
                 <div style={{ textAlign:"center",padding:"60px 0" }}>
                   <div style={{ width:40,height:40,border:"3px solid #f5f5f7",borderTop:"3px solid #0071e3",borderRadius:"50%",animation:"spin 0.8s linear infinite",margin:"0 auto 16px" }} />
-                  <div style={{ fontSize:16,color:"#6e6e73" }}>Fetching fresh content for {weeklyTopic?.title}…</div>
-                  <div style={{ fontSize:13,color:"#86868b",marginTop:6 }}>This may take a moment</div>
+                  <div style={{ fontSize:16,color:"#555" }}>Fetching fresh content for {weeklyTopic?.title}…</div>
+                  <div style={{ fontSize:13,color:"#666",marginTop:6 }}>This may take a moment</div>
                 </div>
               )}
 
@@ -2657,7 +2659,7 @@ Behavior guidelines:
                       <h2 style={{ fontSize:22,fontWeight:700,color:"#1d1d1f" }}>
                         {weeklyTopic?.icon} {weeklyTopic?.title} — Weekly Update
                       </h2>
-                      <div style={{ fontSize:13,color:"#86868b",marginTop:4 }}>Generated: {weeklyUpdate.generatedDate}</div>
+                      <div style={{ fontSize:13,color:"#666",marginTop:4 }}>Generated: {weeklyUpdate.generatedDate}</div>
                     </div>
                     <button style={{ ...S.btnGhost,fontSize:13,padding:"8px 16px" }} onClick={refreshUpdate}>
                       ↻ Refresh Content
@@ -2731,7 +2733,7 @@ Behavior guidelines:
 
               {/* Empty state */}
               {!weeklyLoading && !weeklyUpdate && !weeklyError && (
-                <div style={{ textAlign:"center",padding:"60px 0",color:"#86868b" }}>
+                <div style={{ textAlign:"center",padding:"60px 0",color:"#666" }}>
                   <div style={{ fontSize:56,marginBottom:16 }}>🔄</div>
                   <div style={{ fontSize:18,fontWeight:600,color:"#1d1d1f",marginBottom:8 }}>Select a topic above</div>
                   <div style={{ fontSize:15 }}>AI will generate fresh tips, a new scenario, a code example, and key facts — every Saturday.</div>
@@ -2790,7 +2792,7 @@ Behavior guidelines:
                         <span style={{ fontSize:13,fontWeight:700,color:"#1d1d1f" }}>Members ({chatMembers.length})</span>
                         <div style={{ display:"flex",gap:6 }}>
                           <button onClick={()=>setChatAddModal(true)} style={{ background:"#e8f4fd",border:"none",borderRadius:8,color:"#0071e3",padding:"3px 8px",cursor:"pointer",fontSize:11,fontWeight:600 }}>+ Add</button>
-                          <button onClick={()=>setChatSidebar(false)} style={{ background:"none",border:"none",color:"#86868b",cursor:"pointer",fontSize:14 }}>✕</button>
+                          <button onClick={()=>setChatSidebar(false)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:14 }}aria-label="Close">✕</button>
                         </div>
                       </div>
                       <div style={{ flex:1,overflowY:"auto",padding:"4px 0" }}>
@@ -2799,9 +2801,9 @@ Behavior guidelines:
                             <CA m={m} sz={30}/>
                             <div style={{ flex:1,minWidth:0 }}>
                               <div style={{ fontSize:12,color:"#1d1d1f",fontWeight:600,display:"flex",alignItems:"center",gap:4 }}>{m.name}{i===0&&<span style={{ fontSize:9,background:"#e8f8f0",color:"#00b365",padding:"1px 5px",borderRadius:6 }}>Admin</span>}{i===chatSelf&&<span style={{ fontSize:9,background:"#e8f4fd",color:"#0071e3",padding:"1px 5px",borderRadius:6 }}>You</span>}</div>
-                              <div style={{ fontSize:10,color:"#86868b" }}>{m.role}</div>
+                              <div style={{ fontSize:10,color:"#666" }}>{m.role}</div>
                             </div>
-                            {i!==0&&i!==chatSelf&&<button onClick={()=>setChatMsgs(p=>[...p,{id:chatNid.current++,sender:-1,type:CT.SYS,text:`${m.name} was removed`,time:new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),reactions:{},del:false}])} style={{ background:"none",border:"none",color:"#e8e8ed",cursor:"pointer",fontSize:12 }} onMouseEnter={e=>e.target.style.color="#e74c3c"} onMouseLeave={e=>e.target.style.color="#e8e8ed"}>✕</button>}
+                            {i!==0&&i!==chatSelf&&<button onClick={()=>setChatMsgs(p=>[...p,{id:chatNid.current++,sender:-1,type:CT.SYS,text:`${m.name} was removed`,time:new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),reactions:{},del:false}])} style={{ background:"none",border:"none",color:"#e8e8ed",cursor:"pointer",fontSize:12 }} onMouseEnter={e=>e.target.style.color="#e74c3c"} onMouseLeave={e=>e.target.style.color="#e8e8ed"}aria-label="Close">✕</button>}
                           </div>
                         ))}
                       </div>
@@ -2810,41 +2812,41 @@ Behavior guidelines:
                     <div style={{ flex:1,display:"flex",flexDirection:"column",minWidth:0 }}>
                       {/* Header */}
                       <div style={{ padding:"10px 16px",background:"#fff",borderBottom:"1px solid #f5f5f7",display:"flex",alignItems:"center",gap:10 }}>
-                        <button onClick={()=>setChatSidebar(!chatSidebar)} style={{ background:"none",border:"none",color:"#86868b",cursor:"pointer",fontSize:16,padding:2 }}>☰</button>
+                        <button onClick={()=>setChatSidebar(!chatSidebar)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:16,padding:2 }}aria-label="Toggle menu">☰</button>
                         <div style={{ width:36,height:36,borderRadius:10,background:"linear-gradient(135deg,#e8f4fd,#f0f7ff)",border:"1px solid #d0e3ff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18 }}>🖥️</div>
                         <div style={{ flex:1 }}>
                           <div style={{ fontSize:14,fontWeight:700,color:"#1d1d1f" }}>MainframeStudyHub</div>
-                          <div style={{ fontSize:11,color:"#86868b" }}>{chatMembers.length} members • {chatOnline} online</div>
+                          <div style={{ fontSize:11,color:"#666" }}>{chatMembers.length} members • {chatOnline} online</div>
                         </div>
-                        <button onClick={()=>{setChatShowSrch(!chatShowSrch);setChatSrch("");}} style={{ background:chatShowSrch?"#e8f4fd":"transparent",border:"none",borderRadius:6,color:chatShowSrch?"#0071e3":"#86868b",cursor:"pointer",fontSize:14,padding:"4px 8px" }}>🔍</button>
-                        <button onClick={()=>setChatShowStars(!chatShowStars)} style={{ background:chatShowStars?"#fef9e7":"transparent",border:"none",borderRadius:6,color:chatShowStars?"#d4a017":"#86868b",cursor:"pointer",fontSize:14,padding:"4px 8px" }}>{chatShowStars?"⭐":"☆"}</button>
+                        <button onClick={()=>{setChatShowSrch(!chatShowSrch);setChatSrch("");}} style={{ background:chatShowSrch?"#e8f4fd":"transparent",border:"none",borderRadius:6,color:chatShowSrch?"#0071e3":"#666",cursor:"pointer",fontSize:14,padding:"4px 8px" }}aria-label="Search">🔍</button>
+                        <button onClick={()=>setChatShowStars(!chatShowStars)} style={{ background:chatShowStars?"#fef9e7":"transparent",border:"none",borderRadius:6,color:chatShowStars?"#d4a017":"#666",cursor:"pointer",fontSize:14,padding:"4px 8px" }}>aria-label="Toggle bookmarks">{chatShowStars?"⭐":"☆"}</button>
                       </div>
                       {chatShowSrch&&<div style={{ padding:"6px 16px",background:"#f5f5f7",borderBottom:"1px solid #e8e8ed" }}><input value={chatSrch} onChange={e=>setChatSrch(e.target.value)} placeholder="Search messages..." autoFocus style={{ width:"100%",boxSizing:"border-box",padding:"6px 12px",borderRadius:8,border:"1.5px solid #e8e8ed",background:"#fff",color:"#1d1d1f",fontSize:13,outline:"none",fontFamily:FF }} /></div>}
                       {chatShowStars&&<div style={{ padding:"5px 16px",background:"#fef9e7",borderBottom:"1px solid #fde68a",fontSize:12,color:"#d4a017",display:"flex",alignItems:"center",gap:4 }}>⭐ Starred ({chatStarred.size})<button onClick={()=>setChatShowStars(false)} style={{ background:"none",border:"none",color:"#d4a017",cursor:"pointer",marginLeft:"auto",fontSize:12 }}>Show all</button></div>}
                       {/* Messages */}
                       <div style={{ flex:1,overflowY:"auto",padding:"12px 0",background:"#fafbfc" }}>
                         {chatFiltered.map(msg=><ChatBubble key={msg.id} msg={msg} members={chatMembers} self={chatSelf} onReact={chatReact} onReply={setChatReply} onDel={chatDel} onStar={chatStarFn} starred={chatStarred.has(msg.id)} />)}
-                        {chatFiltered.length===0&&<div style={{ textAlign:"center",padding:40,color:"#86868b",fontSize:13 }}>{chatShowStars?"No starred messages":"No messages found"}</div>}
+                        {chatFiltered.length===0&&<div style={{ textAlign:"center",padding:40,color:"#666",fontSize:13 }}>{chatShowStars?"No starred messages":"No messages found"}</div>}
                         <div ref={chatEnd} />
                       </div>
                       {/* Reply */}
                       {chatReply&&<div style={{ padding:"6px 16px",background:"#f5f5f7",borderTop:"1px solid #e8e8ed",display:"flex",alignItems:"center",gap:8 }}>
                         <div style={{ width:3,height:24,borderRadius:2,background:chatMembers[chatReply.sender]?.color||"#0071e3" }} />
-                        <div style={{ flex:1,minWidth:0 }}><div style={{ fontSize:11,color:chatMembers[chatReply.sender]?.color,fontWeight:600 }}>{chatMembers[chatReply.sender]?.name}</div><div style={{ fontSize:11,color:"#86868b",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis" }}>{chatReply.text}</div></div>
-                        <button onClick={()=>setChatReply(null)} style={{ background:"none",border:"none",color:"#86868b",cursor:"pointer",fontSize:14 }}>✕</button>
+                        <div style={{ flex:1,minWidth:0 }}><div style={{ fontSize:11,color:chatMembers[chatReply.sender]?.color,fontWeight:600 }}>{chatMembers[chatReply.sender]?.name}</div><div style={{ fontSize:11,color:"#666",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis" }}>{chatReply.text}</div></div>
+                        <button onClick={()=>setChatReply(null)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:14 }}aria-label="Close">✕</button>
                       </div>}
                       {/* Input */}
                       <div style={{ padding:"8px 12px",background:"#fff",borderTop:"1px solid #f5f5f7" }}>
                         <div style={{ display:"flex",gap:4,marginBottom:6 }}>
                           {[{t:CT.TEXT,i:"💬",l:"Message"},{t:CT.JOB,i:"💼",l:"Job"},{t:CT.DOUBT,i:"❓",l:"Doubt"},{t:CT.THOUGHT,i:"💭",l:"Thought"}].map(x=>
-                            <button key={x.t} onClick={()=>setChatMsgType(x.t)} style={{ padding:"3px 10px",borderRadius:980,border:`1.5px solid ${chatMsgType===x.t?"#0071e3":"#e8e8ed"}`,background:chatMsgType===x.t?"#e8f4fd":"#fff",color:chatMsgType===x.t?"#0071e3":"#86868b",fontSize:11,cursor:"pointer",fontFamily:FF,display:"flex",alignItems:"center",gap:3 }}>{x.i} {x.l}</button>
+                            <button key={x.t} onClick={()=>setChatMsgType(x.t)} style={{ padding:"3px 10px",borderRadius:980,border:`1.5px solid ${chatMsgType===x.t?"#0071e3":"#e8e8ed"}`,background:chatMsgType===x.t?"#e8f4fd":"#fff",color:chatMsgType===x.t?"#0071e3":"#666",fontSize:11,cursor:"pointer",fontFamily:FF,display:"flex",alignItems:"center",gap:3 }}>{x.i} {x.l}</button>
                           )}
                         </div>
                         <div style={{ display:"flex",gap:8,alignItems:"flex-end" }}>
                           <textarea ref={chatInpRef} value={grpInput} onChange={e=>setGrpInput(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();chatSend();}}}
                             placeholder={chatMsgType===CT.JOB?"Paste job details...":chatMsgType===CT.DOUBT?"Ask your doubt...":chatMsgType===CT.THOUGHT?"Share your thought...":"Type a message..."} rows={1}
                             style={{ flex:1,padding:"9px 12px",borderRadius:12,border:"1.5px solid #e8e8ed",background:"#f5f5f7",color:"#1d1d1f",fontSize:13,fontFamily:FF,outline:"none",resize:"none",minHeight:38,maxHeight:90 }} />
-                          <button onClick={chatSend} disabled={!grpInput.trim()} style={{ width:38,height:38,borderRadius:10,border:"none",background:grpInput.trim()?"#0071e3":"#e8e8ed",color:grpInput.trim()?"#fff":"#86868b",fontSize:16,cursor:grpInput.trim()?"pointer":"default",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>➤</button>
+                          <button onClick={chatSend} disabled={!grpInput.trim()} style={{ width:38,height:38,borderRadius:10,border:"none",background:grpInput.trim()?"#0071e3":"#e8e8ed",color:grpInput.trim()?"#fff":"#666",fontSize:16,cursor:grpInput.trim()?"pointer":"default",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>➤</button>
                         </div>
                       </div>
                     </div>
@@ -2859,9 +2861,9 @@ Behavior guidelines:
               <div style={{ ...S.inner, maxWidth:900, paddingBottom:80 }}>
                 <div style={{ display:"flex",gap:10,flexWrap:"wrap",marginBottom:24,alignItems:"center" }}>
                   <div style={{ position:"relative",flex:"1 1 200px" }}>
-                    <span style={{ position:"absolute",left:10,top:"50%",transform:"translateY(-50%)",fontSize:14,color:"#86868b" }}>🔍</span>
+                    <span style={{ position:"absolute",left:10,top:"50%",transform:"translateY(-50%)",fontSize:14,color:"#666" }}>🔍</span>
                     <input value={communitySearch} onChange={e => setCommunitySearch(e.target.value)}
-                      placeholder="Search questions..." style={{ ...S.searchInput, width:"100%",paddingLeft:32 }} />
+                      aria-label="Search questions" placeholder="Search questions..." style={{ ...S.searchInput, width:"100%",paddingLeft:32 }} />
                   </div>
                   <div style={{ display:"flex",gap:4 }}>
                     {["hot","new","top"].map(s => (
@@ -2886,24 +2888,24 @@ Behavior guidelines:
                         {TOPICS.map(t => <option key={t.id} value={t.title}>{t.title}</option>)}<option>General</option>
                       </select>
                       <button onClick={submitPost} style={{ ...S.btnBlue,padding:"8px 20px",fontSize:13 }}>Post Question</button>
-                      <button onClick={() => setNewPostOpen(false)} style={{ background:"none",border:"none",color:"#86868b",cursor:"pointer",fontSize:13,fontFamily:FF }}>Cancel</button>
+                      <button onClick={() => setNewPostOpen(false)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:13,fontFamily:FF }}>Cancel</button>
                     </div>
                   </div>
                 )}
-                {sortedPosts.length === 0 && <div style={{ textAlign:"center",padding:"48px 0",color:"#86868b" }}><div style={{ fontSize:40,marginBottom:12 }}>🔍</div>No questions found.</div>}
+                {sortedPosts.length === 0 && <div style={{ textAlign:"center",padding:"48px 0",color:"#666" }}><div style={{ fontSize:40,marginBottom:12 }}>🔍</div>No questions found.</div>}
                 {sortedPosts.map(post => (
                   <div key={post.id} className="card" style={{ border:"1.5px solid #e8e8ed", borderRadius:16, padding:"20px 24px", marginBottom:16, cursor:"pointer", boxShadow:"0 2px 8px rgba(0,0,0,0.03)" }}
                     onClick={() => setCommunityView(post.id)}>
                     <div style={{ display:"flex",gap:16,alignItems:"flex-start" }}>
                       <div style={{ display:"flex",flexDirection:"column",alignItems:"center",gap:4,minWidth:40 }}>
-                        <button onClick={e => { e.stopPropagation(); votePost(post.id, 1); }} style={{ background:"none",border:"none",color:"#86868b",cursor:"pointer",fontSize:16 }}>▲</button>
+                        <button onClick={e => { e.stopPropagation(); votePost(post.id, 1); }} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:16 }}>▲</button>
                         <span style={{ fontSize:16,fontWeight:800,color:"#1d1d1f" }}>{post.votes}</span>
-                        <button onClick={e => { e.stopPropagation(); votePost(post.id, -1); }} style={{ background:"none",border:"none",color:"#86868b",cursor:"pointer",fontSize:16 }}>▼</button>
+                        <button onClick={e => { e.stopPropagation(); votePost(post.id, -1); }} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:16 }}>▼</button>
                       </div>
                       <div style={{ flex:1 }}>
                         <div style={{ fontSize:16,fontWeight:700,color:"#1d1d1f",marginBottom:6,lineHeight:1.4 }}>{post.title}</div>
-                        {post.body && <div style={{ fontSize:13,color:"#6e6e73",lineHeight:1.5,marginBottom:8,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden" }}>{post.body}</div>}
-                        <div style={{ display:"flex",gap:10,alignItems:"center",fontSize:12,color:"#86868b" }}>
+                        {post.body && <div style={{ fontSize:13,color:"#555",lineHeight:1.5,marginBottom:8,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden" }}>{post.body}</div>}
+                        <div style={{ display:"flex",gap:10,alignItems:"center",fontSize:12,color:"#666" }}>
                           <span style={{ ...S.pill, background:"#f0f7ff",color:"#0071e3",padding:"3px 10px",fontSize:11 }}>{post.topic}</span>
                           <span>by <strong style={{ color:"#1d1d1f" }}>{post.author}</strong></span>
                           <span>{post.date}</span>
@@ -2926,9 +2928,9 @@ Behavior guidelines:
                   <div style={{ border:"1.5px solid #e8e8ed", borderRadius:20, padding:"28px 32px", marginBottom:32, background:"#fff" }}>
                     <div style={{ display:"flex",gap:16 }}>
                       <div style={{ display:"flex",flexDirection:"column",alignItems:"center",gap:4 }}>
-                        <button onClick={() => votePost(post.id, 1)} style={{ background:"none",border:"none",color:"#86868b",cursor:"pointer",fontSize:20 }}>▲</button>
+                        <button onClick={() => votePost(post.id, 1)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:20 }}>▲</button>
                         <span style={{ fontSize:24,fontWeight:800,color:"#1d1d1f" }}>{post.votes}</span>
-                        <button onClick={() => votePost(post.id, -1)} style={{ background:"none",border:"none",color:"#86868b",cursor:"pointer",fontSize:20 }}>▼</button>
+                        <button onClick={() => votePost(post.id, -1)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:20 }}>▼</button>
                       </div>
                       <div style={{ flex:1 }}>
                         <div style={{ display:"flex",gap:8,marginBottom:12 }}>
@@ -2936,7 +2938,7 @@ Behavior guidelines:
                         </div>
                         <h2 style={{ fontSize:22,fontWeight:800,color:"#1d1d1f",marginBottom:12,letterSpacing:"-.3px" }}>{post.title}</h2>
                         {post.body && <div style={{ fontSize:15,color:"#3a3a3c",lineHeight:1.8,marginBottom:16,whiteSpace:"pre-wrap" }}>{post.body}</div>}
-                        <div style={{ fontSize:13,color:"#86868b" }}>Asked by <strong style={{ color:"#1d1d1f" }}>{post.author}</strong>{post.authorRole && <span style={{ color:"#0071e3" }}> • {post.authorRole}</span>} on {post.date}</div>
+                        <div style={{ fontSize:13,color:"#666" }}>Asked by <strong style={{ color:"#1d1d1f" }}>{post.author}</strong>{post.authorRole && <span style={{ color:"#0071e3" }}> • {post.authorRole}</span>} on {post.date}</div>
                       </div>
                     </div>
                   </div>
@@ -2945,13 +2947,13 @@ Behavior guidelines:
                     <div key={ans.id} style={{ border:"1.5px solid #e8e8ed",borderRadius:16,padding:"20px 24px",marginBottom:16,background:"#fff" }}>
                       <div style={{ display:"flex",gap:12 }}>
                         <div style={{ display:"flex",flexDirection:"column",alignItems:"center",gap:4 }}>
-                          <button onClick={() => voteAnswer(post.id, ans.id, 1)} style={{ background:"none",border:"none",color:"#86868b",cursor:"pointer",fontSize:16 }}>▲</button>
+                          <button onClick={() => voteAnswer(post.id, ans.id, 1)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:16 }}>▲</button>
                           <span style={{ fontSize:16,fontWeight:800,color:"#1d1d1f" }}>{ans.votes}</span>
-                          <button onClick={() => voteAnswer(post.id, ans.id, -1)} style={{ background:"none",border:"none",color:"#86868b",cursor:"pointer",fontSize:16 }}>▼</button>
+                          <button onClick={() => voteAnswer(post.id, ans.id, -1)} style={{ background:"none",border:"none",color:"#666",cursor:"pointer",fontSize:16 }}>▼</button>
                         </div>
                         <div style={{ flex:1 }}>
                           <div style={{ fontSize:14,color:"#3a3a3c",lineHeight:1.8,whiteSpace:"pre-wrap" }}>{ans.body}</div>
-                          <div style={{ fontSize:12,color:"#86868b",marginTop:10 }}>Answered by <strong style={{ color:"#1d1d1f" }}>{ans.author}</strong>{ans.authorRole && <span style={{ color:"#0071e3" }}> • {ans.authorRole}</span>} on {ans.date}</div>
+                          <div style={{ fontSize:12,color:"#666",marginTop:10 }}>Answered by <strong style={{ color:"#1d1d1f" }}>{ans.author}</strong>{ans.authorRole && <span style={{ color:"#0071e3" }}> • {ans.authorRole}</span>} on {ans.date}</div>
                         </div>
                       </div>
                     </div>
@@ -2964,7 +2966,7 @@ Behavior guidelines:
                     </div>
                   ) : (
                     <div style={{ border:"1.5px solid #e8e8ed",borderRadius:16,padding:"24px 20px",textAlign:"center",background:"#fafbfc" }}>
-                      <p style={{ color:"#86868b",marginBottom:12 }}>Sign in to post your answer</p>
+                      <p style={{ color:"#666",marginBottom:12 }}>Sign in to post your answer</p>
                       <button onClick={() => { setAuthModal("signin"); setAuthError(""); setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}); }} style={S.btnBlue}>Sign In</button>
                     </div>
                   )}
@@ -2988,14 +2990,14 @@ Behavior guidelines:
                   <div style={{ flex:1,minWidth:200,position:"relative" }}>
                     <span style={{ position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",fontSize:18 }}>🔍</span>
                     <input value={abendSearch} onChange={e => { setAbendSearch(e.target.value); setAbendExpanded(null); }}
-                      placeholder="Search abend code (e.g. S0C7, ASRA, S878...)"
+                      aria-label="Search abend codes" placeholder="Search abend code (e.g. S0C7, ASRA, S878...)"
                       style={{ width:"100%",padding:"14px 14px 14px 44px",fontSize:15,border:"2px solid rgba(0,0,0,0.08)",
                         borderRadius:14,outline:"none",background:"rgba(245,245,247,0.8)",fontFamily:"inherit",color:"#1d1d1f",
                         transition:"border-color 0.2s" }}
                       onFocus={e => e.target.style.borderColor="#7c3aed"}
                       onBlur={e => e.target.style.borderColor="rgba(0,0,0,0.08)"} />
                   </div>
-                  <div style={{ fontSize:13,color:"#86868b",fontWeight:600 }}>{filteredAbends.length} codes</div>
+                  <div style={{ fontSize:13,color:"#666",fontWeight:600 }}>{filteredAbends.length} codes</div>
                 </div>
                 <div style={{ display:"flex",gap:6,flexWrap:"wrap" }}>
                   {ABEND_CATEGORIES.map(cat => (
@@ -3003,7 +3005,7 @@ Behavior guidelines:
                       style={{ padding:"6px 16px",borderRadius:980,border:"1.5px solid",fontSize:12,fontWeight:600,
                         cursor:"pointer",fontFamily:"inherit",transition:"all 0.2s",
                         background:abendCategory===cat?"linear-gradient(135deg,#0071e3,#7c3aed)":"transparent",
-                        color:abendCategory===cat?"#fff":"#6e6e73",
+                        color:abendCategory===cat?"#fff":"#555",
                         borderColor:abendCategory===cat?"transparent":"rgba(0,0,0,0.1)" }}>
                       {cat}
                     </button>
@@ -3014,7 +3016,7 @@ Behavior guidelines:
               {/* Results */}
               <div style={{ display:"flex",flexDirection:"column",gap:12 }}>
                 {filteredAbends.length === 0 && (
-                  <div style={{ textAlign:"center",padding:"48px 0",color:"#86868b" }}>
+                  <div style={{ textAlign:"center",padding:"48px 0",color:"#666" }}>
                     <div style={{ fontSize:48,marginBottom:12 }}>🔎</div>
                     <p>No abend codes found. Try a different search term.</p>
                   </div>
@@ -3036,10 +3038,10 @@ Behavior guidelines:
                         <div style={{ fontSize:15,fontWeight:700,color:"#1d1d1f",marginBottom:2 }}>{a.name}</div>
                         <div style={{ display:"flex",gap:8,alignItems:"center",flexWrap:"wrap" }}>
                           <span style={{ fontSize:11,color:SEVERITY_COLORS[a.severity],fontWeight:700 }}>{SEVERITY_LABELS[a.severity]}</span>
-                          <span style={{ fontSize:11,color:"#86868b",background:"rgba(245,245,247,0.8)",padding:"2px 8px",borderRadius:980 }}>{a.category}</span>
+                          <span style={{ fontSize:11,color:"#666",background:"rgba(245,245,247,0.8)",padding:"2px 8px",borderRadius:980 }}>{a.category}</span>
                         </div>
                       </div>
-                      <span style={{ fontSize:18,color:"#86868b",transition:"transform 0.3s",
+                      <span style={{ fontSize:18,color:"#666",transition:"transform 0.3s",
                         transform:abendExpanded===a.code?"rotate(180deg)":"rotate(0)" }}>▼</span>
                     </div>
 
@@ -3121,21 +3123,21 @@ Behavior guidelines:
                           <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:4 }}>
                             <span style={{ fontSize:11,fontWeight:800,color:lvl.color,background:lvl.color+"15",
                               padding:"3px 10px",borderRadius:980 }}>LEVEL {lvl.level}</span>
-                            <span style={{ fontSize:11,color:"#86868b" }}>{lvl.duration}</span>
+                            <span style={{ fontSize:11,color:"#666" }}>{lvl.duration}</span>
                           </div>
                           <div style={{ fontSize:20,fontWeight:800,color:"#1d1d1f",letterSpacing:"-0.3px" }}>
                             {lvl.icon} {lvl.title}
                           </div>
-                          <div style={{ fontSize:13,color:"#86868b" }}>{lvl.subtitle}</div>
+                          <div style={{ fontSize:13,color:"#666" }}>{lvl.subtitle}</div>
                         </div>
-                        <span style={{ fontSize:18,color:"#86868b",transition:"transform 0.3s",
+                        <span style={{ fontSize:18,color:"#666",transition:"transform 0.3s",
                           transform:roadmapLevel===lvl.level?"rotate(180deg)":"rotate(0)",flexShrink:0 }}>▼</span>
                       </div>
 
                       {/* Expanded skills */}
                       {roadmapLevel===lvl.level && (
                         <div style={{ borderTop:"1px solid rgba(0,0,0,0.06)",paddingTop:16 }}>
-                          <div style={{ fontSize:12,fontWeight:700,color:"#86868b",marginBottom:12,textTransform:"uppercase",letterSpacing:"0.5px" }}>Skills to Master</div>
+                          <div style={{ fontSize:12,fontWeight:700,color:"#666",marginBottom:12,textTransform:"uppercase",letterSpacing:"0.5px" }}>Skills to Master</div>
                           <div style={{ display:"flex",flexDirection:"column",gap:8,marginBottom:16 }}>
                             {lvl.skills.map((skill, j) => (
                               <div key={j} style={{ display:"flex",alignItems:"center",gap:10 }}>
@@ -3179,7 +3181,7 @@ Behavior guidelines:
                     display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,flexShrink:0 }}>🎯</div>
                   <div>
                     <h2 style={{ fontSize:24,fontWeight:800,color:"#1d1d1f",letterSpacing:"-0.5px" }}>About This Platform</h2>
-                    <p style={{ fontSize:14,color:"#86868b" }}>Built with passion for the Mainframe community</p>
+                    <p style={{ fontSize:14,color:"#666" }}>Built with passion for the Mainframe community</p>
                   </div>
                 </div>
                 <div style={{ fontSize:15,color:"#3a3a3c",lineHeight:1.85 }}>
@@ -3217,7 +3219,7 @@ Behavior guidelines:
                       border:"1px solid rgba(0,0,0,0.04)" }}>
                       <div style={{ fontSize:24,marginBottom:8 }}>{icon}</div>
                       <div style={{ fontSize:14,fontWeight:700,color:"#1d1d1f",marginBottom:4 }}>{title}</div>
-                      <div style={{ fontSize:12,color:"#86868b",lineHeight:1.5 }}>{desc}</div>
+                      <div style={{ fontSize:12,color:"#666",lineHeight:1.5 }}>{desc}</div>
                     </div>
                   ))}
                 </div>
@@ -3242,7 +3244,7 @@ Behavior guidelines:
                   </div>
                   <div style={{ flex:1,minWidth:200 }}>
                     <div style={{ fontSize:24,fontWeight:800,color:"#1d1d1f",letterSpacing:"-0.5px",marginBottom:2 }}>Harikrishnan K</div>
-                    <div style={{ fontSize:14,color:"#6e6e73",marginBottom:10 }}>Founder & Creator of MainframeStudyHub</div>
+                    <div style={{ fontSize:14,color:"#555",marginBottom:10 }}>Founder & Creator of MainframeStudyHub</div>
                     <div style={{ display:"inline-flex",alignItems:"center",gap:6,background:"linear-gradient(135deg,#0071e3,#7c3aed)",
                       color:"#fff",padding:"5px 14px",borderRadius:980,fontSize:12,fontWeight:700,marginBottom:14 }}>
                       🖥️ Mainframe Developer
@@ -3294,7 +3296,7 @@ Behavior guidelines:
                   </div>
                 </div>
                 <div style={{ padding:"24px 28px 28px",textAlign:"center" }}>
-                  <p style={{ fontSize:15,color:"#6e6e73",lineHeight:1.6,marginBottom:20 }}>
+                  <p style={{ fontSize:15,color:"#555",lineHeight:1.6,marginBottom:20 }}>
                     The most comprehensive IBM Z learning platform. Master JCL, COBOL, DB2, CICS and more — from beginner to architect.
                   </p>
                   <div style={{ display:"flex",gap:8,flexWrap:"wrap",justifyContent:"center",marginBottom:24 }}>
@@ -3318,11 +3320,11 @@ Behavior guidelines:
                   </div>
                 </div>
                 <div style={{ padding:"20px 28px 28px",textAlign:"center" }}>
-                  <p style={{ fontSize:14,color:"#6e6e73",lineHeight:1.6,marginBottom:20 }}>
+                  <p style={{ fontSize:14,color:"#555",lineHeight:1.6,marginBottom:20 }}>
                     Sign in to save progress, post in Q&A, get personalized recommendations, and track your learning journey.
                   </p>
                   <div style={{ display:"flex",gap:10 }}>
-                    <button onClick={()=>setWelcomePhase(0)} style={{ flex:1,padding:"12px",borderRadius:12,border:"1.5px solid #e8e8ed",background:"transparent",color:"#86868b",cursor:"pointer",fontSize:14,fontFamily:FF }}>Maybe Later</button>
+                    <button onClick={()=>setWelcomePhase(0)} style={{ flex:1,padding:"12px",borderRadius:12,border:"1.5px solid #e8e8ed",background:"transparent",color:"#666",cursor:"pointer",fontSize:14,fontFamily:FF }}>Maybe Later</button>
                     <button onClick={()=>{setWelcomePhase(0);setAuthModal("signup");setAuthError("");setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});}}
                       style={{ flex:1,padding:"12px",borderRadius:12,border:"none",background:"linear-gradient(135deg,#7c3aed,#0071e3)",color:"#fff",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:FF }}>Sign Up Free</button>
                   </div>
@@ -3341,11 +3343,11 @@ Behavior guidelines:
                   </div>
                 </div>
                 <div style={{ padding:"20px 28px 28px",textAlign:"center" }}>
-                  <p style={{ fontSize:14,color:"#6e6e73",lineHeight:1.6,marginBottom:20 }}>
+                  <p style={{ fontSize:14,color:"#555",lineHeight:1.6,marginBottom:20 }}>
                     {chatMembers.length}+ mainframe professionals are chatting right now. Share knowledge, find jobs, solve doubts in real-time!
                   </p>
                   <div style={{ display:"flex",gap:10 }}>
-                    <button onClick={()=>setWelcomePhase(0)} style={{ flex:1,padding:"12px",borderRadius:12,border:"1.5px solid #e8e8ed",background:"transparent",color:"#86868b",cursor:"pointer",fontSize:14,fontFamily:FF }}>Later</button>
+                    <button onClick={()=>setWelcomePhase(0)} style={{ flex:1,padding:"12px",borderRadius:12,border:"1.5px solid #e8e8ed",background:"transparent",color:"#666",cursor:"pointer",fontSize:14,fontFamily:FF }}>Later</button>
                     <button onClick={()=>{setWelcomePhase(0);setChatPopup(true);setChatPopPhase(0);}}
                       style={{ flex:1,padding:"12px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:FF }}>Join Community</button>
                   </div>
@@ -3372,14 +3374,14 @@ Behavior guidelines:
               <div style={{ textAlign:"center",padding:"20px 0" }}>
                 <div style={{ fontSize:56,marginBottom:12 }}>🎉</div>
                 <h3 style={{ fontSize:22,fontWeight:800,color:"#1d1d1f",marginBottom:8 }}>Thank You!</h3>
-                <p style={{ fontSize:14,color:"#86868b" }}>Your feedback helps us improve.</p>
+                <p style={{ fontSize:14,color:"#666" }}>Your feedback helps us improve.</p>
               </div>
             ) : (
               <>
                 <div style={{ textAlign:"center",marginBottom:20 }}>
                   <div style={{ fontSize:40,marginBottom:8 }}>💬</div>
                   <h3 style={{ fontSize:22,fontWeight:800,color:"#1d1d1f",letterSpacing:"-0.5px",marginBottom:4 }}>How's your experience?</h3>
-                  <p style={{ fontSize:13,color:"#86868b" }}>We'd love your feedback to make MainframeStudyHub even better</p>
+                  <p style={{ fontSize:13,color:"#666" }}>We'd love your feedback to make MainframeStudyHub even better</p>
                 </div>
                 {/* Star Rating */}
                 <div style={{ display:"flex",justifyContent:"center",gap:8,marginBottom:20 }}>
@@ -3394,20 +3396,20 @@ Behavior guidelines:
                   ))}
                 </div>
                 <textarea value={feedbackForm.message} onChange={e => setFeedbackForm({...feedbackForm, message:e.target.value})}
-                  placeholder="What do you like? What can we improve? Any features you'd love to see?"
+                  aria-label="Feedback message" placeholder="What do you like? What can we improve? Any features you'd love to see?"
                   rows={3} style={{ ...modalInput, resize:"vertical",minHeight:72 }} />
                 {!user && (
                   <div style={{ display:"flex",gap:8 }}>
                     <input value={feedbackForm.name} onChange={e => setFeedbackForm({...feedbackForm, name:e.target.value})}
-                      placeholder="Name (optional)" style={{ ...modalInput, flex:1 }} />
+                      aria-label="Your name" placeholder="Name (optional)" style={{ ...modalInput, flex:1 }} />
                     <input value={feedbackForm.email} onChange={e => setFeedbackForm({...feedbackForm, email:e.target.value})}
-                      placeholder="Email (optional)" style={{ ...modalInput, flex:1 }} />
+                      aria-label="Your email" placeholder="Email (optional)" style={{ ...modalInput, flex:1 }} />
                   </div>
                 )}
                 <div style={{ display:"flex",gap:10 }}>
                   <button onClick={()=>{ setFeedbackOpen(false); localStorage.setItem("mfsh_feedback_done","1"); }}
                     style={{ flex:1,padding:"12px",borderRadius:12,border:"1.5px solid #e8e8ed",background:"transparent",
-                      color:"#86868b",cursor:"pointer",fontSize:14,fontFamily:FF }}>Maybe Later</button>
+                      color:"#666",cursor:"pointer",fontSize:14,fontFamily:FF }}>Maybe Later</button>
                   <button onClick={submitFeedback} disabled={feedbackLoading || !feedbackForm.message.trim()}
                     style={{ flex:1,padding:"12px",borderRadius:12,border:"none",
                       background:feedbackForm.message.trim()?"linear-gradient(135deg,#0071e3,#7c3aed)":"#d1d1d6",
@@ -3443,7 +3445,7 @@ Behavior guidelines:
             </div>
             <div style={{ padding:"16px 26px 6px",display:"flex",gap:6,flexWrap:"wrap",justifyContent:"center",opacity:chatPopPhase>=2?1:0,transition:"opacity 0.4s ease 0.3s" }}>
               {["💬 Chat","💼 Jobs","❓ Doubts","💭 Ideas","📊 Polls"].map((f,i)=>
-                <span key={i} style={{ padding:"4px 10px",borderRadius:16,fontSize:11,background:"#f5f5f7",color:"#6e6e73",border:"1px solid #e8e8ed" }}>{f}</span>
+                <span key={i} style={{ padding:"4px 10px",borderRadius:16,fontSize:11,background:"#f5f5f7",color:"#555",border:"1px solid #e8e8ed" }}>{f}</span>
               )}
             </div>
             <div style={{ padding:"14px 26px",display:"flex",justifyContent:"center",opacity:chatPopPhase>=3?1:0,transition:"opacity 0.4s ease 0.35s" }}>
@@ -3454,7 +3456,7 @@ Behavior guidelines:
               <button onClick={() => {setChatPopup(false);setWelcomePhase(0);setAuthModal("signin");setAuthError("");setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});}} style={{ width:"100%",padding:"13px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:FF,boxShadow:"0 4px 16px rgba(0,113,227,0.25)" }}>
                 Sign In →
               </button>
-              <p style={{ fontSize:11,color:"#86868b",marginTop:8,textAlign:"center" }}>New here? Create a free account</p>
+              <p style={{ fontSize:11,color:"#666",marginTop:8,textAlign:"center" }}>New here? Create a free account</p>
               <button onClick={chatJoin} style={{ width:"100%",padding:"13px",borderRadius:12,border:"none",background:"linear-gradient(135deg,#7c3aed,#0071e3)",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:FF,boxShadow:"0 4px 16px rgba(0,113,227,0.25)" }}>Join Community →</button>
             </div>
           </div>
@@ -3569,14 +3571,14 @@ Behavior guidelines:
             ...(chatMax?{maxWidth:720,margin:"0 auto",width:"100%"}:{}) }}>
             <div style={{ display:"flex",gap:8 }}>
               <input className="chat-input" value={chatInput} onChange={e => setChatInput(e.target.value)}
-                placeholder="Ask about mainframes..."
+                aria-label="Ask about mainframes" placeholder="Ask about mainframes..."
                 onKeyDown={e => { if(e.key==="Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); } }}
                 style={{ flex:1,padding:chatMax?"14px 18px":"10px 14px",fontSize:chatMax?16:14,border:"1.5px solid rgba(0,0,0,0.08)",borderRadius:14,
                   outline:"none",fontFamily:FF,background:"rgba(245,245,247,0.6)",color:"#1d1d1f",transition:"all 0.2s" }} />
               <button onClick={sendChat} disabled={chatLoading || !chatInput.trim()}
                 style={{ width:42,height:42,borderRadius:14,border:"none",cursor:chatInput.trim()?"pointer":"default",
                   background:chatInput.trim()?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(245,245,247,0.8)",
-                  color:chatInput.trim()?"#fff":"#86868b",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",
+                  color:chatInput.trim()?"#fff":"#666",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",
                   transition:"all 0.2s",flexShrink:0 }}>
                 ↑
               </button>
@@ -3591,10 +3593,10 @@ Behavior guidelines:
       {/* Footer */}
       <footer style={{ borderTop:"1px solid rgba(0,0,0,0.06)",background:"rgba(255,255,255,0.6)",backdropFilter:"blur(20px)",padding:"28px 0" }}>
         <div style={{ ...S.inner,display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12 }}>
-          <span style={{ fontSize:12,color:"#86868b",display:"flex",alignItems:"center",gap:6 }}><img src="/favicon.svg" alt="" style={{ width:16,height:16,borderRadius:3 }} /> MainframeStudyHub Hub — The complete IBM Z knowledge platform. A to Z, Beginner to Professional.</span>
+          <span style={{ fontSize:12,color:"#666",display:"flex",alignItems:"center",gap:6 }}><img src="/favicon.svg" alt="" style={{ width:16,height:16,borderRadius:3 }} /> MainframeStudyHub Hub — The complete IBM Z knowledge platform. A to Z, Beginner to Professional.</span>
           <div style={{ display:"flex",gap:16,flexWrap:"wrap" }}>
             {[["home","Overview"],["topics","Topics"],["scenarios","Scenarios"],["blog","Blog"],["quiz","Quiz"],["community","Community"],["weekly","Weekly"]].map(([p,l]) => (
-              <button key={p} onClick={() => goPage(p)} style={{ background:"none",border:"none",color:"#86868b",fontSize:12,cursor:"pointer",fontFamily:FF }}>{l}</button>
+              <button key={p} onClick={() => goPage(p)} style={{ background:"none",border:"none",color:"#666",fontSize:12,cursor:"pointer",fontFamily:FF }}>{l}</button>
             ))}
           </div>
         </div>
@@ -3622,28 +3624,28 @@ const S = {
   heroInner:{ maxWidth:720,margin:"0 auto",padding:"0 24px" },
   eyebrow:{ fontSize:13,fontWeight:600,color:"#0071e3",letterSpacing:"1px",textTransform:"uppercase",marginBottom:16 },
   heroTitle:{ fontSize:"clamp(38px,6vw,68px)",fontWeight:800,lineHeight:1.06,letterSpacing:"-2.5px",color:"#1d1d1f",marginBottom:18 },
-  heroSub:{ fontSize:"clamp(15px,1.8vw,18px)",color:"#6e6e73",lineHeight:1.65,marginBottom:32,fontWeight:400 },
+  heroSub:{ fontSize:"clamp(15px,1.8vw,18px)",color:"#555",lineHeight:1.65,marginBottom:32,fontWeight:400 },
   heroBtns:{ display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap" },
   btnBlue:{ background:"#0071e3",color:"#fff",border:"none",borderRadius:980,padding:"12px 24px",fontSize:15,fontWeight:600,cursor:"pointer",fontFamily:FF },
   btnGhost:{ background:"transparent",color:"#0071e3",border:"1.5px solid #0071e3",borderRadius:980,padding:"12px 24px",fontSize:15,fontWeight:600,cursor:"pointer",fontFamily:FF },
   statsRow:{ display:"flex",justifyContent:"center",flexWrap:"wrap",background:"rgba(255,255,255,0.5)",backdropFilter:"blur(12px)",borderRadius:20,margin:"0 24px",border:"1px solid rgba(255,255,255,0.7)",boxShadow:"0 2px 20px rgba(0,0,0,0.04)" },
   statItem:{ flex:"1 1 120px",padding:"28px 16px",textAlign:"center",borderRight:"1px solid rgba(0,0,0,0.04)" },
   statN:{ fontSize:40,fontWeight:800,letterSpacing:"-2px",color:"#1d1d1f",lineHeight:1 },
-  statL:{ fontSize:13,color:"#86868b",marginTop:6 },
+  statL:{ fontSize:13,color:"#666",marginTop:6 },
   section:{ padding:"72px 0" },
   inner:{ maxWidth:1200,margin:"0 auto",padding:"0 24px" },
   sectionTitle:{ fontSize:"clamp(26px,4vw,44px)",fontWeight:800,letterSpacing:"-1.5px",color:"#1d1d1f",marginBottom:36 },
   topicsGrid:{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(185px,1fr))",gap:14 },
   topicCard:{ background:"rgba(255,255,255,0.75)",borderRadius:16,border:"1px solid rgba(255,255,255,0.7)",padding:"20px 18px",cursor:"pointer",textAlign:"left",boxShadow:"0 2px 16px rgba(0,0,0,0.05)",backdropFilter:"blur(12px)" },
   tcTitle:{ fontSize:16,fontWeight:700,color:"#1d1d1f",marginBottom:4 },
-  tcSub:{ fontSize:12,color:"#86868b",marginBottom:6,lineHeight:1.4 },
+  tcSub:{ fontSize:12,color:"#666",marginBottom:6,lineHeight:1.4 },
   tcMore:{ fontSize:13,fontWeight:600 },
   featureCard:{ background:"rgba(255,255,255,0.75)",border:"1px solid rgba(255,255,255,0.7)",borderRadius:20,padding:"32px 28px",cursor:"pointer",textAlign:"left",boxShadow:"0 4px 20px rgba(0,0,0,0.05)",backdropFilter:"blur(12px)" },
   fcTitle:{ fontSize:20,fontWeight:700,color:"#1d1d1f",marginBottom:10 },
-  fcDesc:{ fontSize:14,color:"#6e6e73",lineHeight:1.6 },
+  fcDesc:{ fontSize:14,color:"#555",lineHeight:1.6 },
   pageHero:{ padding:"64px 24px 36px",maxWidth:1200,margin:"0 auto" },
   pageHeroTitle:{ fontSize:"clamp(34px,5vw,60px)",fontWeight:800,letterSpacing:"-2px",color:"#1d1d1f",marginBottom:12 },
-  pageHeroSub:{ fontSize:18,color:"#6e6e73",fontWeight:400,maxWidth:620 },
+  pageHeroSub:{ fontSize:18,color:"#555",fontWeight:400,maxWidth:620 },
   searchInput:{ background:"#f5f5f7",border:"none",borderRadius:8,padding:"8px 12px 8px 32px",fontSize:14,color:"#1d1d1f",outline:"none",fontFamily:FF,width:220 },
   pill:{ border:"none",borderRadius:980,padding:"6px 14px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:FF,transition:"all .15s" },
   backBtn:{ background:"none",border:"none",color:"#0071e3",cursor:"pointer",fontSize:15,fontFamily:FF,marginBottom:20,padding:0 },
