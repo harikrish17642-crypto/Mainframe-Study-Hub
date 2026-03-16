@@ -298,7 +298,24 @@ async function loadLastUpdate() {
 
 /* ─── MAIN APP ───────────────────────────────────────────────────────────── */
 export default function App() {
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState(() => {
+    const hash = window.location.hash.replace("#","");
+    return ["home","topics","scenarios","blog","quiz","community","abends","roadmap","weekly","about"].includes(hash) ? hash : "home";
+  });
+  
+  // Sync page state with URL hash
+  useEffect(() => {
+    window.location.hash = page === "home" ? "" : page;
+  }, [page]);
+  useEffect(() => {
+    const onHash = () => {
+      const h = window.location.hash.replace("#","");
+      if (h && h !== page) setPage(h);
+      else if (!h && page !== "home") setPage("home");
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, [page]);
   
   /* ─── Defer 3D scene to avoid blocking main thread ─── */
   const [show3D, setShow3D] = useState(false);
