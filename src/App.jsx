@@ -41,6 +41,96 @@ const CHAT_SEED = [
   { id:12,sender:1,type:CT.POLL,text:"Next week's deep-dive topic?",pollOpts:[{text:"CICS Web Services",votes:[2,4,7]},{text:"DB2 Performance",votes:[0,3]},{text:"JCL Utilities",votes:[5,6]},{text:"REXX Scripting",votes:[1]}],time:"11:15 AM",reactions:{},del:false },
 ];
 
+/* ─── COOL USER AVATAR ─────────────────────────────────────────────────── */
+const AVATAR_GRADIENTS = [
+  ["#FF6B6B","#EE5A24"],["#0071e3","#7c3aed"],["#00b894","#00cec9"],
+  ["#e17055","#fdcb6e"],["#6c5ce7","#a29bfe"],["#fd79a8","#e84393"],
+  ["#00b365","#20bf6b"],["#f78fb3","#cf6a87"],["#3dc1d3","#0984e3"],
+  ["#e77f67","#f5cd79"],["#546de5","#574b90"],["#e15f41","#c44569"],
+  ["#00d2d3","#01a3a4"],["#ff9ff3","#f368e0"],["#feca57","#ff6348"],
+  ["#1dd1a1","#10ac84"],["#54a0ff","#2e86de"],["#5f27cd","#341f97"],
+];
+const AVATAR_EMOJIS = ["🚀","⚡","🔥","💎","🌟","🎯","💻","🧠","🦊","🐉","🎮","🌈","🎸","🏆","🛡️","🔮","👾","🤖"];
+const AVATAR_PATTERNS = ["dots","rings","waves","grid","diamond"];
+
+function hashStr(s) { let h=0; for(let i=0;i<(s||"").length;i++){h=((h<<5)-h)+(s||"U").charCodeAt(i);h|=0;} return Math.abs(h); }
+
+function UserAvatar({ name, size=36, showRing=false, onClick, style:extraStyle }) {
+  const h = hashStr(name);
+  const grad = AVATAR_GRADIENTS[h % AVATAR_GRADIENTS.length];
+  const emoji = AVATAR_EMOJIS[h % AVATAR_EMOJIS.length];
+  const pattern = AVATAR_PATTERNS[h % AVATAR_PATTERNS.length];
+  const initial = (name||"U").charAt(0).toUpperCase();
+  const useEmoji = h % 3 === 0;
+  const [hovered, setHovered] = useState(false);
+
+  let patternSvg = "";
+  if (pattern === "dots") patternSvg = `<circle cx='4' cy='4' r='1.5' fill='rgba(255,255,255,0.15)'/><circle cx='12' cy='12' r='1.5' fill='rgba(255,255,255,0.15)'/>`;
+  else if (pattern === "rings") patternSvg = `<circle cx='8' cy='8' r='6' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1.5'/>`;
+  else if (pattern === "waves") patternSvg = `<path d='M0 8 Q4 4 8 8 T16 8' fill='none' stroke='rgba(255,255,255,0.12)' stroke-width='1.5'/>`;
+  else if (pattern === "grid") patternSvg = `<line x1='0' y1='8' x2='16' y2='8' stroke='rgba(255,255,255,0.08)' stroke-width='1'/><line x1='8' y1='0' x2='8' y2='16' stroke='rgba(255,255,255,0.08)' stroke-width='1'/>`;
+  else if (pattern === "diamond") patternSvg = `<polygon points='8,2 14,8 8,14 2,8' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>`;
+
+  const bgPattern = `url("data:image/svg+xml,%3Csvg width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3E${encodeURIComponent(patternSvg)}%3C/svg%3E")`;
+
+  return (
+    <div onClick={onClick}
+      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+      style={{
+        position:"relative", width:size, height:size, flexShrink:0,
+        cursor: onClick ? "pointer" : "default",
+        perspective: "200px", transformStyle:"preserve-3d",
+        ...extraStyle
+      }}>
+      {/* Animated spinning ring */}
+      {showRing && <div style={{
+        position:"absolute", inset:-3, borderRadius:"50%",
+        background:`conic-gradient(${grad[0]}, ${grad[1]}, transparent, ${grad[0]})`,
+        animation:"spin 3s linear infinite",
+        opacity: hovered ? 1 : 0.7,
+        transition:"opacity 0.3s",
+      }} />}
+      {/* Glow pulse behind avatar */}
+      {showRing && <div style={{
+        position:"absolute", inset:-6, borderRadius:"50%",
+        background:`radial-gradient(circle, ${grad[0]}40, transparent 70%)`,
+        animation:"avatarPulse 2s ease-in-out infinite",
+        zIndex:0,
+      }} />}
+      {/* Main avatar circle with 3D transform */}
+      <div className="avatar-3d" style={{
+        width:size, height:size, borderRadius:"50%",
+        background:`linear-gradient(135deg, ${grad[0]}, ${grad[1]})`,
+        backgroundImage:`${bgPattern}, linear-gradient(135deg, ${grad[0]}, ${grad[1]})`,
+        display:"flex", alignItems:"center", justifyContent:"center",
+        color:"#fff", fontSize: useEmoji ? size*0.5 : size*0.42, fontWeight:800,
+        fontFamily:"-apple-system,sans-serif",
+        boxShadow: hovered
+          ? `0 8px 25px ${grad[0]}60, 0 0 15px ${grad[1]}30, inset 0 -2px 6px rgba(0,0,0,0.15)`
+          : showRing
+            ? `0 4px 16px ${grad[0]}40, inset 0 -2px 4px rgba(0,0,0,0.1)`
+            : `0 2px 8px ${grad[0]}30, inset 0 -1px 3px rgba(0,0,0,0.1)`,
+        border: showRing ? "2.5px solid rgba(255,255,255,0.9)" : "none",
+        position:"relative", zIndex:1,
+        letterSpacing:"-0.5px",
+        textShadow:"0 1px 3px rgba(0,0,0,0.25)",
+        transform: hovered ? "rotateY(15deg) rotateX(-10deg) scale(1.1)" : "rotateY(0) rotateX(0) scale(1)",
+        transition:"transform 0.3s ease, box-shadow 0.3s ease",
+        backfaceVisibility:"hidden",
+      }}>
+        {/* Inner highlight for 3D depth */}
+        <div style={{
+          position:"absolute", top:"8%", left:"15%", width:"35%", height:"25%",
+          borderRadius:"50%", background:"rgba(255,255,255,0.25)",
+          filter:"blur(3px)", pointerEvents:"none",
+        }} />
+        {useEmoji ? emoji : initial}
+      </div>
+    </div>
+  );
+}
+/* ─── END AVATAR ───────────────────────────────────────────────────────── */
+
 /* ─── COMMUNITY CANVAS (particle network for 3D CTA) ─────────────────── */
 function CommCanvas({ style }) {
   const ref = useRef(null), anim = useRef(null);
@@ -1195,6 +1285,39 @@ Behavior guidelines:
 
   /* ─── WELCOME SEQUENCE + TOP BANNER ─── */
   const [topBanner, setTopBanner] = useState(true);
+
+  /* ─── FEEDBACK FORM (appears after 5 min) ─── */
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [feedbackSent, setFeedbackSent] = useState(false);
+  const [feedbackForm, setFeedbackForm] = useState({ rating: 0, message: "", name: "", email: "" });
+  const [feedbackLoading, setFeedbackLoading] = useState(false);
+  const feedbackShown = useRef(false);
+  useEffect(() => {
+    const alreadyDone = localStorage.getItem("mfsh_feedback_done");
+    if (alreadyDone) return;
+    const timer = setTimeout(() => {
+      if (!feedbackShown.current) { feedbackShown.current = true; setFeedbackOpen(true); }
+    }, 5 * 60 * 1000); // 5 minutes
+    return () => clearTimeout(timer);
+  }, []);
+  const submitFeedback = async () => {
+    if (!feedbackForm.message.trim()) return;
+    setFeedbackLoading(true);
+    try {
+      await supabase.from("feedback").insert({
+        user_id: user?.id || null,
+        name: feedbackForm.name.trim() || user?.name || "Anonymous",
+        email: feedbackForm.email.trim() || user?.email || null,
+        rating: feedbackForm.rating || null,
+        message: feedbackForm.message.trim(),
+        page: page,
+      });
+    } catch {}
+    localStorage.setItem("mfsh_feedback_done", "1");
+    setFeedbackLoading(false);
+    setFeedbackSent(true);
+    setTimeout(() => { setFeedbackOpen(false); setFeedbackSent(false); }, 2500);
+  };
   const [welcomePhase, setWelcomePhase] = useState(0); // 0=none, 1=welcome, 2=signin, 3=community
   const welcomeShown = useRef({welcome:false, signin:false, community:false});
 
@@ -1320,6 +1443,8 @@ Behavior guidelines:
         *{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth}
         body{background:#f8f9fc;overflow-x:hidden}
+        .nav-scroll::-webkit-scrollbar{display:none}
+        .nav-scroll{-ms-overflow-style:none;scrollbar-width:none}
         ::-webkit-scrollbar{width:5px}
         ::-webkit-scrollbar-thumb{background:#d1d1d6;border-radius:3px}
         @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -1331,6 +1456,7 @@ Behavior guidelines:
         @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
         @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+        @keyframes avatarPulse{0%,100%{transform:scale(1);opacity:0.5}50%{transform:scale(1.15);opacity:0.8}}
         @keyframes slideInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
         @keyframes slideInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
         @keyframes scaleIn{from{opacity:0;transform:scale(0.92)}to{opacity:1;transform:scale(1)}}
@@ -1432,7 +1558,7 @@ Behavior guidelines:
             <img src="/favicon.svg" alt="logo" style={{ width:28,height:28,borderRadius:6 }} />
             <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: "-.3px" }}>MainframeStudyHub</span>
           </button>
-          <div style={S.navLinks}>
+          <div className="nav-scroll" style={S.navLinks}>
             {[["home","Overview"],["topics","Topics"],["scenarios","Scenarios"],["blog","Blog"],["quiz","Quiz"],["community","Community"],["abends","Abend Solver"],["roadmap","Roadmap"],["weekly","Weekly Update"],["about","About"]].map(([p,l]) => (
               <button key={p} className="nav-btn" onClick={() => goPage(p)}
                 style={{ ...S.navLink, color: page===p ? "#1d1d1f":"#6e6e73", fontWeight: page===p?600:400 }}>
@@ -1442,12 +1568,9 @@ Behavior guidelines:
           </div>
           {/* Auth */}
           {user ? (
-            <button onClick={() => setAuthModal(authModal==="profile"?null:"profile")}
-              style={{ width:32,height:32,borderRadius:"50%",border:"none",cursor:"pointer",marginLeft:8,
-                background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",fontSize:13,fontWeight:700,
-                fontFamily:FF,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
-              {user.avatar}
-            </button>
+            <UserAvatar name={user.name} size={32} showRing
+              onClick={() => setAuthModal(authModal==="profile"?null:"profile")}
+              style={{ marginLeft:8 }} />
           ) : (
             <button onClick={() => { setAuthModal("signin"); setAuthError(""); setAuthForm({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}); }}
               style={{ marginLeft:8,background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",
@@ -1470,10 +1593,7 @@ Behavior guidelines:
           {/* Mobile user info */}
           {user ? (
             <div style={{ padding:"12px 24px",display:"flex",alignItems:"center",gap:12,borderBottom:"1px solid rgba(0,0,0,0.06)",marginBottom:8 }}>
-              <div style={{ width:36,height:36,borderRadius:"50%",background:"linear-gradient(135deg,#0071e3,#7c3aed)",
-                color:"#fff",fontSize:15,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
-                {user.avatar}
-              </div>
+              <UserAvatar name={user.name} size={36} showRing />
               <div style={{ flex:1,minWidth:0 }}>
                 <div style={{ fontSize:14,fontWeight:700,color:"#1d1d1f" }}>{user.name}</div>
                 <div style={{ fontSize:11,color:"#86868b" }}>{user.role} · {user.mfYears}yr MF</div>
@@ -1639,10 +1759,7 @@ Behavior guidelines:
               backdropFilter:"blur(20px)",borderRadius:18,padding:24,boxShadow:"0 16px 56px rgba(0,0,0,0.18)",
               border:"1px solid rgba(0,0,0,0.06)",minWidth:260 }}>
               <div style={{ display:"flex",alignItems:"center",gap:14,marginBottom:18,paddingBottom:16,borderBottom:"1px solid rgba(0,0,0,0.06)" }}>
-                <div style={{ width:52,height:52,borderRadius:"50%",background:"linear-gradient(135deg,#0071e3,#7c3aed)",
-                  color:"#fff",fontSize:22,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
-                  {user?.avatar}
-                </div>
+                <UserAvatar name={user?.name} size={52} showRing />
                 <div>
                   <div style={{ fontSize:17,fontWeight:800,color:"#1d1d1f",letterSpacing:"-0.3px" }}>{user?.name}</div>
                   <div style={{ fontSize:12,color:"#0071e3",fontWeight:600 }}>{user?.role}</div>
@@ -2204,10 +2321,7 @@ Behavior guidelines:
                 <div className="scaleIn" style={{ background:"rgba(255,255,255,0.9)",backdropFilter:"blur(20px)",border:"1px solid rgba(0,0,0,0.08)",
                   borderRadius:20,padding:32,marginBottom:32,boxShadow:"0 8px 32px rgba(0,0,0,0.06)" }}>
                   <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:20 }}>
-                    <div style={{ width:40,height:40,borderRadius:"50%",background:"linear-gradient(135deg,#0071e3,#7c3aed)",
-                      color:"#fff",fontSize:16,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center" }}>
-                      {user.avatar}
-                    </div>
+                    <UserAvatar name={user.name} size={40} showRing />
                     <div>
                       <div style={{ fontSize:15,fontWeight:700 }}>{user.name}</div>
                       <div style={{ fontSize:12,color:"#86868b" }}>{user.role} · {user.mfYears} yrs mainframe experience</div>
@@ -3109,34 +3223,52 @@ Behavior guidelines:
                 </div>
               </div>
 
-              {/* Contact Card */}
+              {/* Founder Card */}
               <div className="content-card fi" style={{ animationDelay:"0.2s" }}>
-                <h3 style={{ fontSize:20,fontWeight:800,color:"#1d1d1f",marginBottom:24,letterSpacing:"-0.3px" }}>Contact</h3>
-                <div style={{ display:"flex",alignItems:"center",gap:20,flexWrap:"wrap" }}>
-                  <div style={{ width:72,height:72,borderRadius:"50%",background:"linear-gradient(135deg,#0071e3,#7c3aed)",
-                    color:"#fff",fontSize:30,fontWeight:800,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
-                    H
+                <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:24 }}>
+                  <div style={{ width:4,height:28,borderRadius:4,background:"linear-gradient(135deg,#0071e3,#7c3aed)" }} />
+                  <h3 style={{ fontSize:20,fontWeight:800,color:"#1d1d1f",letterSpacing:"-0.3px" }}>Meet the Founder</h3>
+                </div>
+                <div style={{ display:"flex",alignItems:"center",gap:24,flexWrap:"wrap" }}>
+                  <div style={{ position:"relative",flexShrink:0 }}>
+                    <div style={{ position:"absolute",inset:-4,borderRadius:"50%",
+                      background:"conic-gradient(#0071e3, #7c3aed, #00b365, #0071e3)",
+                      animation:"spin 4s linear infinite",opacity:0.7 }} />
+                    <img src="/founder.jpg" alt="Harikrishnan K" style={{
+                      width:90,height:90,borderRadius:"50%",objectFit:"cover",
+                      border:"3px solid #fff",position:"relative",zIndex:1,
+                      boxShadow:"0 8px 24px rgba(0,113,227,0.25)"
+                    }} />
                   </div>
-                  <div>
-                    <div style={{ fontSize:22,fontWeight:800,color:"#1d1d1f",letterSpacing:"-0.5px",marginBottom:4 }}>Harikrishnan K</div>
+                  <div style={{ flex:1,minWidth:200 }}>
+                    <div style={{ fontSize:24,fontWeight:800,color:"#1d1d1f",letterSpacing:"-0.5px",marginBottom:2 }}>Harikrishnan K</div>
+                    <div style={{ fontSize:14,color:"#6e6e73",marginBottom:10 }}>Founder & Creator of MainframeStudyHub</div>
                     <div style={{ display:"inline-flex",alignItems:"center",gap:6,background:"linear-gradient(135deg,#0071e3,#7c3aed)",
-                      color:"#fff",padding:"5px 14px",borderRadius:980,fontSize:12,fontWeight:700 }}>
+                      color:"#fff",padding:"5px 14px",borderRadius:980,fontSize:12,fontWeight:700,marginBottom:14 }}>
                       🖥️ Mainframe Developer
                     </div>
-                    <div style={{ marginTop:14,display:"flex",gap:10,flexWrap:"wrap" }}>
+                    <div style={{ display:"flex",gap:10,flexWrap:"wrap" }}>
                       <a href="mailto:harikrish17642@gmail.com" style={{ display:"inline-flex",alignItems:"center",gap:6,
-                        background:"rgba(245,245,247,0.8)",color:"#3a3a3c",padding:"8px 16px",borderRadius:10,fontSize:13,
+                        background:"rgba(245,245,247,0.8)",color:"#3a3a3c",padding:"8px 14px",borderRadius:10,fontSize:12,
                         fontWeight:600,textDecoration:"none",border:"1px solid rgba(0,0,0,0.06)",transition:"all 0.2s" }}>
-                        📧 harikrish17642@gmail.com
+                        📧 Email
+                      </a>
+                      <a href="https://www.linkedin.com/in/harikrishnan-k-4560241a2" target="_blank" rel="noopener noreferrer"
+                        style={{ display:"inline-flex",alignItems:"center",gap:6,
+                        background:"#0A66C2",color:"#fff",padding:"8px 14px",borderRadius:10,fontSize:12,
+                        fontWeight:700,textDecoration:"none",transition:"all 0.2s" }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        LinkedIn
                       </a>
                     </div>
                   </div>
                 </div>
-                <div style={{ marginTop:24,padding:"16px 20px",background:"rgba(0,113,227,0.04)",borderRadius:12,
-                  border:"1px solid rgba(0,113,227,0.08)" }}>
-                  <p style={{ fontSize:13,color:"#6e6e73",lineHeight:1.6 }}>
-                    Have suggestions, feedback, or want to contribute content? Feel free to reach out. 
-                    I'd love to hear from fellow mainframe enthusiasts and learners!
+                <div style={{ marginTop:24,padding:"18px 22px",background:"linear-gradient(135deg,rgba(0,113,227,0.04),rgba(124,58,237,0.04))",
+                  borderRadius:14,border:"1px solid rgba(0,113,227,0.08)" }}>
+                  <p style={{ fontSize:13.5,color:"#4a4a4f",lineHeight:1.7,margin:0 }}>
+                    Passionate about making mainframe knowledge accessible to everyone. Built MainframeStudyHub 
+                    to bridge the gap between experienced professionals and newcomers entering the IBM Z world. 
+                    Have suggestions or want to contribute? I'd love to connect!
                   </p>
                 </div>
               </div>
@@ -3226,6 +3358,68 @@ Behavior guidelines:
 
       {/* ─── COMMUNITY JOIN POPUP ─── */}
       {/* ─── AI KEY SETTINGS MODAL ─── */}
+
+      {/* ─── FEEDBACK MODAL ─── */}
+      {feedbackOpen && (
+        <div style={{ position:"fixed",inset:0,zIndex:9999,background:"rgba(0,0,0,0.45)",backdropFilter:"blur(10px)",
+          display:"flex",alignItems:"center",justifyContent:"center",animation:"fadeIn 0.3s ease" }}
+          onClick={()=>setFeedbackOpen(false)}>
+          <div onClick={e=>e.stopPropagation()} className="scaleIn" style={{
+            background:"rgba(255,255,255,0.98)",backdropFilter:"blur(20px)",borderRadius:24,
+            padding:"36px 32px",maxWidth:440,width:"90%",boxShadow:"0 24px 80px rgba(0,0,0,0.2)",
+            border:"1px solid rgba(255,255,255,0.8)" }}>
+            {feedbackSent ? (
+              <div style={{ textAlign:"center",padding:"20px 0" }}>
+                <div style={{ fontSize:56,marginBottom:12 }}>🎉</div>
+                <h3 style={{ fontSize:22,fontWeight:800,color:"#1d1d1f",marginBottom:8 }}>Thank You!</h3>
+                <p style={{ fontSize:14,color:"#86868b" }}>Your feedback helps us improve.</p>
+              </div>
+            ) : (
+              <>
+                <div style={{ textAlign:"center",marginBottom:20 }}>
+                  <div style={{ fontSize:40,marginBottom:8 }}>💬</div>
+                  <h3 style={{ fontSize:22,fontWeight:800,color:"#1d1d1f",letterSpacing:"-0.5px",marginBottom:4 }}>How's your experience?</h3>
+                  <p style={{ fontSize:13,color:"#86868b" }}>We'd love your feedback to make MainframeStudyHub even better</p>
+                </div>
+                {/* Star Rating */}
+                <div style={{ display:"flex",justifyContent:"center",gap:8,marginBottom:20 }}>
+                  {[1,2,3,4,5].map(s => (
+                    <button key={s} onClick={() => setFeedbackForm({...feedbackForm, rating:s})}
+                      style={{ background:"none",border:"none",fontSize:32,cursor:"pointer",
+                        transform:feedbackForm.rating>=s?"scale(1.15)":"scale(1)",
+                        filter:feedbackForm.rating>=s?"none":"grayscale(1) opacity(0.4)",
+                        transition:"all 0.15s ease" }}>
+                      ⭐
+                    </button>
+                  ))}
+                </div>
+                <textarea value={feedbackForm.message} onChange={e => setFeedbackForm({...feedbackForm, message:e.target.value})}
+                  placeholder="What do you like? What can we improve? Any features you'd love to see?"
+                  rows={3} style={{ ...modalInput, resize:"vertical",minHeight:72 }} />
+                {!user && (
+                  <div style={{ display:"flex",gap:8 }}>
+                    <input value={feedbackForm.name} onChange={e => setFeedbackForm({...feedbackForm, name:e.target.value})}
+                      placeholder="Name (optional)" style={{ ...modalInput, flex:1 }} />
+                    <input value={feedbackForm.email} onChange={e => setFeedbackForm({...feedbackForm, email:e.target.value})}
+                      placeholder="Email (optional)" style={{ ...modalInput, flex:1 }} />
+                  </div>
+                )}
+                <div style={{ display:"flex",gap:10 }}>
+                  <button onClick={()=>{ setFeedbackOpen(false); localStorage.setItem("mfsh_feedback_done","1"); }}
+                    style={{ flex:1,padding:"12px",borderRadius:12,border:"1.5px solid #e8e8ed",background:"transparent",
+                      color:"#86868b",cursor:"pointer",fontSize:14,fontFamily:FF }}>Maybe Later</button>
+                  <button onClick={submitFeedback} disabled={feedbackLoading || !feedbackForm.message.trim()}
+                    style={{ flex:1,padding:"12px",borderRadius:12,border:"none",
+                      background:feedbackForm.message.trim()?"linear-gradient(135deg,#0071e3,#7c3aed)":"#d1d1d6",
+                      color:"#fff",fontSize:14,fontWeight:700,cursor:feedbackForm.message.trim()?"pointer":"default",fontFamily:FF }}>
+                    {feedbackLoading ? "Sending..." : "Submit Feedback"}
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       {chatPopup && (
         <div style={{ position:"fixed",inset:0,zIndex:2500,background:"rgba(0,0,0,0.5)",backdropFilter:"blur(10px)",display:"flex",alignItems:"center",justifyContent:"center" }} onClick={()=>setChatPopup(false)}>
@@ -3334,10 +3528,7 @@ Behavior guidelines:
                   {renderChatMd(msg.content)}
                 </div>
                 {msg.role==="user" && user && (
-                  <div style={{ width:30,height:30,borderRadius:10,background:"#1d1d1f",
-                    color:"#fff",fontSize:12,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
-                    {user.avatar}
-                  </div>
+                  <UserAvatar name={user.name} size={30} />
                 )}
               </div>
             ))}
@@ -3421,8 +3612,8 @@ const S = {
   nav:{ position:"fixed",top:0,left:0,right:0,zIndex:1000,height:52,transition:"background .3s,box-shadow .3s" },
   navInner:{ maxWidth:1200,margin:"0 auto",padding:"0 24px",height:52,display:"flex",alignItems:"center" },
   navLogo:{ display:"flex",alignItems:"center",gap:8,background:"none",border:"none",cursor:"pointer",color:"#1d1d1f",fontFamily:FF },
-  navLinks:{ display:"flex",gap:0,marginLeft:"auto" },
-  navLink:{ background:"none",border:"none",cursor:"pointer",fontSize:13,padding:"6px 11px",borderRadius:6,fontFamily:FF,transition:"color .2s" },
+  navLinks:{ display:"flex",gap:0,marginLeft:"auto",overflowX:"auto",overflowY:"hidden",WebkitOverflowScrolling:"touch",scrollbarWidth:"none",msOverflowStyle:"none",maxWidth:"calc(100vw - 200px)",flexShrink:1 },
+  navLink:{ background:"none",border:"none",cursor:"pointer",fontSize:13,padding:"6px 11px",borderRadius:6,fontFamily:FF,transition:"color .2s",whiteSpace:"nowrap",flexShrink:0 },
   hamburger:{ display:"flex",flexDirection:"column",background:"none",border:"none",cursor:"pointer",padding:"8px",marginLeft:"auto" },
   drawer:{ position:"fixed",top:0,left:0,right:0,background:"rgba(248,249,252,0.97)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",zIndex:999,padding:"8px 0 24px",boxShadow:"0 8px 30px rgba(0,0,0,0.1)",maxHeight:"90vh",overflowY:"auto" },
   drawerLink:{ display:"block",width:"100%",textAlign:"left",padding:"12px 24px",background:"none",border:"none",fontSize:17,fontWeight:500,cursor:"pointer",fontFamily:FF },

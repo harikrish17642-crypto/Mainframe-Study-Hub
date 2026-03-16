@@ -99,4 +99,19 @@ $$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = '';
 -- DONE! All SQL fixes applied.
 -- FIX 5 (Leaked Password Protection) must be done in Dashboard:
 --   → Authentication → Settings → scroll to "Leaked Password Protection" → Enable
+
+-- ─── BONUS: Feedback table ───
+CREATE TABLE IF NOT EXISTS public.feedback (
+  id BIGSERIAL PRIMARY KEY,
+  user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  name TEXT,
+  email TEXT,
+  rating INTEGER CHECK (rating >= 1 AND rating <= 5),
+  message TEXT NOT NULL,
+  page TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+ALTER TABLE public.feedback ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Anyone can insert feedback" ON public.feedback FOR INSERT WITH CHECK (true);
+CREATE POLICY "Only admins read feedback" ON public.feedback FOR SELECT USING (auth.uid() IS NOT NULL);
 -- ═══════════════════════════════════════════════════════════
