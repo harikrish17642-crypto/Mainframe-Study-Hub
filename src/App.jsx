@@ -299,6 +299,14 @@ async function loadLastUpdate() {
 /* ─── MAIN APP ───────────────────────────────────────────────────────────── */
 export default function App() {
   const [page, setPage] = useState("home");
+  
+  /* ─── Defer 3D scene to avoid blocking main thread ─── */
+  const [show3D, setShow3D] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined' || window.innerWidth <= 768) return;
+    const id = requestIdleCallback ? requestIdleCallback(() => setShow3D(true), { timeout: 4000 }) : setTimeout(() => setShow3D(true), 4000);
+    return () => { if (requestIdleCallback) cancelIdleCallback(id); else clearTimeout(id); };
+  }, []);
   const [activeTopic, setActiveTopic] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
   const [quiz, setQuiz] = useState({ index: 0, score: 0, selected: null, done: false, showExp: false });
@@ -1927,8 +1935,8 @@ Behavior guidelines:
           <div>
             <section style={{ position:"relative",overflow:"hidden",background:"linear-gradient(135deg,#030712 0%,#0a0e27 40%,#0f1642 70%,#1a0a3e 100%)",
               padding:"100px 0 70px",minHeight:"85vh",display:"flex",alignItems:"center" }}>
-              {/* 3D Background — skip on mobile for performance */}
-              {typeof window !== 'undefined' && window.innerWidth > 768 && (
+              {/* 3D Background — deferred load for performance */}
+              {show3D && (
                 <Suspense fallback={null}><Hero3D /></Suspense>
               )}
               {/* Gradient overlay for text readability */}

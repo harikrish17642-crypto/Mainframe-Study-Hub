@@ -131,11 +131,19 @@ export default function Hero3D() {
     };
     window.addEventListener("mousemove", onMouseMove);
 
-    // Animation loop
+    // Animation loop — pauses when not visible, throttled to 30fps
     let frame = 0;
     let animId;
-    const animate = () => {
+    let isVisible = true;
+    let lastTime = 0;
+    const observer = new IntersectionObserver(([entry]) => { isVisible = entry.isIntersecting; }, { threshold: 0.1 });
+    observer.observe(container);
+    
+    const animate = (now) => {
       animId = requestAnimationFrame(animate);
+      if (!isVisible) return; // Pause when scrolled past
+      if (now - lastTime < 33) return; // Throttle to ~30fps
+      lastTime = now;
       frame++;
       const t = frame * 0.01;
 
@@ -167,7 +175,7 @@ export default function Hero3D() {
 
       renderer.render(scene, camera);
     };
-    animate();
+    animate(0);
 
     // Resize
     const onResize = () => {
@@ -181,6 +189,7 @@ export default function Hero3D() {
 
     return () => {
       cancelAnimationFrame(animId);
+      observer.disconnect();
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("resize", onResize);
       if (container.contains(renderer.domElement)) container.removeChild(renderer.domElement);
