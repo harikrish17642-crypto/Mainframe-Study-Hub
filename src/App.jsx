@@ -1072,8 +1072,9 @@ Behavior guidelines:
         const code = (lang && !lang.includes(" ") ? lines.slice(1) : lines).join("\n");
         return (
           <div key={pi} style={{ margin:"8px 0",borderRadius:10,overflow:"hidden",border:"1px solid rgba(0,0,0,0.08)" }}>
-            {lang && !lang.includes(" ") && <div style={{ background:"#1c1c1e",padding:"6px 12px",fontSize:11,color:"#8b949e",fontWeight:600,textTransform:"uppercase" }}>{lang}</div>}
-            <pre style={{ margin:0,padding:"12px 14px",background:"#1c1c1e",color:"#e6edf3",fontSize:12.5,lineHeight:1.7,overflowX:"auto",fontFamily:MONO }}>{code}</pre>
+            {lang && !lang.includes(" ") && <div style={{ background:"#0f172a",padding:"6px 12px",fontSize:11,color:"#94a3b8",fontWeight:600,textTransform:"uppercase",borderBottom:"1px solid rgba(255,255,255,0.06)" }}>{lang}</div>}
+            <pre style={{ margin:0,padding:"14px 16px",background:"#0f172a",color:"#f1f5f9",fontSize:13,lineHeight:1.8,overflowX:"auto",fontFamily:MONO }}
+              dangerouslySetInnerHTML={{ __html: highlightCode(code) }} />
           </div>
         );
       }
