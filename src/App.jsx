@@ -1607,8 +1607,11 @@ Behavior guidelines:
         .card:hover .card-icon{transform:scale(1.3) rotate(-8deg) translateZ(20px)!important;transition:transform 0.4s cubic-bezier(.34,1.56,.64,1)!important}
 
         /* ═══ RESPONSIVE — TOPIC LAYOUT (≤900px) ═══ */
+        .mobile-lesson-select{display:none}
         @media(max-width:900px){
           .topic-sidebar{display:none!important}
+          .mobile-lesson-select{display:block!important}
+          .topic-content-main{padding:20px 0 32px 0!important;width:100%!important}
         }
 
         /* ═══ RESPONSIVE — TABLET (≤768px) ═══ */
@@ -2280,7 +2283,7 @@ Behavior guidelines:
                   {/* ── SIDEBAR ── */}
                   <div className="topic-sidebar" style={{ width:280,flexShrink:0,borderRight:"1px solid rgba(255,255,255,0.06)",
                     position:"sticky",top:52,height:"calc(100vh - 52px)",overflowY:"auto",
-                    padding:"16px 0",display:typeof window!=='undefined'&&window.innerWidth<900?"none":"block" }}>
+                    padding:"16px 0" }}>
                     <div style={{ padding:"0 12px",marginBottom:12 }}>
                       <div style={{ fontSize:12,fontWeight:700,color:"#94a3b8",textTransform:"uppercase",letterSpacing:"0.5px" }}>
                         {activeTopic.sections.length} Lessons
@@ -2317,8 +2320,7 @@ Behavior guidelines:
                     })()}
                   </div>
                   {/* ── MOBILE SECTION SELECTOR ── */}
-                  {typeof window!=='undefined'&&window.innerWidth<900 && (
-                    <div style={{ width:"100%",padding:"12px 0",borderBottom:"1px solid rgba(255,255,255,0.06)" }}>
+                  <div className="mobile-lesson-select" style={{ width:"100%",padding:"12px 0",borderBottom:"1px solid rgba(255,255,255,0.06)" }}>
                       <select value={activeTab} onChange={e => setActiveTab(Number(e.target.value))}
                         aria-label="Select lesson"
                         style={{ width:"100%",padding:"10px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.1)",
@@ -2327,10 +2329,9 @@ Behavior guidelines:
                           <option key={i} value={i}>{i+1}. {sec.title} [{sec.level}]</option>
                         ))}
                       </select>
-                    </div>
-                  )}
+                  </div>
                   {/* ── MAIN CONTENT ── */}
-                  <div style={{ flex:1,minWidth:0,padding:typeof window!=="undefined"&&window.innerWidth<900?"24px 0 32px 0":"32px 0 32px 40px",maxWidth:800,width:typeof window!=="undefined"&&window.innerWidth<900?"100%":"auto" }} className="scaleIn" key={activeTab}>
+                  <div className="topic-content-main scaleIn" style={{ flex:1,minWidth:0,padding:"32px 0 32px 40px",maxWidth:800 }} key={activeTab}>
                     {/* Breadcrumb */}
                     <div style={{ fontSize:12,color:"#64748b",marginBottom:16 }}>
                       <span style={{ cursor:"pointer",color:"#0071e3" }} onClick={() => setActiveTopic(null)}>Topics</span>
