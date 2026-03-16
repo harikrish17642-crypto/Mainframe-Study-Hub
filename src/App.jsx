@@ -950,8 +950,8 @@ Behavior guidelines:
     let s = code.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
     const T = [];
     const k = (m, c, b) => { const i = T.length; T.push(`<span style="color:${c}${b?";font-weight:700":""}">${m}</span>`); return `\u00AB${i}\u00BB`; };
-    s = s.replace(/(\/\/\*.*)/g, m=>k(m,"#6b7280"));
-    s = s.replace(/(\/\*[\s\S]*?\*\/)/g, m=>k(m,"#6b7280"));
+    s = s.replace(/(\/\/\*.*)/g, m=>k(m,"#94a3b8"));
+    s = s.replace(/(\/\*[\s\S]*?\*\/)/g, m=>k(m,"#94a3b8"));
     s = s.replace(/'([^']*?)'/g, m=>k(m,"#fbbf24"));
     s = s.replace(/"([^"]*?)"/g, m=>k(m,"#fbbf24"));
     s = s.replace(/^(\/\/\w+)/gm, m=>k(m,"#22d3ee",1));
@@ -1522,6 +1522,23 @@ Behavior guidelines:
         *{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth}
         body{background:#f8f9fc;overflow-x:hidden}
+        body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+          background:
+            radial-gradient(ellipse at 15% 20%, rgba(0,113,227,0.04) 0%, transparent 50%),
+            radial-gradient(ellipse at 85% 30%, rgba(124,58,237,0.03) 0%, transparent 50%),
+            radial-gradient(ellipse at 50% 80%, rgba(0,179,101,0.02) 0%, transparent 50%),
+            radial-gradient(ellipse at 20% 90%, rgba(6,182,212,0.03) 0%, transparent 40%);
+        }
+        body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0.4;
+          background-image:radial-gradient(circle at 1px 1px, rgba(0,113,227,0.06) 1px, transparent 0);
+          background-size:40px 40px;
+        }
+        @keyframes float3d{0%,100%{transform:translateY(0) rotateX(0)}50%{transform:translateY(-12px) rotateX(3deg)}}
+        @keyframes morphBlob{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}50%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%}}
+        @keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(0,113,227,0.15)}50%{box-shadow:0 0 40px rgba(124,58,237,0.25)}}
+        .card:hover{transform:translateY(-4px) scale(1.01);transition:transform 0.3s ease,box-shadow 0.3s ease}
+        .content-card{animation:float3d 6s ease-in-out infinite;animation-play-state:paused}
+        .content-card:hover{animation-play-state:running}
         .nav-scroll::-webkit-scrollbar{display:none}
         .nav-scroll{-ms-overflow-style:none;scrollbar-width:none}
         .topic-sidebar::-webkit-scrollbar{width:3px}
@@ -2343,7 +2360,7 @@ Behavior guidelines:
                             </div>
                             <span style={{ fontSize:11,color:"#888",letterSpacing:"1px" }}>CODE EXAMPLE</span>
                           </div>
-                          <pre style={{ ...S.codePre, background:"#0f172a",color:"#e2e8f0" }}
+                          <pre style={{ ...S.codePre, background:"#0f172a",color:"#f8fafc" }}
                             dangerouslySetInnerHTML={{ __html: highlightCode(activeTopic.sections[activeTab].code) }} />
                         </div>
                       )}
@@ -2872,7 +2889,7 @@ Behavior guidelines:
                             {["#ff5f57","#febc2e","#28c840"].map(c=><div key={c} style={{ width:12,height:12,borderRadius:"50%",background:c }} />)}
                           </div>
                         </div>
-                        <pre style={{ ...S.codePre,background:"#0f172a",color:"#e2e8f0" }}
+                        <pre style={{ ...S.codePre,background:"#0f172a",color:"#f8fafc" }}
                           dangerouslySetInnerHTML={{ __html: highlightCode(weeklyUpdate.code.snippet) }} />
                       </div>
                       {weeklyUpdate.code.explanation && (
@@ -2951,7 +2968,7 @@ Behavior guidelines:
                   aria-label="Code editor"
                   spellCheck={false}
                   style={{ width:"100%",minHeight:280,padding:"20px",margin:0,border:"none",resize:"vertical",
-                    background:"#0f172a",color:"#e2e8f0",fontSize:13.5,lineHeight:1.8,fontFamily:MONO,
+                    background:"#0f172a",color:"#f8fafc",fontSize:13.5,lineHeight:1.8,fontFamily:MONO,
                     outline:"none",tabSize:2 }}
                   onKeyDown={e => {
                     if(e.key==="Tab"){ e.preventDefault(); const s=e.target.selectionStart; setPgCode(pgCode.substring(0,s)+"  "+pgCode.substring(e.target.selectionEnd)); setTimeout(()=>{e.target.selectionStart=e.target.selectionEnd=s+2;},0); }
@@ -3889,11 +3906,11 @@ const S = {
   inner:{ maxWidth:1200,margin:"0 auto",padding:"0 24px" },
   sectionTitle:{ fontSize:"clamp(26px,4vw,44px)",fontWeight:800,letterSpacing:"-1.5px",color:"#1d1d1f",marginBottom:36 },
   topicsGrid:{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(185px,1fr))",gap:14 },
-  topicCard:{ background:"rgba(255,255,255,0.75)",borderRadius:16,border:"1px solid rgba(255,255,255,0.7)",padding:"20px 18px",cursor:"pointer",textAlign:"left",boxShadow:"0 2px 16px rgba(0,0,0,0.05)",backdropFilter:"blur(12px)" },
+  topicCard:{ background:"rgba(255,255,255,0.75)",borderRadius:16,border:"1px solid rgba(255,255,255,0.7)",padding:"20px 18px",cursor:"pointer",textAlign:"left",boxShadow:"0 2px 16px rgba(0,0,0,0.05)",backdropFilter:"blur(12px)",transition:"transform 0.3s ease,box-shadow 0.3s ease" },
   tcTitle:{ fontSize:16,fontWeight:700,color:"#1d1d1f",marginBottom:4 },
   tcSub:{ fontSize:12,color:"#666",marginBottom:6,lineHeight:1.4 },
   tcMore:{ fontSize:13,fontWeight:600 },
-  featureCard:{ background:"rgba(255,255,255,0.75)",border:"1px solid rgba(255,255,255,0.7)",borderRadius:20,padding:"32px 28px",cursor:"pointer",textAlign:"left",boxShadow:"0 4px 20px rgba(0,0,0,0.05)",backdropFilter:"blur(12px)" },
+  featureCard:{ background:"rgba(255,255,255,0.75)",border:"1px solid rgba(255,255,255,0.7)",borderRadius:20,padding:"32px 28px",cursor:"pointer",textAlign:"left",boxShadow:"0 4px 20px rgba(0,0,0,0.05)",backdropFilter:"blur(12px)",transition:"transform 0.3s ease,box-shadow 0.3s ease" },
   fcTitle:{ fontSize:20,fontWeight:700,color:"#1d1d1f",marginBottom:10 },
   fcDesc:{ fontSize:14,color:"#555",lineHeight:1.6 },
   pageHero:{ padding:"64px 24px 36px",maxWidth:1200,margin:"0 auto" },
