@@ -298,18 +298,26 @@ async function loadLastUpdate() {
 
 /* ─── MAIN APP ───────────────────────────────────────────────────────────── */
 export default function App() {
+  // Check if hash contains OAuth tokens (from Google redirect)
+  const _initHash = window.location.hash;
+  const _isOAuthReturn = _initHash && (_initHash.includes("access_token") || _initHash.includes("type=signup") || _initHash.includes("type=recovery") || _initHash.includes("error_description"));
+  
   const [page, setPage] = useState(() => {
-    const hash = window.location.hash.replace("#","");
+    if (_isOAuthReturn) return "home"; // Don't parse OAuth hash as page route
+    const hash = _initHash.replace("#","");
     return ["home","topics","scenarios","blog","quiz","playground","community","abends","roadmap","weekly","about"].includes(hash) ? hash : "home";
   });
   
-  // Sync page state with URL hash
+  // Sync page state with URL hash — but never overwrite OAuth tokens
   useEffect(() => {
+    if (_isOAuthReturn) return; // Let Supabase process the token first
     window.location.hash = page === "home" ? "" : page;
   }, [page]);
   useEffect(() => {
     const onHash = () => {
-      const h = window.location.hash.replace("#","");
+      const raw = window.location.hash;
+      if (raw && (raw.includes("access_token") || raw.includes("type=signup") || raw.includes("type=recovery"))) return; // Skip OAuth hashes
+      const h = raw.replace("#","");
       if (h && h !== page) setPage(h);
       else if (!h && page !== "home") setPage("home");
     };
@@ -489,22 +497,27 @@ export default function App() {
   };
 
   useEffect(() => {
-    // Handle email confirmation token from URL hash (e.g. #access_token=...)
+    // Handle OAuth/email confirmation token from URL hash (e.g. #access_token=...)
     const hash = window.location.hash;
-    if (hash && (hash.includes("access_token") || hash.includes("type=signup") || hash.includes("type=recovery"))) {
-      // Supabase auto-detects the hash — just give it a moment to process
-      supabase.auth.getSession().then(async ({ data: { session } }) => {
-        if (session?.user) {
-          try {
-            const profile = await fetchProfile(session.user.id);
-            setUser(profile || profileFromSession(session.user));
-          } catch { setUser(profileFromSession(session.user)); }
-        }
-        // Clean up URL hash
+    const isOAuthHash = hash && (hash.includes("access_token") || hash.includes("type=signup") || hash.includes("type=recovery"));
+    if (isOAuthHash) {
+      // Wait for Supabase client to auto-detect and process the hash token
+      const processOAuth = async () => {
+        await new Promise(r => setTimeout(r, 600));
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.user) {
+            try {
+              const profile = await fetchProfile(session.user.id);
+              setUser(profile || profileFromSession(session.user));
+            } catch { setUser(profileFromSession(session.user)); }
+          }
+        } catch(e) { console.warn("OAuth session:", e); }
         if (window.history.replaceState) {
           window.history.replaceState(null, "", window.location.pathname);
         }
-      }).catch(() => {});
+      };
+      processOAuth();
     } else {
       supabase.auth.getSession().then(async ({ data: { session } }) => {
         if (session?.user) {
