@@ -329,11 +329,6 @@ export default function App() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => { clearTimeout(timer); window.removeEventListener("scroll", onScroll); };
   }, []);
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 900);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
   const [activeTopic, setActiveTopic] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
   const [quiz, setQuiz] = useState({ index: 0, score: 0, selected: null, done: false, showExp: false });
@@ -433,7 +428,6 @@ export default function App() {
   const [cat, setCat] = useState("all");
   const [navOpen, setNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(typeof window!=='undefined' ? window.innerWidth < 900 : false);
   const [scenarioCat, setScenarioCat] = useState("All");
   const [scenarioDiff, setScenarioDiff] = useState("All");
   const [expandedScenario, setExpandedScenario] = useState(null);
@@ -1990,7 +1984,7 @@ Behavior guidelines:
                 <h2 style={{ fontSize:22,fontWeight:800,color:"#f1f5f9" }}>Change Password</h2>
               </div>
               {passMsg && (
-                <div style={{ background:passMsg.includes("✅")?"rgba(22,101,52,0.2)":"rgba(239,68,68,0.15)",color:passMsg.includes("✅")?"#4ade80":"#fca5a5",
+                <div style={{ background:passMsg.includes("✅")?"#f0fdf4":"#fee2e2",color:passMsg.includes("✅")?"#166534":"#991b1b",
                   padding:"10px 14px",borderRadius:10,fontSize:13,marginBottom:16 }}>
                   {passMsg}
                 </div>
@@ -2094,7 +2088,7 @@ Behavior guidelines:
               <div style={{ maxWidth:1000,margin:"0 auto",padding:"0 24px",transform:"translateY(-40px)" }}>
                 <div style={{ display:"flex",justifyContent:"center",gap:0,flexWrap:"wrap",
                   background:"rgba(8,11,22,0.95)",backdropFilter:"blur(20px)",borderRadius:20,
-                  padding:"24px 16px",boxShadow:"0 8px 40px rgba(0,0,0,0.3),0 0 0 1px rgba(255,255,255,0.06)" }}>
+                  padding:"24px 16px",boxShadow:"0 8px 40px rgba(0,0,0,0.08),0 0 0 1px rgba(0,0,0,0.04)" }}>
                   {[["15","Topics","📚"],["192+","Sections","📄"],["200","Quiz Qs","🧠"],["87","Abend Codes","🔍"],["6","Levels","🗺️"],["Weekly","AI Updates","🤖"]].map(([n,l,icon],i) => (
                     <div key={l} className="fu stat-card" style={{ flex:"1 1 120px",textAlign:"center",padding:"12px 8px",
                       borderRadius:12,animationDelay:`${i*60}ms`,cursor:"default" }}>
@@ -2259,7 +2253,7 @@ Behavior guidelines:
                   <button style={S.backBtn} onClick={() => setActiveTopic(null)}>‹ All Topics</button>
                 </div>
                 {/* Topic header - compact */}
-                <div style={{ background:`linear-gradient(135deg,${activeTopic.color}15 0%,rgba(17,24,39,0.6) 50%,${activeTopic.color}08 100%)`,padding:"20px 0",borderBottom:'1px solid rgba(255,255,255,0.06)' }}>
+                <div style={{ background:`linear-gradient(135deg,${activeTopic.color}12 0%,rgba(255,255,255,0.6) 50%,${activeTopic.color}06 100%)`,padding:"20px 0",borderBottom:'1px solid rgba(0,0,0,0.04)' }}>
                   <div style={S.inner}>
                     <div style={{ display:"flex",alignItems:"center",gap:16 }}>
                       <span style={{ fontSize:40 }}>{activeTopic.icon}</span>
@@ -2271,18 +2265,17 @@ Behavior guidelines:
                       </div>
                     </div>
                     {/* Progress bar */}
-                    <div style={{ marginTop:12,height:4,background:"rgba(255,255,255,0.08)",borderRadius:4,overflow:"hidden" }}>
+                    <div style={{ marginTop:12,height:4,background:"rgba(0,0,0,0.06)",borderRadius:4,overflow:"hidden" }}>
                       <div style={{ height:"100%",width:`${((activeTab+1)/activeTopic.sections.length)*100}%`,background:`linear-gradient(90deg,${activeTopic.color},${activeTopic.color}cc)`,borderRadius:4,transition:"width 0.3s ease" }} />
                     </div>
                   </div>
                 </div>
                 {/* Sidebar + Content layout */}
                 <div style={{ ...S.inner, display:"flex", gap:0, alignItems:"flex-start", paddingTop:0, paddingBottom:60 }}>
-                  {/* ── SIDEBAR (desktop only) ── */}
-                  {!isMobile && (
-                  <div className="topic-sidebar" style={{ width:280,flexShrink:0,borderRight:"1px solid rgba(255,255,255,0.06)",
+                  {/* ── SIDEBAR ── */}
+                  <div className="topic-sidebar" style={{ width:280,flexShrink:0,borderRight:"1px solid rgba(0,0,0,0.06)",
                     position:"sticky",top:52,height:"calc(100vh - 52px)",overflowY:"auto",
-                    padding:"16px 0" }}>
+                    padding:"16px 0",display:typeof window!=='undefined'&&window.innerWidth<900?"none":"block" }}>
                     <div style={{ padding:"0 12px",marginBottom:12 }}>
                       <div style={{ fontSize:12,fontWeight:700,color:"#94a3b8",textTransform:"uppercase",letterSpacing:"0.5px" }}>
                         {activeTopic.sections.length} Lessons
@@ -2318,10 +2311,9 @@ Behavior guidelines:
                       ));
                     })()}
                   </div>
-                  )}
                   {/* ── MOBILE SECTION SELECTOR ── */}
-                  {isMobile && (
-                  <div style={{ width:"100%",padding:"12px 0",borderBottom:"1px solid rgba(255,255,255,0.06)" }}>
+                  {typeof window!=='undefined'&&window.innerWidth<900 && (
+                    <div style={{ width:"100%",padding:"12px 0",borderBottom:"1px solid rgba(255,255,255,0.06)" }}>
                       <select value={activeTab} onChange={e => setActiveTab(Number(e.target.value))}
                         aria-label="Select lesson"
                         style={{ width:"100%",padding:"10px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.1)",
@@ -2330,10 +2322,10 @@ Behavior guidelines:
                           <option key={i} value={i}>{i+1}. {sec.title} [{sec.level}]</option>
                         ))}
                       </select>
-                  </div>
+                    </div>
                   )}
                   {/* ── MAIN CONTENT ── */}
-                  <div className="topic-content-main scaleIn" style={{ flex:1,minWidth:0,padding:isMobile?"20px 0 32px 0":"32px 0 32px 40px",maxWidth:800,width:isMobile?"100%":"auto" }} key={activeTab}>
+                  <div style={{ flex:1,minWidth:0,padding:"32px 0 32px 40px",maxWidth:800 }} className="scaleIn" key={activeTab}>
                     {/* Breadcrumb */}
                     <div style={{ fontSize:12,color:"#64748b",marginBottom:16 }}>
                       <span style={{ cursor:"pointer",color:"#0071e3" }} onClick={() => setActiveTopic(null)}>Topics</span>
@@ -2347,8 +2339,8 @@ Behavior guidelines:
                       {activeTopic.sections[activeTab].title}
                     </h2>
                     <div style={{ display:"flex",gap:12,alignItems:"center",marginBottom:24 }}>
-                      <span style={{ ...S.diffBadge, background: activeTopic.sections[activeTab].level==="Beginner"?"rgba(22,101,52,0.2)":activeTopic.sections[activeTab].level==="Intermediate"?"rgba(30,64,175,0.2)":activeTopic.sections[activeTab].level==="Advanced"?"rgba(107,33,168,0.2)":"rgba(153,27,27,0.2)",
-                        color: activeTopic.sections[activeTab].level==="Beginner"?"#4ade80":activeTopic.sections[activeTab].level==="Intermediate"?"#60a5fa":activeTopic.sections[activeTab].level==="Advanced"?"#c084fc":"#f87171" }}>
+                      <span style={{ ...S.diffBadge, background: activeTopic.sections[activeTab].level==="Beginner"?"#dcfce7":activeTopic.sections[activeTab].level==="Intermediate"?"#dbeafe":activeTopic.sections[activeTab].level==="Advanced"?"#f3e8ff":"#fee2e2",
+                        color: activeTopic.sections[activeTab].level==="Beginner"?"#166534":activeTopic.sections[activeTab].level==="Intermediate"?"#1e40af":activeTopic.sections[activeTab].level==="Advanced"?"#6b21a8":"#991b1b" }}>
                         {activeTopic.sections[activeTab].level}
                       </span>
                       <span style={{ fontSize:12,color:"#64748b" }}>
@@ -2445,11 +2437,11 @@ Behavior guidelines:
                   <button style={{ width:"100%",background:"none",border:"none",padding:"20px 24px",cursor:"pointer",textAlign:"left",fontFamily:FF }}
                     onClick={() => setExpandedScenario(expandedScenario===sc.id?null:sc.id)}>
                     <div style={{ display:"flex",alignItems:"center",gap:12,flexWrap:"wrap" }}>
-                      <span style={{ ...S.diffBadge, background: sc.difficulty==="Beginner"?"rgba(22,101,52,0.2)":sc.difficulty==="Intermediate"?"rgba(133,77,14,0.2)":"rgba(153,27,27,0.2)",
-                        color:sc.difficulty==="Beginner"?"#4ade80":sc.difficulty==="Intermediate"?"#fbbf24":"#f87171" }}>
+                      <span style={{ ...S.diffBadge, background: sc.difficulty==="Beginner"?"#dcfce7":sc.difficulty==="Intermediate"?"#fef9c3":"#fee2e2",
+                        color:sc.difficulty==="Beginner"?"#166534":sc.difficulty==="Intermediate"?"#854d0e":"#991b1b" }}>
                         {sc.difficulty}
                       </span>
-                      <span style={{ ...S.diffBadge,background:"rgba(30,64,175,0.15)",color:"#60a5fa" }}>{sc.category}</span>
+                      <span style={{ ...S.diffBadge,background:"#eff6ff",color:"#60a5fa" }}>{sc.category}</span>
                       <h3 style={{ fontSize:16,fontWeight:600,color:"#f1f5f9",flex:1,textAlign:"left" }}>{sc.question}</h3>
                       <span style={{ fontSize:20,color:"#94a3b8",transition:"transform .2s",transform:expandedScenario===sc.id?"rotate(180deg)":"none" }}>⌄</span>
                     </div>
@@ -2560,7 +2552,7 @@ Behavior guidelines:
                     <button key={b.id} className="card fu" onClick={() => setExpandedBlog(b.id)}
                       style={{ ...S.blogCard,animationDelay:`${i*60}ms` }}>
                       <div style={{ display:"flex",gap:8,marginBottom:16,flexWrap:"wrap",alignItems:"center" }}>
-                        <span style={{ ...S.diffBadge,background:"rgba(30,64,175,0.15)",color:"#60a5fa" }}>{b.category}</span>
+                        <span style={{ ...S.diffBadge,background:"#eff6ff",color:"#60a5fa" }}>{b.category}</span>
                         <span style={{ ...S.diffBadge,background:"#1e293b",color:"#94a3b8" }}>{b.readTime}</span>
                         {b.isUserBlog && (
                           <span style={{ ...S.diffBadge,background:"linear-gradient(135deg,#059669,#0d9488)",color:"#fff" }}>✦ Community</span>
@@ -2592,7 +2584,7 @@ Behavior guidelines:
                     return (
                       <div>
                         <div style={{ display:"flex",gap:8,marginBottom:20,flexWrap:"wrap",alignItems:"center" }}>
-                          <span style={{ ...S.diffBadge,background:"rgba(30,64,175,0.15)",color:"#60a5fa" }}>{b.category}</span>
+                          <span style={{ ...S.diffBadge,background:"#eff6ff",color:"#60a5fa" }}>{b.category}</span>
                           <span style={{ ...S.diffBadge,background:"#1e293b",color:"#94a3b8" }}>{b.readTime}</span>
                           <span style={{ ...S.diffBadge,background:"#1e293b",color:"#94a3b8" }}>{b.date}</span>
                           {b.isUserBlog && (
@@ -2733,8 +2725,8 @@ Behavior guidelines:
                       {activeQs[quiz.index].options.map((opt,i) => {
                         let bg="#1e293b", border="1.5px solid rgba(255,255,255,0.12)", color="#e2e8f0", lblBg="rgba(30,41,59,0.8)", lblColor="#94a3b8";
                         if (quiz.selected !== null) {
-                          if (i === activeQs[quiz.index].answer) { bg="rgba(22,163,74,0.15)";border="1.5px solid #22c55e";color="#4ade80";lblBg="#22c55e";lblColor="#fff"; }
-                          else if (i === quiz.selected) { bg="rgba(239,68,68,0.15)";border="1.5px solid #ef4444";color="#fca5a5";lblBg="#ef4444";lblColor="#fff"; }
+                          if (i === activeQs[quiz.index].answer) { bg="#f0fdf4";border="1.5px solid #22c55e";color="#166534";lblBg="#22c55e";lblColor="#fff"; }
+                          else if (i === quiz.selected) { bg="#fff1f0";border="1.5px solid #ef4444";color="#991b1b";lblBg="#ef4444";lblColor="#fff"; }
                         }
                         return (
                           <button key={i} onClick={() => answerQuiz(i)}
@@ -2879,7 +2871,7 @@ Behavior guidelines:
                   )}
                   {weeklyTab === "scenario" && weeklyUpdate.scenario && (
                     <div className="fi">
-                      <div style={{ background:"rgba(30,64,175,0.15)",borderRadius:12,padding:20,border:"1px solid #bfdbfe",marginBottom:16 }}>
+                      <div style={{ background:"#eff6ff",borderRadius:12,padding:20,border:"1px solid #bfdbfe",marginBottom:16 }}>
                         <div style={{ fontSize:13,fontWeight:600,color:"#60a5fa",marginBottom:8 }}>Scenario Question:</div>
                         <div style={{ fontSize:15,color:"#1e3a8a",fontWeight:500,lineHeight:1.6 }}>{weeklyUpdate.scenario.question}</div>
                       </div>
@@ -2961,7 +2953,7 @@ Behavior guidelines:
                 </div>
               </div>
               {/* Code editor */}
-              <div style={{ borderRadius:16,overflow:"hidden",border:"1.5px solid rgba(255,255,255,0.1)",boxShadow:"0 4px 20px rgba(0,0,0,0.3)" }}>
+              <div style={{ borderRadius:16,overflow:"hidden",border:"1.5px solid #e0e0e5",boxShadow:"0 4px 20px rgba(0,0,0,0.06)" }}>
                 <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 16px",background:"#1e293b" }}>
                   <div style={{ display:"flex",gap:6 }}>
                     {["#ff5f57","#febc2e","#28c840"].map(c=><div key={c} style={{ width:12,height:12,borderRadius:"50%",background:c }} />)}
@@ -3064,7 +3056,7 @@ Behavior guidelines:
                   </div>
                 ) : (
                   /* Full chat UI */
-                  <div style={{ border:"1.5px solid rgba(255,255,255,0.1)", borderRadius:20, overflow:"hidden", boxShadow:"0 4px 20px rgba(0,0,0,0.3)", height:"70vh", display:"flex" }}>
+                  <div style={{ border:"1.5px solid rgba(255,255,255,0.1)", borderRadius:20, overflow:"hidden", boxShadow:"0 4px 20px rgba(0,0,0,0.06)", height:"70vh", display:"flex" }}>
                     {/* Sidebar */}
                     <div style={{ width:chatSidebar?260:0, minWidth:chatSidebar?260:0, background:"#0f172a", borderRight:"1px solid rgba(255,255,255,0.12)", transition:"all 0.3s", overflow:"hidden", display:"flex", flexDirection:"column" }}>
                       <div style={{ padding:"12px 16px", borderBottom:"1px solid rgba(255,255,255,0.06)", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
@@ -3173,7 +3165,7 @@ Behavior guidelines:
                 )}
                 {sortedPosts.length === 0 && <div style={{ textAlign:"center",padding:"48px 0",color:"#94a3b8" }}><div style={{ fontSize:40,marginBottom:12 }}>🔍</div>No questions found.</div>}
                 {sortedPosts.map(post => (
-                  <div key={post.id} className="card" style={{ border:"1.5px solid rgba(255,255,255,0.1)", borderRadius:16, padding:"20px 24px", marginBottom:16, cursor:"pointer", boxShadow:"0 2px 8px rgba(0,0,0,0.2)" }}
+                  <div key={post.id} className="card" style={{ border:"1.5px solid rgba(255,255,255,0.1)", borderRadius:16, padding:"20px 24px", marginBottom:16, cursor:"pointer", boxShadow:"0 2px 8px rgba(0,0,0,0.03)" }}
                     onClick={() => setCommunityView(post.id)}>
                     <div style={{ display:"flex",gap:16,alignItems:"flex-start" }}>
                       <div style={{ display:"flex",flexDirection:"column",alignItems:"center",gap:4,minWidth:40 }}>
@@ -3307,7 +3299,7 @@ Behavior guidelines:
                       style={{ background:"rgba(17,24,39,0.92)",backdropFilter:"blur(20px)",border:"1px solid rgba(255,255,255,0.1)",
                         borderRadius:abendExpanded===a.code?"16px 16px 0 0":"16px",padding:"18px 22px",cursor:"pointer",
                         display:"flex",alignItems:"center",gap:14,transition:"all 0.2s",
-                        boxShadow:"0 2px 12px rgba(0,0,0,0.3)" }}>
+                        boxShadow:"0 2px 12px rgba(0,0,0,0.04)" }}>
                       <div style={{ background:SEVERITY_COLORS[a.severity]+"18",color:SEVERITY_COLORS[a.severity],
                         padding:"8px 14px",borderRadius:10,fontSize:18,fontWeight:800,fontFamily:"'SF Mono',Menlo,monospace",
                         letterSpacing:"0.5px",minWidth:70,textAlign:"center",border:`1.5px solid ${SEVERITY_COLORS[a.severity]}30` }}>
@@ -3328,7 +3320,7 @@ Behavior guidelines:
                     {abendExpanded===a.code && (
                       <div style={{ background:"rgba(8,11,22,0.95)",borderRadius:"0 0 16px 16px",
                         padding:"24px 22px",borderTop:"2px solid",borderImage:"linear-gradient(90deg,#0071e3,#7c3aed) 1",
-                        boxShadow:"0 4px 20px rgba(0,0,0,0.3)" }}>
+                        boxShadow:"0 4px 20px rgba(0,0,0,0.06)" }}>
                         {/* Cause */}
                         <div style={{ marginBottom:20 }}>
                           <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:10 }}>
@@ -3396,7 +3388,7 @@ Behavior guidelines:
                       style={{ background:"rgba(17,24,39,0.9)",backdropFilter:"blur(20px)",
                         border:`1.5px solid ${roadmapLevel===lvl.level?lvl.color+"50":"rgba(0,0,0,0.05)"}`,
                         borderRadius:18,padding:"24px 26px",cursor:"pointer",
-                        boxShadow:roadmapLevel===lvl.level?`0 8px 32px ${lvl.color}15`:"0 2px 12px rgba(0,0,0,0.3)" }}>
+                        boxShadow:roadmapLevel===lvl.level?`0 8px 32px ${lvl.color}15`:"0 2px 12px rgba(0,0,0,0.04)" }}>
                       <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,marginBottom:roadmapLevel===lvl.level?16:0 }}>
                         <div>
                           <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:4 }}>
@@ -3415,7 +3407,7 @@ Behavior guidelines:
 
                       {/* Expanded skills */}
                       {roadmapLevel===lvl.level && (
-                        <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)",paddingTop:16 }}>
+                        <div style={{ borderTop:"1px solid rgba(0,0,0,0.06)",paddingTop:16 }}>
                           <div style={{ fontSize:12,fontWeight:700,color:"#94a3b8",marginBottom:12,textTransform:"uppercase",letterSpacing:"0.5px" }}>Skills to Master</div>
                           <div style={{ display:"flex",flexDirection:"column",gap:8,marginBottom:16 }}>
                             {lvl.skills.map((skill, j) => (
@@ -3805,7 +3797,7 @@ Behavior guidelines:
                 <div style={{ maxWidth:chatMax?"90%":"82%",padding:chatMax?"16px 20px":"12px 16px",borderRadius:msg.role==="user"?"18px 18px 4px 18px":"18px 18px 18px 4px",
                   background:msg.role==="user"?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(30,41,59,0.9)",
                   color:msg.role==="user"?"#fff":"#e2e8f0",fontSize:chatMax?15:13.5,lineHeight:1.7,
-                  border:msg.role==="user"?"none":"1px solid rgba(255,255,255,0.06)" }}>
+                  border:msg.role==="user"?"none":"1px solid rgba(0,0,0,0.04)" }}>
                   {renderChatMd(msg.content)}
                 </div>
                 {msg.role==="user" && user && (
@@ -3837,7 +3829,7 @@ Behavior guidelines:
                   style={{ fontSize:11,padding:"5px 10px",borderRadius:980,border:"1px solid rgba(255,255,255,0.08)",
                     background:"rgba(17,24,39,0.8)",color:"#cbd5e1",cursor:"pointer",fontFamily:FF,fontWeight:500,
                     transition:"all 0.15s" }}
-                  onMouseOver={e => e.currentTarget.style.background="rgba(0,113,227,0.1)"}
+                  onMouseOver={e => e.currentTarget.style.background="#eff6ff"}
                   onMouseOut={e => e.currentTarget.style.background="rgba(30,41,59,0.8)"}>
                   {q}
                 </button>
@@ -3846,7 +3838,7 @@ Behavior guidelines:
           )}
 
           {/* Chat Input */}
-          <div style={{ padding:chatMax?"16px 24px":"12px 16px",borderTop:"1px solid rgba(255,255,255,0.06)",background:"rgba(17,24,39,0.9)",flexShrink:0,
+          <div style={{ padding:chatMax?"16px 24px":"12px 16px",borderTop:"1px solid rgba(0,0,0,0.06)",background:"rgba(17,24,39,0.9)",flexShrink:0,
             ...(chatMax?{maxWidth:720,margin:"0 auto",width:"100%"}:{}) }}>
             <div style={{ display:"flex",gap:8 }}>
               <input className="chat-input" value={chatInput} onChange={e => setChatInput(e.target.value)}
@@ -3870,7 +3862,7 @@ Behavior guidelines:
       )}
 
       {/* Footer */}
-      <footer style={{ borderTop:"1px solid rgba(255,255,255,0.06)",background:"rgba(17,24,39,0.6)",backdropFilter:"blur(20px)",padding:"28px 0" }}>
+      <footer style={{ borderTop:"1px solid rgba(0,0,0,0.06)",background:"rgba(17,24,39,0.6)",backdropFilter:"blur(20px)",padding:"28px 0" }}>
         <div style={{ ...S.inner,display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12 }}>
           <span style={{ fontSize:12,color:"#94a3b8",display:"flex",alignItems:"center",gap:6 }}><img src="/favicon.svg" alt="" style={{ width:16,height:16,borderRadius:3 }} /> MainframeStudyHub Hub — The complete IBM Z knowledge platform. A to Z, Beginner to Professional.</span>
           <div style={{ display:"flex",gap:16,flexWrap:"wrap" }}>
