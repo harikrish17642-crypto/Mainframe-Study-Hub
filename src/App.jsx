@@ -2302,30 +2302,22 @@ Behavior guidelines:
                       <div style={{ fontSize:12,color:"#64748b" }}>{activeTopic.sections.length} Lessons</div>
                     </div>
                     {(() => {
-                      /* Group sections: numbered (1.1, 2.1) → by chapter#, otherwise → by level */
+                      /* Group ALL topics by level */
                       const chapMap = {};
-                      const chapterNames = {};
+                      const levelOrder = ["Beginner","Intermediate","Advanced","Expert","All Levels","General"];
                       activeTopic.sections.forEach((sec, i) => {
-                        const numMatch = sec.title.match(/^(\d+)\./);
-                        let chKey;
-                        if (numMatch) {
-                          const chNum = numMatch[1];
-                          /* Extract chapter name from first section of each chapter */
-                          if (!chapterNames[chNum]) {
-                            const afterNum = sec.title.replace(/^\d+\.\d+\s*[—–-]\s*/, "");
-                            const words = afterNum.split(/\s+/).slice(0,3).join(" ");
-                            chapterNames[chNum] = words;
-                          }
-                          chKey = "Ch " + chNum + ": " + chapterNames[chNum];
-                        } else {
-                          chKey = sec.level || "General";
-                        }
+                        const chKey = sec.level || "General";
                         if (!chapMap[chKey]) chapMap[chKey] = [];
                         chapMap[chKey].push({ ...sec, idx: i });
                       });
+                      /* Sort chapters by standard level order */
+                      const sortedEntries = Object.entries(chapMap).sort((a,b) => {
+                        const ia = levelOrder.indexOf(a[0]), ib = levelOrder.indexOf(b[0]);
+                        return (ia===-1?99:ia) - (ib===-1?99:ib);
+                      });
                       /* Auto-expand chapter containing active tab */
-                      const activeChap = Object.keys(chapMap).find(ch => chapMap[ch].some(s => s.idx === activeTab));
-                      return Object.entries(chapMap).map(([chName, secs]) => {
+                      const activeChap = sortedEntries.map(e=>e[0]).find(ch => chapMap[ch].some(s => s.idx === activeTab));
+                      return sortedEntries.map(([chName, secs]) => {
                         const isOpen = openChapters[chName] !== undefined ? openChapters[chName] : chName === activeChap;
                         const hasActive = secs.some(s => s.idx === activeTab);
                         return (
@@ -2349,7 +2341,7 @@ Behavior guidelines:
                                 {activeTab===sec.idx?"📄":"📄"}
                               </span>
                               <span style={{ overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap" }}>
-                                {sec.title.replace(/^\d+\.\d+\s*[—–-]\s*/,"")}
+                                {sec.title}
                               </span>
                             </button>
                           ))}
@@ -2365,13 +2357,16 @@ Behavior guidelines:
                         fontSize:14,fontFamily:FF,background:"#111827",color:"#f1f5f9",cursor:"pointer",appearance:"auto" }}>
                       {(() => {
                         const chapMap = {};
+                        const levelOrder = ["Beginner","Intermediate","Advanced","Expert","All Levels","General"];
                         activeTopic.sections.forEach((sec, i) => {
-                          const numMatch = sec.title.match(/^(\d+)\./);
-                          const chKey = numMatch ? "Ch " + numMatch[1] : (sec.level || "General");
+                          const chKey = sec.level || "General";
                           if (!chapMap[chKey]) chapMap[chKey] = [];
                           chapMap[chKey].push({ ...sec, idx: i });
                         });
-                        return Object.entries(chapMap).map(([ch, secs]) => (
+                        return Object.entries(chapMap).sort((a,b) => {
+                          const ia = levelOrder.indexOf(a[0]), ib = levelOrder.indexOf(b[0]);
+                          return (ia===-1?99:ia) - (ib===-1?99:ib);
+                        }).map(([ch, secs]) => (
                           <optgroup key={ch} label={ch}>
                             {secs.map(s => <option key={s.idx} value={s.idx}>{s.idx+1}. {s.title}</option>)}
                           </optgroup>
