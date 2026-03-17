@@ -337,6 +337,7 @@ export default function App() {
   const [activeTopic, setActiveTopic] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [openChapters, setOpenChapters] = useState({});
   const [quiz, setQuiz] = useState({ index: 0, score: 0, selected: null, done: false, showExp: false });
   const [quizTopicFilter, setQuizTopicFilter] = useState("All");
   
@@ -2294,40 +2295,66 @@ Behavior guidelines:
                 {/* Sidebar + Content layout */}
                 <div className="topic-layout" style={{ ...S.inner, display:"flex", gap:0, alignItems:"flex-start", paddingTop:0, paddingBottom:60 }}>
                   {/* ── SIDEBAR ── */}
-                  <div className="topic-sidebar" style={{ width:280,flexShrink:0,borderRight:"1px solid rgba(255,255,255,0.06)",
-                    position:"sticky",top:52,height:"calc(100vh - 52px)",overflowY:"auto",padding:"16px 0" }}>
-                    <div style={{ padding:"0 12px",marginBottom:12 }}>
-                      <div style={{ fontSize:12,fontWeight:700,color:"#94a3b8",textTransform:"uppercase",letterSpacing:"0.5px" }}>
-                        {activeTopic.sections.length} Lessons
-                      </div>
+                  <div className="topic-sidebar" style={{ width:300,flexShrink:0,borderRight:"1px solid rgba(255,255,255,0.06)",
+                    position:"sticky",top:52,height:"calc(100vh - 52px)",overflowY:"auto",padding:"8px 0" }}>
+                    <div style={{ padding:"12px 16px 8px",marginBottom:4 }}>
+                      <div style={{ fontSize:17,fontWeight:800,color:"#f1f5f9",marginBottom:2 }}>{activeTopic.icon} {activeTopic.title} Tutorial</div>
+                      <div style={{ fontSize:12,color:"#64748b" }}>{activeTopic.sections.length} Lessons</div>
                     </div>
                     {(() => {
-                      const chapters = {};
+                      /* Group sections: numbered (1.1, 2.1) → by chapter#, otherwise → by level */
+                      const chapMap = {};
+                      const chapterNames = {};
                       activeTopic.sections.forEach((sec, i) => {
-                        const ch = sec.level || "General";
-                        if (!chapters[ch]) chapters[ch] = [];
-                        chapters[ch].push({ ...sec, idx: i });
+                        const numMatch = sec.title.match(/^(\d+)\./);
+                        let chKey;
+                        if (numMatch) {
+                          const chNum = numMatch[1];
+                          /* Extract chapter name from first section of each chapter */
+                          if (!chapterNames[chNum]) {
+                            const afterNum = sec.title.replace(/^\d+\.\d+\s*[—–-]\s*/, "");
+                            const words = afterNum.split(/\s+/).slice(0,3).join(" ");
+                            chapterNames[chNum] = words;
+                          }
+                          chKey = "Ch " + chNum + ": " + chapterNames[chNum];
+                        } else {
+                          chKey = sec.level || "General";
+                        }
+                        if (!chapMap[chKey]) chapMap[chKey] = [];
+                        chapMap[chKey].push({ ...sec, idx: i });
                       });
-                      return Object.entries(chapters).map(([chName, secs]) => (
-                        <div key={chName} style={{ marginBottom:8 }}>
-                          <div style={{ padding:"8px 16px",fontSize:11,fontWeight:700,color:"#64748b",textTransform:"uppercase",letterSpacing:"0.5px" }}>
-                            {chName}
-                          </div>
-                          {secs.map(sec => (
+                      /* Auto-expand chapter containing active tab */
+                      const activeChap = Object.keys(chapMap).find(ch => chapMap[ch].some(s => s.idx === activeTab));
+                      return Object.entries(chapMap).map(([chName, secs]) => {
+                        const isOpen = openChapters[chName] !== undefined ? openChapters[chName] : chName === activeChap;
+                        const hasActive = secs.some(s => s.idx === activeTab);
+                        return (
+                        <div key={chName} style={{ marginBottom:2 }}>
+                          <button onClick={() => setOpenChapters(p => ({...p, [chName]: !isOpen}))}
+                            style={{ display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%",
+                              padding:"10px 16px",background:hasActive?"rgba(255,255,255,0.03)":"transparent",
+                              border:"none",borderLeft:hasActive?`3px solid ${activeTopic.color}`:"3px solid transparent",
+                              cursor:"pointer",fontFamily:FF,transition:"all 0.15s" }}>
+                            <span style={{ fontSize:13,fontWeight:600,color:hasActive?"#f1f5f9":"#94a3b8",textAlign:"left" }}>{chName}</span>
+                            <span style={{ fontSize:12,color:"#64748b",transition:"transform 0.2s",transform:isOpen?"rotate(90deg)":"rotate(0)",flexShrink:0 }}>▸</span>
+                          </button>
+                          {isOpen && secs.map(sec => (
                             <button key={sec.idx} onClick={() => { setActiveTab(sec.idx); window.scrollTo(0,280); }}
-                              style={{ display:"flex",alignItems:"center",gap:10,width:"100%",textAlign:"left",
-                                padding:"10px 16px",background:activeTab===sec.idx?`${activeTopic.color}15`:"transparent",
-                                border:"none",borderLeft:activeTab===sec.idx?`3px solid ${activeTopic.color}`:"3px solid transparent",
-                                cursor:"pointer",fontFamily:FF,fontSize:13,color:activeTab===sec.idx?"#ffffff":"#94a3b8",
+                              style={{ display:"flex",alignItems:"center",gap:8,width:"100%",textAlign:"left",
+                                padding:"8px 16px 8px 28px",background:activeTab===sec.idx?`${activeTopic.color}12`:"transparent",
+                                border:"none",cursor:"pointer",fontFamily:FF,fontSize:12.5,
+                                color:activeTab===sec.idx?"#ffffff":"#94a3b8",
                                 fontWeight:activeTab===sec.idx?600:400,transition:"all 0.15s",lineHeight:1.4 }}>
-                              <span style={{ fontSize:11,color:activeTab===sec.idx?activeTopic.color:"#64748b",flexShrink:0 }}>
-                                {activeTab===sec.idx?"\u25b8":"\u25cb"}
+                              <span style={{ fontSize:14,color:activeTab===sec.idx?activeTopic.color:"#475569",flexShrink:0 }}>
+                                {activeTab===sec.idx?"📄":"📄"}
                               </span>
-                              <span style={{ overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap" }}>{sec.title}</span>
+                              <span style={{ overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap" }}>
+                                {sec.title.replace(/^\d+\.\d+\s*[—–-]\s*/,"")}
+                              </span>
                             </button>
                           ))}
                         </div>
-                      ));
+                      );});
                     })()}
                   </div>
                   {/* ── MOBILE NAV (CSS shows/hides) ── */}
@@ -2336,9 +2363,20 @@ Behavior guidelines:
                       aria-label="Select lesson"
                       style={{ width:"100%",padding:"12px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.12)",
                         fontSize:14,fontFamily:FF,background:"#111827",color:"#f1f5f9",cursor:"pointer",appearance:"auto" }}>
-                      {activeTopic.sections.map((sec,i) => (
-                        <option key={i} value={i}>{i+1}. {sec.title} [{sec.level}]</option>
-                      ))}
+                      {(() => {
+                        const chapMap = {};
+                        activeTopic.sections.forEach((sec, i) => {
+                          const numMatch = sec.title.match(/^(\d+)\./);
+                          const chKey = numMatch ? "Ch " + numMatch[1] : (sec.level || "General");
+                          if (!chapMap[chKey]) chapMap[chKey] = [];
+                          chapMap[chKey].push({ ...sec, idx: i });
+                        });
+                        return Object.entries(chapMap).map(([ch, secs]) => (
+                          <optgroup key={ch} label={ch}>
+                            {secs.map(s => <option key={s.idx} value={s.idx}>{s.idx+1}. {s.title}</option>)}
+                          </optgroup>
+                        ));
+                      })()}
                     </select>
                   </div>
                   {/* ── MAIN CONTENT ── */}

@@ -447,6 +447,43 @@ Step 4: Report/Alert:
   FIELDS=JOBNAME,CPU_TIME,ELAPSED,EXCP_COUNT,STEPNAME
 /*`
     },
+    { title:"Interview Questions", level:"All Levels",
+      content:`SMF/Performance Interview Questions — 15+ Q&A.
+
+Q: What is SMF?
+A: System Management Facilities — z/OS recording system that collects performance and accounting data as SMF records.
+
+Q: What are common SMF record types?
+A: Type 30 (job/step info), Type 14/15 (dataset activity), Type 42 (storage), Type 70-79 (RMF), Type 89 (registry), Type 101 (DB2).
+
+Q: What is RMF?
+A: Resource Measurement Facility — real-time performance monitor. Monitor I, II, III for different perspectives.
+
+Q: How do you identify a performance problem?
+A: Check CPU usage (RMF), I/O rates (SMF 14/15), paging (SMF 71), DB2 wait times (SMF 101), batch elapsed vs CPU time.
+
+Q: What is WLM?
+A: Workload Manager — assigns goals to workloads, manages priorities automatically based on service class definitions.
+
+💡 Study Tip: Know SMF record types 14/15/30, RMF monitors, and basic WLM concepts.`,
+    },
+
+    { title:"SMF & Performance Cheat Sheet", level:"All Levels",
+      content:`SMF/Performance Quick Reference
+
+═══ KEY SMF RECORDS ═══
+14/15 — Dataset activity (open/close)
+30    — Job/step accounting
+42    — SMS storage group
+70-79 — RMF performance data
+89    — Security/registry
+100   — DB2 accounting
+101   — DB2 performance
+
+═══ PERFORMANCE METRICS ═══
+CPU% — Processor usage      I/O Rate — Disk operations
+Paging — Virtual memory     Response — Transaction time`,
+    },
     { title:"Interview Questions — Performance", level:"All Levels",
       content:`Performance & SMF Interview Questions:
 

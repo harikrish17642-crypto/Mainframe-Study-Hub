@@ -975,55 +975,92 @@ Diagnostic Commands:
   VERIFY DATASET(dsn) — Reset end-of-file after abend`
     },
     { title:"VSAM Interview Questions", level:"All Levels",
-      content:`VSAM Interview Questions — Beginner to Expert:
+      content:`VSAM Interview Questions — 30+ Q&A organized by level.
 
-BEGINNER:
+=== BEGINNER ===
 
-Q: What are the four types of VSAM datasets?
-A: KSDS (Key-Sequenced), ESDS (Entry-Sequenced), RRDS (Relative Record), and LDS (Linear Dataset).
+Q: What is VSAM?
+A: Virtual Storage Access Method — IBM's primary file access method on z/OS. Supports indexed, sequential, and relative record access.
 
-Q: What is the difference between KSDS and ESDS?
-A: KSDS stores records sorted by a primary key with an index for random access. ESDS stores records in insertion order with no index — access by RBA or sequentially.
+Q: What are the VSAM dataset types?
+A: KSDS (Key-Sequenced — indexed by key, most common), ESDS (Entry-Sequenced — append-only, like sequential), RRDS (Relative Record — by number), LDS (Linear — byte stream).
 
-Q: What is a CI and what does it contain?
-A: A Control Interval is the smallest unit of I/O. It contains records, free space, Record Definition Fields (RDFs), and a Control Interval Definition Field (CIDF).
+Q: What is a VSAM cluster?
+A: A KSDS cluster has two components: DATA (actual records) and INDEX (B-tree for key lookup). Defined together via IDCAMS DEFINE CLUSTER.
 
-Q: What does SHAREOPTIONS(2 3) mean?
-A: Cross-region: One writer AND multiple readers allowed. Cross-system: Multiple writers and readers with no VSAM integrity guarantee.
+Q: What is IDCAMS?
+A: Access Method Services — the primary utility for VSAM. DEFINE, DELETE, ALTER, REPRO, PRINT, LISTCAT, VERIFY.
 
-Q: How do you create a VSAM dataset?
-A: Using IDCAMS DEFINE CLUSTER command. VSAM datasets cannot be created with standard JCL DD statements.
+Q: What is an alternate index (AIX)?
+A: Secondary index on a VSAM file. Allows access by a different key than the primary. Defined with DEFINE AIX, linked with DEFINE PATH.
 
-INTERMEDIATE:
+Q: What is CI and CA?
+A: CI (Control Interval) = smallest unit of I/O, like a block. CA (Control Area) = group of CIs. CI size affects performance.
 
-Q: What is a CI split and how does it affect performance?
-A: When a CI is full and a new record needs to be inserted, VSAM splits the CI — moving half the records to a new CI. This breaks physical adjacency, degrading sequential performance and requiring more index entries.
+=== INTERMEDIATE ===
 
-Q: What is the purpose of FREESPACE?
-A: FREESPACE reserves space for future inserts. CI% leaves empty space within each CI for new records. CA% leaves entirely empty CIs for CI splits. Proper FREESPACE reduces splits.
+Q: What is SHAREOPTIONS?
+A: Controls multi-region/multi-system access. SHAREOPTIONS(2,3) = common. First number (cross-region): 1=exclusive, 2=read sharing, 3=multiple writers, 4=full sharing. Second (cross-system).
 
-Q: Explain Alternate Indexes.
-A: An AIX allows access to a KSDS by a field other than the primary key. The AIX is itself a KSDS where the key is the alternate field and the data is the primary key pointer. A PATH connects the AIX to the base cluster for transparent access.
+Q: What is FREESPACE?
+A: FREESPACE(CI% CA%) — reserved space for future inserts. CI%=free space in each CI, CA%=free CIs in each CA. Reduces CI/CA splits on inserts.
 
-Q: What is the VERIFY command and when do you use it?
-A: VERIFY resets the end-of-file marker on a VSAM dataset that was not properly closed (e.g., after a batch abend). Without VERIFY, subsequent access may fail.
+Q: What is a CI split?
+A: When a CI is full and a record needs inserting, VSAM splits the CI — moves half the records to a new CI. Causes performance degradation if frequent.
 
-Q: What is the difference between SPEED and RECOVERY in DEFINE CLUSTER?
-A: SPEED loads data without writing duplicate copies. RECOVERY writes data to both the data and index components during load, allowing recovery if the load fails. SPEED is faster for initial loads.
+Q: Explain VSAM file status codes.
+A: 00=OK, 10=EOF, 22=duplicate key, 23=not found, 35=file not found, 39=attribute mismatch, 97=OPEN failed. Always check after every I/O.
 
-ADVANCED:
+Q: What is VERIFY?
+A: Resets the end-of-file marker after an abnormal close. VERIFY DATASET(name). Required when a program ABENDs with VSAM file open.
 
-Q: How does CICS manage VSAM buffering?
-A: CICS uses LSR (Local Shared Resources) pools where multiple files share a common buffer pool. This is more efficient than NSR (dedicated buffers per file). Pool sizes are configured in the SIT with STRINGS, DATABUFS, and INDEXBUFS parameters.
+Q: What is REPRO?
+A: Copies data between datasets. REPRO INFILE(dd) OUTFILE(dd) COUNT(n) SKIP(n). Works VSAM-to-VSAM, VSAM-to-sequential, and vice versa.
 
-Q: Describe a VSAM reorganization procedure.
-A: 1) REPRO data to a temporary sequential file. 2) DELETE the VSAM cluster. 3) DEFINE the cluster with optimized parameters (FREESPACE, SPACE). 4) REPRO data back from the temporary file. 5) Rebuild alternate indexes with BLDINDEX.
+=== ADVANCED ===
 
-Q: What happens during a CA split?
-A: When no free CIs exist in a CA for a CI split, VSAM allocates a new CA (secondary allocation) and moves approximately half the CIs from the full CA to the new CA. This is expensive — much more data movement than a CI split — and can cause noticeable performance degradation.
+Q: How do you improve VSAM performance?
+A: Proper CI size (4K-32K), adequate FREESPACE, BUFFERSPACE/BUFND/BUFNI parameters, regular REORG to fix CA splits, use LSR (Local Shared Resources) buffering in CICS.
 
-Q: How would you diagnose a slow VSAM batch job?
-A: 1) Check LISTCAT for CI/CA split counts. 2) Check extent count. 3) Verify BUFND/BUFNI settings. 4) Check CI size appropriateness. 5) Verify FREESPACE settings. 6) Check if file needs reorganization. 7) Consider sequential vs random access patterns. 8) Check for SHAREOPTIONS contention.`
+Q: What is VSAM RLS?
+A: Record Level Sharing — allows multiple CICS regions to access same VSAM file with record-level locking via Coupling Facility. Requires CF structure.
+
+💡 Study Tip: Know KSDS vs ESDS vs RRDS, CI splits, SHAREOPTIONS, and file status codes.`,
+    },
+
+    { title:"VSAM Cheat Sheet", level:"All Levels",
+      content:`VSAM Quick Reference — Cheat Sheet
+
+═══ DATASET TYPES ═══
+KSDS — Key-Sequenced (indexed, most common)
+ESDS — Entry-Sequenced (append-only, sequential)
+RRDS — Relative Record (by record number)
+LDS  — Linear Dataset (byte-addressable)
+
+═══ IDCAMS COMMANDS ═══
+DEFINE CLUSTER (NAME(x) INDEXED KEYS(len off) RECSZ(avg max) SHROPT(2,3))
+  DATA(CYLINDERS(pri sec) FREESPACE(ci% ca%) CISZ(size))
+  INDEX(CYLINDERS(1 1))
+DELETE name CLUSTER PURGE
+REPRO INFILE(dd) OUTFILE(dd) COUNT(n)
+PRINT INFILE(dd) CHARACTER COUNT(n)
+LISTCAT ENT(name) ALL
+VERIFY DATASET(name)
+ALTER name FREESPACE(10 10)
+DEFINE AIX (NAME(x) RELATE(cluster) KEYS(len off) UNIQUEKEY/NONUNIQUEKEY)
+DEFINE PATH (NAME(x) PATHENTRY(aix))
+
+═══ FILE STATUS CODES ═══
+00 — OK           10 — EOF
+22 — Duplicate key 23 — Not found
+35 — File not found 39 — Attribute mismatch
+97 — OPEN failed
+
+═══ SHAREOPTIONS ═══
+(1,x) — Single writer, no readers
+(2,x) — Single writer, multiple readers
+(3,x) — Multiple writers (integrity risk)
+(4,x) — Full sharing via buffering`,
     },
   ]
 };

@@ -681,41 +681,74 @@ Practical Uses:
    Available as external function for pattern matching.`
     },
     { title:"Interview Questions", level:"All Levels",
-      content:`REXX Interview Questions:
+      content:`REXX Interview Questions — 25+ Q&A.
 
-BEGINNER:
-Q: What must be the first line of a REXX exec?
-A: A comment: /* REXX */ (identifies it to the interpreter).
+=== BEGINNER ===
 
-Q: What data type does REXX use?
-A: Only strings. Numbers are strings that look numeric. Automatic conversion.
+Q: What is REXX?
+A: Restructured Extended Executor — scripting language for z/OS automation, TSO/ISPF extensions, and batch processing.
 
-Q: What is a stem variable?
-A: Compound variable (stem.tail). Used for arrays (stem.1) and dictionaries (stem.KEY).
+Q: How do you run REXX on z/OS?
+A: From TSO: EXEC 'library(member)' EXEC. In batch: PGM=IRXJCL or via IKJEFT01.
 
-INTERMEDIATE:
-Q: How to read a dataset in REXX?
-A: ALLOC, EXECIO DISKR with STEM, then FREE.
-   "ALLOC DA('dsn') F(DD) SHR"
-   "EXECIO * DISKR DD (STEM rec. FINIS"
-   "FREE F(DD)"
+Q: What makes REXX different from COBOL?
+A: REXX is interpreted (not compiled), dynamically typed, has built-in string functions, and is designed for scripting/automation rather than batch business logic.
 
-Q: Explain PARSE.
-A: Breaks strings into pieces using templates — word, column, or delimiter-based.
-   PARSE VAR str a ',' b — splits on comma.
+Q: What is a REXX stem variable?
+A: Array-like structure. stem.1='first', stem.2='second', stem.0=count. Similar to arrays in other languages.
 
-Q: PROCEDURE vs PROCEDURE EXPOSE?
-A: PROCEDURE makes all variables local. EXPOSE shares specific variables with caller.
+Q: What are common REXX built-in functions?
+A: SUBSTR, LENGTH, POS, WORD, WORDS, STRIP, TRANSLATE, COPIES, RIGHT, LEFT, CENTER, DATE, TIME, DATATYPE.
 
-ADVANCED:
-Q: How to run REXX in batch?
-A: IRXJCL (direct) or IKJEFT01 (TSO batch). SYSEXEC for library, SYSTSPRT for output.
+=== INTERMEDIATE ===
+
+Q: How does REXX interact with TSO?
+A: ADDRESS TSO sends commands. ADDRESS ISPEXEC sends ISPF services. "ALLOC" allocates datasets, "FREE" deallocates.
 
 Q: What is OUTTRAP?
-A: Captures TSO command output into a stem variable for programmatic processing.
+A: Captures TSO command output into stem variables. CALL OUTTRAP 'var.' → run command → output in var.1, var.2, var.0=count.
 
-Q: How to submit JCL from REXX?
-A: Queue JCL lines, then "SUBMIT * END(/*)" command.`
+Q: Explain REXX EXECIO.
+A: Reads/writes files. "EXECIO * DISKR ddname (STEM data." reads all. "EXECIO 1 DISKW ddname (STEM out." writes one record. FINIS closes.
+
+Q: What is PARSE in REXX?
+A: Powerful string parsing. PARSE VAR string word1 word2 rest. PARSE VALUE expression WITH template. Template-based extraction.
+
+Q: How do you handle errors in REXX?
+A: SIGNAL ON ERROR/SYNTAX/NOVALUE. Trap RC from commands. IF RC \= 0 THEN handle error.
+
+💡 Study Tip: Know EXECIO, OUTTRAP, stem variables, and PARSE — these are the most-used REXX features.`,
+    },
+
+    { title:"REXX Cheat Sheet", level:"All Levels",
+      content:`REXX Quick Reference — Cheat Sheet
+
+═══ STRUCTURE ═══
+/* REXX */  (first line, required comment)
+SAY 'Hello'   — Display output
+PULL var       — Read input
+EXIT rc        — End with return code
+
+═══ STRING FUNCTIONS ═══
+SUBSTR(str,pos,len)  LENGTH(str)  POS(needle,hay)
+WORD(str,n)  WORDS(str)  STRIP(str)  TRANSLATE(str)
+LEFT(str,n)  RIGHT(str,n)  COPIES(str,n)  CENTER(str,n)
+
+═══ FILE I/O (EXECIO) ═══
+"EXECIO * DISKR ddname (STEM data. FINIS"   — Read all
+"EXECIO 1 DISKW ddname (STEM out. FINIS"    — Write one
+"EXECIO 0 DISKR ddname (OPEN"               — Open
+"EXECIO 0 DISKR ddname (FINIS"              — Close
+
+═══ TSO INTERACTION ═══
+ADDRESS TSO "ALLOC FI(dd) DA('dsn') SHR"
+ADDRESS TSO "FREE FI(dd)"
+CALL OUTTRAP 'out.'  — Capture output
+ADDRESS ISPEXEC "DISPLAY PANEL(panelname)"
+
+═══ PARSE ═══
+PARSE VAR string word1 word2 rest
+PARSE VALUE expr WITH var1 ',' var2`,
     },
   ]
 };

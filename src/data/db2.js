@@ -971,52 +971,128 @@ Monitoring Data Sharing:
   • Inter-DB2 read/write activity`
     },
     { title:"DB2 Interview Questions", level:"All Levels",
-      content:`DB2 Interview Questions — Beginner to Expert:
+      content:`DB2 Interview Questions — 40+ Q&A organized by level.
 
-BEGINNER:
+=== BEGINNER ===
+
+Q: What is DB2?
+A: IBM's relational database management system for z/OS. Stores data in tables with rows/columns. Accessed via SQL.
+
+Q: What is SQL?
+A: Structured Query Language — standard language for relational databases. SELECT, INSERT, UPDATE, DELETE for data manipulation. CREATE, ALTER, DROP for structure.
 
 Q: What is a tablespace?
-A: A tablespace is the physical storage container for table data in DB2. Tables are created IN a tablespace. The tablespace consists of VSAM linear datasets.
+A: Physical storage for DB2 tables. Types: Simple (multiple tables), Segmented (one table per segment), Partitioned (large tables split by key range), Universal (modern default).
 
-Q: What is the difference between CHAR and VARCHAR?
-A: CHAR is fixed-length (always uses full declared length, padded with spaces). VARCHAR is variable-length (stores only actual data + 2-byte length prefix). Use VARCHAR for columns with varying lengths to save space.
+Q: What is a PLAN and PACKAGE?
+A: PLAN = collection of packages bound together, represents application's DB2 access. PACKAGE = compiled SQL from one program. BIND creates plans/packages from DBRMs.
 
-Q: What does SQLCODE 100 mean?
-A: Row not found (for SELECT INTO) or end of cursor (for FETCH).
+Q: What is SQLCODE?
+A: Return code from DB2. 0=success, 100=not found/end of data, negative=error. -805=plan not found, -811=multiple rows, -904=resource unavailable.
 
-Q: What is a CURSOR and when do you use it?
-A: A cursor is used to process multiple rows returned by a query, one at a time. DECLARE defines the query, OPEN executes it, FETCH retrieves rows, CLOSE releases resources.
+Q: What is a primary key?
+A: Unique identifier for each row. Cannot be NULL. Automatically creates a unique index.
 
-Q: What is the SQLCA?
-A: SQL Communication Area — a data structure that receives status information after every SQL statement. SQLCODE indicates success (0), not found (100), or error (negative).
+Q: What is a foreign key?
+A: Column referencing another table's primary key. Enforces referential integrity — child row can't exist without parent.
 
-INTERMEDIATE:
+Q: What is an index?
+A: B-tree structure for fast data retrieval. CREATE INDEX name ON table(col). Speeds up WHERE, JOIN, ORDER BY. Trade-off: faster reads, slower inserts.
 
-Q: What is a DBRM and what is the BIND process?
-A: A DBRM (Database Request Module) contains the SQL extracted from a program by the precompiler. BIND processes the DBRM, optimizes the SQL, and creates a PLAN or PACKAGE containing access paths.
+=== INTERMEDIATE ===
 
-Q: When should you REBIND?
-A: After changing SQL (new DBRM), after creating/dropping indexes, after running RUNSTATS (updated statistics), after DB2 upgrades, or periodically to pick up optimizer improvements.
+Q: Difference between INNER JOIN and LEFT JOIN?
+A: INNER JOIN returns only matching rows from both tables. LEFT JOIN returns all rows from left table plus matching rows from right (NULLs for no match).
 
-Q: What is the difference between a PLAN and a PACKAGE?
-A: A PLAN is required to run any DB2 program. A PACKAGE contains access paths for one DBRM (program). Plans can include packages using PKLIST. Packages allow independent maintenance — rebind one package without affecting others.
+Q: What is a cursor?
+A: Mechanism to process multiple rows one at a time. DECLARE → OPEN → FETCH (loop) → CLOSE. WITH HOLD keeps cursor open across COMMITs.
 
 Q: Explain ISOLATION levels.
-A: CS (Cursor Stability) locks only the current row — default, good for OLTP. RR (Repeatable Read) locks all rows read — prevents phantom reads. RS (Read Stability) locks qualifying rows. UR (Uncommitted Read) takes no locks — can see uncommitted data.
+A: CS (Cursor Stability) — lock current row only (default). RR (Repeatable Read) — lock all accessed rows. UR (Uncommitted Read) — no locks, read dirty data. RS (Read Stability) — lock qualifying rows.
 
-Q: What is lock escalation?
-A: When the number of row or page locks exceeds a threshold, DB2 escalates to a table lock. This reduces lock overhead but can block other transactions.
+Q: What is EXPLAIN?
+A: Analyzes SQL access paths. Populates PLAN_TABLE with access method, index usage, sort needs. Essential for performance tuning.
 
-ADVANCED:
+Q: What is RUNSTATS?
+A: Updates DB2 catalog statistics about table data distribution. Run after major data changes. Without current stats, DB2 optimizer makes poor access path choices.
 
-Q: What is EXPLAIN and how do you use it?
-A: EXPLAIN shows the access path DB2 chose for a query. Run EXPLAIN, then query the PLAN_TABLE to see ACCESSTYPE (I=index, R=tablespace scan), MATCHCOLS, INDEXONLY, sort operations, and join methods.
+Q: What is REORG?
+A: Reorganizes tablespace/index to reclaim space, restore clustering order, and improve performance. Run after heavy INSERT/DELETE activity.
 
-Q: What are the DB2 utilities and their purposes?
-A: LOAD (bulk data insert), UNLOAD (extract data), REORG (reorganize for performance), RUNSTATS (update statistics), COPY (backup), RECOVER (restore), CHECK (verify integrity). All run through DSNUTILB.
+Q: What is a DBRM?
+A: Database Request Module — compiled SQL extracted from program by DB2 precompiler. Input to the BIND process.
 
-Q: What is DB2 Data Sharing?
-A: Multiple DB2 members in a Parallel Sysplex sharing the same data. Uses Coupling Facility for shared buffers (GBP) and locking. Provides scalability and high availability.`
+Q: Explain COMMIT and ROLLBACK.
+A: COMMIT saves all changes since last commit. ROLLBACK undoes all changes. DB2 uses logging for recovery. Frequent COMMITs reduce lock contention and log usage.
+
+Q: What are NULL values?
+A: Represents unknown/missing data. Not the same as zero or spaces. Use IS NULL / IS NOT NULL to test. Indicator variables in COBOL handle NULLs.
+
+Q: What is a stored procedure?
+A: Program stored in DB2, callable via CALL statement. Can contain SQL and procedural logic. Reduces network traffic for complex operations.
+
+=== ADVANCED ===
+
+Q: What causes -811 SQLCODE?
+A: SELECT INTO returned more than one row. Fix: Add more WHERE conditions, or use a CURSOR.
+
+Q: What is DB2 lock escalation?
+A: When too many page/row locks exist, DB2 escalates to table lock. Causes concurrency issues. Fix: COMMIT frequently, optimize SQL to touch fewer rows, use LOCKSIZE ROW.
+
+Q: How do you tune a slow DB2 query?
+A: Run EXPLAIN to check access path. Ensure RUNSTATS is current. Add/modify indexes. Rewrite SQL (avoid functions on indexed columns, avoid SELECT *). Check for lock contention.
+
+Q: What is dynamic SQL vs static SQL?
+A: Static: SQL known at compile time, bound into package (faster, more secure). Dynamic: SQL built at runtime via PREPARE/EXECUTE (flexible, but overhead for each execution).
+
+Q: Explain DB2 utilities.
+A: LOAD (bulk insert), UNLOAD (bulk extract), REORG (reorganize), RUNSTATS (update stats), COPY (backup), RECOVER (restore), CHECK (integrity check).
+
+💡 Study Tip: Know SQLCODE values, ISOLATION levels, EXPLAIN, and CURSOR processing — core DB2 interview topics.`,
+    },
+
+    { title:"DB2 Cheat Sheet", level:"All Levels",
+      content:`DB2 Quick Reference — Cheat Sheet
+
+═══ SQL DML ═══
+SELECT col FROM table WHERE condition ORDER BY col
+INSERT INTO table (cols) VALUES (vals)
+UPDATE table SET col=val WHERE condition
+DELETE FROM table WHERE condition
+
+═══ JOIN TYPES ═══
+INNER JOIN — Matching rows only
+LEFT JOIN — All left + matching right
+RIGHT JOIN — All right + matching left
+FULL OUTER JOIN — All rows from both
+
+═══ KEY SQLCODES ═══
+0     — Success        100   — Not found
+-803  — Duplicate key   -805  — Plan not found
+-811  — Multiple rows   -818  — Timestamp mismatch
+-904  — Resource unavail -911  — Deadlock/timeout
+-180  — Invalid date    -305  — NULL indicator needed
+
+═══ CURSOR PATTERN ═══
+EXEC SQL DECLARE cur CURSOR FOR SELECT ... END-EXEC
+EXEC SQL OPEN cur END-EXEC
+PERFORM UNTIL SQLCODE = 100
+  EXEC SQL FETCH cur INTO :vars END-EXEC
+END-PERFORM
+EXEC SQL CLOSE cur END-EXEC
+
+═══ ISOLATION LEVELS ═══
+UR — Uncommitted Read (dirty reads)
+CS — Cursor Stability (default)
+RS — Read Stability
+RR — Repeatable Read (most restrictive)
+
+═══ UTILITIES ═══
+BIND — Create plan/package from DBRM
+RUNSTATS — Update catalog statistics
+REORG — Reorganize tablespace/index
+COPY/RECOVER — Backup/restore
+LOAD/UNLOAD — Bulk data operations`,
     },
   ]
 };

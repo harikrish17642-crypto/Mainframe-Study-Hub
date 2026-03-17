@@ -809,6 +809,43 @@ Resources for Continuous Learning:
   • Open Mainframe Project (Linux Foundation)
   • This website — Mainframe OS Hub!`
     },
+    { title:"Interview Questions", level:"All Levels",
+      content:`Modernization Interview Questions — 15+ Q&A.
+
+Q: What is mainframe modernization?
+A: Updating mainframe applications using modern practices: APIs, DevOps, cloud integration, microservices patterns — while keeping core systems.
+
+Q: What is Zowe?
+A: Open-source framework for z/OS modernization. Zowe CLI, API Mediation Layer, Zowe Explorer (VS Code extension). Makes z/OS accessible to modern developers.
+
+Q: What is IBM Z DevOps?
+A: CI/CD pipelines for z/OS: Git for source control, Jenkins/IBM DBB for builds, automated testing, IDz for modern IDE experience.
+
+Q: What are mainframe APIs?
+A: Expose COBOL/CICS programs as REST APIs using CICS Web Services, z/OS Connect, or API Mediation Layer. Enables mobile/web access to mainframe data.
+
+Q: Should we rewrite COBOL to Java?
+A: Usually no. Risks: losing business logic, performance regression, huge cost. Better: wrap existing programs with APIs, modernize the interface layer.
+
+💡 Study Tip: Know Zowe, z/OS Connect, API Mediation Layer, and DevOps pipeline concepts.`,
+    },
+
+    { title:"Modernization Cheat Sheet", level:"All Levels",
+      content:`Modernization Quick Reference
+
+═══ KEY TECHNOLOGIES ═══
+Zowe — Open-source z/OS framework
+z/OS Connect — API gateway for z/OS
+IBM DBB — Dependency-based build
+IDz — IBM Developer for z/OS (Eclipse)
+Zowe Explorer — VS Code extension for z/OS
+
+═══ MODERNIZATION APPROACHES ═══
+API Enablement — Expose as REST/SOAP
+DevOps — CI/CD pipelines for z/OS
+Cloud Integration — Hybrid cloud patterns
+UI Modernization — Replace 3270 with web`,
+    },
     { title:"Interview Questions — Modernization", level:"All Levels",
       content:`Modernization Interview Questions:
 

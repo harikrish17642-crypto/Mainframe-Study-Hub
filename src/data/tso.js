@@ -462,43 +462,51 @@ ISPF Command Table:
     JL → EDIT 'MY.JCL.LIB'`
     },
     { title:"TSO/ISPF Interview Questions", level:"All Levels",
-      content:`TSO/ISPF Interview Questions:
+      content:`TSO/ISPF Interview Questions — 20+ Q&A.
 
-BEGINNER:
+Q: What is TSO?
+A: Time Sharing Option — z/OS interactive command facility. Users log on to TSO, then typically enter ISPF.
 
-Q: What is the difference between TSO and ISPF?
-A: TSO (Time Sharing Option) is the z/OS interactive command processor — like a Unix shell. ISPF (Interactive System Productivity Facility) runs on top of TSO and provides a full-screen panel-driven interface with an editor, utilities, and tools.
+Q: What is ISPF?
+A: Interactive System Productivity Facility — panel-driven interface. Options: 1=View, 2=Edit, 3=Utilities, 3.4=Dataset list, 6=Command, S=SDSF.
 
-Q: How do you edit a dataset member?
-A: Enter option 2 from ISPF, type the dataset name and member name, press Enter. Or from DSLIST (3.4), type "E" next to the dataset, then "E" next to the member.
+Q: How do you submit JCL from ISPF?
+A: Open in editor (option 2), type SUB on command line. Or TSO SUBMIT 'dataset(member)'.
 
-Q: What are the most important ISPF editor line commands?
-A: I (insert), D (delete), C/CC (copy), M/MM (move), R (repeat), A (after), B (before). These commands are typed in the line number area.
+Q: What is SDSF?
+A: System Display and Search Facility — monitor jobs. DA=active, ST=output, I=input. Line commands: S=browse, P=purge, C=cancel.
 
-Q: How do you submit a JCL job from ISPF?
-A: Edit the JCL and type SUBMIT (or SUB) on the command line. The job is sent to JES for execution. Check output in SDSF.
+Q: How do you allocate a dataset in TSO?
+A: ALLOC DA('name') NEW SPACE(10,5) TRACKS RECFM(F B) LRECL(80). Or use ISPF 3.2.
 
-INTERMEDIATE:
+Q: What are ISPF edit commands?
+A: C/CC=copy, M/MM=move, D/DD=delete, R/RR=repeat, I=insert. Command line: F/FIND, C/CHANGE, SAVE, SUBMIT, RESET.
 
-Q: What is SDSF and what panels do you use most?
-A: SDSF (System Display and Search Facility) monitors batch jobs. Most used panels: ST (status — all jobs), DA (active jobs), O (output queue). Line commands: S (select output), ? (view JCL), P (purge), C (cancel).
+💡 Study Tip: Know ISPF options (1-6), edit line commands, and SDSF panels.`,
+    },
 
-Q: How do you find and replace text in the ISPF editor?
-A: FIND text to search, CHANGE old new ALL to replace all occurrences. Add column ranges (FIND text 1 72) and options (ALL, NEXT, FIRST, LAST, NX for not-excluded).
+    { title:"TSO / ISPF Cheat Sheet", level:"All Levels",
+      content:`TSO/ISPF Quick Reference — Cheat Sheet
 
-Q: What is the DSLIST utility (3.4)?
-A: The most-used ISPF utility. Enter a dataset name pattern and it shows all matching datasets. Line commands: E (edit), V (view), B (browse), D (delete), I (info), M (member list).
+═══ ISPF OPTIONS ═══
+1 — Browse      2 — Edit        3 — Utilities
+3.4 — Dataset list  6 — TSO command  S — SDSF
 
-Q: How do you use split screen?
-A: PF2 splits the screen at the cursor, PF9 swaps between sessions. This lets you edit code in one panel and check output in another. You can have up to 8 sessions.
+═══ EDIT LINE COMMANDS ═══
+I — Insert after    C/CC — Copy    M/MM — Move
+D/DD — Delete       R/RR — Repeat  ) — Shift right
+( — Shift left      COLS — Show columns
 
-ADVANCED:
+═══ EDIT PRIMARY COMMANDS ═══
+F 'text' — Find        C 'old' 'new' ALL — Change
+SAVE — Save            SUB — Submit
+RES — Reset            UNDO — Undo
+HI OFF — Remove highlighting
 
-Q: What are ISPF edit macros?
-A: REXX programs that automate editor tasks using ISREDIT commands. They can find/replace, insert headers, reformat code, compare files, and more. Invoked from the editor command line.
-
-Q: How do you allocate a dataset from TSO?
-A: Use the ALLOCATE (ALLOC) command: ALLOC DA('name') NEW CATALOG SPACE(10,5) TRACKS RECFM(F B) LRECL(80) BLKSIZE(0). Or use ISPF option 3.2 interactively.`
+═══ SDSF PANELS ═══
+DA — Active jobs   ST — Output   I — Input
+H — Held output    LOG — System log
+PREFIX userid* — Filter jobs`,
     },
   ]
 };

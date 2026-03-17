@@ -452,6 +452,35 @@ Use Cases:
         name: NetworkManager
         state: restarted`
     },
+    { title:"Interview Questions", level:"All Levels",
+      content:`Linux on Z Interview Questions — 15+ Q&A.
+
+Q: What is Linux on Z?
+A: Linux running on IBM Z hardware, either natively in an LPAR or as a guest under z/VM. Combines Linux flexibility with Z reliability.
+
+Q: What is z/VM?
+A: Virtualization hypervisor for IBM Z. Runs hundreds/thousands of Linux guests efficiently. Each guest gets virtual hardware.
+
+Q: Why run Linux on Z instead of x86?
+A: Consolidation (hundreds of Linux instances on one box), I/O throughput, crypto hardware, 99.999% availability, co-location with z/OS data.
+
+Q: What is an LPAR vs z/VM guest?
+A: LPAR = hardware partition (dedicated resources). z/VM guest = software virtualization (shared resources, more flexible).
+
+💡 Study Tip: Know z/VM, LPAR, consolidation benefits, and hybrid architecture concepts.`,
+    },
+
+    { title:"Linux on Z Cheat Sheet", level:"All Levels",
+      content:`Linux on Z Quick Reference
+
+═══ DEPLOYMENT OPTIONS ═══
+Native LPAR — Dedicated hardware partition
+z/VM Guest — Virtualized (most common)
+KVM — Linux KVM on Z
+
+═══ KEY ADVANTAGES ═══
+Consolidation, I/O throughput, crypto hardware, co-location with z/OS, 99.999% availability`,
+    },
     { title:"Interview Questions — Linux on Z", level:"All Levels",
       content:`Linux on Z Interview Questions:
 

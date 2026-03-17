@@ -1007,43 +1007,188 @@ Coding Standards:
   • Use copybooks for shared definitions`
     },
     { title:"Interview Questions", level:"All Levels",
-      content:`COBOL Interview Questions:
+      content:`COBOL Interview Questions — 40+ Q&A organized by level.
 
-BEGINNER:
+=== BEGINNER ===
+
+Q: What is COBOL?
+A: Common Business Oriented Language — English-like programming language created in 1959, processing 95% of ATM transactions and $3 trillion daily.
+
 Q: What are the four COBOL divisions?
-A: IDENTIFICATION, ENVIRONMENT, DATA, PROCEDURE.
+A: IDENTIFICATION (program name), ENVIRONMENT (hardware/file mapping), DATA (variables/files), PROCEDURE (business logic).
+
+Q: What is the difference between Area A and Area B?
+A: Area A (columns 8-11): Division/Section/Paragraph headers, 01/77 level numbers, FD entries. Area B (columns 12-72): All other statements, subordinate data items.
+
+Q: What is WORKING-STORAGE SECTION?
+A: Contains variables that persist throughout program execution. Declared in DATA DIVISION. Most program variables live here.
+
+Q: What is a PICTURE (PIC) clause?
+A: Defines data format. X=alphanumeric, 9=numeric, A=alphabetic, S=signed, V=implied decimal, Z=zero-suppress. PIC 9(5)V99 = 5 digits with 2 decimal places.
+
+Q: What is the difference between PIC 9 and PIC X?
+A: PIC 9 is numeric only (0-9), used for calculations. PIC X is alphanumeric (any character), used for text.
+
+Q: What does MOVE do?
+A: Copies data from source to destination. MOVE 'HELLO' TO WS-NAME. Truncation/padding occurs if sizes differ.
+
+Q: What is PERFORM?
+A: Executes a paragraph or section. PERFORM para-name. PERFORM para THRU para-exit. PERFORM para N TIMES. PERFORM para UNTIL condition.
+
+Q: What does STOP RUN do?
+A: Terminates program execution and returns control to the operating system. Sets return code.
+
+Q: What is a level number?
+A: Defines data hierarchy. 01=record, 02-49=subordinate fields, 77=standalone, 88=condition name, 66=RENAMES.
 
 Q: What is COMP-3?
-A: Packed decimal — stores 2 digits per byte plus sign nibble. Most efficient for arithmetic on z/OS.
+A: Packed decimal storage. Each byte holds 2 digits plus sign nibble. PIC S9(5) COMP-3 uses 3 bytes. Most efficient for business calculations.
 
-Q: Explain 88-level condition names.
-A: Boolean aliases for values. 88 ACTIVE VALUE 'A'. Tested with IF ACTIVE. Set with SET ACTIVE TO TRUE.
+=== INTERMEDIATE ===
 
-Q: What is a copybook?
-A: External source member included at compile time with COPY statement. Shared data definitions.
+Q: Difference between COMP, COMP-1, COMP-2, COMP-3?
+A: COMP=binary, COMP-1=single-precision float, COMP-2=double-precision float, COMP-3=packed decimal. For money, always use COMP-3.
 
-INTERMEDIATE:
-Q: Difference between SEARCH and SEARCH ALL?
-A: SEARCH is linear (O(n)), SEARCH ALL is binary (O(log n)). SEARCH ALL requires sorted table with ASCENDING KEY.
+Q: What is EVALUATE?
+A: COBOL's CASE/SWITCH statement. EVALUATE TRUE / WHEN condition / WHEN OTHER / END-EVALUATE. Cleaner than nested IF.
 
-Q: How does FILE STATUS work?
-A: Two-byte field set after every I/O. 00=OK, 10=EOF, 23=not found. Always check it.
+Q: What is STRING and UNSTRING?
+A: STRING concatenates fields with delimiters. UNSTRING splits a delimited string into fields. Both use POINTER and TALLYING for control.
 
-Q: Static vs Dynamic CALL?
-A: Static: CALL 'literal' — linked at bind time, always in memory. Dynamic: CALL variable — loaded at runtime, can CANCEL to free memory.
+Q: What is a COPY statement?
+A: Includes a copybook (shared code) from a library. COPY CUSTCOPY. COPY CUSTCOPY REPLACING ==:TAG:== BY ==CUST==. Essential for standardization.
 
-Q: What is DCLGEN?
-A: DB2 utility generating COBOL copybooks from table definitions. Creates host variable and null indicator declarations.
+Q: Explain COBOL file handling.
+A: SELECT (map logical to physical) → FD (describe record) → OPEN → READ/WRITE → CLOSE. File status (2 bytes) checked after every I/O.
 
-ADVANCED:
-Q: SQLCODE -811 — what happened?
-A: SELECT INTO returned multiple rows when only one expected. Need a cursor or add more WHERE conditions.
+Q: What is FILE STATUS?
+A: 2-byte code set after every file I/O. 00=success, 10=end-of-file, 35=file not found, 22=duplicate key, 23=record not found. Always check it.
 
-Q: How to handle DB2 deadlocks?
-A: SQLCODE -911. Program should retry the operation or backout and restart. Use COMMIT frequently to reduce lock duration.
+Q: What is an 88-level?
+A: Condition name. Defines meaningful values for a field. 88 MALE VALUE 'M'. Used in IF: IF MALE instead of IF GENDER = 'M'.
 
-Q: Explain pseudo-conversational CICS.
-A: Program ends after each screen display (RETURN TRANSID). CICS restarts program when user presses Enter. State kept in COMMAREA or TS queue. Conserves resources.`
+Q: What is SEARCH and SEARCH ALL?
+A: SEARCH=sequential table lookup (SET index, WHEN condition). SEARCH ALL=binary search (table must be sorted, uses KEY IS).
+
+Q: What is REFERENCE MODIFICATION?
+A: Substring extraction. WS-FIELD(start:length). WS-NAME(1:5) extracts first 5 characters. 1-based indexing.
+
+Q: Explain PERFORM VARYING.
+A: Loop with counter. PERFORM para VARYING WS-I FROM 1 BY 1 UNTIL WS-I > 10. Equivalent to a FOR loop.
+
+Q: What is REDEFINES?
+A: Allows two data definitions to share the same memory. 01 WS-DATE PIC X(8). 01 WS-DATE-R REDEFINES WS-DATE. Useful for interpreting data differently.
+
+Q: What are CALL and its types?
+A: CALL 'program' USING params. Static CALL=linked at compile, Dynamic CALL=loaded at runtime. CANCEL releases dynamically loaded program.
+
+Q: What is the RETURN-CODE special register?
+A: Sets the program's return code visible to JCL. MOVE 0 TO RETURN-CODE (success). MOVE 8 TO RETURN-CODE (error).
+
+=== ADVANCED ===
+
+Q: How do you handle S0C7 in COBOL?
+A: S0C7 = non-numeric data in numeric field. Fix: INITIALIZE all working storage, validate input with IF NUMERIC test, check REDEFINES alignment, inspect data with DISPLAY.
+
+Q: How does COBOL interact with DB2?
+A: EXEC SQL ... END-EXEC blocks. Include SQLCA for return codes. SQLCODE=0 success, 100=not found, negative=error. Compile with DB2 precompiler or integrated coprocessor.
+
+Q: What is CURSOR in DB2 COBOL?
+A: Handles multi-row results. DECLARE CURSOR → OPEN → FETCH (in loop until SQLCODE=100) → CLOSE. Like a pointer through result set.
+
+Q: Explain COBOL-CICS interaction.
+A: Programs are pseudo-conversational. EXEC CICS SEND MAP / RECEIVE MAP / RETURN TRANSID. BMS maps define screens. COMMAREA passes data between pseudo-conversations.
+
+Q: What is ON SIZE ERROR?
+A: Traps arithmetic overflow. ADD A TO B ON SIZE ERROR PERFORM ERROR-RTN. Without it, truncation happens silently.
+
+Q: How do you optimize COBOL performance?
+A: Use COMP-3 for calculations, binary subscripts for tables, SEARCH ALL for large tables, minimize I/O operations, use SORT USING instead of manual sorting, avoid unnecessary MOVEs.
+
+Q: What is INITIALIZE?
+A: Sets all fields to default values. INITIALIZE WS-RECORD sets alphanumeric to spaces, numeric to zeros. INITIALIZE...REPLACING allows custom defaults.
+
+💡 Study Tip: Master COMP-3, FILE STATUS, EVALUATE, COPY, and DB2 interaction — these cover 80% of interview questions.`,
+    },
+
+    { title:"COBOL Cheat Sheet", level:"All Levels",
+      content:`COBOL Quick Reference — Cheat Sheet
+
+═══ PROGRAM STRUCTURE ═══
+IDENTIFICATION DIVISION.
+PROGRAM-ID. program-name.
+ENVIRONMENT DIVISION.
+INPUT-OUTPUT SECTION.
+FILE-CONTROL.
+  SELECT file ASSIGN TO ddname FILE STATUS IS ws-fs.
+DATA DIVISION.
+FILE SECTION.
+  FD file. 01 record PIC X(100).
+WORKING-STORAGE SECTION.
+  01 WS-VAR PIC X(10) VALUE SPACES.
+PROCEDURE DIVISION.
+  PERFORM main-logic STOP RUN.
+
+═══ PICTURE CLAUSE ═══
+X — Alphanumeric    9 — Numeric    A — Alphabetic
+S — Sign            V — Implied decimal
+Z — Zero suppress   , . — Insertion
+PIC X(10) — 10-char string
+PIC 9(5)V99 — 5.2 numeric
+PIC S9(7) COMP-3 — Packed decimal
+
+═══ DATA LEVELS ═══
+01    — Record level / standalone
+02-49 — Subordinate fields
+66    — RENAMES
+77    — Standalone (non-group)
+88    — Condition name (boolean)
+
+═══ COMP TYPES ═══
+COMP   — Binary (2/4/8 bytes)
+COMP-1 — Single float (4 bytes)
+COMP-2 — Double float (8 bytes)
+COMP-3 — Packed decimal (most used)
+
+═══ KEY VERBS ═══
+MOVE src TO dest       — Copy data
+COMPUTE x = expr       — Arithmetic
+ADD/SUBTRACT/MULTIPLY/DIVIDE — Math
+IF/EVALUATE/PERFORM    — Control flow
+STRING/UNSTRING        — String ops
+INSPECT TALLYING/REPLACING — Scan/replace
+OPEN/READ/WRITE/CLOSE  — File I/O
+CALL 'prog' USING args — Subprogram
+DISPLAY/ACCEPT         — Screen I/O
+
+═══ FILE I/O PATTERN ═══
+OPEN INPUT file-name
+PERFORM UNTIL WS-EOF = 'Y'
+  READ file INTO ws-rec
+    AT END MOVE 'Y' TO WS-EOF
+    NOT AT END PERFORM process-rec
+  END-READ
+END-PERFORM
+CLOSE file-name
+
+═══ FILE STATUS CODES ═══
+00 — Success          10 — End of file
+22 — Duplicate key    23 — Record not found
+35 — File not found   39 — File attribute conflict
+
+═══ DB2 PATTERN ═══
+EXEC SQL
+  SELECT col INTO :ws-var FROM table WHERE key = :ws-key
+END-EXEC
+IF SQLCODE = 0 ... (success)
+IF SQLCODE = 100 ... (not found)
+IF SQLCODE < 0 ... (error)
+
+═══ COMMON ABENDS ═══
+S0C7 — Non-numeric in numeric field
+S0C4 — Addressing/subscript error
+S0C1 — Invalid operation
+S322 — CPU time exceeded`,
     },
   ]
 };

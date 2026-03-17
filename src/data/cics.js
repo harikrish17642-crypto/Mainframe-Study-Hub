@@ -709,46 +709,122 @@ XRF (Extended Recovery Facility):
   Terminals reconnect automatically.`
     },
     { title:"CICS Interview Questions", level:"All Levels",
-      content:`CICS Interview Questions — Beginner to Expert:
+      content:`CICS Interview Questions — 35+ Q&A organized by level.
 
-BEGINNER:
+=== BEGINNER ===
+
+Q: What is CICS?
+A: Customer Information Control System — IBM's online transaction processing (OLTP) system. Handles real-time transactions like ATM withdrawals, airline bookings, and banking operations.
+
+Q: What is a CICS transaction?
+A: A unit of work identified by a 4-character TRANSID. User types transid on terminal → CICS loads and runs the associated program.
 
 Q: What is pseudo-conversational programming?
-A: The program sends a screen and returns control to CICS. When the user responds, CICS starts a NEW task. State is passed via COMMAREA. This is efficient because CICS resources are freed while the user reads the screen.
-
-Q: What is a COMMAREA?
-A: Communication Area — a block of data passed between pseudo-conversational transactions. It's the primary mechanism for maintaining state between screen interactions. Maximum 32KB.
-
-Q: What is EIBCALEN and why is it important?
-A: Execute Interface Block COMMAREA Length. It indicates the length of the incoming COMMAREA. If EIBCALEN = 0, this is the first invocation of the transaction (no previous COMMAREA).
-
-Q: What is the difference between LINK and XCTL?
-A: LINK calls a subprogram and returns to the calling program (like COBOL CALL). XCTL transfers control permanently to another program — the calling program does not get control back.
+A: The program sends a screen, then terminates (RETURN TRANSID). When user responds, CICS starts a new task. This frees resources between user interactions. Opposite of conversational (program waits for user).
 
 Q: What is a BMS map?
-A: A screen layout definition. The BMS map source is compiled into a Physical Map (screen layout) and a Symbolic Map (COBOL copybook). Programs use SEND MAP/RECEIVE MAP to interact with the screen.
+A: Basic Mapping Support — defines screen layouts. DFHMSD (mapset), DFHMDI (map), DFHMDF (field). Compiled into physical and symbolic maps.
 
-INTERMEDIATE:
+Q: What is COMMAREA?
+A: Communication Area — data passed between pseudo-conversational interactions. EXEC CICS RETURN TRANSID('TRN1') COMMAREA(WS-COMM). Max 32KB.
 
-Q: What is the difference between TS and TD queues?
-A: Temporary Storage queues support random access by item number and are temporary (within CICS). Transient Data queues are sequential (FIFO) and can be intrapartition (within CICS) or extrapartition (external files). TD can trigger transactions; TS cannot.
+Q: What is SEND MAP and RECEIVE MAP?
+A: SEND MAP displays screen to user. RECEIVE MAP reads user input from screen into program variables.
 
-Q: Explain RESP and RESP2.
-A: RESP returns the main response code (e.g., NORMAL, NOTFND, INVREQ). RESP2 provides additional detail about the error. Using RESP avoids the need for HANDLE CONDITION (legacy approach). Always check RESP after every EXEC CICS command.
+Q: What is EIBTRNID?
+A: Execute Interface Block field containing the current transaction ID. EIB fields provide CICS system info to the program.
 
-Q: What happens during a CICS EMERGENCY restart?
-A: CICS restores to its state before the crash. In-flight transactions are backed out (changes undone). Recoverable resources are restored. The system log is used to determine which changes to undo.
+Q: What is EIBCALEN?
+A: Length of the COMMAREA received. If EIBCALEN=0, it's the first invocation (no COMMAREA passed). Used to detect first-time vs return.
 
-ADVANCED:
+=== INTERMEDIATE ===
 
-Q: What is the difference between TOR, AOR, and FOR?
-A: TOR (Terminal-Owning Region) handles user connections. AOR (Application-Owning Region) runs business programs. FOR (File-Owning Region) owns VSAM files. This separation allows scaling each function independently and provides better security and performance isolation.
+Q: Explain CICS file control commands.
+A: READ (get record), WRITE (add record), REWRITE (update), DELETE (remove), BROWSE (START/READNEXT/READPREV/ENDBR). All use EXEC CICS prefix.
 
-Q: Explain CICS channels and containers vs COMMAREA.
-A: Channels/containers are the modern replacement for COMMAREA. They have no 32KB limit, support named containers (structured data), and can be passed between programs via LINK/XCTL. COMMAREA is limited to 32KB and is unstructured.
+Q: What is the difference between MAPONLY and DATAONLY?
+A: SEND MAP MAPONLY sends layout without data (first display). SEND MAP DATAONLY sends data into existing layout (updates only). Reduces network traffic.
 
-Q: How do you expose a CICS COBOL program as a REST API?
-A: 1) Write standard COBOL with channels/containers. 2) Use DFHWS2LS to generate language structure binding. 3) Define PIPELINE and WEBSERVICE resources. 4) CICS handles HTTP, JSON/XML ↔ COBOL conversion automatically. Or use z/OS Connect EE as an API gateway.`
+Q: What is a CICS program list table (PLT)?
+A: Lists programs to run during CICS startup (PLTPI) or shutdown (PLTSD). Used for initialization routines.
+
+Q: What is ASKTIME and FORMATTIME?
+A: ASKTIME gets current time into EIBTIME/EIBDATE. FORMATTIME converts to readable format: EXEC CICS FORMATTIME ABSTIME(ws-time) DDMMYYYY(ws-date).
+
+Q: Explain CICS LINK vs XCTL vs RETURN.
+A: LINK=call subroutine (returns to caller). XCTL=transfer control (doesn't return). RETURN=end program (with/without TRANSID for pseudo-conversational).
+
+Q: What is CICS HANDLE CONDITION?
+A: Legacy error handling. HANDLE CONDITION NOTFND(label). Modern approach: RESP option — EXEC CICS READ ... RESP(ws-resp). Check DFHRESP(NORMAL).
+
+Q: What is CICS Temporary Storage (TS) queue?
+A: Named queues for temporary data. WRITEQ TS, READQ TS, DELETEQ TS. Can be MAIN (memory) or AUXILIARY (disk). Used for scratch pad data, session state.
+
+Q: What is CICS Transient Data (TD) queue?
+A: Destinations for sequential data. Intrapartition (within CICS) or Extrapartition (external files). Used for logging, printing, triggers.
+
+Q: What is START command?
+A: Schedules a transaction to run later. EXEC CICS START TRANSID('TRN2') INTERVAL(003000) FROM(data). Used for deferred processing.
+
+=== ADVANCED ===
+
+Q: How do you handle CICS abends?
+A: EXEC CICS HANDLE ABEND PROGRAM('ERRPGM') or RESP option on each command. RESP(WS-RESP) avoids abend — program checks response code.
+
+Q: What is CICS Resource Definition Online (RDO)?
+A: Defines CICS resources (programs, transactions, files, TDQs, TSQs) dynamically using CEDA/CEMT commands instead of macro tables.
+
+Q: Explain CICS journaling.
+A: Records transaction activity for recovery. EXEC CICS JOURNAL. Used with Dynamic Transaction Backout (DTB) for recovery.
+
+Q: What is CICS web services support?
+A: CICS can expose COBOL programs as REST/SOAP web services. PIPELINE definitions, WS-TRUST, JSON/XML transformations. DFHWS2LS converts WSDL to language structure.
+
+Q: How do you debug CICS programs?
+A: CEDF (Execution Diagnostic Facility) — step through CICS commands interactively. CECI — test CICS commands. CEBR — browse TS queues.
+
+💡 Study Tip: Master pseudo-conversational logic, COMMAREA, BMS maps, and file control. These are in every CICS interview.`,
+    },
+
+    { title:"CICS Cheat Sheet", level:"All Levels",
+      content:`CICS Quick Reference — Cheat Sheet
+
+═══ CICS COMMANDS ═══
+EXEC CICS SEND MAP('map') MAPSET('mset') MAPONLY/DATAONLY END-EXEC
+EXEC CICS RECEIVE MAP('map') MAPSET('mset') END-EXEC
+EXEC CICS RETURN TRANSID('TRN1') COMMAREA(ws-comm) END-EXEC
+EXEC CICS XCTL PROGRAM('prog') COMMAREA(ws-comm) END-EXEC
+EXEC CICS LINK PROGRAM('prog') COMMAREA(ws-comm) END-EXEC
+
+═══ FILE CONTROL ═══
+READ DATASET('file') INTO(ws-rec) RIDFLD(ws-key) RESP(ws-resp)
+WRITE DATASET('file') FROM(ws-rec) RIDFLD(ws-key)
+REWRITE DATASET('file') FROM(ws-rec)
+DELETE DATASET('file') RIDFLD(ws-key)
+STARTBR/READNEXT/READPREV/ENDBR — Browse operations
+
+═══ TS QUEUE ═══
+WRITEQ TS QUEUE('name') FROM(data) ITEM(n) MAIN/AUXILIARY
+READQ TS QUEUE('name') INTO(data) ITEM(n)
+DELETEQ TS QUEUE('name')
+
+═══ EIB FIELDS ═══
+EIBTRNID — Transaction ID    EIBCALEN — COMMAREA length
+EIBTIME — Time               EIBDATE — Date
+EIBTASKN — Task number        EIBAID — Attention key pressed
+
+═══ RESP CODES ═══
+DFHRESP(NORMAL)=0    DFHRESP(NOTFND)=13
+DFHRESP(DUPREC)=14   DFHRESP(DUPKEY)=15
+DFHRESP(ENDFILE)=20  DFHRESP(LENGERR)=22
+DFHRESP(PGMIDERR)=27 DFHRESP(INVREQ)=16
+
+═══ OPERATOR COMMANDS ═══
+CEMT — Master terminal (INQ/SET resources)
+CEDA — Resource definition
+CEDF — Execution diagnostic facility
+CECI — Command interpreter
+CEBR — TS queue browser`,
     },
   ]
 };

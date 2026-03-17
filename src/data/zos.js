@@ -33,6 +33,81 @@ export const ZOS_TOPIC = {
     { title:"z/OS Storage Concepts", level:"Intermediate",
       content:"z/OS Storage (Memory) Management:\n\nVirtual Storage Layout (31-bit):\n  2 GB \u2014 Extended Private (your program above 16MB)\n  16 MB \u2014 \"The Line\" boundary\n  Below \u2014 Private Area (below 16MB, legacy)\n  Common Area \u2014 CSA, SQA, LPA (shared system storage)\n  System Area \u2014 z/OS nucleus\n\nKey Storage Areas:\n  Private Area: Your job's workspace (REGION parameter)\n  CSA: Shared memory for inter-address-space communication\n  SQA: System control blocks and tables\n  LPA: Shared reentrant programs loaded at IPL\n  64-bit: \"Above the bar\" for large data structures\n\nREGION Parameter:\n  REGION=4M   \u2014 4 MB (small programs)\n  REGION=64M  \u2014 64 MB (typical COBOL)\n  REGION=0M   \u2014 maximum available\n\nCommon Storage Abends:\n  S878 \u2014 Virtual storage not available\n  S80A \u2014 Insufficient virtual storage\n  S804 \u2014 GETMAIN failed\n  S40D \u2014 Insufficient storage for OPEN"
     },
+    { title:"Interview Questions", level:"All Levels",
+      content:`z/OS Interview Questions — 25+ Q&A.
+
+=== BEGINNER ===
+
+Q: What is z/OS?
+A: IBM's flagship mainframe operating system. Runs on IBM Z hardware. Supports batch, online (CICS/IMS), and UNIX workloads simultaneously.
+
+Q: What is an LPAR?
+A: Logical Partition — a virtual mainframe within a physical mainframe. Each LPAR runs its own z/OS instance independently.
+
+Q: What is TSO?
+A: Time Sharing Option — interactive command-line interface to z/OS. Users log on to TSO to access ISPF, submit jobs, manage datasets.
+
+Q: What is ISPF?
+A: Interactive System Productivity Facility — menu-driven interface on top of TSO. Panels for editing, browsing, dataset management, job submission.
+
+Q: What is a dataset?
+A: z/OS equivalent of a file. Types: Sequential (PS), Partitioned (PO/PDS/PDSE), VSAM (KSDS/ESDS/RRDS). Named up to 44 characters with dot-separated qualifiers.
+
+Q: What is JES?
+A: Job Entry Subsystem — manages batch job input, scheduling, and output. JES2 (most common) or JES3.
+
+Q: What is the catalog?
+A: Master index that maps dataset names to physical locations (volumes). MASTER CATALOG → USER CATALOGS → datasets.
+
+=== INTERMEDIATE ===
+
+Q: What is WLM?
+A: Workload Manager — manages z/OS resources to meet performance goals. Assigns service classes, manages priorities, controls resource distribution.
+
+Q: Explain the z/OS address space.
+A: Each job/task gets its own virtual address space (up to 16 exabytes in 64-bit mode). Below the line (16MB) for legacy, above the line for modern programs.
+
+Q: What is SMS?
+A: Storage Management Subsystem — automates storage management. ACS routines assign STORCLAS/MGMTCLAS/DATACLAS based on naming rules.
+
+Q: What is SYS1.PARMLIB?
+A: System parameter library. Contains members that configure z/OS behavior: IEASYSxx (system params), JES2 params, SMF params, etc.
+
+Q: What is the link list?
+A: Concatenation of libraries (LNKLSTxx) searched for programs. System-wide. Avoid putting application programs here.
+
+Q: What is LPA?
+A: Link Pack Area — programs loaded into shared memory at IPL. Reentrant modules used by many address spaces. Saves memory.
+
+💡 Study Tip: Know LPAR, TSO/ISPF, JES, catalog, SMS, and WLM — these are z/OS fundamentals interviewers expect.`,
+    },
+
+    { title:"z/OS Fundamentals Cheat Sheet", level:"All Levels",
+      content:`z/OS Quick Reference — Cheat Sheet
+
+═══ KEY SUBSYSTEMS ═══
+JES2/JES3 — Job management     TSO — Interactive access
+ISPF — Menu interface          WLM — Workload management
+SMS — Storage management       RACF — Security
+SMF — System metrics           RMF — Resource monitoring
+
+═══ DATASET TYPES ═══
+PS — Physical Sequential      PO — Partitioned (PDS/PDSE)
+VSAM KSDS — Key-Sequenced    VSAM ESDS — Entry-Sequenced
+VSAM RRDS — Relative Record  VSAM LDS — Linear
+
+═══ KEY LIBRARIES ═══
+SYS1.PARMLIB — System parameters
+SYS1.PROCLIB — System procedures
+SYS1.LINKLIB — System programs
+SYS1.LPALIB — Link Pack Area modules
+SYS1.NUCLEUS — z/OS kernel
+
+═══ COMMON ISPF OPTIONS ═══
+1 — View/Browse    2 — Edit
+3 — Utilities      3.4 — Dataset list
+6 — TSO command    S — SDSF/SD`,
+    },
     { title:"Interview Questions \u2014 z/OS", level:"All Levels",
       content:"z/OS Fundamentals Interview Questions:\n\nQ: What is an address space?\nA: An isolated virtual memory environment on z/OS. Every batch job, TSO user, CICS region runs in its own address space with up to 2 GB (31-bit) or 16 EB (64-bit) of virtual memory.\n\nQ: What is the difference between \"below the line\" and \"above the bar\"?\nA: \"The line\" = 16 MB boundary (24-bit). \"The bar\" = 2 GB boundary (31-bit). Programs using 24-bit addressing access only first 16 MB. 64-bit programs access beyond 2 GB.\n\nQ: Explain the IPL process.\nA: (1) Hardware loads IPL program from DASD, (2) NIP loads kernel and reads PARMLIB, (3) Master Scheduler starts, (4) JES2 starts, (5) Started tasks begin (CICS, DB2, VTAM).\n\nQ: What is a Parallel Sysplex?\nA: A cluster of up to 32 z/OS systems sharing a Coupling Facility. Benefits: automatic failover, rolling maintenance, workload balancing, DB2 data sharing.\n\nQ: How does RACF protect resources?\nA: RACF uses profiles to define access rules. Checks discrete profile, then generic profile, evaluates access level (NONE/READ/UPDATE/CONTROL/ALTER), logs to SMF Type 80."
     }

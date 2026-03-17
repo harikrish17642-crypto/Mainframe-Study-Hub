@@ -783,52 +783,60 @@ Connection Management:
   DBCTL handles thread management and buffer pools.`
     },
     { title:"IMS Interview Questions", level:"All Levels",
-      content:`IMS DB Interview Questions — Beginner to Expert:
+      content:`IMS Interview Questions — 20+ Q&A.
 
-BEGINNER:
+=== BEGINNER ===
 
-Q: What is IMS and what are its two main components?
-A: IMS (Information Management System) is IBM's hierarchical database and transaction processing system. Its two components are IMS DB (Database Manager) for hierarchical data management, and IMS TM (Transaction Manager) for online transaction processing.
+Q: What is IMS?
+A: Information Management System — IBM's hierarchical database (IMS DB) and transaction manager (IMS TM/DC). Predates relational databases.
 
-Q: What is the difference between IMS and DB2?
-A: IMS uses a hierarchical (tree) data model where data is accessed through parent-child relationships using DL/I calls. DB2 uses a relational (table) model with SQL. IMS is faster for known access patterns; DB2 is more flexible for ad-hoc queries.
+Q: What is a hierarchical database?
+A: Data organized as parent-child tree. Root segment at top, dependent segments below. Fast for known access paths, rigid structure.
 
-Q: What is a segment in IMS?
-A: A segment is the basic unit of data in IMS — equivalent to a record or row. Each segment contains one or more fields. The root segment is the top level, and child segments depend on their parents.
+Q: What is a segment?
+A: The basic unit of data in IMS — like a record. Segments are organized in parent-child relationships. Max 255 segment types per database.
 
-Q: What are the main DL/I function codes?
-A: GU (Get Unique — direct access), GN (Get Next — sequential), GNP (Get Next in Parent), ISRT (Insert), REPL (Replace/update), DLET (Delete). Hold variants (GHU, GHN, GHNP) lock segments for update.
+Q: What is a PCB and PSB?
+A: PCB (Program Communication Block) defines one database view. PSB (Program Specification Block) = collection of PCBs for a program.
 
-Q: What is a PCB status code?
-A: After every DL/I call, IMS sets a status code in the PCB. Blank means success, GE means not found, GB means end of database, II means duplicate key on insert.
+Q: What are IMS DL/I calls?
+A: Data Language/Interface — GU (Get Unique), GN (Get Next), GNP (Get Next within Parent), ISRT (Insert), REPL (Replace), DLET (Delete).
 
-INTERMEDIATE:
+=== INTERMEDIATE ===
 
-Q: Explain the difference between DBD and PSB.
-A: The DBD (Database Description) defines the physical structure of the database — segments, fields, access method, relationships. The PSB (Program Specification Block) defines what a specific program can see and do — which segments are accessible and what operations are allowed (PROCOPT).
+Q: What is SSA?
+A: Segment Search Argument — specifies which segment to access. Unqualified SSA (segment name only) or Qualified SSA (with field conditions).
 
-Q: What is PROCOPT and what are common values?
-A: PROCOPT defines processing options for a PCB or SENSEG. Common values: G (read), I (insert), R (replace), D (delete), A (all), GI (read/insert), GR (read/update), GRD (read/update/delete), K (key only).
+Q: What is a status code in IMS?
+A: 2-byte code after each DL/I call. Spaces=success, GE=segment not found, GB=end of database, II=duplicate on insert.
 
-Q: What are the four main IMS access methods?
-A: HSAM (sequential only, simplest), HISAM (indexed sequential), HDAM (direct/hash access, best random performance), HIDAM (indexed direct, best for both sequential and random — most commonly used).
+Q: Explain IMS DB processing modes.
+A: DLI (batch without TM), DBB (BMP batch), TM (online transaction). Each has different PCB handling and commit processing.
 
-Q: What is a secondary index and why is it needed?
-A: A secondary index provides an alternative access path to an IMS database. Without it, you can only access data through the primary hierarchy path. With it, you can access segments using non-key fields (e.g., find a customer by name instead of ID).
+💡 Study Tip: Focus on DL/I calls (GU/GN/GNP/ISRT), PCB/PSB concepts, and hierarchical navigation.`,
+    },
 
-ADVANCED:
+    { title:"IMS DB Cheat Sheet", level:"All Levels",
+      content:`IMS Quick Reference — Cheat Sheet
 
-Q: Explain logical relationships in IMS.
-A: Logical relationships allow a child segment to have two parents — one physical and one logical — effectively linking two separate hierarchies. This gives IMS some of the flexibility of relational joins while maintaining hierarchical performance.
+═══ DL/I CALLS ═══
+GU   — Get Unique (direct access)
+GN   — Get Next (sequential)
+GNP  — Get Next within Parent
+GHU/GHN/GHNP — Get Hold (for update)
+ISRT — Insert segment
+REPL — Replace segment
+DLET — Delete segment
 
-Q: What is DBCTL and how does it relate to CICS?
-A: DBCTL (Database Control) allows CICS transactions to access IMS databases without using IMS TM. CICS handles the online transaction processing while DBCTL provides IMS database access, combining the strengths of both systems.
+═══ STATUS CODES ═══
+bb — Success (spaces)    GE — Not found
+GB — End of database     II — Duplicate
+AI — Open failure        IX — Deadlock
 
-Q: Describe the IMS recovery process.
-A: IMS recovery uses image copies (database backups) and log datasets (change records). Forward recovery restores an image copy then applies logged changes. Backout recovery reverses changes to undo a failed batch run. DBRC and RECON datasets track all recovery information.
-
-Q: What is a DEDB and when would you use it?
-A: A DEDB (Data Entry Database) is a high-performance IMS database type designed for extremely high-volume, high-availability applications. It supports multiple areas (for parallel processing), has no secondary indexes (use Fast Path), and provides superior performance for insert-heavy workloads.`
+═══ SSA FORMAT ═══
+Unqualified: segname
+Qualified: segname(field OP value)
+Operators: =, >=, <=, >, <, !=`,
     },
   ]
 };

@@ -577,46 +577,44 @@ Comparing ESMs:
     RACF with PROTECTALL=ON also denies by default.`
     },
     { title:"Security Interview Questions", level:"All Levels",
-      content:`RACF & Security Interview Questions:
-
-BEGINNER:
-
-Q: What are the three pillars of z/OS security?
-A: Identification (who are you — user ID), Authentication (prove it — password/certificate), and Authorization (what can you do — access permissions).
+      content:`RACF/Security Interview Questions — 20+ Q&A.
 
 Q: What is RACF?
-A: RACF (Resource Access Control Facility) is IBM's External Security Manager for z/OS. It controls user authentication, dataset protection, resource authorization, and auditing. It's the most widely used security product on mainframes.
+A: Resource Access Control Facility — z/OS security subsystem. Controls who can access what. Alternatives: ACF2, Top Secret.
 
-Q: What are the RACF access levels for datasets?
-A: NONE, EXECUTE, READ, UPDATE, CONTROL, ALTER — in increasing order of privilege. READ allows reading, UPDATE allows reading and writing, ALTER allows full control including delete.
+Q: What are the three pillars of RACF?
+A: Users (ADDUSER), Groups (ADDGROUP), Resources (dataset profiles, general resource profiles). Connect users to groups, permit access to resources.
 
-Q: What is the difference between a discrete and generic profile?
-A: A discrete profile protects exactly one dataset. A generic profile uses pattern matching (* and **) to protect multiple datasets matching the pattern. Generic profiles reduce administrative overhead.
+Q: What is a RACF profile?
+A: Definition of access rules. Discrete profiles (one dataset) or Generic profiles (pattern matching with * and %).
 
-INTERMEDIATE:
+Q: What access levels does RACF provide?
+A: NONE, READ, UPDATE, CONTROL, ALTER (highest). ALTER includes all others.
 
-Q: Explain UACC and why NONE is recommended.
-A: UACC (Universal Access) is the default access for anyone not specifically listed in the access list. UACC(NONE) is recommended because it enforces the principle of least privilege — only users explicitly permitted can access the resource.
+Q: What is a RACF group?
+A: Collection of users. Used for managing access. Users connect to groups. One group is the default group.
 
-Q: What is the OPERATIONS attribute and why is it dangerous?
-A: OPERATIONS gives a user the ability to bypass dataset authorization checks. The user can access any dataset regardless of RACF profiles. It should only be used by system programmers for emergency maintenance and should be audited carefully.
+Q: How do you give a user access to a dataset?
+A: PERMIT 'dataset.name' ID(userid) ACCESS(READ). Or through group membership.
 
-Q: How does RACF auditing work?
-A: RACF generates SMF Type 80 records for security events (logons, access attempts, profile changes). These are written to SMF datasets and can be analyzed with tools like IRRUT100, DSMON, or third-party products. Audit settings can be configured per profile or globally.
+💡 Study Tip: Know ADDUSER, PERMIT, LISTDSD, and profile types.`,
+    },
 
-Q: What is a key ring?
-A: A key ring is a RACF construct that holds digital certificates and private keys. Applications reference key rings to find the certificates they need for TLS/SSL communication. Multiple certificates can be connected to a single key ring.
+    { title:"RACF & Security Cheat Sheet", level:"All Levels",
+      content:`RACF Quick Reference — Cheat Sheet
 
-ADVANCED:
+═══ COMMANDS ═══
+ADDUSER userid NAME('name') DFLTGRP(group) PASSWORD(pass)
+ALTUSER userid NAME('new name') RESUME
+DELUSER userid
+CONNECT userid GROUP(group) AUTH(USE/CREATE/CONNECT/JOIN)
+PERMIT 'profile' ID(userid/group) ACCESS(READ/UPDATE/ALTER)
+LISTUSER userid ALL
+LISTDSD DA('dataset') ALL
+SEARCH FILTER(pattern)
 
-Q: Explain Pervasive Encryption on z/OS.
-A: Pervasive Encryption encrypts data transparently at the dataset level using hardware-accelerated cryptography (CPACF). RACF manages the encryption keys. It provides data-at-rest protection without application changes. Combined with AT-TLS for data-in-transit, it provides end-to-end encryption.
-
-Q: What is the difference between RACF, ACF2, and Top Secret?
-A: RACF is profile-based with default-allow (unless PROTECTALL), ACF2 is rule-based with default-deny, and Top Secret is department-based with default-deny. RACF is bundled with z/OS (~70% market share), while ACF2 and TSS are separate Broadcom products (~15% each).
-
-Q: How would you secure a new CICS application?
-A: Define users/groups, activate TCICSTRN class, create profiles for each transaction, grant access via groups, protect associated DB2 plans (DSNR class), protect CICS resources, enable auditing, test with WARNING mode first, then enforce.`
+═══ ACCESS LEVELS ═══
+NONE → READ → UPDATE → CONTROL → ALTER`,
     },
   ]
 };

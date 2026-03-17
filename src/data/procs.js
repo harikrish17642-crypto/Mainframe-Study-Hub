@@ -706,6 +706,51 @@ PROC Documentation:
 //*
 //       PEND`
     },
+    { title:"Interview Questions", level:"All Levels",
+      content:`DFSORT/Utilities Interview Questions — 15+ Q&A.
+
+Q: What is DFSORT?
+A: IBM's sort/merge utility for z/OS. Sorts, copies, selects, reformats, joins, and summarizes data. Most-used utility.
+
+Q: What is ICETOOL?
+A: DFSORT's multi-function tool. Runs multiple operations in one step: SORT, COPY, SELECT, COUNT, DISPLAY, UNIQUE.
+
+Q: Explain SORT FIELDS.
+A: SORT FIELDS=(position,length,format,order). Formats: CH, ZD, PD, BI, FI. Order: A (ascending), D (descending).
+
+Q: What is OUTREC vs INREC?
+A: INREC reformats BEFORE sorting. OUTREC reformats AFTER sorting. Both use BUILD syntax. OUTREC can also use IFTHEN for conditional formatting.
+
+Q: What is JOINKEYS?
+A: Joins two sorted files. Like a database JOIN. JOINKEYS FILE=F1,FIELDS=(pos,len,ord). JOIN PAIRED/UNPAIRED. REFORMAT combines fields.
+
+Q: How do you remove duplicates?
+A: SUM FIELDS=NONE after SORT. Or ICETOOL SELECT ... NODUPS.
+
+💡 Study Tip: Master SORT FIELDS, INCLUDE/OMIT, OUTREC BUILD, and JOINKEYS.`,
+    },
+
+    { title:"PROCs & Utilities Cheat Sheet", level:"All Levels",
+      content:`DFSORT/Utilities Quick Reference
+
+═══ SORT ═══
+SORT FIELDS=(pos,len,fmt,ord)
+INCLUDE COND=(pos,len,fmt,op,value)
+OMIT COND=(pos,len,fmt,op,value)
+OUTREC BUILD=(pos,len,C'literal',SEQNUM,8,ZD)
+INREC IFTHEN=(WHEN=(condition),BUILD=(...))
+SUM FIELDS=NONE — Remove duplicates
+OUTFIL FNAMES=dd,INCLUDE=(...) — Multiple outputs
+JOINKEYS FILE=F1,FIELDS=(pos,len,ord) — Join files
+
+═══ FORMATS ═══
+CH — Character    ZD — Zoned decimal
+PD — Packed       BI — Binary
+FI — Fixed integer
+
+═══ OPERATORS ═══
+EQ NE GT LT GE LE`,
+    },
     { title:"Interview Questions — PROCs & Utilities", level:"All Levels",
       content:`PROCs & Utilities Interview Questions:
 

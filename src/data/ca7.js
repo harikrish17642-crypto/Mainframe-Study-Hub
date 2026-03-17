@@ -516,46 +516,37 @@ Migration Considerations:
   • Testing is critical — production impact is severe`
     },
     { title:"CA7 Interview Questions", level:"All Levels",
-      content:`CA7 / Workload Scheduling Interview Questions:
+      content:`CA-7/Job Scheduling Interview Questions — 15+ Q&A.
 
-BEGINNER:
+Q: What is CA-7?
+A: Job scheduling tool from Broadcom. Automates job submission based on time, predecessor completion, and resource availability.
 
-Q: What is CA7 and why is it needed?
-A: CA7 is a workload automation scheduler for z/OS. It manages the scheduling, sequencing, and monitoring of batch jobs. It's needed because mainframe data centers run hundreds of thousands of jobs daily with complex dependencies, and manual scheduling would be impossible.
+Q: What is a predecessor/successor?
+A: Predecessor=job that must complete before this job runs. Successor=job triggered after this job completes. Forms a directed acyclic graph.
 
-Q: What are the main types of job dependencies in CA7?
-A: Job dependencies (predecessor/successor), dataset triggers (run when a file arrives), time-based scheduling, virtual resources (shared resource limits), and manual dependencies (operator intervention).
+Q: What is a job stream?
+A: Sequence of jobs linked by dependencies. E.g., Extract → Sort → Load → Report. CA-7 manages the flow.
 
-Q: What is the difference between DEMAND and SCHEDULE?
-A: SCHEDULE means the job runs automatically at the configured time/day. DEMAND means the job runs on-request — triggered by an operator command or another system.
+Q: What happens when a job fails?
+A: CA-7 holds successors, alerts operators, records failure. Operators fix the issue, restart the job, CA-7 resumes the stream.
 
-Q: What happens when a job fails in CA7?
-A: The job is marked FAILED, all successor jobs are held (their dependency is not met), and CA7 sends notifications. An operator must investigate, fix the issue, and take recovery action (restart, rerun, or force complete).
+Q: What is a schedule ID?
+A: Calendar definition determining WHEN jobs run. Business days, month-end, holidays. Jobs connected to schedule IDs.
 
-INTERMEDIATE:
+💡 Study Tip: Know predecessor/successor, schedule IDs, restart procedures, and basic CA-7 panels.`,
+    },
 
-Q: Explain the difference between RESTART and RERUN.
-A: RESTART resubmits a job starting from a specific step (you specify the step name). RERUN resubmits the entire job from the beginning. Use RESTART when only later steps failed; use RERUN when the job needs to start fresh.
+    { title:"CA7 Cheat Sheet", level:"All Levels",
+      content:`CA-7/Scheduling Quick Reference
 
-Q: What is a CA7 Network?
-A: A network is a group of related jobs managed as a unit. You can trigger, hold, release, or monitor the entire group with a single command. Networks provide workflow-level SLA tracking and easier management of complex job streams.
+═══ KEY CONCEPTS ═══
+Job Stream — Linked sequence of jobs
+Predecessor — Must complete first
+Successor — Triggered after completion
+Schedule ID — Calendar-based trigger
 
-Q: How does dataset triggering work?
-A: When a monitored dataset is created or updated, CA7 detects the change and marks the trigger as satisfied. If all other dependencies are also met, the job becomes READY and is submitted.
-
-Q: What is FORCE COMPLETE and when would you use it?
-A: FORCE COMPLETE marks a job as successfully completed without actually running it. Use it when data was corrected manually, or when the job is not needed for this cycle but its successors must run.
-
-ADVANCED:
-
-Q: How do you handle a critical job chain failure at 3 AM?
-A: 1) Check the failure (SDSF/CA7 output), 2) Determine root cause, 3) Fix if possible, 4) Assess deadline impact, 5) Take appropriate action (restart/rerun/force), 6) Monitor successors, 7) Notify stakeholders if SLA is impacted.
-
-Q: How do you manage scheduling across multiple LPARs?
-A: CA7 supports cross-system scheduling through XPS (Cross-Platform Scheduling). Jobs on different LPARs can have dependencies on each other, and CA7 manages the flow across systems.
-
-Q: What's the difference between CA7, Control-M, and TWS?
-A: CA7 is z/OS-focused with deep JES integration and ISPF interface. Control-M is multi-platform with modern web UI and REST APIs. TWS (IBM) is z/OS-native with Current/Long Term Plan concepts. CA7 has the largest mainframe market share; Control-M is growing due to its multi-platform capabilities.`
+═══ COMMON SCHEDULERS ═══
+CA-7 (Broadcom), TWS (IBM), Control-M (BMC), Zeke`,
     },
   ]
 };
