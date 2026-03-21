@@ -298,25 +298,12 @@ async function loadLastUpdate() {
 
 /* ─── MAIN APP ───────────────────────────────────────────────────────────── */
 export default function App() {
-  // Check if hash contains OAuth tokens (from Google redirect)
-  var _initHash = window.location.hash || "";
-  var _isOAuthReturn = _initHash.includes("access_token") || _initHash.includes("type=signup") || _initHash.includes("type=recovery") || _initHash.includes("error_description");
-  var _pathParts = window.location.pathname.split("/").filter(Boolean);
-  var _validPages = ["home","topics","scenarios","blog","quiz","playground","community","abends","roadmap","weekly","about"];
-  var _topicIds = ["jcl","cobol","cics","db2","vsam","rexx","imsdb","zos","security","tso","smf","ca7","linuxonz","modernization","procs"];
-  var _initTopicId = (_pathParts[0] === "topics" && _pathParts[1] && _topicIds.indexOf(_pathParts[1]) >= 0) ? _pathParts[1] : null;
+  const VALID_PAGES = ["home","topics","scenarios","blog","quiz","playground","community","abends","roadmap","weekly","about"];
+  const TOPIC_IDS = ["jcl","cobol","cics","db2","vsam","rexx","imsdb","zos","security","tso","smf","ca7","linuxonz","modernization","procs"];
 
-  const VALID_PAGES = _validPages;
-  const TOPIC_IDS = _topicIds;
-  
-  const [page, setPage] = useState(() => {
-    if (_isOAuthReturn) return "home";
-    var path = _pathParts[0] || "";
-    if (_validPages.indexOf(path) >= 0) return path;
-    var hash = (_initHash || "").replace("#","");
-    if (_validPages.indexOf(hash) >= 0) return hash;
-    return "home";
-  });
+  // Simple initial page from URL path (no complex logic in useState)
+  const [page, setPage] = useState("home");
+  const [activeTopic, setActiveTopic] = useState(null);
   
   // Topic-specific SEO metadata
   const TOPIC_SEO = {
@@ -367,7 +354,8 @@ export default function App() {
 
   // Sync page + topic state with URL for SEO
   useEffect(() => {
-    if (_isOAuthReturn) return;
+    const h = window.location.hash || "";
+    if (h.includes("access_token") || h.includes("type=signup") || h.includes("type=recovery")) return;
     // Build URL path
     let newPath;
     if (page === "topics" && activeTopic) {
@@ -439,15 +427,32 @@ export default function App() {
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
-  const [activeTopic, setActiveTopic] = useState(null);
-  
-  // Initialize activeTopic from URL on first render
+
+  // Initialize page and activeTopic from URL on first render
   useEffect(() => {
-    if (_initTopicId && !activeTopic) {
-      const t = TOPICS.find(tp => tp.id === _initTopicId);
-      if (t) { setActiveTopic(t); setActiveTab(0); }
+    const hash = window.location.hash || "";
+    const isOAuth = hash.includes("access_token") || hash.includes("type=signup") || hash.includes("type=recovery");
+    if (isOAuth) return; // Let the auth useEffect handle OAuth
+    
+    const parts = window.location.pathname.split("/").filter(Boolean);
+    const basePage = parts[0] || "";
+    
+    // Set page from URL path
+    if (VALID_PAGES.indexOf(basePage) >= 0 && basePage !== page) {
+      setPage(basePage);
+    } else if (!basePage) {
+      // Check legacy hash routing
+      const hashPage = hash.replace("#","");
+      if (VALID_PAGES.indexOf(hashPage) >= 0) setPage(hashPage);
+    }
+    
+    // Set activeTopic from /topics/jcl style URLs
+    if (parts[0] === "topics" && parts[1] && TOPIC_IDS.indexOf(parts[1]) >= 0) {
+      const t = TOPICS.find(tp => tp.id === parts[1]);
+      if (t) { setActiveTopic(t); setActiveTab(0); setPage("topics"); }
     }
   }, []);
+
   const [activeTab, setActiveTab] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openChapters, setOpenChapters] = useState({});
