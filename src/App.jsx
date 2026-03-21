@@ -301,28 +301,75 @@ export default function App() {
   // Check if hash contains OAuth tokens (from Google redirect)
   const _initHash = window.location.hash;
   const _isOAuthReturn = _initHash && (_initHash.includes("access_token") || _initHash.includes("type=signup") || _initHash.includes("type=recovery") || _initHash.includes("error_description"));
+
+  const VALID_PAGES = ["home","topics","scenarios","blog","quiz","playground","community","abends","roadmap","weekly","about"];
   
   const [page, setPage] = useState(() => {
-    if (_isOAuthReturn) return "home"; // Don't parse OAuth hash as page route
+    if (_isOAuthReturn) return "home";
+    // Support both path routing (/topics) and legacy hash routing (#topics)
+    const path = window.location.pathname.replace("/","");
+    if (VALID_PAGES.includes(path)) return path;
     const hash = _initHash.replace("#","");
-    return ["home","topics","scenarios","blog","quiz","playground","community","abends","roadmap","weekly","about"].includes(hash) ? hash : "home";
+    if (VALID_PAGES.includes(hash)) return hash;
+    return "home";
   });
   
-  // Sync page state with URL hash — but never overwrite OAuth tokens
+  // Page titles for SEO
+  const PAGE_TITLES = {
+    home: "MainframeStudyHub — IBM Z Mainframe Learning Platform",
+    topics: "305+ Mainframe Tutorials — JCL, COBOL, DB2, CICS, VSAM | MainframeStudyHub",
+    quiz: "200+ Mainframe Quiz Questions — Daily Challenges | MainframeStudyHub",
+    scenarios: "52 Real-World Mainframe Scenarios | MainframeStudyHub",
+    community: "Mainframe Developer Community — Chat & Q&A | MainframeStudyHub",
+    blog: "Mainframe Expert Blog — Articles & Insights | MainframeStudyHub",
+    abends: "87 IBM Abend Codes — Instant Lookup & Fixes | MainframeStudyHub",
+    roadmap: "Mainframe Career Roadmap — Trainee to Architect | MainframeStudyHub",
+    weekly: "Weekly Mainframe Updates | MainframeStudyHub",
+    playground: "AI Code Lab — JCL/COBOL Explainer & Simulator | MainframeStudyHub",
+    about: "About MainframeStudyHub — Built by Harikrishnan K",
+  };
+
+  // Sync page state with URL path (not hash) for SEO
   useEffect(() => {
-    if (_isOAuthReturn) return; // Let Supabase process the token first
-    window.location.hash = page === "home" ? "" : page;
-  }, [page]);
-  useEffect(() => {
-    const onHash = () => {
-      const raw = window.location.hash;
-      if (raw && (raw.includes("access_token") || raw.includes("type=signup") || raw.includes("type=recovery"))) return; // Skip OAuth hashes
-      const h = raw.replace("#","");
-      if (h && h !== page) setPage(h);
-      else if (!h && page !== "home") setPage("home");
+    if (_isOAuthReturn) return;
+    const newPath = page === "home" ? "/" : "/" + page;
+    if (window.location.pathname !== newPath) {
+      window.history.pushState(null, "", newPath);
+    }
+    // Update page title for SEO
+    document.title = PAGE_TITLES[page] || PAGE_TITLES.home;
+    // Update canonical URL
+    const canon = document.querySelector('link[rel="canonical"]');
+    if (canon) canon.href = "https://mainframestudyhub.com" + newPath;
+    // Update meta description per page
+    const PAGE_DESCS = {
+      home: "MainframeStudyHub — Free IBM Z mainframe learning platform. 305+ lessons across 15 topics. AI Code Lab, 200+ quizzes, interview Q&A, cheat sheets.",
+      topics: "305+ mainframe tutorials: JCL (86 lessons), COBOL (60 lessons), DB2, CICS, VSAM, REXX, IMS, z/OS, RACF, TSO, SMF, DFSORT. Beginner to Expert. Free.",
+      quiz: "200+ mainframe quiz questions with daily challenges, streak tracking, and topic filtering. Test your JCL, COBOL, DB2, CICS knowledge.",
+      scenarios: "52 real-world mainframe scenarios across 13 categories and 4 difficulty levels. Practice production problem solving.",
+      abends: "87 IBM abend codes with instant lookup, severity levels, root causes, and fix guides. S0C7, S806, SB37, and more.",
+      playground: "AI-powered Code Lab — explain, debug, and simulate JCL, COBOL, REXX, and SQL code. Powered by Claude AI.",
+      community: "Join the mainframe developer community. Live WhatsApp-style chat and Stack Overflow-style Q&A forum.",
+      blog: "Expert mainframe blog with articles and insights from mainframe professionals worldwide.",
+      roadmap: "6-level mainframe career roadmap from Trainee to Architect. Skills, certifications, and timeline guidance.",
+      weekly: "Weekly mainframe content updates across all 15 topics. Stay current with the latest tutorials and tips.",
+      about: "MainframeStudyHub — Built by Harikrishnan K, Mainframe Developer. Free platform for the mainframe community.",
     };
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
+    const descMeta = document.querySelector('meta[name="description"]');
+    if (descMeta) descMeta.content = PAGE_DESCS[page] || PAGE_DESCS.home;
+  }, [page]);
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const onPop = () => {
+      const raw = window.location.hash;
+      if (raw && (raw.includes("access_token") || raw.includes("type=signup") || raw.includes("type=recovery"))) return;
+      const path = window.location.pathname.replace("/","");
+      const newPage = VALID_PAGES.includes(path) ? path : "home";
+      if (newPage !== page) setPage(newPage);
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
   }, [page]);
   
   /* ─── Defer 3D scene to avoid blocking main thread ─── */

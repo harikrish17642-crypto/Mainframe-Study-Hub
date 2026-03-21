@@ -1,24 +1,38 @@
 # MainframeStudyHub
 
-> MainframeStudyHub is a free IBM Z mainframe learning platform offering tutorials, quizzes, abend code reference, and career roadmap for mainframe professionals.
+> MainframeStudyHub is a free IBM Z mainframe learning platform with 305+ lessons across 15 topics, AI-powered Code Lab, 200+ quizzes, and live community.
 
 ## Topics
 
-- [z/OS Fundamentals](https://mainframestudyhub.com/#topics): IBM Z operating system concepts, architecture, and administration
-- [JCL](https://mainframestudyhub.com/#topics): Job Control Language syntax, parameters, and best practices
-- [COBOL](https://mainframestudyhub.com/#topics): COBOL programming for mainframe applications
-- [DB2](https://mainframestudyhub.com/#topics): DB2 for z/OS database management and SQL
-- [CICS](https://mainframestudyhub.com/#topics): CICS transaction processing and application programming
-- [VSAM](https://mainframestudyhub.com/#topics): Virtual Storage Access Method file systems
-- [REXX](https://mainframestudyhub.com/#topics): REXX scripting for z/OS automation
-- [IMS](https://mainframestudyhub.com/#topics): IMS Database and Transaction Manager
-- [RACF](https://mainframestudyhub.com/#topics): Resource Access Control Facility security
-- [Modernization](https://mainframestudyhub.com/#topics): z/OS Connect, Zowe CLI, and hybrid cloud
+- [z/OS Fundamentals](https://mainframestudyhub.com/topics): IBM Z operating system concepts, architecture, and administration
+- [JCL](https://mainframestudyhub.com/topics): Job Control Language — 86 lessons covering JOB, EXEC, DD statements, procedures, utilities
+- [COBOL](https://mainframestudyhub.com/topics): COBOL programming — 60 lessons covering all divisions, DB2, CICS, file handling
+- [DB2](https://mainframestudyhub.com/topics): DB2 for z/OS — SQL, cursors, SQLCA, isolation levels, performance tuning
+- [CICS](https://mainframestudyhub.com/topics): CICS transaction processing, BMS maps, pseudo-conversational programming
+- [VSAM](https://mainframestudyhub.com/topics): Virtual Storage Access Method — KSDS, ESDS, RRDS, IDCAMS
+- [REXX](https://mainframestudyhub.com/topics): REXX scripting for z/OS automation
+- [IMS](https://mainframestudyhub.com/topics): IMS Database and Transaction Manager
+- [RACF](https://mainframestudyhub.com/topics): Resource Access Control Facility security
+- [TSO/ISPF](https://mainframestudyhub.com/topics): Time Sharing Option and ISPF panels
+- [DFSORT](https://mainframestudyhub.com/topics): DFSORT, ICETOOL, and utilities
+- [SMF](https://mainframestudyhub.com/topics): System Management Facilities and performance
+- [CA-7](https://mainframestudyhub.com/topics): Job scheduling with CA-7
+- [Linux on Z](https://mainframestudyhub.com/topics): Linux on IBM Z and z/VM
+- [Modernization](https://mainframestudyhub.com/topics): z/OS Connect, Zowe CLI, and hybrid cloud
 
 ## Features
 
-- [Quiz](https://mainframestudyhub.com/#quiz): 200 questions across 14 mainframe topics
-- [Abend Solver](https://mainframestudyhub.com/#abends): 87 IBM abend codes with cause, fix, and tips
-- [Learning Roadmap](https://mainframestudyhub.com/#roadmap): 6-level career path from Trainee to Architect
-- [Community](https://mainframestudyhub.com/#community): Q&A forum for mainframe professionals
-- [About](https://mainframestudyhub.com/#about): Platform mission and contact information
+- [Quiz](https://mainframestudyhub.com/quiz): 200+ questions across 15 mainframe topics with daily challenges
+- [Scenarios](https://mainframestudyhub.com/scenarios): 52 real-world mainframe scenarios across 13 categories
+- [Abend Solver](https://mainframestudyhub.com/abends): 87 IBM abend codes with instant lookup and fixes
+- [AI Code Lab](https://mainframestudyhub.com/playground): Claude-powered JCL/COBOL/REXX/SQL explainer and simulator
+- [Career Roadmap](https://mainframestudyhub.com/roadmap): 6-level path from Trainee to Architect
+- [Community](https://mainframestudyhub.com/community): Live chat and Q&A forum
+- [Blog](https://mainframestudyhub.com/blog): Expert articles from mainframe professionals
+- [About](https://mainframestudyhub.com/about): Built by Harikrishnan K, Mainframe Developer
+
+## Contact
+
+- Website: https://mainframestudyhub.com
+- Founder: Harikrishnan K
+- LinkedIn: https://www.linkedin.com/in/harikrishnan-k-4560241a2
