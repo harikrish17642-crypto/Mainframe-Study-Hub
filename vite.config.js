@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  esbuild: {
+    drop: ['console', 'debugger'],
+  },
   build: {
     sourcemap: true,
     rollupOptions: {
@@ -15,18 +18,6 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 600,
     target: 'es2020',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        hoist_vars: false,
-        hoist_funs: false,
-        reduce_vars: false,
-      },
-      mangle: {
-        safari10: true,
-      }
-    }
+    minify: 'esbuild',
   }
 })
