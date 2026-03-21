@@ -303,18 +303,41 @@ export default function App() {
   const _isOAuthReturn = _initHash && (_initHash.includes("access_token") || _initHash.includes("type=signup") || _initHash.includes("type=recovery") || _initHash.includes("error_description"));
 
   const VALID_PAGES = ["home","topics","scenarios","blog","quiz","playground","community","abends","roadmap","weekly","about"];
+  const TOPIC_IDS = ["jcl","cobol","cics","db2","vsam","rexx","imsdb","zos","security","tso","smf","ca7","linuxonz","modernization","procs"];
+
+  // Parse initial URL: /topics/jcl → page=topics, _initTopicId=jcl
+  const _pathParts = window.location.pathname.split("/").filter(Boolean);
+  const _initTopicId = (_pathParts[0] === "topics" && _pathParts[1] && TOPIC_IDS.includes(_pathParts[1])) ? _pathParts[1] : null;
   
   const [page, setPage] = useState(() => {
     if (_isOAuthReturn) return "home";
-    // Support both path routing (/topics) and legacy hash routing (#topics)
-    const path = window.location.pathname.replace("/","");
+    const path = _pathParts[0] || "";
     if (VALID_PAGES.includes(path)) return path;
     const hash = _initHash.replace("#","");
     if (VALID_PAGES.includes(hash)) return hash;
     return "home";
   });
   
-  // Page titles for SEO
+  // Topic-specific SEO metadata
+  const TOPIC_SEO = {
+    jcl: { title: "JCL Tutorial — 86 Lessons | Job Control Language | MainframeStudyHub", desc: "Complete JCL tutorial with 86 lessons. JOB, EXEC, DD statements, procedures, conditional processing, DFSORT utilities, interview Q&A, and cheat sheet. Free." },
+    cobol: { title: "COBOL Tutorial — 60 Lessons | Learn COBOL Programming | MainframeStudyHub", desc: "Learn COBOL programming with 60 lessons. All four divisions, file handling, DB2 integration, CICS, tables, string operations, interview Q&A. Free." },
+    db2: { title: "DB2 Tutorial — SQL, Cursors, Performance | MainframeStudyHub", desc: "DB2 for z/OS tutorial. SQL, cursors, SQLCA, isolation levels, EXPLAIN, RUNSTATS, stored procedures, interview Q&A, and cheat sheet. Free." },
+    cics: { title: "CICS Tutorial — Online Transaction Processing | MainframeStudyHub", desc: "CICS tutorial. Pseudo-conversational programming, BMS maps, file control, TS/TD queues, web services, interview Q&A. Free." },
+    vsam: { title: "VSAM Tutorial — KSDS, ESDS, RRDS, IDCAMS | MainframeStudyHub", desc: "VSAM tutorial. KSDS, ESDS, RRDS, IDCAMS commands, alternate indexes, CI splits, performance tuning, interview Q&A. Free." },
+    rexx: { title: "REXX Tutorial — z/OS Scripting & Automation | MainframeStudyHub", desc: "REXX tutorial for z/OS. EXECIO, OUTTRAP, stem variables, PARSE, TSO interaction, interview Q&A, and cheat sheet. Free." },
+    imsdb: { title: "IMS DB/DC Tutorial — Hierarchical Database | MainframeStudyHub", desc: "IMS tutorial. DL/I calls, PCB/PSB, segments, SSA, status codes, batch and online processing, interview Q&A. Free." },
+    zos: { title: "z/OS Fundamentals Tutorial — IBM Z Operating System | MainframeStudyHub", desc: "z/OS fundamentals. LPAR, TSO/ISPF, JES, catalogs, SMS, WLM, system libraries, interview Q&A, and cheat sheet. Free." },
+    security: { title: "RACF Tutorial — Mainframe Security | MainframeStudyHub", desc: "RACF security tutorial. Users, groups, profiles, access levels, PERMIT, LISTDSD, interview Q&A, and cheat sheet. Free." },
+    tso: { title: "TSO/ISPF Tutorial — Interactive z/OS Access | MainframeStudyHub", desc: "TSO/ISPF tutorial. ISPF options, edit commands, SDSF, dataset management, job submission, interview Q&A. Free." },
+    smf: { title: "SMF & Performance Tutorial — System Metrics | MainframeStudyHub", desc: "SMF and performance tutorial. SMF record types, RMF monitors, WLM, performance tuning, interview Q&A. Free." },
+    ca7: { title: "CA-7 Tutorial — Job Scheduling | MainframeStudyHub", desc: "CA-7 job scheduling tutorial. Predecessors, successors, schedule IDs, job streams, restart procedures. Free." },
+    linuxonz: { title: "Linux on Z Tutorial — IBM Z Linux | MainframeStudyHub", desc: "Linux on Z tutorial. z/VM, LPAR, consolidation, KVM on Z, hybrid architecture, interview Q&A. Free." },
+    modernization: { title: "Mainframe Modernization Tutorial — Zowe, APIs, DevOps | MainframeStudyHub", desc: "Mainframe modernization. Zowe, z/OS Connect, API Mediation Layer, IBM DBB, CI/CD pipelines, interview Q&A. Free." },
+    procs: { title: "DFSORT Tutorial — Sort, ICETOOL, Utilities | MainframeStudyHub", desc: "DFSORT and utilities tutorial. SORT FIELDS, INCLUDE/OMIT, OUTREC, JOINKEYS, ICETOOL, interview Q&A. Free." },
+  };
+
+  // Page-level SEO metadata
   const PAGE_TITLES = {
     home: "MainframeStudyHub — IBM Z Mainframe Learning Platform",
     topics: "305+ Mainframe Tutorials — JCL, COBOL, DB2, CICS, VSAM | MainframeStudyHub",
@@ -328,45 +351,72 @@ export default function App() {
     playground: "AI Code Lab — JCL/COBOL Explainer & Simulator | MainframeStudyHub",
     about: "About MainframeStudyHub — Built by Harikrishnan K",
   };
+  const PAGE_DESCS = {
+    home: "MainframeStudyHub — Free IBM Z mainframe learning platform. 305+ lessons across 15 topics. AI Code Lab, 200+ quizzes, interview Q&A, cheat sheets.",
+    topics: "305+ mainframe tutorials: JCL (86 lessons), COBOL (60 lessons), DB2, CICS, VSAM, REXX, IMS, z/OS, RACF, TSO, SMF, DFSORT. Beginner to Expert. Free.",
+    quiz: "200+ mainframe quiz questions with daily challenges, streak tracking, and topic filtering. Test your JCL, COBOL, DB2, CICS knowledge.",
+    scenarios: "52 real-world mainframe scenarios across 13 categories and 4 difficulty levels. Practice production problem solving.",
+    abends: "87 IBM abend codes with instant lookup, severity levels, root causes, and fix guides. S0C7, S806, SB37, and more.",
+    playground: "AI-powered Code Lab — explain, debug, and simulate JCL, COBOL, REXX, and SQL code. Powered by Claude AI.",
+    community: "Join the mainframe developer community. Live WhatsApp-style chat and Stack Overflow-style Q&A forum.",
+    blog: "Expert mainframe blog with articles and insights from mainframe professionals worldwide.",
+    roadmap: "6-level mainframe career roadmap from Trainee to Architect. Skills, certifications, and timeline guidance.",
+    weekly: "Weekly mainframe content updates across all 15 topics. Stay current with the latest tutorials and tips.",
+    about: "MainframeStudyHub — Built by Harikrishnan K, Mainframe Developer. Free platform for the mainframe community.",
+  };
 
-  // Sync page state with URL path (not hash) for SEO
+  // Sync page + topic state with URL for SEO
   useEffect(() => {
     if (_isOAuthReturn) return;
-    const newPath = page === "home" ? "/" : "/" + page;
+    // Build URL path
+    let newPath;
+    if (page === "topics" && activeTopic) {
+      newPath = "/topics/" + activeTopic.id;
+    } else if (page === "home") {
+      newPath = "/";
+    } else {
+      newPath = "/" + page;
+    }
     if (window.location.pathname !== newPath) {
       window.history.pushState(null, "", newPath);
     }
-    // Update page title for SEO
-    document.title = PAGE_TITLES[page] || PAGE_TITLES.home;
-    // Update canonical URL
+    // Update title
+    if (page === "topics" && activeTopic && TOPIC_SEO[activeTopic.id]) {
+      document.title = TOPIC_SEO[activeTopic.id].title;
+    } else {
+      document.title = PAGE_TITLES[page] || PAGE_TITLES.home;
+    }
+    // Update canonical
     const canon = document.querySelector('link[rel="canonical"]');
     if (canon) canon.href = "https://mainframestudyhub.com" + newPath;
-    // Update meta description per page
-    const PAGE_DESCS = {
-      home: "MainframeStudyHub — Free IBM Z mainframe learning platform. 305+ lessons across 15 topics. AI Code Lab, 200+ quizzes, interview Q&A, cheat sheets.",
-      topics: "305+ mainframe tutorials: JCL (86 lessons), COBOL (60 lessons), DB2, CICS, VSAM, REXX, IMS, z/OS, RACF, TSO, SMF, DFSORT. Beginner to Expert. Free.",
-      quiz: "200+ mainframe quiz questions with daily challenges, streak tracking, and topic filtering. Test your JCL, COBOL, DB2, CICS knowledge.",
-      scenarios: "52 real-world mainframe scenarios across 13 categories and 4 difficulty levels. Practice production problem solving.",
-      abends: "87 IBM abend codes with instant lookup, severity levels, root causes, and fix guides. S0C7, S806, SB37, and more.",
-      playground: "AI-powered Code Lab — explain, debug, and simulate JCL, COBOL, REXX, and SQL code. Powered by Claude AI.",
-      community: "Join the mainframe developer community. Live WhatsApp-style chat and Stack Overflow-style Q&A forum.",
-      blog: "Expert mainframe blog with articles and insights from mainframe professionals worldwide.",
-      roadmap: "6-level mainframe career roadmap from Trainee to Architect. Skills, certifications, and timeline guidance.",
-      weekly: "Weekly mainframe content updates across all 15 topics. Stay current with the latest tutorials and tips.",
-      about: "MainframeStudyHub — Built by Harikrishnan K, Mainframe Developer. Free platform for the mainframe community.",
-    };
+    // Update meta description
     const descMeta = document.querySelector('meta[name="description"]');
-    if (descMeta) descMeta.content = PAGE_DESCS[page] || PAGE_DESCS.home;
-  }, [page]);
+    if (descMeta) {
+      if (page === "topics" && activeTopic && TOPIC_SEO[activeTopic.id]) {
+        descMeta.content = TOPIC_SEO[activeTopic.id].desc;
+      } else {
+        descMeta.content = PAGE_DESCS[page] || PAGE_DESCS.home;
+      }
+    }
+  }, [page, activeTopic]);
 
   // Handle browser back/forward buttons
   useEffect(() => {
     const onPop = () => {
       const raw = window.location.hash;
       if (raw && (raw.includes("access_token") || raw.includes("type=signup") || raw.includes("type=recovery"))) return;
-      const path = window.location.pathname.replace("/","");
-      const newPage = VALID_PAGES.includes(path) ? path : "home";
+      const parts = window.location.pathname.split("/").filter(Boolean);
+      const basePage = parts[0] || "home";
+      const topicSlug = parts[0] === "topics" ? parts[1] : null;
+      const newPage = VALID_PAGES.includes(basePage) ? basePage : "home";
       if (newPage !== page) setPage(newPage);
+      // Handle topic navigation
+      if (newPage === "topics" && topicSlug && TOPIC_IDS.includes(topicSlug)) {
+        const t = TOPICS.find(tp => tp.id === topicSlug);
+        if (t) { setActiveTopic(t); setActiveTab(0); }
+      } else if (newPage === "topics") {
+        setActiveTopic(null);
+      }
     };
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
@@ -389,7 +439,14 @@ export default function App() {
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
-  const [activeTopic, setActiveTopic] = useState(null);
+  const [activeTopic, setActiveTopic] = useState(() => {
+    // If URL is /topics/jcl, set activeTopic immediately
+    if (_initTopicId) {
+      const t = TOPICS.find(tp => tp.id === _initTopicId);
+      if (t) return t;
+    }
+    return null;
+  });
   const [activeTab, setActiveTab] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openChapters, setOpenChapters] = useState({});

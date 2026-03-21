@@ -1,35 +1,36 @@
 # MainframeStudyHub
 
-> MainframeStudyHub is a free IBM Z mainframe learning platform with 305+ lessons across 15 topics, AI-powered Code Lab, 200+ quizzes, and live community.
+> Free IBM Z mainframe learning platform with 305+ lessons across 15 topics, AI-powered Code Lab, 200+ quizzes, and live community.
 
-## Topics
+## Tutorials (15 Topics, 305+ Lessons)
 
-- [z/OS Fundamentals](https://mainframestudyhub.com/topics): IBM Z operating system concepts, architecture, and administration
-- [JCL](https://mainframestudyhub.com/topics): Job Control Language — 86 lessons covering JOB, EXEC, DD statements, procedures, utilities
-- [COBOL](https://mainframestudyhub.com/topics): COBOL programming — 60 lessons covering all divisions, DB2, CICS, file handling
-- [DB2](https://mainframestudyhub.com/topics): DB2 for z/OS — SQL, cursors, SQLCA, isolation levels, performance tuning
-- [CICS](https://mainframestudyhub.com/topics): CICS transaction processing, BMS maps, pseudo-conversational programming
-- [VSAM](https://mainframestudyhub.com/topics): Virtual Storage Access Method — KSDS, ESDS, RRDS, IDCAMS
-- [REXX](https://mainframestudyhub.com/topics): REXX scripting for z/OS automation
-- [IMS](https://mainframestudyhub.com/topics): IMS Database and Transaction Manager
-- [RACF](https://mainframestudyhub.com/topics): Resource Access Control Facility security
-- [TSO/ISPF](https://mainframestudyhub.com/topics): Time Sharing Option and ISPF panels
-- [DFSORT](https://mainframestudyhub.com/topics): DFSORT, ICETOOL, and utilities
-- [SMF](https://mainframestudyhub.com/topics): System Management Facilities and performance
-- [CA-7](https://mainframestudyhub.com/topics): Job scheduling with CA-7
-- [Linux on Z](https://mainframestudyhub.com/topics): Linux on IBM Z and z/VM
-- [Modernization](https://mainframestudyhub.com/topics): z/OS Connect, Zowe CLI, and hybrid cloud
+- [JCL Tutorial](https://mainframestudyhub.com/topics/jcl) — 86 lessons: JOB, EXEC, DD, procedures, utilities, interview Q&A
+- [COBOL Tutorial](https://mainframestudyhub.com/topics/cobol) — 60 lessons: divisions, file handling, DB2, CICS, performance
+- [DB2 Tutorial](https://mainframestudyhub.com/topics/db2) — SQL, cursors, SQLCA, isolation levels, EXPLAIN, RUNSTATS
+- [CICS Tutorial](https://mainframestudyhub.com/topics/cics) — pseudo-conversational, BMS maps, file control, web services
+- [VSAM Tutorial](https://mainframestudyhub.com/topics/vsam) — KSDS, ESDS, RRDS, IDCAMS, alternate indexes
+- [REXX Tutorial](https://mainframestudyhub.com/topics/rexx) — EXECIO, OUTTRAP, PARSE, TSO automation
+- [IMS DB/DC Tutorial](https://mainframestudyhub.com/topics/imsdb) — DL/I calls, PCB/PSB, segments, SSA
+- [z/OS Fundamentals](https://mainframestudyhub.com/topics/zos) — LPAR, TSO/ISPF, JES, catalogs, SMS, WLM
+- [RACF Security](https://mainframestudyhub.com/topics/security) — users, groups, profiles, PERMIT
+- [TSO/ISPF Tutorial](https://mainframestudyhub.com/topics/tso) — edit commands, SDSF, dataset management
+- [SMF & Performance](https://mainframestudyhub.com/topics/smf) — SMF records, RMF, WLM
+- [CA-7 Scheduling](https://mainframestudyhub.com/topics/ca7) — predecessors, schedule IDs, job streams
+- [Linux on Z](https://mainframestudyhub.com/topics/linuxonz) — z/VM, LPAR, consolidation
+- [Modernization](https://mainframestudyhub.com/topics/modernization) — Zowe, z/OS Connect, APIs, DevOps
+- [DFSORT & Utilities](https://mainframestudyhub.com/topics/procs) — SORT, ICETOOL, JOINKEYS
 
 ## Features
 
-- [Quiz](https://mainframestudyhub.com/quiz): 200+ questions across 15 mainframe topics with daily challenges
-- [Scenarios](https://mainframestudyhub.com/scenarios): 52 real-world mainframe scenarios across 13 categories
-- [Abend Solver](https://mainframestudyhub.com/abends): 87 IBM abend codes with instant lookup and fixes
-- [AI Code Lab](https://mainframestudyhub.com/playground): Claude-powered JCL/COBOL/REXX/SQL explainer and simulator
-- [Career Roadmap](https://mainframestudyhub.com/roadmap): 6-level path from Trainee to Architect
-- [Community](https://mainframestudyhub.com/community): Live chat and Q&A forum
-- [Blog](https://mainframestudyhub.com/blog): Expert articles from mainframe professionals
-- [About](https://mainframestudyhub.com/about): Built by Harikrishnan K, Mainframe Developer
+- [All Topics](https://mainframestudyhub.com/topics) — Browse all 15 topics
+- [Quiz](https://mainframestudyhub.com/quiz) — 200+ questions with daily challenges
+- [Scenarios](https://mainframestudyhub.com/scenarios) — 52 real-world mainframe scenarios
+- [Abend Solver](https://mainframestudyhub.com/abends) — 87 IBM abend codes with fixes
+- [AI Code Lab](https://mainframestudyhub.com/playground) — Claude-powered explainer and simulator
+- [Career Roadmap](https://mainframestudyhub.com/roadmap) — Trainee to Architect path
+- [Community](https://mainframestudyhub.com/community) — Live chat and Q&A forum
+- [Blog](https://mainframestudyhub.com/blog) — Expert articles
+- [About](https://mainframestudyhub.com/about) — Built by Harikrishnan K
 
 ## Contact
 
