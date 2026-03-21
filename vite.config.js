@@ -20,6 +20,12 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
+        hoist_vars: false,
+        hoist_funs: false,
+        reduce_vars: false,
+      },
+      mangle: {
+        safari10: true,
       }
     }
   }

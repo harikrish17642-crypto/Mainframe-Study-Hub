@@ -70,7 +70,7 @@ function UserAvatar({ name, size=36, showRing=false, onClick, style:extraStyle }
   const useEmoji = h % 3 === 0;
   const [hovered, setHovered] = useState(false);
 
-  let patternSvg = "";
+  var patternSvg = "";
   if (pattern === "dots") patternSvg = `<circle cx='4' cy='4' r='1.5' fill='rgba(255,255,255,0.15)'/><circle cx='12' cy='12' r='1.5' fill='rgba(255,255,255,0.15)'/>`;
   else if (pattern === "rings") patternSvg = `<circle cx='8' cy='8' r='6' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1.5'/>`;
   else if (pattern === "waves") patternSvg = `<path d='M0 8 Q4 4 8 8 T16 8' fill='none' stroke='rgba(255,255,255,0.12)' stroke-width='1.5'/>`;
@@ -299,22 +299,22 @@ async function loadLastUpdate() {
 /* ─── MAIN APP ───────────────────────────────────────────────────────────── */
 export default function App() {
   // Check if hash contains OAuth tokens (from Google redirect)
-  const _initHash = window.location.hash;
-  const _isOAuthReturn = _initHash && (_initHash.includes("access_token") || _initHash.includes("type=signup") || _initHash.includes("type=recovery") || _initHash.includes("error_description"));
+  var _initHash = window.location.hash || "";
+  var _isOAuthReturn = _initHash.includes("access_token") || _initHash.includes("type=signup") || _initHash.includes("type=recovery") || _initHash.includes("error_description");
+  var _pathParts = window.location.pathname.split("/").filter(Boolean);
+  var _validPages = ["home","topics","scenarios","blog","quiz","playground","community","abends","roadmap","weekly","about"];
+  var _topicIds = ["jcl","cobol","cics","db2","vsam","rexx","imsdb","zos","security","tso","smf","ca7","linuxonz","modernization","procs"];
+  var _initTopicId = (_pathParts[0] === "topics" && _pathParts[1] && _topicIds.indexOf(_pathParts[1]) >= 0) ? _pathParts[1] : null;
 
-  const VALID_PAGES = ["home","topics","scenarios","blog","quiz","playground","community","abends","roadmap","weekly","about"];
-  const TOPIC_IDS = ["jcl","cobol","cics","db2","vsam","rexx","imsdb","zos","security","tso","smf","ca7","linuxonz","modernization","procs"];
-
-  // Parse initial URL: /topics/jcl → page=topics, _initTopicId=jcl
-  const _pathParts = window.location.pathname.split("/").filter(Boolean);
-  const _initTopicId = (_pathParts[0] === "topics" && _pathParts[1] && TOPIC_IDS.includes(_pathParts[1])) ? _pathParts[1] : null;
+  const VALID_PAGES = _validPages;
+  const TOPIC_IDS = _topicIds;
   
   const [page, setPage] = useState(() => {
     if (_isOAuthReturn) return "home";
-    const path = _pathParts[0] || "";
-    if (VALID_PAGES.includes(path)) return path;
-    const hash = _initHash.replace("#","");
-    if (VALID_PAGES.includes(hash)) return hash;
+    var path = _pathParts[0] || "";
+    if (_validPages.indexOf(path) >= 0) return path;
+    var hash = (_initHash || "").replace("#","");
+    if (_validPages.indexOf(hash) >= 0) return hash;
     return "home";
   });
   
@@ -439,14 +439,15 @@ export default function App() {
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
-  const [activeTopic, setActiveTopic] = useState(() => {
-    // If URL is /topics/jcl, set activeTopic immediately
-    if (_initTopicId) {
+  const [activeTopic, setActiveTopic] = useState(null);
+  
+  // Initialize activeTopic from URL on first render
+  useEffect(() => {
+    if (_initTopicId && !activeTopic) {
       const t = TOPICS.find(tp => tp.id === _initTopicId);
-      if (t) return t;
+      if (t) { setActiveTopic(t); setActiveTab(0); }
     }
-    return null;
-  });
+  }, []);
   const [activeTab, setActiveTab] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openChapters, setOpenChapters] = useState({});
