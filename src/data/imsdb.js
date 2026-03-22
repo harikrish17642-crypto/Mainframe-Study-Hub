@@ -782,6 +782,401 @@ Connection Management:
   Multiple CICS regions can share one DBCTL region.
   DBCTL handles thread management and buffer pools.`
     },
+
+    { title:"IMS Database Hierarchy", level:"Beginner",
+      content:`IMS uses a hierarchical (tree) data model — parent-child relationships.
+
+Structure:
+  Root segment → Child segments → Grandchild segments
+  Each segment type has a fixed layout (like a COBOL record).
+
+Example — Hospital Database:
+  HOSPITAL (root)
+    └─ WARD
+        └─ PATIENT
+            └─ TREATMENT
+
+DBD (Database Description):
+  Defines the physical database structure.
+  Segment types, fields, parent-child relationships.
+
+Segment:
+  Smallest unit of data in IMS. Like a record/row.
+  Has a sequence field (like a primary key).
+
+PCB (Program Communication Block):
+  Defines a program's VIEW of the database.
+  A program may see only parts of the hierarchy.
+
+PSB (Program Specification Block):
+  Collection of PCBs for one program.
+  Defines all databases the program can access.
+
+Pro Tip: Think of IMS as an upside-down tree — root at top, children below. Navigation always starts at root.`
+    },
+
+    { title:"IMS DL/I Calls", level:"Intermediate",
+      content:`DL/I (Data Language/Interface) calls are how COBOL programs access IMS databases.
+
+GU (Get Unique):
+  CALL 'CBLTDLI' USING GU-FUNC PCB-MASK SSA WS-IO-AREA
+  Random access — go directly to a specific segment.
+
+GN (Get Next):
+  Sequential forward read through the hierarchy.
+  Returns segments in hierarchical sequence.
+
+GNP (Get Next within Parent):
+  Sequential read limited to children of current parent.
+
+GHU/GHN/GHNP:
+  Same as GU/GN/GNP but with HOLD — allows subsequent update.
+
+ISRT (Insert):
+  Add new segment occurrence.
+
+REPL (Replace):
+  Update current segment (must GHU/GHN first).
+
+DLET (Delete):
+  Delete current segment and all its children.
+
+Status Codes:
+  '  ' (spaces) — Successful
+  'GE' — Segment not found
+  'GB' — End of database
+  'GK' — Different segment type returned
+  'II' — Duplicate insert
+  'AI' — I/O error
+
+Pro Tip: Always check status code after every DL/I call. 'GE' (not found) is the most common — handle it gracefully.`
+    },
+
+    { title:"IMS SSA (Segment Search Arguments)", level:"Intermediate",
+      content:`SSAs tell DL/I which segments to access — like WHERE clauses in SQL.
+
+Unqualified SSA:
+  Just the segment name. No filtering.
+  'PATIENT ' (8 chars, padded)
+  GN with unqualified SSA returns next PATIENT segment.
+
+Qualified SSA:
+  Segment name + condition.
+  'PATIENT (PATIDENTeq12345678)'
+  GU with qualified SSA finds specific patient.
+
+Operators:
+  eq — Equal
+  ge — Greater or equal
+  gt — Greater than
+  le — Less or equal
+  lt — Less than
+  ne — Not equal
+
+Multiple SSAs:
+  One per level in the hierarchy path.
+  GU: HOSPITAL(HOSPNAMEeqGENERAL) / WARD(WARDNAMEeqICU) / PATIENT(PATIENTeq12345)
+  Navigates: Hospital=GENERAL → Ward=ICU → Patient=12345
+
+Boolean:
+  'PATIENT (PATNAME eqSMITH   *PATCITY eqNYC     )'
+  * = AND connector
+
+Command Codes:
+  D — Path call (return multiple segments)
+  F — First occurrence
+  L — Last occurrence
+  N — Path call with no data
+  U — Maintain position
+
+Pro Tip: Qualified SSAs on all levels of the path give best performance — IMS can skip directly to the target.`
+    },
+
+    { title:"IMS — PCB & PSB Design", level:"Intermediate",
+      content:`PCBs define what a program can see. PSBs group PCBs for a program.
+
+PCB Types:
+  DB PCB — Access to one IMS database
+  TP PCB (I/O PCB) — Message processing (DC)
+  GSAM PCB — Sequential file access from IMS
+
+PCB Sensitivity:
+  SENSEG — Which segments the program can access
+  PROCOPT — What operations allowed:
+    G = Get (read)
+    I = Insert
+    R = Replace
+    D = Delete
+    A = All (GIRD)
+
+PSB:
+  PSB NAME=MYPGM
+    PCB TYPE=DB,DBDNAME=HOSPDB,PROCOPT=A
+      SENSEG NAME=HOSPITAL,PARENT=0
+      SENSEG NAME=WARD,PARENT=HOSPITAL
+      SENSEG NAME=PATIENT,PARENT=WARD
+    PCB TYPE=DB,DBDNAME=CODEDB,PROCOPT=G
+      SENSEG NAME=CODES,PARENT=0
+
+ACBGEN:
+  Generates Application Control Block from DBD + PSB.
+  Must run after any DBD or PSB changes.
+
+Pro Tip: Limit PROCOPT to minimum needed. Read-only programs use PROCOPT=G — prevents accidental updates.`
+    },
+
+    { title:"IMS — Batch vs Online Processing", level:"Intermediate",
+      content:`IMS supports both batch (BMP) and online (MPP) processing.
+
+Batch (BMP — Batch Message Processing):
+  Full database access. Long-running.
+  JCL: //STEP EXEC PGM=DFSRRC00,PARM='BMP,...'
+  Used for: Reports, bulk updates, data migration.
+
+Online (MPP — Message Processing Program):
+  Short transactions triggered by terminal input.
+  IMS schedules the program, passes message.
+  Used for: Inquiries, updates, real-time processing.
+
+IFP (IMS Fast Path):
+  High-performance online processing.
+  Expedited Message Handler for ultra-fast transactions.
+  Used for: ATM transactions, high-volume lookups.
+
+Key Differences:
+  BMP: Full access, long running, no terminal.
+  MPP: Message-driven, short, terminal interaction.
+  IFP: Like MPP but faster (subset of features).
+
+Checkpoint/Restart (BMP):
+  CHKP call creates checkpoint.
+  XRST call restarts from last checkpoint.
+  Essential for long-running batch programs.
+
+Pro Tip: BMP programs must checkpoint regularly. Without checkpoints, a failure requires reprocessing everything from the start.`
+    },
+
+    { title:"IMS — Message Processing", level:"Intermediate",
+      content:`IMS DC (Data Communications) handles terminal I/O for online transactions.
+
+I/O PCB:
+  Used for sending/receiving messages to/from terminals.
+
+GU (I/O PCB):
+  CALL 'CBLTDLI' USING GU-FUNC IO-PCB WS-INPUT-MSG
+  Reads the input message from terminal.
+
+ISRT (I/O PCB):
+  CALL 'CBLTDLI' USING ISRT-FUNC IO-PCB WS-OUTPUT-MSG
+  Sends response message to terminal.
+
+MFS (Message Format Service):
+  Formats terminal screens (like CICS BMS maps).
+  MID — Message Input Descriptor
+  MOD — Message Output Descriptor
+
+Conversational vs Non-Conversational:
+  Non-conversational: Program processes one message, terminates.
+  Conversational: Program holds resources between messages (like CICS conversational). Expensive — avoid.
+
+SPA (Scratch Pad Area):
+  Saves data between messages in conversational mode.
+  Like CICS COMMAREA.
+
+Pro Tip: Non-conversational is preferred (like pseudo-conversational in CICS). Conversational wastes IMS resources.`
+    },
+
+    { title:"IMS — Database Types", level:"Intermediate",
+      content:`IMS supports several physical database organizations.
+
+HISAM (Hierarchical Indexed Sequential):
+  Index + sequential overflow. Like VSAM KSDS for IMS.
+  Good for: Small databases with sequential access patterns.
+
+HIDAM (Hierarchical Indexed Direct Access):
+  Index for root segments + OSAM/VSAM for data.
+  Good for: Large databases with random access to roots.
+
+HDAM (Hierarchical Direct Access):
+  Hash-based root access (randomizer routine).
+  Fastest random access to root segments.
+  Good for: High-volume random access (ATM, online banking).
+
+SHISAM/SHSAM:
+  Simple versions of HISAM/HSAM.
+  Single segment type (no hierarchy).
+
+DEDB (Data Entry Database — Fast Path):
+  High-performance database for IMS Fast Path.
+  Area-based partitioning. Ultra-fast access.
+
+MSDB (Main Storage Database):
+  Entire database in memory. Fastest possible.
+  Limited size. Lost on IMS restart (unless backed up).
+
+GSAM (Generalized Sequential Access Method):
+  Sequential file access from IMS programs.
+  Used for: Reading/writing flat files from IMS batch.
+
+Pro Tip: HIDAM is the most common in production. HDAM for pure random access. DEDB for high-volume online.`
+    },
+
+    { title:"IMS — Secondary Indexes", level:"Advanced",
+      content:`Secondary indexes provide alternate access paths to IMS data.
+
+Purpose:
+  Primary access is by root segment key.
+  Secondary index allows access by any segment field at any level.
+
+Example:
+  Database: CUSTOMER(CUSTID) → ORDER(ORDERID) → ITEM
+  Secondary index on ORDER.ORDERDATE
+  Now can access customers by order date.
+
+Defining:
+  INDEX segment in DBD:
+  XDFLD NAME=ORDDATE,SRCH=ORDER,SEGMENT=ORDER,FIELD=ORDERDATE
+
+How It Works:
+  IMS maintains separate index database.
+  GU with SSA on indexed field → IMS uses secondary index → Finds target.
+
+Pointer Types:
+  Symbolic pointer — Points to concatenated key
+  Direct pointer — Points to physical location (faster)
+
+Sparse Indexing:
+  Index only segments meeting a condition.
+  Reduces index size for selective access.
+
+Performance:
+  Faster than sequential scan for selective queries.
+  Overhead on INSERT/DELETE (index maintenance).
+  Like DB2 indexes — same trade-offs.
+
+Pro Tip: Use secondary indexes for frequent alternate access patterns. Don't over-index — each one adds insert overhead.`
+    },
+
+    { title:"IMS — HALDB (High Availability Large Database)", level:"Advanced",
+      content:`HALDB partitions IMS databases for scalability and availability.
+
+What It Is:
+  Partitioned full-function database.
+  Up to 1001 partitions.
+  Each partition can be independently managed.
+
+Benefits:
+  • Online REORG per partition (no full database outage)
+  • Parallel processing across partitions
+  • Better availability (one partition down, others still up)
+  • Virtually unlimited database size
+
+Partition Selection:
+  Based on root key value.
+  Partition selection routine determines which partition.
+
+Online Reorganization:
+  HALDB OLR (Online Reorganization).
+  Reorganize one partition while others stay online.
+  Major availability improvement over full REORG.
+
+Migration:
+  Convert existing HDAM/HIDAM to HALDB.
+  IBM provides migration utilities.
+
+Pro Tip: HALDB is the modern standard for large IMS databases. All new IMS databases should be HALDB.`
+    },
+
+    { title:"IMS — Connect Regions", level:"Expert",
+      content:`IMS Connect enables TCP/IP access to IMS — modern integration point.
+
+What It Is:
+  TCP/IP gateway to IMS transactions.
+  External programs send messages via TCP/IP → IMS Connect → IMS transaction.
+
+Architecture:
+  Client (Java/.NET/Web) → TCP/IP → IMS Connect → IMS → Program → Response
+
+OTMA (Open Transaction Manager Access):
+  Internal protocol between IMS Connect and IMS.
+  High-speed message passing.
+
+Use Cases:
+  • Web applications accessing IMS transactions
+  • SOA/REST integration with IMS
+  • Mobile apps connecting to IMS backend
+  • Java applications via IMS Universal drivers
+
+IMS Universal Drivers:
+  JDBC driver for IMS databases.
+  Java programs access IMS data with SQL-like syntax.
+
+IMS Mobile Feature Pack:
+  REST API for IMS transactions.
+  Expose IMS programs as REST services — no IMS code changes.
+
+Pro Tip: IMS Connect + REST is how modern applications integrate with IMS. Know it for enterprise integration interviews.`
+    },
+
+    { title:"IMS — Checkpoint & Restart", level:"Intermediate",
+      content:`Long-running IMS batch programs MUST checkpoint for recovery.
+
+CHKP (Checkpoint):
+  CALL 'CBLTDLI' USING CHKP-FUNC IO-PCB WS-CHKP-ID
+  Creates a recovery point. WS-CHKP-ID identifies this checkpoint.
+
+XRST (Extended Restart):
+  CALL 'CBLTDLI' USING XRST-FUNC IO-PCB WS-RESTART-AREA
+  On restart: IMS repositions databases to last checkpoint.
+  WS-RESTART-AREA contains saved program state.
+
+Symbolic Checkpoint:
+  CHKP with data areas. IMS saves your working storage.
+  On restart: XRST restores working storage automatically.
+
+Frequency:
+  Checkpoint every N records (typically 500-1000).
+  Balances: recovery time vs checkpoint overhead.
+
+Without Checkpoint:
+  If BMP abends after processing 1 million records → ALL 1 million rolled back.
+  With checkpoint every 1000: Only last 1000 rolled back.
+
+Pro Tip: ALWAYS checkpoint in BMP programs. The rule: if it runs more than 5 minutes, it needs checkpoints.`
+    },
+
+    { title:"IMS — Comparing IMS vs DB2 vs VSAM", level:"Beginner",
+      content:`When to use which data storage on z/OS.
+
+IMS:
+  Hierarchical model. DL/I calls. Best for: Tree-structured data, high-volume transactions, existing IMS shops.
+
+DB2:
+  Relational model. SQL. Best for: Complex queries, reporting, new development, ad-hoc access.
+
+VSAM:
+  File-based. Keyed/sequential. Best for: Simple lookups, batch processing, work files.
+
+Performance:
+  IMS Fast Path > VSAM random > DB2 random (for simple access)
+  DB2 > IMS > VSAM (for complex queries with JOINs)
+
+Flexibility:
+  DB2 > IMS > VSAM (SQL is most flexible)
+
+Adoption:
+  DB2 — New development standard
+  IMS — Legacy but still critical (banking, insurance)
+  VSAM — Universal for batch and work files
+
+Coexistence:
+  Most shops use ALL THREE.
+  IMS for core transactions, DB2 for analytics, VSAM for batch.
+
+Pro Tip: Don't debate "which is best" — learn all three. Real mainframe environments use them together.`
+    },
+
+
     { title:"IMS Interview Questions", level:"All Levels",
       content:`IMS Interview Questions — 20+ Q&A.
 

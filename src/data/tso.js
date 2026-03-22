@@ -461,6 +461,313 @@ ISPF Command Table:
     ED → EDIT 'MY.COBOL.SOURCE'
     JL → EDIT 'MY.JCL.LIB'`
     },
+
+    { title:"TSO Commands Reference", level:"Beginner",
+      content:`Essential TSO commands for daily mainframe work.
+
+Dataset Commands:
+  ALLOC — Allocate (create/assign) dataset
+  FREE — Release allocation
+  DELETE — Delete dataset
+  RENAME — Rename dataset
+  LISTDS — List dataset information
+  LISTCAT — List catalog information
+
+Job Commands:
+  SUBMIT — Submit JCL for execution
+  STATUS — Check job status
+  CANCEL — Cancel running job
+  OUTPUT — Retrieve job output
+
+Utility Commands:
+  SEND — Send message to user or console
+  RECEIVE — Receive transmitted datasets
+  TRANSMIT — Send dataset to another user/system
+  EXEC — Execute REXX or CLIST
+  CALL — Execute load module
+
+System Commands:
+  LOGON — Start TSO session
+  LOGOFF — End TSO session
+  PROFILE — Set session parameters
+  TIME — Display date and time
+
+Pro Tip: Most work is done through ISPF, but knowing TSO commands is essential for REXX scripting and automation.`
+    },
+
+    { title:"ISPF Option 2 — Edit", level:"Beginner",
+      content:`ISPF Edit is where you write and modify code.
+
+Primary Commands (command line):
+  SAVE — Save changes
+  CANCEL — Exit without saving
+  FIND string — Search for text
+  CHANGE old new ALL — Find and replace
+  SUBMIT — Submit as JCL
+  RESET — Reset line commands
+  COLS — Show column ruler
+  HEX ON/OFF — Hex display mode
+  UNDO — Undo last change
+
+Line Commands (line number area):
+  I — Insert line after
+  D — Delete line (DD = block delete)
+  C — Copy (CC = block copy)
+  M — Move (MM = block move)
+  R — Repeat line (RR = block repeat)
+  A — After (destination for C/M)
+  B — Before (destination for C/M)
+  ) / ( — Shift right/left
+
+FIND Options:
+  FIND 'text' FIRST/LAST/NEXT/PREV/ALL
+  FIND 'text' 1 72 — Search columns 1-72 only
+  FIND P'.' — Picture string (any character)
+
+CHANGE Options:
+  CHANGE 'old' 'new' ALL — Replace all
+  CHANGE 'old' 'new' FIRST — Replace first only
+
+Pro Tip: Learn line commands by heart — CC/MM/A/B for copy/move, DD for delete. They're used hundreds of times daily.`
+    },
+
+    { title:"ISPF Option 3 — Utilities", level:"Beginner",
+      content:`ISPF utilities for dataset and member management.
+
+3.1 — Library Utility:
+  Browse, print, rename, delete members in a PDS.
+  Reset stats. Compress PDS.
+
+3.2 — Dataset Utility:
+  Allocate (create) new datasets.
+  Rename, catalog, uncatalog datasets.
+  Space and attribute management.
+
+3.3 — Move/Copy Utility:
+  Copy members between PDS libraries.
+  Move datasets.
+
+3.4 — Dataset List (DSLIST):
+  List datasets matching a pattern.
+  MY.** — All datasets starting with MY
+  Actions: B(browse), E(edit), D(delete), I(info), S(short), M(members)
+
+3.5 — Reset ISPF Statistics:
+  Reset member statistics (create date, change date).
+
+3.6 — Hardcopy:
+  Print datasets to SYSOUT or printer.
+
+3.14 — Search-For Utility:
+  Search for strings across multiple PDS members.
+  Powerful for finding where a copybook or variable is used.
+
+Pro Tip: 3.4 (DSLIST) is the most-used utility. Learn the action codes: B, E, D, I, S. You'll use them constantly.`
+    },
+
+    { title:"SDSF — Job Management", level:"Beginner",
+      content:`SDSF (System Display and Search Facility) monitors and manages batch jobs.
+
+Panels:
+  ST — Status: Active and recently completed jobs
+  H — Held output queue
+  O — Output queue
+  DA — Display active: Currently running address spaces
+  LOG — System log
+  SE — System resources
+
+ST Panel Actions:
+  S — Select (view output)
+  ? — Job details
+  P — Purge job and output
+  C — Cancel running job
+  SE — See job log
+
+Filtering:
+  PREFIX jobname* — Show only matching jobs
+  OWNER userid — Show only your jobs
+  DEST destination — Filter by output destination
+
+Viewing Output:
+  Select job → Shows DD list → Select DD to browse
+  JESMSGLG — JES messages
+  JESJCL — Submitted JCL
+  JESYSMSG — System messages
+  SYSPRINT — Program output
+
+Useful Commands:
+  WHO — Show your userid
+  SORT columns — Sort display
+  FIND string — Search in output
+
+Pro Tip: SDSF ST is your primary job monitoring tool. Check JESMSGLG for JCL errors, SYSPRINT for program output.`
+    },
+
+    { title:"ISPF Edit Macros", level:"Intermediate",
+      content:`ISPF edit macros automate repetitive editing tasks.
+
+Creating:
+  Write a REXX exec that starts with:
+  ADDRESS ISREDIT 'MACRO (PARMS)'
+
+Useful ISREDIT Commands:
+  FIND 'text' — Find text
+  CHANGE 'old' 'new' ALL — Replace
+  "(line) = LINE .ZCSR" — Get current line
+  "LINE .ZCSR = (newline)" — Replace current line
+  "LINE_AFTER .ZCSR = DATALINE (text)" — Insert line
+  "DELETE .ZCSR" — Delete line
+  "(last) = LINENUM .ZLAST" — Last line number
+
+Example — Add Header:
+  ADDRESS ISREDIT 'MACRO'
+  ADDRESS ISREDIT "LINE_BEFORE 1 = DATALINE '//*'"
+  ADDRESS ISREDIT "LINE_BEFORE 1 = DATALINE '//* Generated:' DATE('S')"
+
+Running:
+  In ISPF editor command line, type the macro member name.
+  The PDS containing the macro must be in SYSPROC/SYSEXEC.
+
+Pro Tip: Build a personal library of edit macros: format code, add standard headers, validate syntax, generate boilerplate.`
+    },
+
+    { title:"TSO ALLOC & FREE", level:"Intermediate",
+      content:`ALLOC creates or assigns datasets. FREE releases them.
+
+Allocate New Dataset:
+  ALLOC DA('MY.NEW.FILE') NEW CATALOG SPACE(5,1) CYLINDERS DSORG(PS) RECFM(F B) LRECL(80) BLKSIZE(27920)
+
+Allocate Existing (Assign to DD):
+  ALLOC FI(INDD) DA('MY.EXISTING.FILE') SHR
+
+Allocate PDS:
+  ALLOC DA('MY.PDS.SOURCE') NEW CATALOG SPACE(10,5) CYLINDERS DSORG(PO) RECFM(F B) LRECL(80) BLKSIZE(27920) DSNTYPE(LIBRARY)
+
+FREE:
+  FREE FI(INDD)  — Free by DD name
+  FREE DA('MY.FILE')  — Free by dataset name
+  FREE ALL — Free all allocations
+
+ALLOC Options:
+  SHR — Shared access (read)
+  OLD — Exclusive access (update)
+  NEW — Create new dataset
+  MOD — Append to existing
+  CATALOG — Catalog the dataset
+  UNIT(SYSDA) — Disk type
+
+Pro Tip: ALLOC/FREE is essential for REXX scripts. ALLOC assigns DD names, EXECIO uses DD names for I/O.`
+    },
+
+    { title:"TSO/ISPF — Advanced Edit Features", level:"Intermediate",
+      content:`Power features for advanced ISPF editing.
+
+Compare:
+  COMPARE member — Compare current member with another
+  Shows differences side-by-side.
+
+CREATE/REPLACE:
+  CREATE member — Save block of lines as new member
+  REPLACE member — Save block replacing existing member
+
+MODEL:
+  MODEL class — Insert code templates
+  JCL, COBOL, REXX templates available.
+
+LOCATE:
+  LOCATE label — Jump to line label
+
+Bounds:
+  BOUNDS 1 72 — Restrict editing to columns 1-72
+  Important for COBOL (columns 7-72).
+
+TABS:
+  TABS ON — Enable tab stops
+  Define tab positions for COBOL column alignment.
+
+RECOVERY:
+  SET RECOVERY ON — Enable edit recovery
+  If session crashes, changes can be recovered.
+
+DEFINE Alias:
+  KEYS panel — Define PF key assignments
+  Customize PF3=END, PF5=FIND, PF6=CHANGE, etc.
+
+Pro Tip: Set RECOVERY ON in your ISPF profile. It saves your work if TSO disconnects unexpectedly.`
+    },
+
+    { title:"ISPF Panels & Tables", level:"Advanced",
+      content:`Building custom ISPF applications with panels and tables.
+
+ISPF Panel:
+  Defined in a PDS member. Sections:
+  )ATTR — Define field attributes
+  )BODY — Screen layout
+  )INIT — Initialization logic
+  )PROC — Processing logic
+  )END — End of panel
+
+Displaying:
+  ADDRESS ISPEXEC "DISPLAY PANEL(MYPANEL)"
+  REXX variables automatically populate panel fields.
+
+Tables:
+  TBCREATE — Create table
+  TBADD — Add row
+  TBPUT — Update row
+  TBDELETE — Delete row
+  TBDISPL — Display with scrollable panel
+  TBCLOSE — Save and close
+
+File Tailoring:
+  Build output files from templates (skeletons).
+  FTOPEN → FTINCL skeleton → FTCLOSE
+  Skeleton contains variables: &VAR1 replaced at runtime.
+
+LIBDEF:
+  Point ISPF to your panel/skeleton libraries:
+  ADDRESS ISPEXEC "LIBDEF ISPPLIB DATASET ID('MY.PANELS')"
+
+Pro Tip: ISPF panels + REXX = custom mainframe tools. Every sysprog builds ISPF apps for their team.`
+    },
+
+    { title:"TSO/ISPF — Productivity Tips", level:"Beginner",
+      content:`Tips to work faster in ISPF.
+
+Quick Navigation:
+  =3.4 — Jump directly to DSLIST from any panel
+  =S — Jump to SDSF
+  =6 — Jump to TSO command
+
+DSLIST Tricks:
+  V next to dataset — View (VSAM) info
+  = — Repeat last action
+  / — ISPF action bar
+
+Edit Shortcuts:
+  F5/F6 — FIND/CHANGE (if mapped)
+  HILITE COBOL — Syntax highlighting for COBOL
+  HILITE JCL — Syntax highlighting for JCL
+
+Member Selection:
+  In PDS member list: S=select, B=browse, E=edit, V=view
+  Sort by: NAME, CHANGED, SIZE, ID
+
+Command Stacking:
+  TSO cmd1; cmd2; cmd3 — Execute multiple commands
+
+Clipboard:
+  CUT/PASTE between edit sessions.
+  CUT DISPLAY — Show clipboard contents.
+
+ISPF Settings:
+  =0 — ISPF settings panel
+  Change: Colors, PF keys, log/list defaults, edit settings.
+
+Pro Tip: Customize PF keys in every panel. Map frequently used commands to F-keys. Every second saved adds up.`
+    },
+
+
     { title:"TSO/ISPF Interview Questions", level:"All Levels",
       content:`TSO/ISPF Interview Questions — 20+ Q&A.
 

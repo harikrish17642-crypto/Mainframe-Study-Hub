@@ -1731,6 +1731,1004 @@ Pro Tip: Extended format is the modern standard. New VSAM files should always be
     },
 
 
+
+    { title:"VSAM — IDCAMS Scripting Patterns", level:"Intermediate",
+      content:`Common IDCAMS command patterns used in every production JCL.
+
+Delete-Define-Load:
+  DELETE name CLUSTER PURGE
+  IF LASTCC = 8 THEN SET MAXCC = 0
+  DEFINE CLUSTER (NAME(name) ...)
+  REPRO INFILE(dd) OUTFILE(dd)
+
+Conditional Processing:
+  IF LASTCC = 0 THEN DO
+    REPRO INFILE(IN) OUTFILE(OUT)
+  END
+  ELSE DO
+    SET MAXCC = 16
+  END
+
+Multiple Commands:
+  One IDCAMS step can execute multiple commands sequentially.
+  Each command sets LASTCC. MAXCC tracks the highest.
+
+PRINT for Verification:
+  REPRO INFILE(IN) OUTFILE(OUT)
+  IF LASTCC = 0 THEN PRINT INFILE(OUT) CHARACTER COUNT(5)
+  Verify first 5 records after copy.
+
+SET MAXCC:
+  SET MAXCC = 0 — Reset after expected error
+  SET MAXCC = 16 — Force step failure for JCL COND
+
+Pro Tip: IDCAMS scripting with IF/THEN/ELSE is powerful. You can build complete data management workflows in one step.`,
+      code:`//STEP1    EXEC PGM=IDCAMS
+//SYSPRINT DD  SYSOUT=*
+//INDD     DD  DSN=DAILY.EXTRACT,DISP=SHR
+//OUTDD    DD  DSN=PROD.MASTER.KSDS,DISP=SHR
+//SYSIN    DD  *
+  /* Delete if exists */
+  DELETE PROD.MASTER.KSDS CLUSTER PURGE
+  IF LASTCC = 8 THEN SET MAXCC = 0
+  /* Define fresh */
+  DEFINE CLUSTER (NAME(PROD.MASTER.KSDS) INDEXED -
+    KEYS(8 0) RECSZ(200 200) SHROPT(2 3)) -
+  DATA (CYL(10 5) FSPC(20 10) CISZ(4096)) -
+  INDEX (CYL(1 1))
+  /* Load data */
+  IF LASTCC = 0 THEN -
+    REPRO INFILE(INDD) OUTFILE(OUTDD)
+  /* Verify */
+  IF LASTCC = 0 THEN -
+    PRINT INFILE(OUTDD) CHAR COUNT(3)
+/*`
+    },
+
+    { title:"VSAM — Multi-Volume & Multi-Extent", level:"Advanced",
+      content:`Large VSAM files can span multiple volumes and have multiple extents.
+
+Extents:
+  Each space allocation (primary + secondaries) creates extents.
+  Max 123 extents per volume for VSAM.
+  Exceeding max → OPEN failure.
+
+Multi-Volume:
+  DEFINE CLUSTER ... VOLUMES(VOL001 VOL002 VOL003)
+  Data spread across specified volumes.
+  Or let SMS pick volumes automatically.
+
+Monitoring Extents:
+  LISTCAT ENT(name) ALL — Shows EXTENTS count
+  If extents approaching 100+ → REORG to consolidate.
+
+KEYRANGES (Partitioned KSDS):
+  DEFINE CLUSTER ... DATA(KEYRANGES((LOW HIGH) ...))
+  Different key ranges on different volumes.
+  Like DB2 partitioning for VSAM.
+
+Extending:
+  When primary space fills, secondary allocation used.
+  Up to 122 secondary extents (plus 1 primary = 123).
+  If all extents used and more space needed → IEC070I error.
+
+Prevention:
+  Allocate adequate primary space.
+  Regular REORG to reclaim deleted record space.
+  Monitor with LISTCAT and SMF records.
+
+Pro Tip: If you see extents > 50, schedule a REORG. High extent count = fragmented I/O = poor performance.`
+    },
+
+    { title:"VSAM — Backup & Recovery Strategies", level:"Intermediate",
+      content:`Protect VSAM data with proper backup and recovery procedures.
+
+REPRO Backup:
+  REPRO INFILE(VSAM) OUTFILE(SEQBACKUP)
+  Copies VSAM to sequential — simplest backup method.
+  Can REPRO back to restore.
+
+ADRDSSU (DFSMSdss):
+  DUMP DATASET(INCLUDE(MY.KSDS.**)) OUTDD(BACKUP)
+  Volume-level or dataset-level backup.
+  Faster than REPRO for large files.
+  RESTORE to recover.
+
+CICSVR (CICS VSAM Recovery):
+  Uses forward recovery logs to recover VSAM files.
+  Requires LOG(ALL) in CICS file definition.
+  Can recover to any point in time.
+
+Backup Strategy:
+  Daily: Full REPRO or ADRDSSU DUMP
+  Retain: 7 days of backups (GDG with LIMIT(7))
+  Before REORG: Always backup first
+  After LOAD: Backup immediately
+
+Recovery Steps:
+  1. REPRO from backup to temporary file
+  2. DELETE corrupted VSAM cluster
+  3. DEFINE new cluster (same definition)
+  4. REPRO from temporary to new cluster
+  5. BLDINDEX for alternate indexes
+  6. VERIFY the restored file
+
+Pro Tip: Test your recovery procedure BEFORE you need it. A backup you can't restore from is worthless.`,
+      code:`//*--- Daily VSAM Backup ---
+//BACKUP   EXEC PGM=IDCAMS
+//SYSPRINT DD  SYSOUT=*
+//INDD     DD  DSN=PROD.CUST.KSDS,DISP=SHR
+//OUTDD    DD  DSN=BACKUP.CUST.SEQ(+1),
+//             DISP=(NEW,CATLG),
+//             SPACE=(CYL,(20,5)),
+//             DCB=(RECFM=VB,LRECL=32760)
+//SYSIN    DD  *
+  REPRO INFILE(INDD) OUTFILE(OUTDD)
+  IF LASTCC = 0 THEN -
+    PRINT INFILE(OUTDD) CHAR COUNT(1)
+/*`
+    },
+
+    { title:"VSAM — Comparison with DB2", level:"Beginner",
+      content:`When to use VSAM vs DB2 — understanding the trade-offs.
+
+VSAM Advantages:
+  • Faster for simple key-based access (no SQL overhead)
+  • Lower CPU cost per I/O
+  • No DB2 subsystem dependency
+  • Simpler administration for small files
+  • Better for sequential batch processing
+
+DB2 Advantages:
+  • SQL for complex queries (JOINs, aggregations)
+  • Referential integrity enforcement
+  • Built-in security (GRANT/REVOKE)
+  • Better concurrency (row-level locking)
+  • Catalog-based metadata
+  • Stored procedures, triggers, views
+
+Use VSAM When:
+  • Simple key-value lookup (master files)
+  • High-volume sequential processing
+  • Low-complexity data relationships
+  • Performance-critical batch jobs
+  • Application manages data integrity
+
+Use DB2 When:
+  • Complex queries and reporting
+  • Multiple applications share data
+  • Need referential integrity
+  • Ad-hoc query requirements
+  • Complex data relationships
+
+Many shops use BOTH:
+  DB2 for transactional data + reporting.
+  VSAM for reference files, work files, and high-speed batch.
+
+Pro Tip: Most modern mainframe apps use DB2 as primary store and VSAM for work files and lookups. Know both.`
+    },
+
+
+
+    { title:"VSAM — Best Practices Summary", level:"All Levels",
+      content:`Essential VSAM best practices for production mainframe environments.
+
+Design Best Practices:
+  • Use KSDS for most files (indexed, flexible access)
+  • Choose CI size based on access pattern (4K random, 16K+ sequential)
+  • Set FREESPACE based on insert rate (20/10 typical, 0/0 for read-only)
+  • Always specify SHAREOPTIONS explicitly
+  • Use DYNAMIC access mode as default for KSDS
+
+COBOL Programming:
+  • Always check FILE STATUS after every I/O operation
+  • INITIALIZE records before building output
+  • Validate keys before READ (avoid unnecessary INVALID KEY)
+  • Use 88-level for EOF flag: 88 EOF-REACHED VALUE 'Y'
+  • Close files in error paths too (not just normal path)
+
+Performance:
+  • Monitor CI/CA splits with LISTCAT — REORG when high
+  • Use AMP BUFND/BUFNI for batch performance tuning
+  • REORG regularly — don't wait for performance complaints
+  • Use SPEED (not RECOVERY) for initial bulk loads
+
+Maintenance:
+  • REPRO backup before every REORG
+  • VERIFY after any ABEND with VSAM file open
+  • BLDINDEX after REORG for alternate indexes
+  • Golden sequence: REPRO backup → DELETE → DEFINE → REPRO reload → BLDINDEX
+
+Production Operations:
+  • LISTCAT regularly to monitor space and splits
+  • Schedule REORGs in maintenance windows
+  • Use GDG for daily backups (automatic rotation)
+  • For CICS: close files before batch, reopen after
+
+Pro Tip: The #1 VSAM problem is uncontrolled CI/CA splits. Monitor with LISTCAT, prevent with FREESPACE, fix with REORG.`
+    },
+
+
+
+    { title:"VSAM — KSDS vs ESDS vs RRDS Comparison", level:"Beginner",
+      content:`Understanding when to use each VSAM dataset type.
+
+KSDS (Key-Sequenced):
+  Access: By unique primary key or sequentially
+  Insert: Anywhere (in key order), causes CI/CA splits
+  Delete: Yes (logical delete, space reclaimed on REORG)
+  Update: Yes (same length or variable)
+  Use for: Master files, customer records, any keyed data
+  Most common type (~80% of production VSAM)
+
+ESDS (Entry-Sequenced):
+  Access: Sequential or by RBA (Relative Byte Address)
+  Insert: Append only (end of file)
+  Delete: No (cannot delete individual records)
+  Update: Yes (same length only)
+  Use for: Logs, journals, audit trails, chronological data
+
+RRDS (Relative Record):
+  Access: By record number (slot number)
+  Insert: Into specific slot number
+  Delete: Yes (slot becomes empty)
+  Update: Yes (fixed length)
+  Use for: Lookup tables by number, fixed slots (calendar data)
+
+LDS (Linear):
+  Access: Byte-addressable (via DIV macros)
+  No record structure — raw byte stream
+  Use for: DB2 tablespaces, system components
+
+Decision Guide:
+  Need keyed access? → KSDS
+  Append-only log? → ESDS
+  Access by number? → RRDS
+  System component? → LDS
+
+Pro Tip: When in doubt, use KSDS. It's the most flexible and most commonly used.`
+    },
+
+    { title:"VSAM — CI Size Selection Guide", level:"Intermediate",
+      content:`CI (Control Interval) size directly impacts performance. Choose wisely.
+
+What CI Size Affects:
+  • Amount of data per I/O operation
+  • Free space granularity
+  • Number of records per CI
+  • Buffer pool memory usage
+
+Size Options:
+  512, 1024, 2048, 4096, 8192, 16384, 32768 bytes
+
+Guidelines:
+  Random access (CICS online): 4096 (small CI = less data transferred per read)
+  Sequential batch: 16384-32768 (large CI = more records per I/O)
+  Mixed access: 4096-8192 (compromise)
+
+Calculating Records per CI:
+  Usable space = CISZ - 10 (control fields)
+  Records per CI = Usable / Record size
+  Example: CISZ(4096), RECSIZE=200 → (4096-10)/200 = ~20 records
+
+Index CI Size:
+  Typically 2048-4096 for index component.
+  Smaller = more index levels but less memory.
+
+FREESPACE Impact:
+  FREESPACE(20 10) with CISZ(4096):
+  20% of each CI free = ~800 bytes free per CI
+  10% of CIs in each CA are completely free
+
+3390 DASD Optimization:
+  Track size on 3390 = 56,664 bytes
+  Optimal CI sizes: 4096 (13 CIs/track), 8192 (7 CIs/track), 12288 (4 CIs/track)
+  Non-optimal sizes waste track space.
+
+Pro Tip: 4096 is the safest default. Only increase for sequential-heavy workloads with proven performance need.`
+    },
+
+    { title:"VSAM — Buffer Management", level:"Advanced",
+      content:`Buffer allocation determines how much VSAM data is cached in memory.
+
+Buffer Types:
+  Data buffers (BUFND) — Cache data CIs
+  Index buffers (BUFNI) — Cache index CIs
+  BUFFERSPACE — Total bytes for both
+
+Default Buffering:
+  Without explicit settings: 2 data buffers + 1 index buffer.
+  Bare minimum — poor performance for most workloads.
+
+Batch Tuning:
+  //CUSTMAST DD DSN=MY.KSDS,DISP=SHR,AMP=('BUFND=20,BUFNI=5')
+  More buffers = more caching = fewer disk I/Os.
+  Sequential: BUFND=10-30 (readahead benefits)
+  Random: BUFND=5-10, BUFNI=5-10
+
+CICS Buffering — LSR (Local Shared Resources):
+  Shared buffer pool across all files in the region.
+  LSRPOOLID in file definition assigns pool.
+  More efficient than individual file buffers.
+  CICS manages buffer pool sizes via SIT parameters.
+
+NSR (Non-Shared Resources):
+  Each file gets its own buffers.
+  Used for high-volume sequential processing.
+  Less memory-efficient than LSR.
+
+System-Managed Buffering (SMB):
+  SMS DATACLAS with ACCBIAS parameter.
+  DFSMS auto-tunes buffers based on access patterns.
+
+Pro Tip: For batch: always specify AMP BUFND/BUFNI — defaults are too small. For CICS: use LSR pools.`
+    },
+
+    { title:"VSAM — VERIFY Deep Dive", level:"Beginner",
+      content:`VERIFY resets end-of-file markers after abnormal close.
+
+When Needed:
+  A program ABENDs with a VSAM file open → file marked as "improperly closed."
+  Next OPEN may fail with file status 97 or IEC161I message.
+  VERIFY resets the end-of-file pointer to the correct position.
+
+Syntax:
+  VERIFY DATASET(MY.KSDS.FILE)
+
+In JCL:
+  //VERIFY EXEC PGM=IDCAMS
+  //SYSPRINT DD SYSOUT=*
+  //SYSIN DD *
+    VERIFY DATASET(MY.KSDS.FILE)
+  /*
+
+When NOT Needed:
+  After normal CLOSE — file is already properly closed.
+  After REPRO — REPRO handles its own file management.
+
+Automated VERIFY:
+  Many shops add VERIFY as first step in batch JCL:
+  VERIFY DATASET(name)
+  IF LASTCC <= 4 THEN SET MAXCC = 0
+  Ensures file is in good state regardless of what happened before.
+
+What VERIFY Does NOT Do:
+  Does NOT fix corrupted data.
+  Does NOT rebuild indexes.
+  Does NOT fix CI/CA split damage.
+  For those: REORG (REPRO → DELETE → DEFINE → REPRO).
+
+Pro Tip: Add VERIFY as a standard first step in any JCL that opens VSAM files. It's cheap insurance against leftover ABEND damage.`
+    },
+
+    { title:"VSAM — LISTCAT Output Analysis", level:"Intermediate",
+      content:`LISTCAT ALL provides a complete health check of your VSAM file.
+
+Command:
+  LISTCAT ENT(MY.KSDS.FILE) ALL
+
+Key Sections to Check:
+
+ATTRIBUTES:
+  KEYLEN, RKP — Key length and position
+  AVGLRECL, MAXLRECL — Record sizes
+  CISIZE — CI size
+  SHROPT — Share options
+  FREESPACE — CI and CA free space percentages
+
+STATISTICS:
+  REC-TOTAL — Total records in file
+  REC-DELETED — Deleted records (wasted space)
+  REC-INSERTED — Records inserted after initial load
+  REC-RETRIEVED — Read count
+  REC-UPDATED — Update count
+  SPLITS-CI — CI split count (monitor this!)
+  SPLITS-CA — CA split count (RED FLAG if high!)
+  FREESPACE-CI — Current free space
+
+ALLOCATION:
+  HI-ALLOC-RBA — Highest allocated byte
+  HI-USED-RBA — Highest used byte
+  EXTENTS — Number of extents (watch for >50)
+
+Health Indicators:
+  SPLITS-CA > 0 → Needs REORG soon
+  SPLITS-CI > 10% of records → Consider increasing FREESPACE
+  REC-DELETED > 20% of REC-TOTAL → Wasted space, REORG
+  EXTENTS > 50 → Approaching limit, REORG
+
+Pro Tip: Run LISTCAT weekly on critical files. Trending split counts reveals performance degradation before users notice.`
+    },
+
+    { title:"VSAM — DELETE Patterns", level:"Beginner",
+      content:`IDCAMS DELETE removes VSAM clusters, AIXes, paths, and GDGs.
+
+DELETE Cluster:
+  DELETE MY.KSDS.FILE CLUSTER PURGE
+  CLUSTER keyword removes data + index components.
+  PURGE overrides retention period.
+
+DELETE with IF:
+  DELETE MY.KSDS.FILE CLUSTER PURGE
+  IF LASTCC = 8 THEN SET MAXCC = 0
+  Ignores "not found" error (RC=8). Standard pattern.
+
+DELETE AIX:
+  DELETE MY.AIX.FILE
+  Deletes alternate index. Base cluster unaffected.
+
+DELETE PATH:
+  DELETE MY.PATH.NAME
+  Removes path. AIX and base unaffected.
+
+DELETE GDG Base:
+  DELETE MY.GDG.BASE GDG
+  Removes GDG base definition.
+
+DELETE Non-VSAM:
+  DELETE MY.SEQ.FILE NOSCRATCH
+  NOSCRATCH uncatalogs without deleting from volume.
+  SCRATCH (default) removes from both catalog and volume.
+
+DELETE with MASK:
+  DELETE MY.TEMP.** MASK
+  Deletes all datasets matching pattern.
+
+Pro Tip: Always use CLUSTER keyword when deleting KSDS. Without it, you may only delete the catalog entry, leaving orphaned data.`
+    },
+
+    { title:"VSAM — COBOL OPEN Modes", level:"Beginner",
+      content:`OPEN mode determines what operations are allowed on the VSAM file.
+
+OPEN INPUT:
+  Read-only access. READ and START allowed.
+  No WRITE, REWRITE, or DELETE.
+  Use for: Reports, extracts, lookups.
+
+OPEN OUTPUT:
+  Write-only. Creates new file or replaces contents.
+  WRITE allowed. No READ, REWRITE, or DELETE.
+  Use for: Initial data loads, rebuilds.
+
+OPEN I-O:
+  Full access. READ, WRITE, REWRITE, DELETE all allowed.
+  Use for: Updates, transaction processing.
+
+OPEN EXTEND:
+  Append only. Adds records after existing data.
+  WRITE allowed (sequential only, at end).
+  Use for: Log files, cumulative data.
+
+File Status on OPEN:
+  00 — Opened successfully
+  35 — File not found
+  37 — File type mismatch
+  39 — Attribute conflict
+  41 — File already open
+  97 — VSAM OPEN failure (various causes)
+
+Multiple OPEN:
+  Cannot OPEN a file twice in same program.
+  CLOSE first, then OPEN with different mode if needed.
+
+Pro Tip: Use the most restrictive mode that works. INPUT for reads (shared access), I-O only when updating (exclusive access).`
+    },
+
+    { title:"VSAM — WRITE Patterns", level:"Beginner",
+      content:`WRITE adds new records to VSAM files.
+
+Sequential WRITE (OPEN OUTPUT):
+  Records must be in ascending key order for KSDS.
+  WRITE CUST-RECORD FROM WS-REC
+  Used for: Initial load, rebuild from extract.
+
+Random WRITE (OPEN I-O):
+  Records can be in any order.
+  WRITE CUST-RECORD FROM WS-REC
+    INVALID KEY PERFORM DUP-KEY-HANDLER
+  END-WRITE
+  INVALID KEY fires if key already exists (status 22).
+
+WRITE to ESDS:
+  Always appends to end. No key needed.
+  OPEN OUTPUT or OPEN EXTEND.
+
+WRITE to RRDS:
+  Specify record number in RELATIVE KEY field.
+  MOVE 42 TO WS-REL-KEY
+  WRITE RR-RECORD
+
+Batch Load Pattern:
+  OPEN OUTPUT CUST-FILE (creates empty or replaces)
+  SORT input by key (ascending for KSDS)
+  PERFORM: Build record → WRITE → Read next input
+  CLOSE CUST-FILE
+  Check total written = total input
+
+Error Handling:
+  22 — Duplicate key (KSDS/RRDS)
+  24 — Boundary violation (no space)
+  48 — File not opened for output
+
+Pro Tip: For initial loads, always SORT by primary key first. Out-of-order WRITEs to KSDS in OUTPUT mode cause status 21.`
+    },
+
+    { title:"VSAM — REWRITE & DELETE Patterns", level:"Beginner",
+      content:`REWRITE updates existing records. DELETE removes them.
+
+REWRITE (Update):
+  Must READ first (gets lock in CICS).
+  MOVE new-value TO field-in-record
+  REWRITE CUST-RECORD FROM WS-REC
+    INVALID KEY PERFORM UPDATE-ERROR
+  END-REWRITE
+
+  For KSDS: Cannot change the primary key.
+  For variable-length: Can change record size.
+
+DELETE (Remove):
+  KSDS — Can delete by key:
+    MOVE key TO CUST-KEY
+    DELETE CUST-FILE
+      INVALID KEY PERFORM NOT-FOUND
+    END-DELETE
+
+  ESDS — Cannot delete individual records.
+  RRDS — Deletes the slot (makes it empty).
+
+Read-Update Pattern (KSDS):
+  MOVE search-key TO CUST-KEY
+  READ CUST-FILE INTO WS-REC
+    INVALID KEY PERFORM NOT-FOUND
+  END-READ
+  IF WS-FS = '00'
+    MOVE new-balance TO CUST-BALANCE
+    REWRITE CUST-RECORD FROM WS-REC
+  END-IF
+
+Delete-If-Exists Pattern:
+  MOVE target-key TO CUST-KEY
+  DELETE CUST-FILE
+  IF WS-FS = '00'
+    ADD 1 TO WS-DELETE-COUNT
+  ELSE IF WS-FS = '23'
+    DISPLAY 'NOT FOUND: ' target-key
+  END-IF
+
+Pro Tip: Always READ before REWRITE — VSAM requires it. Direct REWRITE without prior READ causes status 43.`
+    },
+
+    { title:"VSAM — START & READ NEXT (Browse)", level:"Intermediate",
+      content:`START positions for sequential reading. READ NEXT reads forward from that position.
+
+START:
+  MOVE start-key TO CUST-KEY
+  START CUST-FILE KEY >= CUST-KEY
+    INVALID KEY PERFORM NO-RECORDS
+  END-START
+
+  KEY = — Position at exact key (status 23 if not found)
+  KEY >= — Position at first key >= given value
+  KEY > — Position after given key
+  KEY <= — Position at last key <= given value (KSDS only)
+  KEY < — Position before given key
+
+READ NEXT:
+  READ CUST-FILE NEXT INTO WS-REC
+    AT END SET EOF-REACHED TO TRUE
+  END-READ
+  Returns next record in key sequence after START position.
+
+READ PREVIOUS:
+  READ CUST-FILE PREVIOUS INTO WS-REC
+  For backward browsing (requires DYNAMIC access).
+
+Browse Pattern:
+  MOVE 'A' TO CUST-KEY
+  START CUST-FILE KEY >= CUST-KEY
+  PERFORM UNTIL EOF-REACHED
+    READ CUST-FILE NEXT INTO WS-REC
+      AT END SET EOF-REACHED TO TRUE
+    END-READ
+    IF NOT EOF-REACHED
+      PERFORM PROCESS-RECORD
+    END-IF
+  END-PERFORM
+
+Skip-Sequential:
+  Random READ to position → then READ NEXT for sequential.
+  Best of both worlds with DYNAMIC access mode.
+
+Pro Tip: START KEY >= is the most common pattern — finds the nearest match even if exact key doesn't exist.`
+    },
+
+    { title:"VSAM — Compression", level:"Advanced",
+      content:`VSAM compression reduces disk usage and can improve I/O performance.
+
+Types:
+  Extended Format Compression — For DFSMS-managed VSAM
+  Tailored compression — DB2 uses for tablespace LDS
+
+Enabling:
+  Defined in SMS DATACLAS: COMPACTION=YES
+  Or ALTER cluster: ALTER MY.KSDS.FILE COMPACTION(YES)
+  Requires extended format (DSNTYPE=EXT in DATACLAS).
+
+How It Works:
+  Data compressed when written, decompressed when read.
+  Compression dictionary built from data patterns.
+  Typical compression ratios: 40-70% for text data.
+
+Benefits:
+  • Less disk space (40-70% reduction)
+  • Fewer I/Os for sequential read (more records per CI)
+  • Less data transferred from disk
+
+Costs:
+  • CPU overhead for compress/decompress
+  • Slightly higher CPU per I/O
+  • Initial dictionary build time
+
+When to Use:
+  Large files with text data — biggest benefit.
+  Small files or binary data — minimal benefit.
+  CPU-constrained systems — may not be worth the CPU cost.
+
+Pro Tip: Compression is most beneficial for large sequential files. Test CPU impact before enabling on high-volume random-access files.`
+    },
+
+    { title:"VSAM — Password & Security", level:"Intermediate",
+      content:`VSAM file security through passwords and RACF.
+
+VSAM Passwords (Legacy):
+  DEFINE CLUSTER ... MASTERPW(secret) READPW(rdonly)
+  MASTERPW — Full access (update, delete)
+  CONTROLPW — Control interval access
+  UPDATEPW — Read/write access
+  READPW — Read-only access
+
+Supplying Password:
+  In JCL: //DD DSN=MY.KSDS/PASSWORD,DISP=SHR
+  IDCAMS: DELETE MY.KSDS/PASSWORD
+
+RACF (Modern — Preferred):
+  RACF discrete or generic profiles protect VSAM files.
+  PERMIT 'MY.KSDS.**' ID(USER1) ACCESS(READ)
+  PERMIT 'MY.KSDS.**' ID(BATCHGRP) ACCESS(UPDATE)
+
+RACF vs VSAM Passwords:
+  RACF: Centralized, audit trail, group-based, flexible.
+  VSAM passwords: Per-file, no audit, difficult to manage.
+  All modern shops use RACF.
+
+ERASE Option:
+  DEFINE CLUSTER ... ERASE
+  Zero-fills data on DELETE — prevents recovery of sensitive data.
+  Required for files containing PII, financial data.
+
+Pro Tip: VSAM passwords are obsolete. Use RACF for all file security. ERASE for files with sensitive data.`
+    },
+
+    { title:"VSAM — REPRO Advanced Options", level:"Intermediate",
+      content:`Advanced REPRO options for selective copying and data migration.
+
+Key Range:
+  REPRO INFILE(IN) OUTFILE(OUT) FROMKEY(key1) TOKEY(key2)
+  Copy only records within key range.
+
+Count and Skip:
+  REPRO INFILE(IN) OUTFILE(OUT) SKIP(1000) COUNT(500)
+  Skip first 1000 records, copy next 500.
+
+REPLACE Option:
+  REPRO INFILE(IN) OUTFILE(OUT) REPLACE
+  If target KSDS has matching key, replace the record.
+  Without REPLACE: duplicate key error (RC=8).
+
+NOREPLACE:
+  REPRO INFILE(IN) OUTFILE(OUT) NOREPLACE
+  Skip duplicates silently.
+
+REUSE:
+  Target file defined with REUSE option:
+  REPRO INFILE(IN) OUTFILE(OUT)
+  Resets target to empty before loading.
+
+Cross-Type Copy:
+  REPRO from KSDS to sequential (backup)
+  REPRO from sequential to KSDS (restore)
+  REPRO from KSDS to ESDS (change type)
+  REPRO from ESDS to KSDS (must be in key order)
+
+MERGECAT/NOMERGECAT:
+  For catalog operations during REPRO.
+
+Pro Tip: REPRO REPLACE is perfect for refreshing reference tables — new records added, existing records updated, old records kept.`
+    },
+
+    { title:"VSAM — Performance Monitoring", level:"Advanced",
+      content:`Monitor VSAM performance to detect problems before users notice.
+
+LISTCAT Statistics:
+  LISTCAT ENT(name) ALL — Complete file health check.
+  Key metrics: SPLITS-CI, SPLITS-CA, EXTENTS, REC-DELETED.
+
+SMF Records:
+  SMF Type 60-69 — VSAM activity records.
+  Captured automatically by z/OS.
+  Analyzed with SAS, MICS, or custom reports.
+
+RMF (Resource Measurement Facility):
+  I/O activity reports show VSAM file I/O rates.
+  Identify hotspot files with high I/O counts.
+
+CICS Statistics:
+  File control statistics show READ/WRITE/BROWSE counts per file.
+  Response time per file access.
+
+Performance Indicators:
+  High CI splits → Need FREESPACE increase + REORG
+  High CA splits → Urgent REORG needed
+  Many extents → REORG to consolidate
+  High REC-DELETED → REORG to reclaim space
+  Buffer hits low → Increase BUFND/BUFNI
+
+Trending:
+  Track weekly: Record count, split count, extent count.
+  Set thresholds: Alert if CA splits > 0, extents > 50.
+
+Pro Tip: Proactive monitoring prevents emergency REORGs. Schedule weekly LISTCAT reports on all critical VSAM files.`
+    },
+
+    { title:"VSAM — KSDS Design Checklist", level:"Intermediate",
+      content:`Complete checklist for designing a production KSDS file.
+
+1. Key Design:
+  • What uniquely identifies each record?
+  • Key length (shorter = faster lookups)
+  • Key position (offset 0 is most common)
+  • Will keys be added in order or randomly?
+
+2. Record Design:
+  • Fixed or variable length?
+  • Average and maximum record sizes
+  • Include all fields or normalize with related files?
+
+3. Space Allocation:
+  • Estimate record count × record size = total data
+  • Primary allocation: 1.5× estimated size (growth room)
+  • Secondary allocation: 10-20% of primary
+  • CYLINDERS for large files, TRACKS for small
+
+4. CI Size:
+  • 4096 for random-heavy access (CICS)
+  • 16384+ for sequential-heavy access (batch)
+
+5. Free Space:
+  • High insert rate: FREESPACE(20 15)
+  • Low insert rate: FREESPACE(10 5)
+  • Read-only: FREESPACE(0 0)
+
+6. Share Options:
+  • SHAREOPTIONS(2 3) — Standard (one writer, multiple readers)
+  • SHAREOPTIONS(1 3) — Strict (exclusive access)
+
+7. Alternate Indexes:
+  • Which fields need alternate access?
+  • UNIQUE or NONUNIQUE?
+  • UPGRADE (auto-maintain) or NOUPGRADE?
+
+8. Backup & Recovery:
+  • Daily REPRO backup to sequential
+  • GDG for automatic rotation
+  • VERIFY in batch JCL
+
+Pro Tip: Spend time on design. A well-designed KSDS runs trouble-free for years. A poorly designed one needs constant REORGs.`
+    },
+
+    { title:"VSAM — ESDS Use Cases & Patterns", level:"Intermediate",
+      content:`ESDS (Entry-Sequenced) is the right choice for specific scenarios.
+
+Transaction Log:
+  Append-only. Each transaction record added at end.
+  Never need to delete individual log entries.
+  Browse sequentially for audit or analysis.
+
+Audit Trail:
+  WHO did WHAT to WHICH record and WHEN.
+  ESDS perfect — records never modified or deleted.
+  Includes: timestamp, user ID, action, before/after values.
+
+Data Feed Staging:
+  Receive external data feed → Append to ESDS → Batch processes sequentially.
+  No key needed — process in arrival order.
+
+Journal Recovery:
+  Application writes change journal to ESDS.
+  On recovery: replay ESDS records to rebuild master file.
+
+ESDS with Alternate Index:
+  Even though ESDS has no primary key, you CAN define AIX.
+  AIX on ESDS uses RBA as the pointer (not primary key).
+  Enables keyed access to sequential data.
+
+Processing Pattern:
+  Open INPUT → READ sequentially → process each record → CLOSE.
+  Or: OPEN I-O → UPDATE in place (same-length records only).
+
+Cleanup:
+  Cannot delete individual records.
+  To purge old data: REPRO to new ESDS (copying only records to keep).
+
+Pro Tip: ESDS is underused. For any append-only, chronological data, it's simpler and faster than KSDS.`
+    },
+
+    { title:"VSAM — GDG Management for VSAM", level:"Intermediate",
+      content:`Using GDGs (Generation Data Groups) with VSAM for versioned backups.
+
+GDG Basics:
+  GDG base + generations. (+1) creates new, (0) current, (-1) previous.
+  LIMIT controls how many generations to keep.
+
+Define GDG Base:
+  DEFINE GDG (NAME(MY.CUST.BACKUP) LIMIT(7) SCRATCH NOEMPTY)
+  LIMIT(7) — Keep 7 generations
+  SCRATCH — Delete oldest when limit exceeded
+  NOEMPTY — Keep at least one generation
+
+Daily VSAM Backup Pattern:
+  //BACKUP EXEC PGM=IDCAMS
+  //INDD DD DSN=PROD.CUST.KSDS,DISP=SHR
+  //OUTDD DD DSN=MY.CUST.BACKUP(+1),DISP=(NEW,CATLG),
+  //    SPACE=(CYL,(20,5)),DCB=(RECFM=VB,LRECL=32760)
+  //SYSIN DD *
+    REPRO INFILE(INDD) OUTFILE(OUTDD)
+  /*
+
+Restore from GDG:
+  //INDD DD DSN=MY.CUST.BACKUP(0),DISP=SHR  ← Latest backup
+  REPRO INFILE(INDD) OUTFILE(OUTDD)
+
+  Or specific generation:
+  //INDD DD DSN=MY.CUST.BACKUP(-2),DISP=SHR  ← 3 days ago
+
+GDG + VSAM Notes:
+  GDG generations are typically flat sequential (REPRO output).
+  The VSAM cluster itself is NOT a GDG — the backups are.
+
+Automation:
+  Schedule daily: REPRO to GDG(+1)
+  GDG auto-rotates — oldest backup deleted when LIMIT reached.
+  No manual cleanup needed.
+
+Pro Tip: Every production VSAM file should have a daily GDG backup. It costs almost nothing and saves you from disaster.`
+    },
+
+    { title:"VSAM — Common JCL Errors", level:"Beginner",
+      content:`Troubleshooting guide for VSAM-related JCL errors.
+
+IEC161I — VSAM OPEN Error:
+  Cause: File improperly closed (ABEND with file open).
+  Fix: IDCAMS VERIFY DATASET(name)
+
+IEC070I — Insufficient Space:
+  Cause: Primary + all secondary allocations used up.
+  Fix: Increase SPACE, REORG to consolidate, delete old data.
+
+IEC141I — Catalog Error:
+  Cause: Dataset not in catalog, or catalog damaged.
+  Fix: Check catalog entry with LISTCAT. Recatalog if needed.
+
+IGD17101I — SMS Allocation Failure:
+  Cause: No suitable volume in storage group.
+  Fix: Check SMS configuration, free space on volumes.
+
+S013 — OPEN Error:
+  Cause: Attribute mismatch between JCL and actual file.
+  Fix: Check DCB parameters, RECFM, LRECL. Note: VSAM doesn't use DCB.
+
+IDC3012I — Duplicate Key:
+  During REPRO. Source has record with key that already exists in target.
+  Fix: Use REPLACE option: REPRO ... REPLACE
+
+IDC3009I — Dataset Not Found:
+  DELETE target doesn't exist.
+  Fix: IF LASTCC = 8 THEN SET MAXCC = 0
+
+File Status 35 in COBOL:
+  Dataset not found at OPEN time.
+  Fix: Check DSN spelling, verify dataset exists (LISTCAT), check JCL DD name.
+
+Pro Tip: 90% of VSAM JCL errors are: IEC161I (needs VERIFY), IEC070I (needs space/REORG), or status 35 (wrong DSN).`
+    },
+
+    { title:"VSAM — Batch Window Elimination", level:"Expert",
+      content:`Modern approaches to eliminate the traditional CICS batch window.
+
+Traditional Batch Window:
+  CICS closes files → Batch runs → CICS reopens.
+  Problem: No online access during batch. Limited processing time.
+
+Solution 1 — VSAM RLS:
+  Record Level Sharing via Coupling Facility.
+  CICS and batch access same file simultaneously.
+  Record-level locking prevents conflicts.
+  Requires: Parallel Sysplex, CF, SMSVSAM.
+
+Solution 2 — BWO (Batch Window Overlap):
+  Partial overlap — batch reads data component while CICS uses index.
+  Limited concurrency but simpler than full RLS.
+
+Solution 3 — Shadow Files:
+  Maintain two copies. CICS uses copy A, batch uses copy B.
+  After batch: Swap pointers. CICS now uses B.
+  Requires application-level synchronization.
+
+Solution 4 — DB2 Migration:
+  Move data from VSAM to DB2.
+  DB2 has built-in concurrent access (row locking).
+  Most flexible but biggest effort.
+
+Solution 5 — MQ-Based:
+  Online writes to MQ queue instead of VSAM directly.
+  Background task applies changes to VSAM.
+  Decouples online from batch.
+
+Pro Tip: RLS is the enterprise standard for batch window elimination. If your shop hasn't migrated, present the business case — it enables 24/7 operations.`
+    },
+
+
+
+    { title:"VSAM — Troubleshooting Checklist", level:"All Levels",
+      content:`Systematic approach to diagnosing and fixing VSAM problems.
+
+File Won't Open (Status 35/97):
+  1. LISTCAT ENT(name) — Does file exist?
+  2. Check JCL DD name matches COBOL SELECT ASSIGN
+  3. VERIFY DATASET(name) — Reset if improperly closed
+  4. Check RACF access — PERMIT needed?
+  5. Check SHAREOPTIONS — Another job holding exclusive?
+
+Performance Degradation:
+  1. LISTCAT ALL — Check SPLITS-CI and SPLITS-CA
+  2. If splits high → REORG (REPRO → DELETE → DEFINE → REPRO)
+  3. Check EXTENTS — If >50, consolidate with REORG
+  4. Check FREESPACE — Increase if heavy inserts
+  5. Check buffers — Add AMP BUFND/BUFNI in JCL
+
+Duplicate Key (Status 22):
+  1. Key already exists in file
+  2. Check if record was already loaded
+  3. For REPRO: use REPLACE or NOREPLACE option
+  4. Check key alignment (offset and length)
+
+Record Not Found (Status 23):
+  1. Key doesn't exist — verify key value
+  2. Check key format: packed vs display, leading zeros
+  3. For START: use KEY >= instead of KEY =
+  4. PRINT first few records to verify key format
+
+Space Problems (IEC070I):
+  1. File out of space — all extents used
+  2. Options: REORG, increase allocation, delete old data
+  3. Check REC-DELETED in LISTCAT — REORG reclaims space
+
+CICS File Issues:
+  1. CEMT INQ FILE(name) — Is it open? Enabled?
+  2. CEMT SET FILE(name) OPEN — Reopen if closed
+  3. CEMT SET FILE(name) ENABLED — Re-enable if disabled
+  4. Check VSAM base cluster health with LISTCAT
+
+Emergency Recovery:
+  1. VERIFY the file first
+  2. If still broken: REPRO from latest backup
+  3. DELETE corrupted cluster → DEFINE fresh → REPRO reload
+  4. BLDINDEX for all alternate indexes
+
+Pro Tip: Keep this checklist handy. 90% of VSAM issues are diagnosed with: LISTCAT + VERIFY + checking FILE STATUS codes.`
+    },
+
+
     { title:"VSAM Interview Questions", level:"All Levels",
       content:`VSAM Interview Questions — 30+ Q&A organized by level.
 

@@ -576,6 +576,261 @@ Comparing ESMs:
   * RACF allows if no profile exists; ACF2/TSS deny by default.
     RACF with PROTECTALL=ON also denies by default.`
     },
+
+    { title:"RACF User Administration", level:"Beginner",
+      content:`Managing user IDs in RACF.
+
+ADDUSER:
+  ADDUSER USER1 NAME('John Smith') DFLTGRP(DEVGRP) PASSWORD(TEMP1234) OWNER(ADMIN1)
+  Creates new user. Password must be changed on first login.
+
+ALTUSER:
+  ALTUSER USER1 NAME('John A Smith') OPERATIONS  /* Grant OPERATIONS */
+  ALTUSER USER1 NOOPERATIONS  /* Revoke OPERATIONS */
+  ALTUSER USER1 REVOKE  /* Suspend user */
+  ALTUSER USER1 RESUME  /* Reactivate user */
+  ALTUSER USER1 PASSWORD(NEWPASS) NOEXPIRED  /* Reset password */
+
+DELUSER:
+  DELUSER USER1  /* Remove user entirely */
+
+LISTUSER:
+  LISTUSER USER1  /* Show user details */
+  LU USER1 ALL  /* Show all attributes */
+
+User Attributes:
+  SPECIAL — Can manage RACF (super admin)
+  OPERATIONS — Can access any dataset (operations staff)
+  AUDITOR — Can view audit logs
+  REVOKE — Account suspended
+
+Groups:
+  ADDGROUP DEVGRP OWNER(ADMIN1) SUPGROUP(SYS1)
+  CONNECT USER1 GROUP(DEVGRP) AUTH(USE)
+  REMOVE USER1 GROUP(DEVGRP)
+
+Pro Tip: Never give SPECIAL to application IDs. Use group-based access. Minimum privilege always.`
+    },
+
+    { title:"RACF Dataset Profiles", level:"Intermediate",
+      content:`Dataset profiles control who can access files.
+
+Discrete Profile:
+  Protects one specific dataset.
+  ADDSD 'MY.PROD.DATA' UACC(NONE) OWNER(ADMIN1)
+
+Generic Profile:
+  Protects all matching datasets.
+  ADDSD 'MY.PROD.**' UACC(NONE)
+  ** matches any number of qualifiers
+  * matches one qualifier
+
+PERMIT:
+  PERMIT 'MY.PROD.**' ID(USER1) ACCESS(READ)
+  PERMIT 'MY.PROD.**' ID(DEVGRP) ACCESS(UPDATE)
+  PERMIT 'MY.PROD.**' ID(BATCHID) ACCESS(ALTER)
+
+Access Levels:
+  NONE — No access (default)
+  READ — Read only
+  UPDATE — Read + Write
+  CONTROL — Read + Write + Full control
+  ALTER — Everything including change security
+
+UACC (Universal Access):
+  Default access for everyone not explicitly PERMITted.
+  UACC(NONE) — Deny all by default (most secure).
+
+LISTDSD:
+  LISTDSD DA('MY.PROD.**') ALL AUTH
+  Shows profile details, access list, audit settings.
+
+Pro Tip: Always UACC(NONE) for production datasets. Explicit PERMIT for each user/group that needs access.`
+    },
+
+    { title:"RACF Program Security", level:"Intermediate",
+      content:`Control which programs can be executed and who can run them.
+
+Program Profile:
+  RDEFINE PROGRAM MYPGM UACC(NONE) ADDMEM('PROD.LOADLIB'/NOPADCHK)
+  PERMIT MYPGM CLASS(PROGRAM) ID(BATCHID) ACCESS(READ)
+
+Program Control:
+  SETROPTS WHEN(PROGRAM) — Activate program control
+  Only authorized programs from authorized libraries can run.
+
+Controlled Libraries:
+  RALTER PROGRAM ** ADDMEM('SYS1.LINKLIB'/NOPADCHK)
+  Libraries in the program control list are "clean" — programs verified.
+
+EXECUTE Authority:
+  RDEFINE FACILITY BPX.FILEATTR.PROGCTL UACC(NONE)
+  Controls execution of USS programs.
+
+Use Cases:
+  Prevent unauthorized programs from accessing sensitive data.
+  Ensure only approved load modules run in production.
+  Audit program execution.
+
+Pro Tip: Program control is complex. Most shops use dataset security (who can update LOADLIB) rather than program-level security.`
+    },
+
+    { title:"RACF — Auditing & SMF", level:"Intermediate",
+      content:`RACF generates audit records for security events.
+
+SMF Type 80:
+  RACF security events. Every access check generates SMF 80.
+  Subtypes: SUCCESS, VIOLATION, WARNING.
+
+Audit Settings:
+  ALTDSD 'MY.PROD.**' AUDIT(SUCCESS(READ) FAILURES(READ))
+  Log all successful reads and all failed attempts.
+
+Global Audit:
+  SETROPTS AUDIT(class) — Audit all accesses in a class.
+  Generates high volume — use selectively.
+
+RACF Reports:
+  DSMON — Dataset Security Monitor
+  RACFRW — RACF Report Writer
+  Generate reports from SMF 80 records.
+
+What to Audit:
+  • All failures (access violations) — Always
+  • Success on sensitive datasets — Production data, security databases
+  • User administration changes — ADDUSER, ALTUSER, PERMIT
+  • System authority changes — SPECIAL, OPERATIONS
+
+Compliance:
+  SOX, PCI-DSS, HIPAA require audit trails.
+  RACF + SMF provides the evidence.
+
+Pro Tip: Audit all failures globally, successes selectively on sensitive resources. Review audit reports weekly.`
+    },
+
+    { title:"RACF — FACILITY Class", level:"Advanced",
+      content:`FACILITY class controls access to system functions and services.
+
+Common FACILITY Resources:
+  BPX.SUPERUSER — USS superuser (root equivalent)
+  BPX.SERVER — Run as server in USS
+  IRR.DIGTCERT.* — Digital certificate management
+  IRR.PWRESET — Password reset authority
+  BPX.FILEATTR.PROGCTL — USS program control
+  CEE.* — Language Environment settings
+
+Defining:
+  RDEFINE FACILITY BPX.SUPERUSER UACC(NONE)
+  PERMIT BPX.SUPERUSER CLASS(FACILITY) ID(ADMIN1) ACCESS(READ)
+
+Activating:
+  SETROPTS CLASSACT(FACILITY) RACLIST(FACILITY)
+  SETROPTS RACLIST(FACILITY) REFRESH  /* After changes */
+
+System Authorization:
+  RDEFINE FACILITY IRR.RADMIN.* UACC(NONE)
+  Controls who can perform RACF administration remotely.
+
+Pro Tip: FACILITY class is the key to z/OS system security. Know BPX.SUPERUSER and IRR.* profiles for security admin roles.`
+    },
+
+    { title:"z/OS Encryption & Cryptography", level:"Advanced",
+      content:`z/OS provides hardware-accelerated encryption.
+
+CPACF (CP Assist for Cryptographic Functions):
+  Hardware crypto on every z processor. No extra cost.
+  AES, SHA, DES acceleration.
+
+Crypto Express (CEX):
+  Dedicated crypto hardware cards.
+  RSA, ECC, key management.
+  Required for PKCS#11, digital certificates.
+
+Dataset Encryption:
+  z/OS 2.3+: Encrypt datasets at rest.
+  RACF key labels control encryption.
+  Transparent to applications — encrypt/decrypt on I/O.
+
+TLS/SSL:
+  AT-TLS (Application Transparent TLS).
+  Encrypts network traffic without application changes.
+  Policy-based: Define rules in PAGENT configuration.
+
+Key Management:
+  ICSF (Integrated Cryptographic Service Facility).
+  PKDS (Public Key Dataset) stores keys.
+  RACF manages key labels and access.
+
+Pervasive Encryption:
+  Encrypt everything: data at rest, data in flight, data in use.
+  z15+ hardware supports transparent encryption everywhere.
+
+Pro Tip: z/OS encryption is hardware-accelerated — virtually zero performance impact. Enable it for all sensitive data.`
+    },
+
+    { title:"RACF — Digital Certificates", level:"Advanced",
+      content:`RACF manages digital certificates for TLS, authentication, and signing.
+
+Certificate Authority (CA):
+  RACDCERT CERTAUTH GENCERT SUBJECTSDN(CN('My CA')) SIZE(2048) WITHLABEL('MYCA')
+  Creates a local CA for issuing certificates.
+
+Server Certificate:
+  RACDCERT ID(WEBSERV) GENCERT SUBJECTSDN(CN('myserver.com')) SIZE(2048) WITHLABEL('SERVERSSL') SIGNWITH(CERTAUTH LABEL('MYCA'))
+
+Key Ring:
+  RACDCERT ID(WEBSERV) ADDRING(SSLRING)
+  RACDCERT ID(WEBSERV) CONNECT(ID(WEBSERV) LABEL('SERVERSSL') RING(SSLRING) DEFAULT)
+  RACDCERT ID(WEBSERV) CONNECT(CERTAUTH LABEL('MYCA') RING(SSLRING))
+  Key rings hold certificates for TLS connections.
+
+Certificate Management:
+  RACDCERT LIST — Show all certificates
+  RACDCERT CHECKCERT — Verify certificate
+  RACDCERT DELETE — Remove certificate
+
+Use Cases:
+  CICS HTTPS, DB2 DDF TLS, FTP over TLS, AT-TLS.
+
+Pro Tip: Certificate expiration causes outages. Track expiration dates and renew before they expire.`
+    },
+
+    { title:"z/OS Security Hardening", level:"Expert",
+      content:`Best practices for securing a z/OS system.
+
+Principle of Least Privilege:
+  UACC(NONE) on all profiles. Explicit PERMIT for each user.
+  No blanket access. No shared IDs.
+
+Password Policy:
+  SETROPTS PASSWORD(MINLENGTH(8) MIXEDCASE HISTORY(24) INTERVAL(90))
+  Require complexity, prevent reuse, force rotation.
+
+Remove Default Access:
+  Audit all UACC(READ) or UACC(UPDATE) profiles.
+  Change to UACC(NONE) and add explicit PERMITs.
+
+Protect System Datasets:
+  SYS1.** — Only system programmers
+  RACF database — Only RACF admins
+  APF libraries — Restrict UPDATE access
+
+Audit Critical Resources:
+  AUDIT(ALL(READ)) on: security databases, production data, crypto keys.
+
+Monitor:
+  Review SMF 80 records daily for violations.
+  Alert on: failed logins, privilege escalation, sensitive data access.
+
+Network:
+  AT-TLS for encryption.
+  Firewall rules for mainframe ports.
+  SSH instead of telnet.
+
+Pro Tip: Security is layers: RACF + encryption + auditing + monitoring. No single measure is sufficient.`
+    },
+
+
     { title:"Security Interview Questions", level:"All Levels",
       content:`RACF/Security Interview Questions — 20+ Q&A.
 

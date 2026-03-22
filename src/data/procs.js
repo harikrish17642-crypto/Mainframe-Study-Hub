@@ -706,6 +706,293 @@ PROC Documentation:
 //*
 //       PEND`
     },
+
+    { title:"DFSORT SORT FIELDS", level:"Beginner",
+      content:`SORT FIELDS specifies which fields to sort by and in what order.
+
+Syntax:
+  SORT FIELDS=(start,length,format,order)
+  
+  start — Starting byte position (1-based)
+  length — Field length in bytes
+  format — Data format
+  order — A (ascending) or D (descending)
+
+Formats:
+  CH — Character (EBCDIC)
+  ZD — Zoned Decimal (display numeric)
+  PD — Packed Decimal (COMP-3)
+  BI — Binary (COMP)
+  FI — Fixed-point binary (signed)
+
+Examples:
+  SORT FIELDS=(1,8,CH,A) — Sort by first 8 chars ascending
+  SORT FIELDS=(1,5,CH,A,10,3,PD,D) — Sort by pos 1-5 ascending, then pos 10-12 packed descending
+
+COPY:
+  SORT FIELDS=COPY — Copy without sorting (just apply INCLUDE/OMIT/OUTREC)
+
+Pro Tip: Always verify byte positions against the record layout. Off-by-one position errors produce garbage sorts.`
+    },
+
+    { title:"DFSORT INCLUDE & OMIT", level:"Beginner",
+      content:`Filter records — INCLUDE keeps matching records, OMIT removes them.
+
+INCLUDE:
+  INCLUDE COND=(1,2,CH,EQ,C'IT') — Keep records where pos 1-2 = 'IT'
+  INCLUDE COND=(10,5,PD,GT,+50000) — Keep where packed field > 50000
+
+OMIT:
+  OMIT COND=(1,2,CH,EQ,C'XX') — Remove records where pos 1-2 = 'XX'
+
+Operators:
+  EQ — Equal
+  NE — Not equal
+  GT — Greater than
+  GE — Greater or equal
+  LT — Less than
+  LE — Less or equal
+
+Compound Conditions:
+  INCLUDE COND=(1,2,CH,EQ,C'IT',AND,10,5,PD,GT,+50000)
+  INCLUDE COND=(1,2,CH,EQ,C'IT',OR,1,2,CH,EQ,C'HR')
+
+Substring:
+  INCLUDE COND=(1,80,SS,EQ,C'ERROR') — Substring search anywhere in pos 1-80
+
+Pro Tip: INCLUDE and OMIT are mutually exclusive — use one or the other, not both.`
+    },
+
+    { title:"DFSORT OUTREC & INREC", level:"Intermediate",
+      content:`Reformat records — add, remove, rearrange fields.
+
+OUTREC (after sort):
+  OUTREC FIELDS=(1,8,20,5,C' - ',10,10)
+  Output: bytes 1-8, then bytes 20-24, then literal ' - ', then bytes 10-19
+
+INREC (before sort):
+  INREC FIELDS=(1,8,20,5,10,10)
+  Reformat input BEFORE sorting — useful to reduce sort work.
+
+Literals:
+  C'text' — Character literal
+  X'F0F1' — Hex literal
+  +0 — Numeric zero
+
+Padding/Truncating:
+  OUTREC FIELDS=(1,50,51:C' ',80:C' ') — Pad with spaces to position 80
+
+Date Formatting:
+  OUTREC FIELDS=(1,8,Y4T=TOGREG,TOSTD=(MDs,C'/',DDs,C'/',Y4T))
+  Convert date formats.
+
+IFTHEN:
+  OUTREC IFTHEN=(WHEN=(1,2,CH,EQ,C'HR'),BUILD=(1,80,81:C'HUMAN RESOURCES')),
+         IFTHEN=(WHEN=NONE,BUILD=(1,80,81:C'OTHER'))
+  Conditional reformatting.
+
+Pro Tip: INREC for reshaping input, OUTREC for formatting output. INREC reduces data before sort — faster for large files.`
+    },
+
+    { title:"DFSORT SUM & Aggregation", level:"Intermediate",
+      content:`SUM consolidates duplicate records by accumulating numeric fields.
+
+SUM FIELDS:
+  SORT FIELDS=(1,5,CH,A)
+  SUM FIELDS=(10,4,PD)
+  
+  Groups records by sort key (pos 1-5).
+  Adds packed decimal field at pos 10-13 across duplicates.
+  Output: One record per unique key with totals.
+
+SUM FIELDS=NONE:
+  SORT FIELDS=(1,5,CH,A)
+  SUM FIELDS=NONE
+  
+  Remove duplicates without summing. Keep first occurrence only.
+
+Multiple SUM Fields:
+  SUM FIELDS=(10,4,PD,20,4,PD,30,8,PD)
+  Sum three fields simultaneously.
+
+Count:
+  No built-in count. Use ICETOOL COUNT or add a 1 field:
+  INREC FIELDS=(1,80,81:+1,4,PD)
+  SUM FIELDS=(81,4,PD)
+  Adds a 1 to each record, SUM counts them.
+
+Pro Tip: SORT + SUM FIELDS=NONE is the fastest way to deduplicate a file — much faster than a COBOL program.`
+    },
+
+    { title:"DFSORT JOINKEYS", level:"Advanced",
+      content:`JOINKEYS merges two files by matching key fields — like SQL JOIN in DFSORT.
+
+Syntax:
+  JOINKEYS FILE=F1,FIELDS=(1,8,A)
+  JOINKEYS FILE=F2,FIELDS=(1,8,A)
+  JOIN UNPAIRED,F1,F2
+  REFORMAT FIELDS=(F1:1,80,F2:9,72)
+
+JOIN Types:
+  JOIN UNPAIRED — All records from both files (FULL OUTER JOIN)
+  JOIN UNPAIRED,F1 — All from F1, matched from F2 (LEFT JOIN)
+  JOIN UNPAIRED,F2 — All from F2, matched from F1 (RIGHT JOIN)
+  JOIN (default) — Only matched records (INNER JOIN)
+
+REFORMAT:
+  Combines fields from both files into output record.
+  F1:start,length — Fields from file 1
+  F2:start,length — Fields from file 2
+  ?,length,format — Fill with blanks/zeros for unmatched
+
+Example — Match Employees with Departments:
+  //F1 DD — Employee file (empid pos 1-8, name pos 9-38)
+  //F2 DD — Department file (deptid pos 1-8, deptname pos 9-28)
+  JOINKEYS FILE=F1,FIELDS=(40,3,A)  /* dept code in emp file */
+  JOINKEYS FILE=F2,FIELDS=(1,3,A)   /* dept code in dept file */
+  JOIN UNPAIRED,F1
+  REFORMAT FIELDS=(F1:1,80,F2:9,20)
+
+Pro Tip: JOINKEYS is incredibly powerful — it replaces what would take a 200-line COBOL match-merge program.`
+    },
+
+    { title:"ICETOOL — Multi-Function Utility", level:"Intermediate",
+      content:`ICETOOL performs multiple DFSORT operations in one step.
+
+Operations:
+  SORT — Sort a file
+  COPY — Copy with selection
+  COUNT — Count records
+  SELECT — Select records by occurrence count
+  UNIQUE — Unique values of a field
+  STATS — Statistics (min, max, avg, sum, count)
+  DISPLAY — Formatted report output
+  RANGE — Count values in ranges
+  VERIFY — Check data validity
+  OCCUR — Count occurrences per value
+
+Example — Statistics:
+  ICETOOL
+    STATS FROM(INPUT) ON(10,4,PD) — Min, max, avg, total for packed field
+
+Example — Count Duplicates:
+  ICETOOL
+    SELECT FROM(INPUT) TO(DUPES) ON(1,8,CH) HIGHER(1)
+  Selects records where key appears more than once.
+
+Example — Report:
+  ICETOOL
+    DISPLAY FROM(INPUT) LIST(REPORT) -
+      HEADER('Employee Report') -
+      ON(1,8,CH,A1) ON(10,20,CH,A2) ON(40,8,PD,N1) -
+      TITLE('ID') TITLE('Name') TITLE('Salary')
+
+Pro Tip: ICETOOL replaces many one-off COBOL report programs. STATS + DISPLAY handles 80% of quick analysis needs.`
+    },
+
+    { title:"DFSORT — JCL Patterns", level:"Beginner",
+      content:`Standard JCL for running DFSORT.
+
+Basic SORT:
+  //SORT EXEC PGM=SORT
+  //SORTIN DD DSN=input,DISP=SHR
+  //SORTOUT DD DSN=output,DISP=(NEW,CATLG),
+  //   SPACE=(CYL,(10,5)),DCB=(RECFM=FB,LRECL=80)
+  //SYSOUT DD SYSOUT=*
+  //SYSIN DD *
+    SORT FIELDS=(1,8,CH,A)
+  /*
+
+ICETOOL:
+  //TOOL EXEC PGM=ICETOOL
+  //TOOLMSG DD SYSOUT=*
+  //DFSMSG DD SYSOUT=*
+  //INPUT DD DSN=input,DISP=SHR
+  //OUTPUT DD DSN=output,...
+  //TOOLIN DD *
+    SORT FROM(INPUT) TO(OUTPUT) USING(CTL1)
+  /*
+  //CTL1CNTL DD *
+    INCLUDE COND=(1,2,CH,EQ,C'IT')
+    SORT FIELDS=(10,8,CH,A)
+  /*
+
+Work Datasets:
+  //SORTWKnn DD — Sort work space
+  SORT automatically allocates if not provided.
+  For large sorts: explicitly allocate SORTWKs for better performance.
+
+Pro Tip: Let DFSORT auto-allocate work datasets for most jobs. Explicit SORTWKs only for very large sorts (100M+ records).`
+    },
+
+    { title:"DFSORT — Real-World Examples", level:"Intermediate",
+      content:`Common DFSORT recipes for everyday mainframe tasks.
+
+Remove Duplicates:
+  SORT FIELDS=(1,10,CH,A)
+  SUM FIELDS=NONE
+
+Extract Unique Values:
+  SORT FIELDS=(20,3,CH,A)
+  SUM FIELDS=NONE
+  OUTREC FIELDS=(20,3)
+
+Top N Records:
+  SORT FIELDS=(40,8,PD,D)
+  OUTFIL STARTREC=1,ENDREC=10
+
+Split File by Value:
+  OUTFIL FNAMES=ITMEM,INCLUDE=(1,2,CH,EQ,C'IT')
+  OUTFIL FNAMES=HRMEM,INCLUDE=(1,2,CH,EQ,C'HR')
+  OUTFIL FNAMES=OTHER,SAVE
+
+Add Sequence Numbers:
+  INREC FIELDS=(1,80,SEQNUM,8,ZD)
+
+Count Records by Group:
+  SORT FIELDS=(1,3,CH,A)
+  OUTFIL REMOVECC,SECTIONS,
+    HEADER1=(1,3,5:COUNT=(M11,LENGTH=8))
+
+Add Header and Trailer:
+  OUTFIL HEADER1=('HD',DATE=(4MD/),C',',TIME),
+         TRAILER1=('TR',COUNT=(M11,LENGTH=8))
+
+Pro Tip: DFSORT handles most data transformation tasks faster than COBOL. Learn these recipes — they save hours of coding.`
+    },
+
+    { title:"DFSORT — OUTFIL Advanced", level:"Advanced",
+      content:`OUTFIL creates multiple output files and adds headers/trailers.
+
+Multiple Outputs:
+  OUTFIL FNAMES=OUT1,INCLUDE=(1,2,CH,EQ,C'AA')
+  OUTFIL FNAMES=OUT2,INCLUDE=(1,2,CH,EQ,C'BB')
+  OUTFIL FNAMES=OUT3,SAVE  /* Everything else */
+
+SECTIONS (Control Break):
+  OUTFIL SECTIONS=(1,3,
+    HEADER3=(1,3,10:C'Section Total:'),
+    TRAILER3=(10:TOT=(20,8,PD,EDIT=(TTT,TTT,TTT.TT))))
+  Automatic subtotals per section.
+
+Conversion:
+  OUTREC FIELDS=(1,8,10,8,PD,EDIT=(TTT,TTT,TTT.TT))
+  Packed decimal → Readable number with commas and decimal.
+
+EDIT Patterns:
+  EDIT=(TTT,TTT,TTT.TT) — 999,999,999.99
+  EDIT=(TTTTTTTT) — 99999999
+  EDIT=(SI,TTT.TT) — Sign + number
+  T = digit, I = insert sign
+
+SPLIT:
+  OUTFIL FNAMES=OUT1,SPLIT — Round-robin across output files
+  OUTFIL FNAMES=OUT1,SPLITBY=1000 — 1000 records per file
+
+Pro Tip: OUTFIL SECTIONS with TRAILER3 TOT= is the fastest way to get subtotals — no COBOL needed.`
+    },
+
+
     { title:"Interview Questions", level:"All Levels",
       content:`DFSORT/Utilities Interview Questions — 15+ Q&A.
 

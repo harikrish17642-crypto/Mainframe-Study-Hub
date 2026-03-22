@@ -308,7 +308,7 @@ export default function App() {
   // Topic-specific SEO metadata
   const TOPIC_SEO = {
     jcl: { title: "JCL Tutorial — 86 Lessons | Job Control Language | MainframeStudyHub", desc: "Complete JCL tutorial with 86 lessons. JOB, EXEC, DD statements, procedures, conditional processing, DFSORT utilities, interview Q&A, and cheat sheet. Free." },
-    cobol: { title: "COBOL Tutorial — 60 Lessons | Learn COBOL Programming | MainframeStudyHub", desc: "Learn COBOL programming with 60 lessons. All four divisions, file handling, DB2 integration, CICS, tables, string operations, interview Q&A. Free." },
+    cobol: { title: "COBOL Tutorial — 81 Lessons | Learn COBOL Programming | MainframeStudyHub", desc: "Learn COBOL programming with 81 lessons. All four divisions, file handling, DB2 integration, CICS, tables, string operations, interview Q&A. Free." },
     db2: { title: "DB2 Tutorial — SQL, Cursors, Performance | MainframeStudyHub", desc: "DB2 for z/OS tutorial. SQL, cursors, SQLCA, isolation levels, EXPLAIN, RUNSTATS, stored procedures, interview Q&A, and cheat sheet. Free." },
     cics: { title: "CICS Tutorial — Online Transaction Processing | MainframeStudyHub", desc: "CICS tutorial. Pseudo-conversational programming, BMS maps, file control, TS/TD queues, web services, interview Q&A. Free." },
     vsam: { title: "VSAM Tutorial — KSDS, ESDS, RRDS, IDCAMS | MainframeStudyHub", desc: "VSAM tutorial. KSDS, ESDS, RRDS, IDCAMS commands, alternate indexes, CI splits, performance tuning, interview Q&A. Free." },
@@ -327,7 +327,7 @@ export default function App() {
   // Page-level SEO metadata
   const PAGE_TITLES = {
     home: "MainframeStudyHub — IBM Z Mainframe Learning Platform",
-    topics: "305+ Mainframe Tutorials — JCL, COBOL, DB2, CICS, VSAM | MainframeStudyHub",
+    topics: "560+ Mainframe Tutorials — JCL, COBOL, DB2, CICS, VSAM | MainframeStudyHub",
     quiz: "200+ Mainframe Quiz Questions — Daily Challenges | MainframeStudyHub",
     scenarios: "52 Real-World Mainframe Scenarios | MainframeStudyHub",
     community: "Mainframe Developer Community — Chat & Q&A | MainframeStudyHub",
@@ -339,8 +339,8 @@ export default function App() {
     about: "About MainframeStudyHub — Built by Harikrishnan K",
   };
   const PAGE_DESCS = {
-    home: "MainframeStudyHub — Free IBM Z mainframe learning platform. 305+ lessons across 15 topics. AI Code Lab, 200+ quizzes, interview Q&A, cheat sheets.",
-    topics: "305+ mainframe tutorials: JCL (86 lessons), COBOL (60 lessons), DB2, CICS, VSAM, REXX, IMS, z/OS, RACF, TSO, SMF, DFSORT. Beginner to Expert. Free.",
+    home: "MainframeStudyHub — Free IBM Z mainframe learning platform. 560+ lessons across 15 topics. AI Code Lab, 200+ quizzes, interview Q&A, cheat sheets.",
+    topics: "560+ mainframe tutorials: JCL (86), COBOL (81), DB2 (61), CICS (61), VSAM (61), REXX, IMS, z/OS, RACF, TSO, SMF, DFSORT. Beginner to Expert. Free., REXX, IMS, z/OS, RACF, TSO, SMF, DFSORT. Beginner to Expert. Free.",
     quiz: "200+ mainframe quiz questions with daily challenges, streak tracking, and topic filtering. Test your JCL, COBOL, DB2, CICS knowledge.",
     scenarios: "52 real-world mainframe scenarios across 13 categories and 4 difficulty levels. Practice production problem solving.",
     abends: "87 IBM abend codes with instant lookup, severity levels, root causes, and fix guides. S0C7, S806, SB37, and more.",

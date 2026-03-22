@@ -452,6 +452,228 @@ Use Cases:
         name: NetworkManager
         state: restarted`
     },
+
+    { title:"Linux on Z — Installation Methods", level:"Beginner",
+      content:`Three ways to run Linux on IBM Z hardware.
+
+LPAR (Logical Partition):
+  Dedicated hardware partition for Linux.
+  Full hardware isolation. Best performance.
+  Used for: Production workloads, database servers.
+
+z/VM Guest:
+  Linux runs as a virtual machine under z/VM.
+  Hundreds of Linux instances on one machine.
+  Used for: Development, test, large-scale consolidation.
+
+KVM on Z:
+  Open-source hypervisor (like KVM on x86).
+  Linux host runs KVM → Linux guests on top.
+  Used for: Cloud-like deployment, OpenStack integration.
+
+Installation:
+  1. Create LPAR or z/VM guest
+  2. Network boot (FTP, HTTP, NFS)
+  3. Standard Linux installer (RHEL, SUSE, Ubuntu)
+  4. Configure networking, storage, DASD/FCP
+
+Supported Distributions:
+  RHEL (Red Hat Enterprise Linux)
+  SLES (SUSE Linux Enterprise Server)
+  Ubuntu Server
+  All certified for IBM Z.
+
+Pro Tip: z/VM is the most common deployment model. One z/VM can host 100+ Linux guests efficiently.`
+    },
+
+    { title:"Linux on Z — Storage", level:"Intermediate",
+      content:`Storage options for Linux on IBM Z.
+
+DASD (Direct Access Storage):
+  Traditional mainframe disk.
+  Appears as /dev/dasdX in Linux.
+  Use dasdfmt to format before use.
+  ECKD format (Count-Key-Data).
+
+FCP (Fibre Channel Protocol):
+  SAN storage via zFCP adapter.
+  Appears as standard SCSI devices in Linux.
+  /dev/sdX, /dev/dm-X (multipath).
+
+EDEV (Emulated FBA):
+  FBA (Fixed Block Architecture) disk.
+  Simpler than ECKD. Used in z/VM environments.
+
+Multipath:
+  Multiple paths to same disk for redundancy.
+  device-mapper-multipath in Linux.
+  Active-active or active-passive failover.
+
+File Systems:
+  ext4 — Standard Linux (most common)
+  XFS — High-performance, large files
+  NFS — Network file system
+
+Storage Management:
+  LVM for flexible volume management.
+  Same Linux tools as x86 (fdisk, lsblk, mount).
+
+Pro Tip: Use multipath for all production storage. Single-path = single point of failure.`
+    },
+
+    { title:"Linux on Z — Networking", level:"Intermediate",
+      content:`Network configuration for Linux on IBM Z.
+
+OSA (Open Systems Adapter):
+  Hardware network adapter. OSD (OSA-Express Direct).
+  QETH driver in Linux. Appears as ethX or encX.
+
+HiperSockets:
+  Internal high-speed networking between LPARs/guests.
+  No physical network traversal — memory-to-memory.
+  Microsecond latency. Used for: z/OS to Linux communication.
+
+VSWITCH (Virtual Switch):
+  z/VM provides virtual switches for guest networking.
+  Guests connect to VSWITCH → VSWITCH connects to OSA.
+  Like VMware vSwitch.
+
+Configuration:
+  NetworkManager or /etc/sysconfig/network-scripts (RHEL)
+  wicked or /etc/sysconfig/network (SLES)
+  netplan (Ubuntu)
+
+Bonding:
+  Combine multiple network interfaces for redundancy/throughput.
+  Mode 1 (active-backup) most common on Z.
+
+Pro Tip: HiperSockets for z/OS↔Linux communication (ultra-fast). OSA for external network. VSWITCH for guest-to-guest under z/VM.`
+    },
+
+    { title:"Linux on Z — z/VM Integration", level:"Intermediate",
+      content:`z/VM is the hypervisor that makes Linux on Z scalable.
+
+z/VM Architecture:
+  z/VM runs on LPAR → Creates virtual machines → Linux runs in VMs.
+  CP (Control Program) = hypervisor
+  CMS (Conversational Monitor System) = z/VM user environment
+
+Guest Management:
+  DEFINE virtual machine (CPU, memory, storage)
+  IPL (boot) Linux from DASD or network
+  ATTACH devices to guests
+
+Resource Sharing:
+  Memory overcommit — Allocate more memory than physical (CMM)
+  CPU sharing — z/VM scheduler distributes CPU across guests
+  Shared read-only disks — One copy, many guests
+
+z/VM SMAPI:
+  System Management API for programmatic guest management.
+  Create, start, stop, clone VMs via API.
+
+Performance Features:
+  CMM (Collaborative Memory Management) — z/VM + Linux cooperate on memory
+  VDISK — In-memory virtual disk (fast temp storage)
+  IRD (Intelligent Resource Director) — Dynamic resource balancing
+
+Pro Tip: z/VM can run 100+ Linux guests on a single LPAR. It's the most efficient virtualization platform for Linux on Z.`
+    },
+
+    { title:"Linux on Z — Containers & Cloud", level:"Advanced",
+      content:`Modern cloud-native workloads on IBM Z.
+
+Docker on Z:
+  Standard Docker runs on s390x architecture.
+  s390x container images available for most popular software.
+  docker pull redis:latest — Works on Z (multi-arch images).
+
+Kubernetes on Z:
+  Full Kubernetes on Linux on Z.
+  Managed: Red Hat OpenShift on Z.
+  Self-managed: Kubernetes from SUSE, Canonical.
+
+OpenShift on Z:
+  Enterprise Kubernetes platform on IBM Z.
+  Hybrid cloud: Same platform on Z, x86, Power, cloud.
+  Deploy same containers across architectures.
+
+Cloud Integration:
+  IBM Cloud Pak for Applications on Z
+  Ansible for z/OS automation
+  Terraform for infrastructure provisioning
+
+Benefits:
+  • Run cloud-native apps on Z hardware
+  • Leverage Z security, reliability, crypto
+  • Hybrid cloud consistency
+  • Data gravity — Keep processing near mainframe data
+
+Pro Tip: OpenShift on Z is the future for modernizing mainframe workloads. Same DevOps, same containers, Z reliability.`
+    },
+
+    { title:"Linux on Z — Security", level:"Advanced",
+      content:`IBM Z hardware provides unique security features for Linux.
+
+Pervasive Encryption:
+  z15/z16 hardware encrypts everything — data at rest, in transit, in use.
+  CPACF acceleration — no performance impact.
+  dm-crypt for disk encryption with hardware acceleration.
+
+Secure Execution (SE):
+  Protected virtual machines — even z/VM admin can't see guest memory.
+  Confidential computing for sensitive workloads.
+  Perfect for: multi-tenant environments, regulated data.
+
+Crypto Express:
+  Hardware Security Module (HSM) built into Z hardware.
+  PKCS#11 for key management.
+  Used by: TLS certificates, digital signing, key storage.
+
+SELinux:
+  Standard Linux security module, fully supported on Z.
+  Mandatory access control.
+
+LDAP/RACF Integration:
+  Linux can authenticate against RACF via LDAP.
+  Single sign-on between z/OS and Linux.
+
+Pro Tip: IBM Z Secure Execution is unique — no other platform offers true confidential computing at this scale.`
+    },
+
+    { title:"Linux on Z — Use Cases", level:"Beginner",
+      content:`Why run Linux on Z instead of x86?
+
+Server Consolidation:
+  Replace 100+ x86 servers with one Z system.
+  Lower: power, cooling, floor space, networking, licenses.
+  Higher: utilization (z/VM drives 80%+ CPU utilization).
+
+Data Serving:
+  Database servers close to mainframe data.
+  PostgreSQL, MongoDB, MariaDB on Linux on Z.
+  Low-latency access to DB2 z/OS via DRDA or HiperSockets.
+
+Middleware:
+  WebSphere, Apache, Nginx on Linux on Z.
+  Java application servers near mainframe backends.
+
+Analytics:
+  Spark, Kafka, ELK stack on Linux on Z.
+  Process mainframe data without moving it off-platform.
+
+DevOps:
+  Git, Jenkins, Ansible on Linux on Z.
+  CI/CD pipelines for mainframe and distributed apps.
+
+Cost Model:
+  Z hardware is expensive. But: fewer servers, less admin, higher utilization, lower power, included crypto.
+  Break-even typically at 10-20 x86 servers consolidated.
+
+Pro Tip: The sweet spot for Linux on Z is workloads that need mainframe data, security, or reliability but want Linux flexibility.`
+    },
+
+
     { title:"Interview Questions", level:"All Levels",
       content:`Linux on Z Interview Questions — 15+ Q&A.
 

@@ -809,6 +809,265 @@ Resources for Continuous Learning:
   • Open Mainframe Project (Linux Foundation)
   • This website — Mainframe OS Hub!`
     },
+
+    { title:"Zowe — Open Source Mainframe Interface", level:"Beginner",
+      content:`Zowe provides modern interfaces to z/OS — CLI, REST APIs, and VS Code extension.
+
+Components:
+  Zowe CLI — Command-line access to z/OS from any workstation
+  Zowe Explorer (VS Code) — Browse, edit, submit JCL from VS Code
+  Zowe API Mediation Layer — API gateway for z/OS services
+  Zowe Desktop — Web-based z/OS interface
+
+Zowe CLI Examples:
+  zowe zos-files list ds "MY.PDS.*" — List datasets
+  zowe zos-files download ds "MY.FILE" — Download file
+  zowe zos-jobs submit lf "my.jcl" — Submit JCL
+  zowe zos-jobs list jobs — List jobs
+
+VS Code + Zowe Explorer:
+  Browse PDS members in VS Code file explorer.
+  Edit COBOL, JCL, REXX with modern editor.
+  Submit JCL and view output — all from VS Code.
+
+Benefits:
+  • Developers use familiar tools (VS Code, CLI, Git)
+  • No 3270 emulator needed for basic tasks
+  • Scriptable (CI/CD pipelines)
+  • Open source (Apache 2.0 license)
+
+Pro Tip: Zowe CLI + VS Code is the modern mainframe developer experience. Learn it — it's the future of z/OS interaction.`
+    },
+
+    { title:"z/OS Connect — REST APIs", level:"Intermediate",
+      content:`z/OS Connect exposes mainframe programs as REST APIs automatically.
+
+How It Works:
+  1. COBOL program with COMMAREA/container interface (no changes needed)
+  2. z/OS Connect generates API from program interface
+  3. Maps: HTTP request → JSON → COBOL data structure → process → JSON → HTTP response
+
+Creating an API:
+  1. Build Service Archive (.sar) from CICS/IMS program
+  2. Deploy to z/OS Connect server
+  3. Configure endpoint (URL mapping)
+  4. API available at https://server/api/v1/customers
+
+Swagger/OpenAPI:
+  z/OS Connect auto-generates Swagger documentation.
+  Frontend developers see standard API docs.
+  No mainframe knowledge needed to consume the API.
+
+Supported Backends:
+  CICS — Via CICS service provider
+  IMS — Via IMS service provider
+  DB2 — Via DB2 service provider
+  MQ — Via MQ service provider
+
+Pro Tip: z/OS Connect is the easiest way to REST-enable mainframe programs. Zero COBOL changes — just configuration.`
+    },
+
+    { title:"CI/CD for Mainframe", level:"Intermediate",
+      content:`Modern DevOps pipelines for mainframe application delivery.
+
+Pipeline Stages:
+  1. Code (Git) → 2. Build (DBB/Rocket) → 3. Test (zUnit) → 4. Deploy (UCD/Ansible)
+
+IBM Dependency Based Build (DBB):
+  Compiles COBOL/PL1 on z/OS.
+  Understands copybook dependencies — builds only what changed.
+  Integrates with Jenkins/GitHub Actions.
+
+Git for Mainframe:
+  Source code in Git (not Endevor/ChangeMan).
+  Feature branches, pull requests, code reviews.
+  Same workflow as distributed development.
+
+Testing:
+  zUnit — Unit testing for COBOL
+  IBM Debug for z/OS — Interactive debugging
+  Galasa — Integration testing framework
+
+Deployment:
+  IBM UrbanCode Deploy (UCD) — Deploy to z/OS
+  Ansible — Automate z/OS tasks
+  Wazi Deploy — Cloud-native deployment to z/OS
+
+Jenkins Pipeline Example:
+  node { checkout → DBB build on z/OS → zUnit test → UCD deploy }
+
+Pro Tip: Start with Git + DBB for build. Add testing and automated deployment incrementally. Don't try to change everything at once.`
+    },
+
+    { title:"IBM Wazi — Cloud IDE for Mainframe", level:"Intermediate",
+      content:`IBM Wazi provides cloud-based development tools for mainframe.
+
+Wazi for VS Code:
+  VS Code extension for z/OS development.
+  COBOL/PL1 language support (syntax, autocomplete).
+  Integrated debugger for mainframe programs.
+  Connect to z/OS or use local Wazi sandbox.
+
+Wazi Sandbox:
+  Local z/OS development environment.
+  Runs on x86 (Docker/Podman container).
+  Develop and test without mainframe access.
+  Includes: COBOL compiler, CICS, DB2 (subset).
+
+Wazi Analyze:
+  Understand legacy code before modifying.
+  Dependency graphs, impact analysis, complexity metrics.
+  "What programs are affected if I change this copybook?"
+
+Wazi Deploy:
+  Cloud-native deployment to z/OS.
+  Integrates with GitOps workflows.
+
+Benefits:
+  • Attract new developers (modern tools)
+  • Faster development (local sandbox)
+  • Better code quality (analysis tools)
+  • CI/CD integration
+
+Pro Tip: Wazi Sandbox lets new developers practice mainframe development without production mainframe access. Perfect for training.`
+    },
+
+    { title:"API Mediation Layer", level:"Advanced",
+      content:`API gateway that unifies access to z/OS services.
+
+What It Does:
+  Single entry point for all z/OS APIs.
+  Authentication, routing, load balancing, monitoring.
+
+Components:
+  API Gateway — Routes requests to backend services
+  Discovery Service — Services register themselves
+  API Catalog — Swagger/OpenAPI documentation portal
+  Caching Service — Performance optimization
+
+How It Works:
+  Client → API Gateway → Discovers service → Routes to z/OS backend → Response
+  All through HTTPS with SSO.
+
+SSO (Single Sign-On):
+  Authenticate once with API ML → Access all registered services.
+  Supports: z/OS credentials, MFA, client certificates, JWT tokens.
+
+Service Registration:
+  z/OS Connect, CICS, IMS services register with Discovery Service.
+  API Catalog shows all available APIs with documentation.
+
+Benefits:
+  • One URL to access all mainframe APIs
+  • Consistent security and authentication
+  • Auto-generated API documentation
+  • Monitoring and rate limiting
+
+Pro Tip: API Mediation Layer + z/OS Connect + Zowe = complete modernization stack. All open source or IBM-supported.`
+    },
+
+    { title:"Mainframe & Microservices", level:"Advanced",
+      content:`Patterns for integrating mainframe with microservices architecture.
+
+Strangler Fig Pattern:
+  Gradually replace monolith functionality with microservices.
+  Route specific endpoints to new services, rest to mainframe.
+  Over time, more traffic goes to microservices.
+
+API Wrapper:
+  Wrap existing COBOL with REST API (z/OS Connect).
+  Microservices call mainframe via API.
+  No COBOL changes — just a new interface.
+
+Event Streaming:
+  Mainframe → MQ/Kafka → Microservices
+  CICS/IMS transactions publish events.
+  Microservices subscribe and react.
+
+Data Synchronization:
+  CDC (Change Data Capture) from DB2.
+  IIDR (IBM InfoSphere Data Replication).
+  Mainframe data → Kafka → Distributed database.
+
+Hybrid Architecture:
+  Core transactions: CICS/COBOL on z/OS (proven, fast)
+  New features: Microservices on cloud (agile, scalable)
+  Connected via: APIs, MQ, event streams
+
+Anti-Pattern:
+  Don't rewrite working COBOL to Java. Risk is enormous.
+  Wrap, extend, connect — don't replace.
+
+Pro Tip: "Modernize the interface, keep the engine" — wrap COBOL with APIs, build new features as microservices.`
+    },
+
+    { title:"Ansible for z/OS", level:"Intermediate",
+      content:`Automate z/OS operations with Ansible — no agents needed.
+
+IBM z/OS Core Collection:
+  Ansible modules for z/OS operations:
+  zos_data_set — Create, delete, manage datasets
+  zos_copy — Copy files to/from z/OS
+  zos_job_submit — Submit JCL and check results
+  zos_tso_command — Execute TSO commands
+  zos_operator — Issue operator commands
+
+Example Playbook:
+  - hosts: zos_servers
+    tasks:
+      - name: Submit batch job
+        ibm.ibm_zos_core.zos_job_submit:
+          src: PROD.JCL(PAYROLL)
+          location: DATA_SET
+        register: job_result
+      - name: Check result
+        assert:
+          that: job_result.jobs[0].ret_code.code == 0
+
+Use Cases:
+  • Automated deployment (promote load modules)
+  • Environment setup (create datasets, configure)
+  • Health checks (verify systems, check jobs)
+  • Disaster recovery automation
+
+Benefits:
+  Same Ansible for z/OS AND distributed — unified automation.
+
+Pro Tip: Start with simple automation (dataset management, JCL submission). Build complexity gradually.`
+    },
+
+    { title:"Mainframe Testing Strategies", level:"Intermediate",
+      content:`Modern testing approaches for mainframe applications.
+
+Unit Testing (zUnit):
+  Test individual COBOL paragraphs.
+  Mock file I/O and DB2 calls.
+  Assert expected output for given input.
+
+Integration Testing:
+  Test complete job streams end-to-end.
+  Galasa framework — Define test scenarios declaratively.
+  Automated: Setup test data → Run jobs → Verify output → Cleanup.
+
+Regression Testing:
+  Compare output before/after code changes.
+  File compare utilities (SUPERC, DFSORT ICETOOL).
+  Automated comparison in CI/CD pipeline.
+
+Performance Testing:
+  Measure impact of code changes on CPU/elapsed time.
+  Compare SMF Type 30 before and after.
+  Benchmark critical batch jobs.
+
+Test Data Management:
+  Subset production data for testing.
+  Mask sensitive data (names, SSN, account numbers).
+  IBM InfoSphere Optim for test data management.
+
+Pro Tip: Automated testing on mainframe is achievable. Start with regression tests (compare output files) — highest value, lowest effort.`
+    },
+
+
     { title:"Interview Questions", level:"All Levels",
       content:`Modernization Interview Questions — 15+ Q&A.
 

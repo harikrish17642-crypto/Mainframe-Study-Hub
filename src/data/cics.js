@@ -1615,6 +1615,627 @@ Pro Tip: ASRA is the CICS equivalent of batch S0C7/S0C4. Debug the same way — 
     },
 
 
+
+    { title:"CICS — Program Control Table (PCT)", level:"Intermediate",
+      content:`The PCT maps transaction IDs to programs. Every CICS transaction needs a PCT entry.
+
+PCT Entry Contains:
+  TRANSID — 4-character transaction identifier
+  PROGRAM — Initial program to load
+  TWASIZE — Transaction Work Area size
+  TASKDATALOC — BELOW/ANY (storage location)
+  PROFILE — Default profile for the transaction
+
+Defining via RDO (CEDA):
+  CEDA DEFINE TRANSACTION(CUST) GROUP(MYGROUP)
+    PROGRAM(CUSTPGM) TWASIZE(0) TASKDATALOC(ANY)
+  CEDA INSTALL TRANSACTION(CUST) GROUP(MYGROUP)
+
+PCT vs RDO:
+  PCT (macro) — Legacy. Assembled into CICS load module.
+  RDO (CEDA/CSD) — Modern. Dynamic, no CICS restart needed.
+  All new definitions should use RDO.
+
+Listing Transactions:
+  CEMT INQ TRANSACTION(CUST) — Shows status, program, profile
+  CEMT SET TRANSACTION(CUST) DISABLED — Disable transaction
+  CEMT SET TRANSACTION(CUST) ENABLED — Re-enable
+
+Pro Tip: Use CEDA for all resource definitions. PCT macros are legacy — only found in very old shops.`
+    },
+
+    { title:"CICS — Processing Program Table (PPT)", level:"Intermediate",
+      content:`The PPT tracks programs, mapsets, and partition sets available in CICS.
+
+PPT Entry Contains:
+  PROGRAM — Program name (up to 8 characters)
+  LANGUAGE — COBOL, Assembler, C, PL/I
+  DATALOCATION — BELOW/ANY
+  EXECKEY — USER/CICS (security level)
+  STATUS — ENABLED/DISABLED
+  USECOUNT — Number of tasks currently using it
+
+Defining:
+  CEDA DEFINE PROGRAM(CUSTPGM) GROUP(MYGROUP) LANGUAGE(COBOL)
+  CEDA INSTALL PROGRAM(CUSTPGM) GROUP(MYGROUP)
+
+NEWCOPY:
+  After recompiling a program:
+  CEMT SET PROGRAM(CUSTPGM) NEWCOPY
+  Loads the new version. Active tasks finish with old version.
+
+PHASEOUT:
+  CEMT SET PROGRAM(CUSTPGM) PHASEIN
+  New tasks get new version. Old tasks continue with old. Gradual rollout.
+
+Checking Status:
+  CEMT INQ PROGRAM(CUSTPGM)
+  Shows: Language, status, use count, load address.
+
+Pro Tip: Always NEWCOPY after deploying updated load modules. Without it, CICS keeps using the cached old version.`
+    },
+
+    { title:"CICS — File Control Table (FCT)", level:"Intermediate",
+      content:`The FCT defines VSAM and BDAM files accessible in CICS.
+
+FCT Entry Contains:
+  FILE — Logical file name (used in EXEC CICS commands)
+  DSNAME — Physical dataset name
+  RECORDFORMAT — V/F (variable/fixed)
+  ADD/BROWSE/DELETE/READ/UPDATE — Operations allowed
+  OPENTIME — STARTUP/FIRSTREF (when to open)
+  DISPOSITION — SHARE/OLD
+  RLSACCESS — YES/NO (Record Level Sharing)
+  LSRPOOLID — Buffer pool assignment
+
+Defining:
+  CEDA DEFINE FILE(CUSTFILE) GROUP(MYGROUP)
+    DSNAME(PROD.CUST.KSDS) ADD(YES) BROWSE(YES)
+    DELETE(YES) READ(YES) UPDATE(YES)
+    OPENTIME(FIRSTREF) DISPOSITION(SHARE)
+
+Operations:
+  CEMT SET FILE(CUSTFILE) OPEN — Open file
+  CEMT SET FILE(CUSTFILE) CLOSE — Close file
+  CEMT INQ FILE(CUSTFILE) — Check status
+
+CEMT SET FILE CLOSE/OPEN Pattern:
+  Close for batch window: CEMT SET FILE(CUSTFILE) CLOSE
+  Reopen after batch: CEMT SET FILE(CUSTFILE) OPEN
+
+Pro Tip: OPENTIME(FIRSTREF) opens files on first access — saves startup time. OPENTIME(STARTUP) opens at CICS initialization.`
+    },
+
+    { title:"CICS — Destination Control Table (DCT)", level:"Intermediate",
+      content:`The DCT defines Transient Data queues and their properties.
+
+Intrapartition TD Queue:
+  CEDA DEFINE TDQUEUE(LOGA) GROUP(MYGROUP)
+    TYPE(INTRA) TRIGGERLEVEL(50) TRANSID(PRTQ)
+  When 50 records written → auto-start transaction PRTQ.
+
+Extrapartition TD Queue:
+  CEDA DEFINE TDQUEUE(PRNT) GROUP(MYGROUP)
+    TYPE(EXTRA) DDNAME(PRTDD) DISPOSITION(MOD)
+    RECORDFORMAT(FIXED) RECORDLENGTH(133)
+  Maps to JCL DD: //PRTDD DD SYSOUT=*
+
+Indirect TD Queue:
+  Points to another queue. Used for redirection.
+
+Trigger Level:
+  Auto-starts a transaction when queue depth reaches the trigger.
+  TRIGGERLEVEL(100) TRANSID(PROC) → After 100 records, start PROC.
+  Powerful for event-driven processing.
+
+Queue Management:
+  CEMT INQ TDQUEUE(LOGA) — Check depth, trigger status
+  CEMT SET TDQUEUE(LOGA) ENABLED/DISABLED
+
+Pro Tip: Trigger levels are CICS's event-driven mechanism. Use them for automatic batch-like processing within CICS.`
+    },
+
+    { title:"CICS — System Programming Interface (SPI)", level:"Expert",
+      content:`SPI commands let programs perform administrative tasks programmatically.
+
+EXEC CICS INQUIRE:
+  INQUIRE TRANSACTION/PROGRAM/FILE/TDQUEUE/TSQUEUE — Check resource status.
+  Returns: Status, use count, open/close state, etc.
+
+EXEC CICS SET:
+  SET PROGRAM(name) NEWCOPY — Load new version
+  SET FILE(name) OPEN/CLOSE — Open/close file
+  SET TRANSACTION(name) ENABLED/DISABLED — Enable/disable
+  SET TASK(num) PURGE — Force-end a stuck task
+
+EXEC CICS CREATE:
+  CREATE TRANSACTION(name) ATTRIBUTES(...) — Define resource dynamically
+  Powerful for auto-scaling, dynamic configuration.
+
+EXEC CICS DISCARD:
+  DISCARD TRANSACTION(name) — Remove resource definition
+  Opposite of CREATE/INSTALL.
+
+EXEC CICS COLLECT STATISTICS:
+  Programmatically gather CICS statistics for monitoring.
+
+EXEC CICS PERFORM:
+  PERFORM SHUTDOWN — Initiate CICS shutdown
+  PERFORM RESETTIME — Reset CICS clock
+
+Use Cases:
+  • Automated monitoring programs
+  • Self-healing applications (detect problem → restart resource)
+  • Dynamic resource management
+
+Pro Tip: SPI is for system programming, not application programming. Needs SYSADM authority.`
+    },
+
+    { title:"CICS — Event Processing", level:"Expert",
+      content:`CICS Event Processing captures business events for real-time analytics and integration.
+
+What It Does:
+  CICS monitors program behavior and emits events when specific conditions occur.
+  Events sent to: Event processing adapters (EP adapters) → external systems.
+
+Event Types:
+  System events — CICS internal (task start/end, abend, etc.)
+  Custom events — Defined by application (e.g., "high-value transaction")
+
+Defining Events:
+  Use CICS Explorer or CEDA to define event bindings:
+  • Which program/command triggers the event
+  • What data to capture
+  • Where to send it
+
+EP Adapters:
+  WebSphere MQ adapter — Send events to MQ queues
+  HTTP adapter — POST events to REST endpoints
+  Custom adapter — Your own processing logic
+
+Event Emission:
+  Transparent to the application — no code changes.
+  CICS intercepts EXEC CICS commands and emits events based on definitions.
+
+Use Cases:
+  • Real-time fraud detection (high-value transactions)
+  • Business activity monitoring (BAM)
+  • Audit trail generation
+  • Integration with analytics platforms
+
+Pro Tip: Event processing enables real-time mainframe analytics without modifying legacy COBOL programs.`
+    },
+
+    { title:"CICS — Liberty JVM Server", level:"Expert",
+      content:`CICS Liberty enables Java/web applications to run alongside COBOL in the same CICS region.
+
+What It Is:
+  WebSphere Liberty embedded in CICS.
+  Runs Java servlets, JSPs, JAX-RS (REST) services.
+  Java can call COBOL (via JCICS API) and vice versa.
+
+Architecture:
+  CICS Region → JVM Server → Liberty → Java Apps
+  Java accesses CICS resources through JCICS.
+
+JCICS API:
+  Program prog = new Program(); prog.link() — LINK to COBOL
+  Channel chan = Task.getChannel() — Get channel data
+  KSDS file = new KSDS(); file.read() — Read VSAM
+
+Benefits:
+  • Run Java alongside COBOL in same region
+  • Java accesses CICS resources natively
+  • REST APIs from CICS without z/OS Connect
+  • Modern deployment (WAR files, Maven/Gradle)
+  • Spring Boot support
+
+Deployment:
+  Deploy Java apps as WAR/EAR to Liberty.
+  Configure JVM server in CICS resource definitions.
+  CEDA DEFINE JVMSERVER(DFHWLP) GROUP(WEBGRP)
+
+Pro Tip: Liberty JVM Server is the modern CICS development model. New CICS applications are increasingly Java + COBOL hybrid.`
+    },
+
+    { title:"CICS — 3270 Bridge & Terminal Emulation", level:"Advanced",
+      content:`Access 3270-based transactions programmatically without a real terminal.
+
+3270 Bridge:
+  Allows a program to drive a 3270 transaction as if it were a user.
+  Used for: Screen scraping, web-to-3270, automated testing.
+
+How It Works:
+  Client program → LINK to bridge → Bridge creates virtual terminal → Runs target transaction → Returns screen data.
+
+EXEC CICS START:
+  START TRANSID('CUST') CHANNEL('BRIDGE')
+  With appropriate bridge parameters in containers.
+
+Web-to-3270:
+  HTTP request → CICS web service → Bridge → Legacy 3270 transaction → Response.
+  Enables web access to legacy apps without rewriting.
+
+Bridge Exit:
+  Customize bridge behavior — transform data, skip screens, handle errors.
+
+CICSPlex SM:
+  CICS management interface that uses bridge technology.
+
+Modern Alternatives:
+  • CICS web services (expose COBOL directly as API)
+  • z/OS Connect (API gateway)
+  • CICS Liberty (Java REST + JCICS)
+
+Pro Tip: Bridge is useful for quick wins — web-enable legacy apps without code changes. For new development, use APIs instead.`
+    },
+
+
+
+    { title:"CICS — Best Practices Summary", level:"All Levels",
+      content:`Essential CICS best practices for production applications.
+
+Programming Best Practices:
+  • Always use pseudo-conversational (never conversational)
+  • Check EIBCALEN on entry — 0 means first invocation
+  • Use RESP option on every EXEC CICS command (not HANDLE CONDITION)
+  • Keep COMMAREA small — only essential state data
+  • Always ENDBR after browse operations
+  • Always DELETEQ TS when done with queues
+  • Use CHANNELS for new development (>32KB data)
+
+Error Handling:
+  • RESP(WS-RESP) on every command — check for DFHRESP(NORMAL)
+  • Handle NOTFND, DUPREC, ENDFILE explicitly
+  • HANDLE ABEND for unexpected errors only
+  • SYNCPOINT ROLLBACK on errors to undo changes
+
+Performance Best Practices:
+  • Keep transactions short (< 1 second response time target)
+  • Minimize file I/O — read once, process in memory
+  • Use MAPONLY for first display, DATAONLY for updates
+  • READ with UPDATE only when actually updating (locks record)
+  • Release locks quickly — REWRITE immediately after READ UPDATE
+
+Debugging:
+  • CEDF — Step through EXEC CICS commands
+  • CECI — Test commands interactively
+  • CEBR — Browse TS queues
+  • CEMT — Check resource status
+  • NEWCOPY after every recompile
+
+Deployment:
+  • Test in development CICS region first
+  • CEMT SET PROGRAM(name) NEWCOPY after promoting load modules
+  • Verify with CEMT INQ PROGRAM — check use count
+
+Pro Tip: The golden rule of CICS: pseudo-conversational + RESP option + short transactions. Master these three and 90% of CICS problems disappear.`
+    },
+
+
+
+    { title:"CICS — Shared Data Tables", level:"Advanced",
+      content:`Shared Data Tables (SDT) load VSAM data into memory for ultra-fast read access.
+
+Types:
+  Coupling Facility Data Table (CFDT) — Shared across regions via CF
+  User-Maintained Data Table (UMT) — In-memory copy, app manages updates
+  CICS-Maintained Data Table (CMT) — CICS auto-syncs with VSAM source
+
+How CMT Works:
+  1. CICS loads VSAM file into memory at OPEN time
+  2. READ commands access memory (no disk I/O)
+  3. WRITE/REWRITE/DELETE update both memory AND VSAM
+  4. Other regions see updates via CF (if CFDT)
+
+Benefits:
+  Sub-millisecond read times. No disk I/O for lookups.
+  Perfect for: reference tables, code lookups, rate tables.
+
+Defining:
+  CEDA DEFINE FILE(RATETBL) ... TABLE(YES) MAXNUMRECS(10000)
+
+Limitations:
+  Memory consumption. Not for large or frequently updated files.
+  CMT adds overhead on writes (update memory + disk).
+
+Pro Tip: Use CMT for small, read-heavy reference tables (country codes, currency rates). Dramatic performance improvement.`
+    },
+
+    { title:"CICS — Asynchronous Processing", level:"Expert",
+      content:`Process work in the background without blocking the user's transaction.
+
+START (Fire and Forget):
+  EXEC CICS START TRANSID('BGND') FROM(WS-DATA) LENGTH(WS-LEN) END-EXEC
+  Starts a new task. Current task continues immediately.
+
+START with CHANNEL:
+  EXEC CICS START TRANSID('BGND') CHANNEL('MYDATA') END-EXEC
+  Pass complex data via channel containers.
+
+RETRIEVE (in Background Task):
+  EXEC CICS RETRIEVE INTO(WS-DATA) LENGTH(WS-LEN) END-EXEC
+  Background task picks up the data.
+
+Async Patterns:
+  1. User submits request → START background task → Respond "Processing"
+  2. Background task processes → Writes result to TS queue
+  3. User polls or gets notification when done
+
+MQ-Based Async:
+  MQPUT to request queue → Separate task/region processes → MQPUT result to reply queue.
+  Most robust pattern for cross-system async.
+
+Benefits:
+  • User gets fast response (no waiting for slow processing)
+  • Background tasks can retry on failure
+  • Decouple request from processing
+
+Pro Tip: For long-running operations (reports, batch-like), always use async. Never make users wait more than 3 seconds.`
+    },
+
+    { title:"CICS — CICSPlex System Manager", level:"Expert",
+      content:`CICSPlex SM manages multiple CICS regions as a single entity.
+
+What It Does:
+  • Monitor all CICS regions from one place
+  • Route workload across regions
+  • Deploy resources to multiple regions at once
+  • Set alerts and automation rules
+
+Components:
+  CMAS — CICSPlex Management Address Space (manager)
+  MAS — Managed Address Space (each CICS region)
+  WUI — Web User Interface (browser-based management)
+
+Workload Management:
+  Routes transactions to optimal region based on:
+  Health, capacity, affinity rules, response time targets.
+
+Resource Management:
+  Define resources once → deploy to all regions.
+  BAS (Business Application Services) groups related resources.
+
+Monitoring:
+  Real-time dashboards: task counts, response times, storage, files.
+  Historical data for trend analysis.
+  Alerts when thresholds exceeded.
+
+CPSM API:
+  Programs can query CICSPlex SM data:
+  EXEC CPSM CONNECT / INQUIRE / SET / DISCONNECT
+
+Pro Tip: CICSPlex SM is essential for enterprises with 10+ CICS regions. Know it for systems programmer and architect roles.`
+    },
+
+    { title:"CICS — Containers & Document Templates", level:"Intermediate",
+      content:`Beyond COMMAREA — modern data passing in CICS.
+
+Containers:
+  Named data items within a channel. Any size.
+  PUT CONTAINER('CUSTDATA') CHANNEL('MYCHAN') FROM(WS-DATA)
+  GET CONTAINER('CUSTDATA') CHANNEL('MYCHAN') INTO(WS-DATA)
+  Multiple containers per channel (like named parameters).
+
+Advantages Over COMMAREA:
+  • No 32KB limit
+  • Multiple named data items
+  • Natural fit for web services (each container = one parameter)
+  • BIT or CHAR data types
+
+Document Templates:
+  EXEC CICS DOCUMENT CREATE DOCTOKEN(WS-TOKEN) END-EXEC
+  EXEC CICS DOCUMENT INSERT DOCTOKEN(WS-TOKEN) TEXT(WS-HTML) END-EXEC
+  EXEC CICS DOCUMENT RETRIEVE DOCTOKEN(WS-TOKEN) INTO(WS-OUTPUT) END-EXEC
+  Build dynamic HTML/XML responses.
+
+Template Symbols:
+  Define template: "Hello &NAME;, your balance is &BAL;"
+  EXEC CICS DOCUMENT SET DOCTOKEN(WS-TOKEN) SYMBOL('NAME') VALUE('HARI')
+  Symbols replaced with values at retrieve time.
+
+Pro Tip: Use containers for program-to-program data. Use document templates for generating dynamic web content.`
+    },
+
+    { title:"CICS — Atom Feeds & RSS", level:"Expert",
+      content:`CICS can serve Atom/RSS feeds directly from mainframe data.
+
+How It Works:
+  CICS serves XML-formatted Atom feeds via HTTP.
+  Client (browser, feed reader) requests URL → CICS returns Atom XML.
+
+Setup:
+  1. Define ATOMSERVICE resource (maps URL to CICS service)
+  2. Create Atom configuration file (XML template)
+  3. CICS program provides data → Atom framework formats XML
+  4. Client receives standard Atom feed
+
+Use Cases:
+  • Expose mainframe data changes as feeds
+  • Real-time alerts (new transactions, status changes)
+  • Integration with feed aggregators
+  • Simple REST-like read access
+
+Why It Matters:
+  Low-effort way to expose mainframe data to web consumers.
+  No COBOL changes — configuration only.
+
+Modern Alternative:
+  REST APIs via CICS Liberty or z/OS Connect are more flexible.
+  Atom feeds are niche but useful for publish/subscribe patterns.
+
+Pro Tip: Atom feeds are a lightweight alternative to full REST APIs for read-only data exposure.`
+    },
+
+    { title:"CICS — Abend Handling Deep Dive", level:"Intermediate",
+      content:`Complete guide to CICS abend codes and recovery.
+
+Common CICS Abends:
+  ASRA — Program check (S0C7/S0C4 equivalent). Data exception or addressing error.
+  AICA — Runaway task. Infinite loop detected.
+  AEY9 — DB2 call failed. DB2 not connected or unavailable.
+  AKCS — Deadlock. Two tasks waiting for each other's locks.
+  AEIO — File I/O error. File not open, not found, or disabled.
+  AEXL — Program not found (XCTL/LINK target missing).
+  APCT — Transaction not defined in PCT.
+  AFCR — File control error during recovery.
+
+ASRA Debugging:
+  1. Check transaction dump (CETR or dump dataset)
+  2. Find offset in dump → map to source line
+  3. Identify variable causing S0C7/S0C4
+  4. Common cause: uninitialized COMP-3, bad subscript
+
+AICA Debugging:
+  1. CICS detected loop (exceeded ICVTSD timer)
+  2. Check program logic for: missing READ in loop, wrong condition, missing EXIT
+  3. CEDF to step through and find the loop
+
+Recovery Options:
+  HANDLE ABEND PROGRAM('errpgm') — Run recovery program
+  HANDLE ABEND LABEL(err-para) — Jump to paragraph
+  HANDLE ABEND CANCEL — Let CICS handle (transaction dump + rollback)
+
+Pro Tip: ASRA is 80% of CICS abends. Debug it exactly like batch S0C7 — check data values at the failing statement.`
+    },
+
+    { title:"CICS — Global User Exit (GLUE)", level:"Expert",
+      content:`Global User Exits let you customize CICS behavior at system-level intercept points.
+
+What They Are:
+  Hook points in CICS processing where your code gets control.
+  Written in Assembler (not COBOL).
+
+Common Exit Points:
+  XFCREQ — File control request (before file I/O)
+  XFCREQE — File control request end (after file I/O)
+  XTSEREQ — TS queue request
+  XTDEREQ — TD queue request
+  XPCREQ — Program control request (before LINK/XCTL)
+  XICEREQ — Interval control request
+
+Use Cases:
+  • Audit all file access (XFCREQ)
+  • Custom security checks
+  • Performance monitoring
+  • Data masking for sensitive fields
+  • Request routing/filtering
+
+Enabling:
+  EXEC CICS ENABLE EXIT('MYEXIT') PROGRAM('EXITPGM') START END-EXEC
+  Or define in SIT: EXITS=YES
+
+Caution:
+  Exits run on EVERY matching request — must be very fast.
+  Bugs in exits can crash entire CICS region.
+
+Pro Tip: Global exits are for system programmers, not application programmers. Use only when no other option exists.`
+    },
+
+    { title:"CICS — Docker & Cloud Deployment", level:"Expert",
+      content:`Modern CICS deployment options beyond traditional z/OS.
+
+CICS TS on z/OS:
+  Traditional. Most production CICS runs here.
+  z/OS provides: security (RACF), storage (SMS), networking (VTAM/TCP).
+
+CICS Liberty in Containers:
+  Java/Liberty components can run in Docker/Kubernetes.
+  JCICS apps packaged as container images.
+  Deploy to OpenShift on Z or hybrid cloud.
+
+z/OS Cloud Provisioning:
+  Provision CICS regions on-demand via z/OSMF.
+  Templates define: CICS configuration, DB2 connections, files.
+  Self-service portal for developers.
+
+CICS Cloud-Native:
+  CICS TS V6 features:
+  • Cloud-native APIs
+  • JSON/REST native support
+  • Enhanced Liberty integration
+  • DevOps pipeline support (Git, Jenkins, Maven)
+
+Hybrid Architecture:
+  CICS on z/OS (core transactions) + Microservices on cloud (new features)
+  Connected via: REST APIs, MQ, Event streaming.
+
+Pro Tip: The future of CICS is hybrid — core COBOL on z/OS, new Java services on cloud, connected via APIs.`
+    },
+
+    { title:"CICS — Migration from Macro to RDO", level:"Intermediate",
+      content:`Migrating from legacy macro-based resource definitions to modern RDO.
+
+Legacy (Macro) Approach:
+  Resources defined as Assembler macros: DFHPCT, DFHPPT, DFHFCT, DFHDCT.
+  Assembled into CICS load modules.
+  CICS restart needed for changes.
+
+Modern (RDO) Approach:
+  Resources defined via CEDA transaction or batch utility DFHCSDUP.
+  Stored in CSD (CICS System Definition) file.
+  Dynamic install — no CICS restart needed.
+
+Migration Steps:
+  1. DFHCSDUP EXTRACT — Export macro definitions to CSD format
+  2. Review and organize into groups
+  3. CEDA DEFINE — Create RDO equivalents
+  4. Test in development CICS
+  5. CEDA INSTALL — Make available in CICS
+  6. Update GRPLIST in SIT to include new groups
+  7. Gradually remove macro definitions
+
+GRPLIST:
+  List of groups installed at CICS startup.
+  SIT parameter: GRPLIST=MYLIST
+  CEDA ADD GROUP(MYGROUP) LIST(MYLIST)
+
+DFHCSDUP Utility:
+  Batch utility for CSD management.
+  DFHCSDUP DEFINE/ALTER/DELETE/EXTRACT/COPY
+
+Pro Tip: All new shops use RDO exclusively. If your shop still uses macros, advocate for migration — it saves hours of restart time.`
+    },
+
+
+
+    { title:"CICS — Troubleshooting Checklist", level:"All Levels",
+      content:`Systematic approach to diagnosing CICS problems.
+
+Transaction Won't Start:
+  1. CEMT INQ TRAN(xxxx) — Is it defined? Enabled?
+  2. CEMT INQ PROG(name) — Is the program enabled? Installed?
+  3. Check security — Does user have access to transaction?
+  4. Check MXT — Has max task limit been reached?
+
+Transaction Abends:
+  1. Note the abend code (ASRA, AICA, AEY9, etc.)
+  2. Check transaction dump — find offset and failing statement
+  3. CEDF to reproduce — step through commands
+  4. For ASRA: Check data values (likely S0C7/S0C4)
+  5. For AICA: Check for infinite loops
+  6. For AEY9: Check DB2 connection (CEMT INQ DB2CONN)
+
+File Problems:
+  1. CEMT INQ FILE(name) — Open? Enabled?
+  2. If closed: CEMT SET FILE(name) OPEN
+  3. If disabled: CEMT SET FILE(name) ENABLED
+  4. Check VSAM file: IDCAMS VERIFY, check SHAREOPTIONS
+
+Performance Issues:
+  1. CEMT INQ TASK — How many active? Any waiting?
+  2. CEMT INQ DSAS — Storage usage near limit?
+  3. Check response times in CICS statistics
+  4. Look for file splits (LISTCAT on VSAM files)
+  5. Check DB2 (EXPLAIN, lock waits)
+
+Program Not Loading New Version:
+  CEMT SET PROG(name) NEWCOPY — Forces reload from DFHRPL.
+
+Pro Tip: 90% of CICS problems fall into: abend (check dump), file issue (check CEMT INQ FILE), or performance (check tasks and storage).`
+    },
+
+
     { title:"CICS Interview Questions", level:"All Levels",
       content:`CICS Interview Questions — 35+ Q&A organized by level.
 

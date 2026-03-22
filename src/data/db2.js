@@ -2588,6 +2588,149 @@ Pro Tip: 90% of DB2 performance problems are solved by: current RUNSTATS + prope
     },
 
 
+
+    { title:"DB2 — VARCHAR Handling in COBOL", level:"Beginner",
+      content:`VARCHAR columns require special handling in COBOL — they use a two-part host variable.
+
+COBOL Declaration:
+  01  WS-NAME.
+      49  WS-NAME-LEN  PIC S9(4) COMP.
+      49  WS-NAME-TEXT PIC X(50).
+  Level 49 is REQUIRED. DB2 recognizes this as VARCHAR.
+
+Reading VARCHAR:
+  EXEC SQL SELECT NAME INTO :WS-NAME FROM CUSTOMER WHERE CUST_ID = :WS-ID END-EXEC
+  WS-NAME-LEN = actual length of data returned.
+  WS-NAME-TEXT = data (padded with spaces to PIC size).
+
+Writing VARCHAR:
+  MOVE 12 TO WS-NAME-LEN
+  MOVE 'HARIKRISHNAN' TO WS-NAME-TEXT
+  EXEC SQL INSERT INTO CUSTOMER (NAME) VALUES (:WS-NAME) END-EXEC
+  Only WS-NAME-LEN bytes are stored — saves disk space.
+
+CHAR vs VARCHAR:
+  CHAR(50) — Always 50 bytes. Padded with spaces. Simple.
+  VARCHAR(50) — 2-50 bytes + 2-byte length prefix. Saves space for short values.
+
+Trailing Spaces:
+  CHAR: 'ABC' stored as 'ABC   ' (47 spaces). Comparison includes spaces.
+  VARCHAR: 'ABC' stored as length=3 + 'ABC'. No trailing spaces.
+
+Pro Tip: Use VARCHAR for names, addresses, descriptions (variable length). Use CHAR for codes, status flags (fixed length).`
+    },
+
+    { title:"DB2 — Distributed Access (DRDA)", level:"Expert",
+      content:`DRDA enables DB2 on z/OS to access remote databases and be accessed remotely.
+
+DDF (Distributed Data Facility):
+  Component of DB2 that handles remote connections.
+  Uses DRDA (Distributed Relational Database Architecture) protocol.
+
+Three-Part Names:
+  SELECT * FROM LOCATION.SCHEMA.TABLE
+  LOCATION = remote DB2 system name (defined in CDB).
+
+CONNECT:
+  EXEC SQL CONNECT TO 'REMOTE_LOC' END-EXEC
+  Establishes connection to remote DB2.
+
+Use Cases:
+  • z/OS DB2 ↔ z/OS DB2 (cross-system queries)
+  • z/OS DB2 ↔ LUW DB2 (mainframe to distributed)
+  • z/OS DB2 ← Java/JDBC applications (remote access)
+
+BIND with DBPROTOCOL:
+  BIND PLAN ... DBPROTOCOL(DRDA)
+  Specifies distributed access protocol.
+
+Performance:
+  Remote SQL is slower than local (network latency).
+  Minimize round trips — use JOINs instead of nested remote calls.
+  Consider replicating frequently accessed remote data locally.
+
+Pro Tip: Three-part names are powerful but slow for high-volume access. Replicate hot data locally for batch performance.`
+    },
+
+    { title:"DB2 — Application Development Lifecycle", level:"Intermediate",
+      content:`End-to-end DB2 application development process on z/OS.
+
+1. Design:
+  Create tables, indexes, tablespaces (DDL).
+  Design for performance: partition strategy, index strategy, normalization.
+
+2. Code:
+  Write COBOL with EXEC SQL blocks.
+  Use DCLGEN to generate copybooks from table definitions.
+  Include SQLCA for return code checking.
+
+3. Precompile:
+  DB2 precompiler extracts SQL from COBOL source.
+  Produces: Modified COBOL source (SQL replaced with CALLs) + DBRM.
+
+4. Compile:
+  IGYCRCTL compiles modified COBOL → Object module.
+
+5. Link-Edit:
+  IEWL creates load module from object + DB2 libraries.
+
+6. BIND:
+  BIND PACKAGE from DBRM → optimized access paths stored.
+  BIND PLAN → collection of packages for the application.
+
+7. Test:
+  Run in test DB2 subsystem with test data.
+  SPUFI for SQL testing. CEDF for CICS testing.
+
+8. Deploy:
+  Promote load modules and packages to production.
+  BIND with production plan. GRANT EXECUTE.
+
+DCLGEN:
+  DCLGEN TABLE(schema.table) LIBRARY(pds) MEMBER(name)
+  Generates COBOL copybook matching table columns.
+
+Pro Tip: Always regenerate DCLGEN after ALTER TABLE. Stale copybooks cause -818 timestamp mismatch at runtime.`
+    },
+
+
+
+    { title:"DB2 — Best Practices Summary", level:"All Levels",
+      content:`Essential DB2 best practices every mainframe developer should follow.
+
+SQL Best Practices:
+  • Always check SQLCODE after every SQL statement
+  • Use indicator variables for nullable columns
+  • Specify column names in INSERT (not INSERT INTO table VALUES)
+  • Use FETCH FIRST n ROWS ONLY for pagination
+  • Avoid SELECT * — list specific columns
+  • Use EXISTS instead of IN for correlated subqueries
+  • Use static SQL over dynamic for production batch
+
+Performance Best Practices:
+  • Run RUNSTATS after data changes → REBIND to pick up new stats
+  • Index foreign key columns (prevents table scans on JOINs)
+  • COMMIT every 500-1000 rows in batch (prevents log full and lock escalation)
+  • Use FOR FETCH ONLY on read cursors
+  • Use WITH HOLD if COMMITting inside cursor loop
+  • Run EXPLAIN to verify access paths before production
+
+Design Best Practices:
+  • Use DECIMAL for money (never FLOAT)
+  • VARCHAR for variable-length text, CHAR for fixed codes
+  • Always define PRIMARY KEY and FOREIGN KEY
+  • Create CHECK constraints for data validation
+  • Use DCLGEN copybooks (regenerate after ALTER TABLE)
+
+Recovery Best Practices:
+  • COPY after LOAD and REORG
+  • Golden sequence: REORG → RUNSTATS → REBIND → COPY
+  • Test recovery procedures before you need them
+
+Pro Tip: 90% of DB2 problems are solved by: proper indexes + current RUNSTATS + frequent COMMITs.`
+    },
+
+
     { title:"DB2 Interview Questions", level:"All Levels",
       content:`DB2 Interview Questions — 40+ Q&A organized by level.
 

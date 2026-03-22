@@ -515,6 +515,222 @@ Migration Considerations:
   • Calendar systems are different
   • Testing is critical — production impact is severe`
     },
+
+    { title:"CA-7 Job Definition", level:"Beginner",
+      content:`Defining jobs in CA-7 for automated scheduling.
+
+DB.1 — Job Definition:
+  EDIT: JOB=PAYROLL01
+  SYSTEM=PROD
+  JCLID=1
+  EXEC-SCHED-ID=001
+  MAINID=
+  LEADTM=0030
+  REQUIREMENT-RESOLVE-TIME=Y
+
+Key Fields:
+  JOB — Job name (up to 8 characters)
+  SYSTEM — System where job runs
+  JCLID — JCL library ID (where JCL is stored)
+  EXEC-SCHED-ID — Which schedule to follow
+  LEADTM — Minutes before scheduled time to start processing
+  REQUIREMENT-RESOLVE-TIME — Check requirements at schedule time
+
+JCL Library:
+  DB.10 — Define JCL library
+  JCLLIB member contains the actual JCL.
+  CA-7 retrieves JCL at submission time.
+
+Pro Tip: Always set LEADTM to allow enough time for predecessors to complete. Too short = missed schedule.`
+    },
+
+    { title:"CA-7 Predecessors & Successors", level:"Beginner",
+      content:`Dependencies control job execution order.
+
+Predecessors (DB.2.1):
+  Job won't start until ALL predecessors complete successfully.
+  EDIT: JOB=REPORTS01
+  PRED: PAYROLL01 — Must complete first
+  PRED: EXTRACT01 — Must complete first
+
+Types:
+  JOB predecessor — Another CA-7 job
+  DSN predecessor — Dataset trigger (file created/updated)
+  NWK predecessor — Network predecessor
+
+Successors:
+  Automatically triggered when current job completes.
+  Defined via predecessor on the successor job.
+
+Virtual Resources:
+  EDIT: JOB=BATCHJOB1
+  RESOURCE: RES=TAPE01,TYPE=EXC
+  Locks shared resources (tape drives, databases).
+  Prevents two jobs from using same resource simultaneously.
+
+Dependency Chain:
+  JOB A → JOB B → JOB C (sequential)
+  JOB A + JOB B → JOB C (parallel then merge)
+
+Pro Tip: Draw dependency diagrams before defining in CA-7. Visual representation catches circular dependencies.`
+    },
+
+    { title:"CA-7 Scheduling", level:"Intermediate",
+      content:`Schedule IDs control WHEN jobs run.
+
+DB.3 — Schedule Definition:
+  SCHDID=001
+  SCHD: TYPE=DAILY
+  RUN: EVERYDAY
+
+Schedule Types:
+  DAILY — Runs every day (or specific days)
+  WEEKLY — Specific days of week
+  MONTHLY — Specific days of month
+  YEARLY — Specific days of year
+  INTERVAL — Every N hours/minutes
+
+Day Selection:
+  RUN MON,TUE,WED,THU,FRI — Weekdays only
+  RUN 01,15 — 1st and 15th of month
+  EXCEPT HOLIDAY — Skip holidays
+
+Calendar:
+  Define holiday calendars. Jobs skip holidays automatically.
+  DB.12 — Calendar maintenance.
+
+Multiple Schedules:
+  One job can have multiple schedule IDs.
+  EXEC-SCHED-ID=001,002 — Runs on both schedules.
+
+Pro Tip: Use calendars for holidays and business dates. Manual schedule overrides are error-prone.`
+    },
+
+    { title:"CA-7 — DEMAND & FORCE", level:"Intermediate",
+      content:`Manual job submission overrides.
+
+DEMAND:
+  DEMAND JOB=MYJOB — Submit job NOW, check predecessors.
+  If predecessors not met → job waits in queue.
+  Used for: Rerun after failure, ad-hoc execution.
+
+FORCE:
+  FORCE JOB=MYJOB — Submit NOW, IGNORE predecessors.
+  Dangerous — job runs without dependency checks.
+  Used for: Emergency processing, testing.
+
+RUN:
+  RUN JOB=MYJOB — Schedule job for next normal run.
+  Follows normal scheduling rules.
+
+HOLD/RELEASE:
+  HOLD JOB=MYJOB — Prevent job from running
+  RELEASE JOB=MYJOB — Allow job to run again
+
+CANCEL:
+  CANCEL JOB=MYJOB — Remove job from queue
+  CANCEL JOB=MYJOB,EXEC — Cancel executing job
+
+RESTART:
+  RESTART JOB=MYJOB — Restart from last checkpoint
+  RESTART JOB=MYJOB,STEP=STEP3 — Restart from specific step
+
+Pro Tip: Use DEMAND (not FORCE) for reruns — it validates dependencies. FORCE is for emergencies only and requires approval.`
+    },
+
+    { title:"CA-7 — Job Monitoring", level:"Beginner",
+      content:`Monitor job execution in real-time.
+
+QM (Queue Manager):
+  QM.1 — Queue display
+  Shows: READY, ACTIVE, COMPLETE, FAILED jobs
+  Filter by: Job name, system, status
+
+Status Values:
+  READY — Waiting to run (predecessors met)
+  WAITING — Waiting for predecessors
+  ACTIVE — Currently executing
+  COMPLETE — Finished successfully
+  FAILED — Ended with error
+  HELD — Manually held
+
+Alerts:
+  CA-7 can send alerts on:
+  Late jobs — Past expected completion time
+  Failed jobs — Non-zero return code
+  Long-running jobs — Exceeding time estimate
+  Missed schedules — Job didn't start on time
+
+Log:
+  DB.6 — Job history log
+  Shows: All executions with timestamps, return codes, elapsed times.
+
+Pro Tip: Set up alerts for all critical batch jobs. Late-running jobs often cascade into missed deadlines downstream.`
+    },
+
+    { title:"CA-7 — Restart & Recovery", level:"Intermediate",
+      content:`Handling job failures and restarts in CA-7.
+
+Automatic Restart:
+  Define restart parameters in job definition.
+  RESTART=Y — Allow automatic restart
+  CA-7 can automatically resubmit failed jobs.
+
+Manual Restart:
+  1. Check failure: QM.1 → Find failed job → Check return code
+  2. Fix issue (data, space, authority)
+  3. RESTART JOB=name — Restart from failure point
+  4. Or RESTART JOB=name,STEP=stepname — Specific step
+
+Step-Level Restart:
+  CA-7 tracks which steps completed.
+  Restart skips completed steps (if job supports it).
+  Requires RESTART parameter in JCL.
+
+Override JCL:
+  DB.8 — JCL overrides for restart
+  Change DISP, add RESTART parameter, modify COND.
+
+Post-Failure Checklist:
+  1. What failed? (Check JES output, SYSPRINT)
+  2. Why? (Space, data, authority, abend code)
+  3. Fix the root cause
+  4. Clean up partial output if needed
+  5. Restart from appropriate point
+  6. Verify downstream jobs not affected
+
+Pro Tip: Document restart procedures for every critical job. When it fails at 3 AM, clear instructions save hours.`
+    },
+
+    { title:"CA-7 — Cross-System Dependencies", level:"Advanced",
+      content:`Managing dependencies across multiple z/OS systems and schedulers.
+
+Cross-System Jobs:
+  Job on System A depends on job on System B.
+  CA-7 XPS (Cross-Platform Scheduling) handles this.
+
+Network Dependencies:
+  Define network between CA-7 instances.
+  NWK predecessor connects jobs across systems.
+
+External Events:
+  Dataset triggers — File arrives → Start job
+  Time-based triggers — Run at specific time
+  Manual triggers — Operator action
+
+ETL Dependencies:
+  Source system extract → FTP to mainframe → Trigger CA-7 job → Process → Output
+  CA-7 monitors for file arrival (DSN trigger).
+
+SLA Management:
+  Define deadlines for critical jobs.
+  CA-7 tracks: Will this job complete on time?
+  Automatic alerts when SLA at risk.
+
+Pro Tip: Cross-system dependencies are the hardest to manage. Document them clearly — they're invisible when everything works but critical when something breaks.`
+    },
+
+
     { title:"CA7 Interview Questions", level:"All Levels",
       content:`CA-7/Job Scheduling Interview Questions — 15+ Q&A.
 

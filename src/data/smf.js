@@ -447,6 +447,227 @@ Step 4: Report/Alert:
   FIELDS=JOBNAME,CPU_TIME,ELAPSED,EXCP_COUNT,STEPNAME
 /*`
     },
+
+    { title:"SMF Record Types Reference", level:"Intermediate",
+      content:`Key SMF record types every z/OS professional should know.
+
+Job-Related:
+  Type 30 — Job accounting (CPU, I/O, elapsed time per step)
+  Type 26 — JES2 job log
+  Type 6 — Job output (external writer)
+
+Dataset:
+  Type 14 — Non-VSAM dataset close (read)
+  Type 15 — Non-VSAM dataset close (write)
+  Type 60-69 — VSAM dataset activity
+  Type 42 — SMS dataset activity
+
+Security:
+  Type 80 — RACF security events
+  Type 83 — RACF statistics
+
+DB2:
+  Type 100-102 — DB2 accounting and performance
+  Type 101 — DB2 statistics
+  Type 102 — DB2 accounting detail
+
+CICS:
+  Type 110 — CICS performance and exception
+  Type 110 subtype 1 — Transaction performance
+
+System:
+  Type 70-79 — RMF workload and system data
+  Type 71 — Paging activity
+  Type 72 — Workload activity
+  Type 73 — Channel/device activity
+  Type 89 — TCP/IP statistics
+
+Pro Tip: Type 30 (job accounting) and Type 80 (security) are the most commonly analyzed. Learn their field layouts.`
+    },
+
+    { title:"SMF — Data Collection & Configuration", level:"Intermediate",
+      content:`How SMF collects and stores performance data.
+
+Configuration:
+  SMFPRMxx in SYS1.PARMLIB controls SMF recording.
+  SYS(TYPE(30,80,110)) — Record these types
+  NOTYPE(2,3,24,25) — Don't record these
+  RECORDING(dataset_name) — Where to write
+
+SMF Datasets:
+  SYS1.MAN1, SYS1.MAN2, SYS1.MAN3 — Active SMF datasets
+  DFSMS dumps to archive when active fills.
+  Circular: When MAN1 fills → switch to MAN2 → dump MAN1.
+
+IFASMFDP (SMF Dump Program):
+  Copies SMF records from active to archive for analysis.
+  Run regularly (every few hours) to prevent dataset full.
+
+IFASMFDL (SMF Log Stream):
+  Modern alternative using z/OS log streams.
+  Automatic management, no manual dump needed.
+
+Subsystem Recording:
+  DB2: DSN6SYSP — Enable/disable SMF recording
+  CICS: SIT parameter MNPARM — SMF recording options
+  Each subsystem has its own SMF control.
+
+Pro Tip: SMF datasets fill up if not dumped regularly. Automate SMF dump with CA-7 or OPC scheduling.`
+    },
+
+    { title:"SMF — Report Writing & Analysis", level:"Intermediate",
+      content:`Tools for analyzing SMF data.
+
+SAS:
+  Most common SMF analysis tool.
+  SAS/MXG — MXG (Merrill's Expanded Guide) package.
+  Pre-built SAS programs for every SMF record type.
+
+IBM DFSORT/ICETOOL:
+  Parse SMF records with SORT FIELDS and OUTREC.
+  Low-cost alternative to SAS for specific reports.
+
+RMF (Resource Measurement Facility):
+  IBM's built-in performance reporter.
+  RMF Monitor I — Real-time monitoring
+  RMF Monitor III — Historical reporting
+  RMF PM (Postprocessor) — Batch reports from SMF 70-79.
+
+BMC/Broadcom Tools:
+  CMF (CICS Monitoring Facility)
+  MAINVIEW — Cross-platform performance
+  SYSVIEW — Real-time monitoring
+
+Custom Reports:
+  Write COBOL program to read SMF datasets.
+  Parse record type, extract fields, format report.
+  SMF records are variable-length, self-describing.
+
+Pro Tip: MXG + SAS is the industry standard for SMF analysis. If your shop has SAS, learn MXG — it's incredibly powerful.`
+    },
+
+    { title:"RMF — Real-Time Monitoring", level:"Advanced",
+      content:`RMF (Resource Measurement Facility) monitors z/OS performance in real-time.
+
+RMF Monitor I:
+  Started task running continuously.
+  Collects CPU, I/O, storage, paging data.
+  Writes to SMF records (Type 70-79).
+
+RMF Monitor III:
+  Interactive ISPF interface for current system state.
+  Panels: CPU activity, I/O, storage, WLM, enqueue
+
+Key Metrics:
+  CPU utilization — By address space, by service class
+  I/O rates — By device, by address space
+  Paging rates — High paging = storage constraint
+  WLM goal attainment — Are we meeting service goals?
+  Enqueue contention — Lock waits
+
+Performance Alerts:
+  High CPU → Identify top consumers, check for loops
+  High paging → Add real storage or reduce workload
+  High I/O wait → Check device utilization, cache hits
+  Low WLM goal → Adjust service class priorities
+
+Pro Tip: Check RMF Monitor III daily. Trending metrics over time reveals problems before they become critical.`
+    },
+
+    { title:"Capacity Planning with SMF", level:"Advanced",
+      content:`Use SMF data for capacity planning — predicting future resource needs.
+
+Key Metrics to Track:
+  CPU utilization trend — Monthly average, peak hours
+  DASD space growth — GB used per month
+  Memory utilization — Real/virtual storage trends
+  Transaction volumes — Transactions per hour/day
+
+Methodology:
+  1. Collect baseline (3-6 months of SMF data)
+  2. Identify growth trends (linear regression)
+  3. Project future capacity needs
+  4. Identify bottleneck (CPU, I/O, storage?)
+  5. Plan hardware upgrade or workload redistribution
+
+Tools:
+  RMF PM — IBM reporting from SMF 70-79
+  SAS/MXG — Advanced analytics
+  zPCR — IBM Processor Capacity Reference
+  SCRT (Sub-Capacity Reporting Tool) — License reporting
+
+LPAR Sizing:
+  Determine CPU entitlement per LPAR.
+  WLM velocity goals guide CPU allocation.
+  Capacity Planning helps right-size LPARs.
+
+Pro Tip: Track CPU utilization weekly. When sustained peak exceeds 80%, start capacity planning. At 90%+, it's urgent.`
+    },
+
+    { title:"SMF — Job Accounting", level:"Beginner",
+      content:`SMF Type 30 records track resource usage per job step.
+
+What Type 30 Captures:
+  Job name, step name, program name
+  CPU time (TCB + SRB)
+  Elapsed wall clock time
+  EXCP count (I/O operations)
+  Region size used
+  Return code
+  Date/time started and ended
+
+Subtypes:
+  Subtype 1 — Job start
+  Subtype 2 — Step termination (one per step)
+  Subtype 3 — Step start
+  Subtype 4 — Job termination
+  Subtype 5 — Job end
+
+Use Cases:
+  Chargeback — Bill departments for CPU/storage usage
+  Performance trending — Job run times over weeks/months
+  Anomaly detection — Job took 3x normal time → investigate
+  SLA monitoring — Did nightly batch complete on time?
+
+Report Example:
+  Job PAYROLL01: Step SORT CPU=2.5min, Step COBOL CPU=45.2min
+  Total: 47.7 minutes CPU, 3.2 hours elapsed, 1.2M EXCPs
+
+Pro Tip: Track critical batch job elapsed times daily. A gradual increase usually means growing data volumes — plan capacity accordingly.`
+    },
+
+    { title:"SMF — Security Monitoring", level:"Intermediate",
+      content:`SMF Type 80 records are the foundation of mainframe security monitoring.
+
+What Type 80 Captures:
+  Event type (access, violation, admin change)
+  User ID
+  Resource name (dataset, transaction, command)
+  Access level attempted
+  Result (success/failure/warning)
+  Timestamp
+
+Key Events to Monitor:
+  Violations — Failed access attempts
+  Privileged operations — SPECIAL/OPERATIONS usage
+  Password events — Resets, failures, revocations
+  Profile changes — PERMIT, ADDSD, ALTUSER
+  Emergency access — Break-glass ID usage
+
+Alerting Pattern:
+  SMF 80 → Real-time log stream → SIEM → Alert
+  Or: SMF dump → Daily report → Security team review
+
+Compliance Requirements:
+  SOX — Track all access to financial data
+  PCI — Monitor cardholder data access
+  HIPAA — Audit healthcare data access
+  GDPR — Track personal data access
+
+Pro Tip: Feed SMF 80 to your SIEM (Splunk, QRadar) in real-time. Daily batch reports miss in-progress attacks.`
+    },
+
+
     { title:"Interview Questions", level:"All Levels",
       content:`SMF/Performance Interview Questions — 15+ Q&A.
 

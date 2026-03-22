@@ -33,6 +33,348 @@ export const ZOS_TOPIC = {
     { title:"z/OS Storage Concepts", level:"Intermediate",
       content:"z/OS Storage (Memory) Management:\n\nVirtual Storage Layout (31-bit):\n  2 GB \u2014 Extended Private (your program above 16MB)\n  16 MB \u2014 \"The Line\" boundary\n  Below \u2014 Private Area (below 16MB, legacy)\n  Common Area \u2014 CSA, SQA, LPA (shared system storage)\n  System Area \u2014 z/OS nucleus\n\nKey Storage Areas:\n  Private Area: Your job's workspace (REGION parameter)\n  CSA: Shared memory for inter-address-space communication\n  SQA: System control blocks and tables\n  LPA: Shared reentrant programs loaded at IPL\n  64-bit: \"Above the bar\" for large data structures\n\nREGION Parameter:\n  REGION=4M   \u2014 4 MB (small programs)\n  REGION=64M  \u2014 64 MB (typical COBOL)\n  REGION=0M   \u2014 maximum available\n\nCommon Storage Abends:\n  S878 \u2014 Virtual storage not available\n  S80A \u2014 Insufficient virtual storage\n  S804 \u2014 GETMAIN failed\n  S40D \u2014 Insufficient storage for OPEN"
     },
+
+    { title:"z/OS Address Spaces", level:"Intermediate",
+      content:`Every job, TSO user, and system task runs in its own address space — isolated virtual memory.
+
+Types:
+  JOB — Batch processing (initiated by JES)
+  TSO — Interactive user session
+  STC — Started Task (system services like CICS, DB2)
+  ASCH — APPC scheduling
+
+Address Space Structure:
+  Private area — Program code and data (unique per address space)
+  Common area — Shared across all address spaces (system code, CSA)
+  System area — z/OS nucleus, SQA
+
+31-bit Addressing:
+  2GB virtual per address space (below the bar)
+  Above 16MB line = Extended private
+
+64-bit Addressing:
+  Above the 2GB bar = virtually unlimited
+  Used for large data areas, Java heaps, DB2 bufferpools
+
+Key Areas:
+  CSA (Common Service Area) — Shared data between address spaces
+  SQA (System Queue Area) — System control blocks
+  LSQA (Local SQA) — Per-address-space system data
+  Private — Your program's working storage
+
+Pro Tip: Understanding address spaces is fundamental to z/OS. Each CICS region, DB2 subsystem, and batch job is its own address space.`
+    },
+
+    { title:"z/OS Dataset Types", level:"Beginner",
+      content:`z/OS has several dataset organizations — each for different purposes.
+
+PS (Physical Sequential):
+  Records stored sequentially. Read start-to-finish.
+  Use for: JCL input, print output, data feeds, flat files.
+
+PO (Partitioned — PDS):
+  Directory + members. Like a folder with files.
+  Use for: Source code, JCL, COBOL copybooks, load modules.
+
+PDSE (PDS Extended):
+  Modern PDS. Better space reclamation, no compress needed.
+  Use for: Same as PDS. Preferred for new datasets.
+
+VSAM:
+  KSDS, ESDS, RRDS, LDS (covered in VSAM topic).
+
+GDG (Generation Data Group):
+  Versioned sequential files. (+1) new, (0) current, (-1) previous.
+  Use for: Daily backups, rotating logs.
+
+HFS/zFS:
+  UNIX file systems on z/OS.
+  Use for: USS applications, Java, Zowe.
+
+Temporary Datasets:
+  &&name — Exists only during job execution.
+  Use for: Intermediate data between job steps.
+
+Pro Tip: PDS for source/JCL, PS for data files, VSAM for application data, GDG for versioned backups.`
+    },
+
+    { title:"z/OS JES2 & JES3", level:"Intermediate",
+      content:`JES (Job Entry Subsystem) manages job input, scheduling, and output.
+
+JES2:
+  Each z/OS system has its own JES2.
+  Jobs submitted → JES2 queues → Initiators run jobs → Output managed by JES2.
+  Most common. Simpler. Used by majority of installations.
+
+JES3:
+  Centralized job management across multiple systems.
+  Global processor schedules work across complex.
+  More control but more complex.
+
+Job Flow (JES2):
+  1. INPUT — JCL read, syntax checked, queued
+  2. CONVERSION — JCL converted to internal format
+  3. EXECUTION — Job runs (initiators)
+  4. OUTPUT — Spool output managed
+  5. PURGE — Job removed from system
+
+SPOOL:
+  Temporary storage for job input/output.
+  JES manages spool datasets.
+  SDSF lets you browse spool output.
+
+Initiators:
+  Address spaces that run batch jobs.
+  Each initiator runs one job at a time.
+  Configured by class: CLASS=A goes to initiator handling class A.
+
+SDSF Commands:
+  ST — Status of jobs
+  H — Held output
+  O — Output queue
+  DA — Display active
+
+Pro Tip: Learn SDSF commands — it's how you monitor and manage batch jobs in production.`
+    },
+
+    { title:"z/OS Workload Manager (WLM)", level:"Advanced",
+      content:`WLM manages system resources to meet performance goals.
+
+Service Classes:
+  Group work by business importance.
+  PRODUCTION_BATCH — Goal: Complete within 4 hours
+  ONLINE_CICS — Goal: 95% of transactions < 1 second
+  TSO_USERS — Goal: Acceptable response time
+
+Goals:
+  Response time — % of transactions within target
+  Execution velocity — How fast work runs relative to capacity
+  Discretionary — Best effort, no goal
+
+Service Definition:
+  Workload → Service Class → Performance Period → Goal
+  z/OS dynamically adjusts resources to meet goals.
+
+WLM-Managed Initiators:
+  WLM decides how many initiators to start.
+  High-priority work gets more resources automatically.
+
+Resource Groups:
+  Limit resources (CPU, storage) per service class.
+  Prevent one workload from starving others.
+
+Monitoring:
+  RMF (Resource Measurement Facility) shows WLM metrics.
+  Goal attainment % — Are we meeting our targets?
+
+Pro Tip: WLM replaces manual performance tuning. Define goals, let z/OS manage resources. Most modern mainframe shops use WLM exclusively.`
+    },
+
+    { title:"z/OS Storage Management (SMS)", level:"Intermediate",
+      content:`SMS automates dataset placement, backup, and lifecycle management.
+
+Components:
+  STORCLAS (Storage Class) — Performance: which volumes, caching
+  MGMTCLAS (Management Class) — Lifecycle: backup, retention, migration
+  DATACLAS (Data Class) — Attributes: RECFM, LRECL, space, VSAM options
+  SGMTCLAS (Storage Group) — Pool of volumes
+
+ACS Routines:
+  Automatic Class Selection — assigns classes based on dataset name patterns.
+  MY.PROD.** → STORCLAS=PRODSTOR, MGMTCLAS=PROD30DAY
+
+Benefits:
+  • No UNIT/VOL in JCL — SMS picks optimal placement
+  • Automatic backup via DFSMShsm
+  • Automatic migration to cheaper storage
+  • Consistent standards across datasets
+
+DFSMShsm:
+  Hierarchical Storage Manager.
+  Level 0 (DASD) → Level 1 (cheaper DASD) → Level 2 (tape)
+  Migrates unused datasets automatically.
+
+DFSMSdss:
+  Data Set Services — backup, restore, copy, dump.
+  ADRDSSU utility.
+
+Pro Tip: In modern z/OS, ALL datasets should be SMS-managed. Non-SMS datasets require manual volume management.`
+    },
+
+    { title:"z/OS System Libraries", level:"Beginner",
+      content:`Key system libraries every z/OS professional should know.
+
+SYS1.PARMLIB:
+  System parameters. IEASYSxx, IEAFIXxx, etc.
+  Controls how z/OS starts and operates.
+
+SYS1.PROCLIB:
+  Cataloged procedures (started task JCL).
+  CICS, DB2, JES2 procs live here.
+
+SYS1.LPALIB:
+  Link Pack Area — Shared programs loaded at IPL.
+  System exits, SVCs, commonly used modules.
+
+SYS1.LINKLIB:
+  System utilities and programs.
+  IEFBR14, IDCAMS, IEBGENER, etc.
+
+SYS1.MACLIB:
+  System macros for Assembler programming.
+
+SYS1.NUCLEUS:
+  z/OS kernel — loaded at IPL.
+
+SYS1.SVCLIB:
+  Supervisor Call routines.
+
+LNKLST:
+  Concatenation of libraries searched for programs.
+  Defined in PROGxx member of PARMLIB.
+  Like PATH in Unix/Windows.
+
+Linklist Order:
+  JOBLIB → STEPLIB → LNKLST → LPA
+  JCL libraries searched first, then system libraries.
+
+Pro Tip: STEPLIB in JCL overrides LNKLST. Always specify STEPLIB for application programs to ensure correct version.`
+    },
+
+    { title:"z/OS IPL & System Startup", level:"Advanced",
+      content:`IPL (Initial Program Load) boots z/OS — like server startup.
+
+IPL Process:
+  1. Hardware loads IPL text from boot volume
+  2. Nucleus initialization (z/OS kernel)
+  3. Master scheduler starts
+  4. System address spaces start (JES, VTAM, TCP/IP, etc.)
+  5. Automation starts applications (CICS, DB2, etc.)
+
+Key PARMLIB Members:
+  IEASYSxx — Main system parameters
+  COMMNDxx — Commands issued at IPL
+  IEAFIXxx — Programs fixed in memory
+  LOADxx — IPL address space definitions
+  PROGxx — LNKLST, LPA definitions
+  CLOCKxx — Time zone settings
+
+IPL Types:
+  Cold start — Full initialization (after maintenance)
+  Quick start — Minimal initialization (normal restart)
+  Warm start — Resume from checkpoint
+
+z/OS Automation:
+  SA z/OS (System Automation) manages startup/shutdown.
+  Starts services in correct order with dependency checking.
+  Handles failures automatically (restart, notification).
+
+Console Commands:
+  D IPLINFO — Display IPL information
+  D ASM — Display available storage
+  D PROG,LNKLST — Display linklist
+
+Pro Tip: IPL takes 5-15 minutes. z/OS systems run for months between IPLs. Most maintenance doesn't require IPL.`
+    },
+
+    { title:"z/OS UNIX System Services (USS)", level:"Intermediate",
+      content:`z/OS includes a full UNIX environment — USS.
+
+What It Is:
+  POSIX-compliant UNIX running on z/OS.
+  Has: file system (zFS), shell (sh/bash), processes, pipes.
+
+Access:
+  TSO OMVS command → UNIX shell
+  ISHELL — ISPF interface to USS
+  SSH — Remote access
+
+File System:
+  zFS — z/OS file system (hierarchical directories)
+  /u/userid/ — Home directory
+  /usr/lpp/ — Installed products
+  Regular UNIX paths and permissions.
+
+Use Cases:
+  Java applications on z/OS
+  Zowe (modern z/OS interface)
+  Node.js, Python on z/OS
+  Git, SSH, standard UNIX tools
+  Open source software
+
+Interoperability:
+  BPXWDYN — Allocate MVS datasets from USS
+  cp //'MVS.DATASET' unix_file — Copy between MVS and USS
+  UNIX programs can call MVS programs and vice versa.
+
+Pro Tip: USS is essential for modern z/OS development. Zowe, Git-based workflows, and cloud integration all use USS.`
+    },
+
+    { title:"z/OS Coupling Facility & Parallel Sysplex", level:"Expert",
+      content:`Parallel Sysplex connects multiple z/OS systems for high availability and scaling.
+
+Coupling Facility (CF):
+  Shared hardware for coordinating across systems.
+  Lock structures — Global locking (DB2 data sharing, VSAM RLS)
+  Cache structures — Shared caching
+  List structures — Shared queues
+
+Parallel Sysplex:
+  Multiple LPARs connected via CF and high-speed links.
+  Single system image for applications.
+  Workload balanced across systems.
+
+Benefits:
+  Near-zero downtime — rolling maintenance across systems
+  Horizontal scaling — add systems for more capacity
+  Automatic failover — one system down, others take over
+
+Key Technologies:
+  DB2 Data Sharing — Multiple DB2 instances, shared data
+  VSAM RLS — Record-level sharing across systems
+  CICS MRO/ISC — Cross-region communication
+  VTAM Generic Resources — Terminal routing to any system
+
+GDPS (Geographically Dispersed Parallel Sysplex):
+  Sysplex across data centers for disaster recovery.
+  Automatic failover to remote site.
+
+Pro Tip: Sysplex is what makes mainframes "never go down." Know the concepts for architect and systems programmer roles.`
+    },
+
+    { title:"z/OS Security Overview", level:"Beginner",
+      content:`z/OS security layers protect data, programs, and system resources.
+
+RACF (Resource Access Control Facility):
+  Primary security manager. Controls who accesses what.
+  Users, groups, profiles, access levels.
+
+Security Layers:
+  1. Authentication — Verify identity (userid + password)
+  2. Authorization — Check permissions (RACF profiles)
+  3. Auditing — Log access attempts (SMF records)
+  4. Encryption — Protect data in transit and at rest
+
+Access Levels:
+  NONE — No access
+  READ — Read only
+  UPDATE — Read and write
+  CONTROL — Full control
+  ALTER — Change security settings
+
+Protected Resources:
+  Datasets — Who can read/write files
+  Programs — Who can execute
+  Transactions — Who can run CICS transactions
+  System commands — Who can issue operator commands
+
+Multi-Factor Authentication:
+  RACF supports MFA, digital certificates, passtickets.
+
+Pro Tip: z/OS security starts with RACF. Every resource access is checked. No "root access" equivalent — even admins have defined permissions.`
+    },
+
+
     { title:"Interview Questions", level:"All Levels",
       content:`z/OS Interview Questions — 25+ Q&A.
 

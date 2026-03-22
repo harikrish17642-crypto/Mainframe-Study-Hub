@@ -680,6 +680,594 @@ Practical Uses:
 8. Regular Expressions (RXREGEXP):
    Available as external function for pattern matching.`
     },
+
+    { title:"REXX Variables & Data Types", level:"Beginner",
+      content:`REXX has no data types — everything is a string. Numbers are strings that look like numbers.
+
+Assignment:
+  name = 'Harikrishnan'
+  count = 42
+  price = 19.99
+
+No Declaration Needed:
+  Just assign. Variable created automatically.
+  Uninitialized variables return their own name in uppercase.
+
+Compound Variables (Arrays):
+  stem.1 = 'First'
+  stem.2 = 'Second'
+  stem.0 = 2  /* Convention: stem.0 = count */
+
+Numeric Operations:
+  REXX auto-detects numbers in strings.
+  result = '10' + '20'  /* result = 30 */
+  NUMERIC DIGITS 15  /* Precision control */
+
+String Operations:
+  All variables are strings. Concatenation:
+  full = first || ' ' || last  /* explicit */
+  full = first ' ' last  /* abuttal with space */
+
+DROP:
+  DROP name  /* Uninitialize variable */
+
+Pro Tip: stem.0 for count is a convention, not enforced. Always set it when building stem arrays.`
+    },
+
+    { title:"REXX Control Structures", level:"Beginner",
+      content:`REXX control flow — IF, SELECT, DO loops.
+
+IF/THEN/ELSE:
+  IF count > 10 THEN SAY 'Many'
+  ELSE SAY 'Few'
+  Multi-line: IF ... THEN DO ... END; ELSE DO ... END
+
+SELECT (Switch):
+  SELECT
+    WHEN type = 'A' THEN CALL process_a
+    WHEN type = 'B' THEN CALL process_b
+    OTHERWISE SAY 'Unknown type'
+  END
+
+DO Loop (counted):
+  DO i = 1 TO 10
+    SAY 'Line' i
+  END
+
+DO WHILE:
+  DO WHILE line \= ''
+    SAY line
+    line = LINEIN()
+  END
+
+DO UNTIL:
+  DO UNTIL rc = 0
+    CALL try_operation
+  END
+
+DO FOREVER:
+  DO FOREVER
+    PULL input
+    IF input = 'QUIT' THEN LEAVE
+  END
+
+LEAVE/ITERATE:
+  LEAVE exits loop. ITERATE skips to next iteration.
+
+Pro Tip: Always include OTHERWISE in SELECT — prevents error if no WHEN matches.`
+    },
+
+    { title:"REXX String Functions", level:"Beginner",
+      content:`REXX has powerful built-in string manipulation functions.
+
+LENGTH(string) — String length
+SUBSTR(string, start, length) — Extract substring
+LEFT(string, length) — Left portion
+RIGHT(string, length) — Right portion
+STRIP(string, option, char) — Remove leading/trailing characters
+COPIES(string, count) — Repeat string
+REVERSE(string) — Reverse characters
+TRANSLATE(string, output, input) — Character translation
+OVERLAY(new, target, pos) — Overlay characters at position
+POS(needle, haystack) — Find position (0 if not found)
+LASTPOS(needle, haystack) — Find last occurrence
+WORD(string, n) — Extract nth word
+WORDS(string) — Count words
+WORDINDEX(string, n) — Position of nth word
+SUBWORD(string, n, count) — Extract words n through n+count
+SPACE(string, n) — Normalize spacing to n spaces between words
+UPPER(string) — Uppercase (ooRexx)
+CENTER(string, width) — Center in field
+
+Pro Tip: WORD/WORDS/SUBWORD are incredibly useful for parsing TSO command output — most output is space-delimited words.`
+    },
+
+    { title:"REXX EXECIO — File I/O", level:"Intermediate",
+      content:`EXECIO reads and writes files (datasets) from REXX.
+
+Read Entire File:
+  "EXECIO * DISKR INDD (STEM line. FINIS"
+  line.0 = number of lines read
+  line.1 through line.n = each line
+
+Read N Lines:
+  "EXECIO 10 DISKR INDD (STEM line."
+  Reads next 10 lines.
+
+Read One Line:
+  "EXECIO 1 DISKR INDD (STEM line."
+
+Write Entire Stem:
+  "EXECIO * DISKW OUTDD (STEM out. FINIS"
+
+Write from Stack:
+  QUEUE 'Line 1'
+  QUEUE 'Line 2'
+  "EXECIO 2 DISKW OUTDD (FINIS"
+
+FINIS Option:
+  Closes the file after operation. Without FINIS, file stays open for next EXECIO.
+
+Allocate File First:
+  "ALLOC FI(INDD) DA('MY.INPUT.FILE') SHR"
+  "EXECIO * DISKR INDD (STEM line. FINIS"
+  "FREE FI(INDD)"
+
+Pro Tip: Always include FINIS on the last EXECIO. Forgetting leaves files open — causes problems for subsequent jobs.`
+    },
+
+    { title:"REXX OUTTRAP — Capturing Command Output", level:"Intermediate",
+      content:`OUTTRAP captures TSO command output into REXX variables.
+
+Basic Usage:
+  x = OUTTRAP('out.')
+  ADDRESS TSO "LISTDS 'MY.DATASET'"
+  x = OUTTRAP('OFF')
+  /* out.0 = line count, out.1..out.n = output lines */
+
+Processing Output:
+  DO i = 1 TO out.0
+    IF POS('DSORG', out.i) > 0 THEN
+      SAY 'Found:' out.i
+  END
+
+Capture Specific Commands:
+  x = OUTTRAP('mem.')
+  ADDRESS TSO "LISTDS 'MY.PDS' MEMBERS"
+  x = OUTTRAP('OFF')
+  /* mem.1..mem.n contains member list */
+
+Common Pattern — Parse LISTCAT:
+  x = OUTTRAP('cat.')
+  ADDRESS ISPEXEC "SELECT CMD(LISTCAT ENT('MY.FILE') ALL)"
+  x = OUTTRAP('OFF')
+
+OUTTRAP with MAX:
+  x = OUTTRAP('out.', 100)  /* Capture max 100 lines */
+
+Pro Tip: OUTTRAP + LISTDS/LISTCAT + string parsing is the most common REXX automation pattern on z/OS.`
+    },
+
+    { title:"REXX & TSO Commands", level:"Intermediate",
+      content:`REXX can execute TSO commands and process results.
+
+ADDRESS TSO:
+  ADDRESS TSO "ALLOC FI(MYFILE) DA('MY.DATASET') SHR"
+  ADDRESS TSO "FREE FI(MYFILE)"
+  ADDRESS TSO "DELETE 'MY.TEMP.FILE'"
+
+ADDRESS ISPEXEC:
+  ADDRESS ISPEXEC "BROWSE DATASET('MY.FILE')"
+  ADDRESS ISPEXEC "EDIT DATASET('MY.FILE')"
+  ADDRESS ISPEXEC "SELECT PGM(PGMNAME)"
+
+ADDRESS MVS:
+  ADDRESS MVS "EXECIO * DISKR MYFILE (STEM line. FINIS"
+
+Common TSO Commands from REXX:
+  ALLOC — Allocate dataset
+  FREE — Free allocation
+  DELETE — Delete dataset
+  LISTDS — List dataset info
+  SUBMIT — Submit JCL
+  TRANSMIT/RECEIVE — Send/receive files
+
+Checking Return Codes:
+  ADDRESS TSO "command"
+  IF RC \= 0 THEN SAY 'Command failed: RC=' RC
+
+Pro Tip: ADDRESS TSO for TSO commands, ADDRESS ISPEXEC for ISPF services, ADDRESS MVS for system services.`
+    },
+
+    { title:"REXX PARSE Instruction", level:"Intermediate",
+      content:`PARSE is REXX's most powerful feature — splits strings into variables using templates.
+
+PARSE VAR:
+  line = 'SMITH   JOHN    12345'
+  PARSE VAR line last 9 first 17 empid
+  /* last='SMITH   ' first='JOHN    ' empid='12345' */
+
+Column-Based:
+  PARSE VAR record 1 name 21 dept 25 salary 35
+  /* Fixed-position parsing — perfect for mainframe records */
+
+Word-Based:
+  PARSE VAR line word1 word2 rest
+  /* Splits by spaces */
+
+Literal Delimiter:
+  dsname = 'SYS1.MACLIB(MEMBER)'
+  PARSE VAR dsname hlq '.' rest '(' member ')' .
+  /* hlq='SYS1' rest='MACLIB' member='MEMBER' */
+
+PARSE UPPER:
+  PARSE UPPER VAR input cmd parms
+  /* Uppercase before parsing */
+
+PARSE ARG:
+  PARSE ARG param1, param2  /* Parse subroutine arguments */
+
+PARSE PULL:
+  PARSE PULL answer  /* Read from data stack or terminal */
+
+Pro Tip: Column-based PARSE is perfect for processing fixed-format mainframe data — no need for SUBSTR gymnastics.`
+    },
+
+    { title:"REXX Subroutines & Functions", level:"Intermediate",
+      content:`Modularize REXX code with internal/external subroutines and functions.
+
+Internal Subroutine:
+  CALL my_sub arg1, arg2
+  EXIT
+  my_sub:
+    PARSE ARG p1, p2
+    SAY 'Processing' p1 p2
+    RETURN
+
+Internal Function:
+  result = my_func(arg1, arg2)
+  EXIT
+  my_func:
+    PARSE ARG p1, p2
+    RETURN p1 + p2
+
+External REXX:
+  CALL 'MYLIB(UTILREXX)' arg1
+  Calls another REXX exec in a PDS.
+
+PROCEDURE:
+  my_sub: PROCEDURE
+    /* Local variables only — caller's vars hidden */
+    RETURN result
+
+PROCEDURE EXPOSE:
+  my_sub: PROCEDURE EXPOSE global_var stem.
+    /* Access specific caller variables */
+    RETURN
+
+SIGNAL:
+  SIGNAL ON ERROR NAME err_handler
+  /* Jump to label on error */
+
+Pro Tip: Use PROCEDURE on all subroutines to prevent variable name collisions. EXPOSE only what's needed.`
+    },
+
+    { title:"REXX — Error Handling", level:"Intermediate",
+      content:`Robust error handling for production REXX execs.
+
+SIGNAL ON:
+  SIGNAL ON ERROR NAME err_handler
+  SIGNAL ON SYNTAX NAME syntax_handler
+  SIGNAL ON NOVALUE NAME novalue_handler
+
+Conditions:
+  ERROR — Command returns non-zero RC
+  FAILURE — Command fails completely
+  SYNTAX — REXX syntax error
+  NOVALUE — Uninitialized variable referenced
+  HALT — External interrupt
+
+Error Handler:
+  err_handler:
+    SAY 'Error at line' SIGL
+    SAY 'Error:' RC
+    SAY SOURCELINE(SIGL)
+    EXIT 12
+
+RC Variable:
+  Set after every command. Check it:
+  ADDRESS TSO "ALLOC ..."
+  IF RC > 0 THEN DO
+    SAY 'ALLOC failed, RC=' RC
+    EXIT 8
+  END
+
+Return Codes:
+  EXIT 0  — Success
+  EXIT 4  — Warning
+  EXIT 8  — Error
+  EXIT 12 — Severe error
+
+Pro Tip: Always SIGNAL ON ERROR at the start of production execs. Unhandled errors cause silent failures.`
+    },
+
+    { title:"REXX — Stack & Queue Operations", level:"Intermediate",
+      content:`The data stack is REXX's built-in buffer — like a pipe between commands.
+
+PUSH (LIFO — Last In First Out):
+  PUSH 'Line 3'
+  PUSH 'Line 2'
+  PUSH 'Line 1'
+  /* Stack: Line 1 (top), Line 2, Line 3 */
+
+QUEUE (FIFO — First In First Out):
+  QUEUE 'Line 1'
+  QUEUE 'Line 2'
+  QUEUE 'Line 3'
+  /* Queue: Line 1 (top), Line 2, Line 3 */
+
+PULL (Read from stack):
+  PULL item  /* Gets top item, uppercased */
+  PARSE PULL item  /* Gets top item, preserves case */
+
+QUEUED():
+  n = QUEUED()  /* Number of items in stack */
+
+Stack + EXECIO:
+  QUEUE 'Record 1'
+  QUEUE 'Record 2'
+  "EXECIO 2 DISKW OUTDD (FINIS"
+  /* Writes stack contents to file */
+
+Stack + TSO Commands:
+  QUEUE 'INPUT DATA'
+  ADDRESS TSO "RECEIVE"
+  /* Feeds stack data to TSO command as input */
+
+MAKEBUF/DROPBUF:
+  MAKEBUF creates a new buffer level. DROPBUF removes it.
+  Prevents stack pollution between subroutines.
+
+Pro Tip: QUEUE for building output files (FIFO order). PUSH for temporary storage (LIFO). Always check QUEUED() before PULL.`
+    },
+
+    { title:"REXX — ISPF Services", level:"Advanced",
+      content:`REXX can drive ISPF panels, tables, and services for interactive applications.
+
+Display Panel:
+  ADDRESS ISPEXEC "DISPLAY PANEL(MYPANEL)"
+  IF RC = 8 THEN SAY 'User pressed PF3/END'
+
+Table Services:
+  ADDRESS ISPEXEC "TBCREATE MYTABLE NAMES(COL1 COL2 COL3)"
+  col1 = 'Value1'; col2 = 'Value2'; col3 = 'Value3'
+  ADDRESS ISPEXEC "TBADD MYTABLE"
+  ADDRESS ISPEXEC "TBDISPL MYTABLE PANEL(TBLPANEL)"
+  ADDRESS ISPEXEC "TBCLOSE MYTABLE"
+
+File Tailoring:
+  ADDRESS ISPEXEC "FTOPEN"
+  ADDRESS ISPEXEC "FTINCL SKELETON1"  /* Process skeleton with variables */
+  ADDRESS ISPEXEC "FTCLOSE NAME(OUTPUT.FILE)"
+
+BROWSE/EDIT:
+  ADDRESS ISPEXEC "BROWSE DATASET('MY.FILE')"
+  ADDRESS ISPEXEC "EDIT DATASET('MY.FILE')"
+
+VGET/VPUT (Variable Pool):
+  ADDRESS ISPEXEC "VGET (ZUSER ZPREFIX) SHARED"
+  SAY 'User:' zuser 'Prefix:' zprefix
+
+LIBDEF:
+  ADDRESS ISPEXEC "LIBDEF ISPPLIB DATASET ID('MY.PANELS')"
+
+Pro Tip: REXX + ISPF is the standard way to build interactive z/OS tools. Every sysprog writes ISPF REXX panels.`
+    },
+
+    { title:"REXX — Automation Scripts", level:"Advanced",
+      content:`Common REXX automation patterns for z/OS operations.
+
+Dataset Cleanup:
+  /* Delete datasets older than 30 days */
+  x = OUTTRAP('ds.')
+  ADDRESS TSO "LISTDS 'USER.TEMP.*' MEMBERS"
+  x = OUTTRAP('OFF')
+  DO i = 1 TO ds.0
+    /* Parse and check date, delete if old */
+  END
+
+JCL Submission:
+  /* Build and submit JCL dynamically */
+  QUEUE "//MYJOB  JOB (ACCT),'REXX JOB',CLASS=A"
+  QUEUE "//STEP1  EXEC PGM=IEFBR14"
+  QUEUE "//"
+  "EXECIO 3 DISKW SUBMIT (FINIS"
+  ADDRESS TSO "SUBMIT 'MY.JCL(MYJOB)'"
+
+Health Check:
+  /* Check dataset existence */
+  x = SYSDSN("'MY.CRITICAL.FILE'")
+  IF x \= 'OK' THEN DO
+    SAY 'ALERT: Critical file issue:' x
+    /* Send notification */
+  END
+
+Batch Monitoring:
+  /* Check job status */
+  x = OUTTRAP('out.')
+  ADDRESS TSO "STATUS jobname"
+  x = OUTTRAP('OFF')
+
+Pro Tip: REXX automation reduces manual z/OS tasks by 80%. Build a library of utility execs — they compound in value over time.`
+    },
+
+    { title:"REXX — Date & Time Functions", level:"Beginner",
+      content:`REXX built-in date/time functions for z/OS.
+
+DATE():
+  DATE('S')  → '20260321' (Sorted: YYYYMMDD)
+  DATE('U')  → '03/21/26' (USA)
+  DATE('E')  → '21/03/26' (European)
+  DATE('O')  → '26/03/21' (Ordered: YY/MM/DD)
+  DATE('N')  → '21 Mar 2026' (Normal)
+  DATE('B')  → days since Jan 1, 0001 (Base)
+  DATE('D')  → day of year (1-366)
+
+TIME():
+  TIME('N')  → '14:30:25' (Normal)
+  TIME('C')  → '2:30pm' (Civil)
+  TIME('L')  → '14:30:25.123456' (Long)
+  TIME('H')  → hours since midnight
+  TIME('M')  → minutes since midnight
+  TIME('S')  → seconds since midnight
+
+Date Arithmetic:
+  today = DATE('B')
+  future = today + 30
+  SAY 'In 30 days:' DATE('N',,future,'B')
+
+Date Conversion:
+  /* Convert YYYYMMDD to readable */
+  sorted_date = '20260321'
+  readable = DATE('N', sorted_date, 'S')
+  /* Result: '21 Mar 2026' */
+
+Pro Tip: DATE('S') gives YYYYMMDD — ideal for sorting and comparing dates as strings.`
+    },
+
+    { title:"REXX — Numeric Functions", level:"Beginner",
+      content:`Numeric operations and precision control in REXX.
+
+Arithmetic:
+  + - * / (standard). % (integer divide). // (remainder).
+  ** (power). 2**10 = 1024
+
+Precision:
+  NUMERIC DIGITS 15  /* Set to 15 significant digits */
+  Default is 9 digits.
+  NUMERIC FUZZ 2  /* Digits to ignore in comparison */
+
+Built-in Functions:
+  ABS(n) — Absolute value
+  MAX(a,b,c) — Maximum value
+  MIN(a,b,c) — Minimum value
+  SIGN(n) — -1, 0, or 1
+  TRUNC(n, d) — Truncate to d decimal places
+  FORMAT(n, before, after) — Format number
+
+Conversion:
+  D2X(255) → 'FF' (decimal to hex)
+  X2D('FF') → 255 (hex to decimal)
+  D2C(193) → 'A' (decimal to EBCDIC character)
+  C2D('A') → 193 (character to decimal)
+  D2B(10) → '1010' (decimal to binary)
+  B2D('1010') → 10
+
+DATATYPE():
+  DATATYPE('123') → 'NUM'
+  DATATYPE('ABC') → 'CHAR'
+  DATATYPE(var, 'N') → 1 if numeric, 0 if not
+
+Pro Tip: Use DATATYPE(var,'N') to validate numeric input before arithmetic — prevents SYNTAX errors.`
+    },
+
+    { title:"REXX — Edit Macros", level:"Advanced",
+      content:`REXX edit macros automate repetitive editing tasks in ISPF.
+
+What They Are:
+  REXX programs that run inside the ISPF editor.
+  Can read, modify, insert, delete lines. Automate formatting, conversion, analysis.
+
+Setup:
+  ADDRESS ISREDIT 'MACRO (PARMS)'
+  /* Now in edit macro mode */
+
+Common Commands:
+  ADDRESS ISREDIT "FIND 'pattern' FIRST"
+  ADDRESS ISREDIT "(line) = LINE .ZCSR"  /* Get current line */
+  ADDRESS ISREDIT "LINE .ZCSR = (newline)"  /* Replace line */
+  ADDRESS ISREDIT "LINE_AFTER .ZCSR = (newline)"  /* Insert */
+  ADDRESS ISREDIT "DELETE .ZCSR"  /* Delete line */
+  ADDRESS ISREDIT "(last) = LINENUM .ZLAST"  /* Last line number */
+
+Example — Number Lines:
+  ADDRESS ISREDIT 'MACRO'
+  ADDRESS ISREDIT "(last) = LINENUM .ZLAST"
+  DO i = 1 TO last
+    ADDRESS ISREDIT "(line) = LINE" i
+    newline = RIGHT(i,5,'0') || ' ' || line
+    ADDRESS ISREDIT "LINE" i "= (newline)"
+  END
+
+Example — Find/Replace:
+  ADDRESS ISREDIT 'MACRO'
+  ADDRESS ISREDIT "CHANGE 'OLD-TEXT' 'NEW-TEXT' ALL"
+
+Pro Tip: Edit macros save hours of manual editing. Build a library for: reformatting, adding headers, converting data formats.`
+    },
+
+    { title:"REXX — Advanced Patterns", level:"Advanced",
+      content:`Production-grade REXX patterns for z/OS.
+
+Dataset Existence Check:
+  IF SYSDSN("'MY.FILE'") = 'OK' THEN SAY 'Exists'
+
+Member List from PDS:
+  x = OUTTRAP('m.'); ADDRESS TSO "LISTDS 'MY.PDS' MEMBERS"; x = OUTTRAP('OFF')
+
+Dynamic JCL Generation:
+  Build JCL lines with QUEUE → Write with EXECIO → SUBMIT
+
+Parallel Job Monitor:
+  Loop checking job status until all complete.
+
+CSV Parser:
+  DO WHILE lines remaining
+    PARSE VAR line field1 ',' field2 ',' field3 ','
+  END
+
+Configuration File:
+  Read config file → PARSE each line → Set variables.
+  /* config: KEY=VALUE format */
+  PARSE VAR line key '=' value
+
+Logging:
+  log_line = DATE('S') TIME('N') '|' msg
+  PUSH log_line; "EXECIO 1 DISKW LOGDD"
+
+Pro Tip: Build a REXX utility library: logging, config reading, error handling, dataset operations. Reuse across all execs.`
+    },
+
+    { title:"REXX vs CLIST", level:"Beginner",
+      content:`REXX replaced CLIST as the preferred TSO scripting language.
+
+CLIST (Command List):
+  • Older TSO scripting language
+  • Simpler syntax but less powerful
+  • Still found in legacy shops
+  • Limited string handling, no PARSE
+
+REXX Advantages:
+  • Powerful PARSE instruction
+  • Better string/math functions
+  • Structured programming (DO/SELECT/CALL)
+  • PROCEDURE for variable scoping
+  • Works in TSO, batch, ISPF, CICS, and more
+  • Active development and standards (ooRexx)
+
+When You'll See CLIST:
+  • Old ISPF panels and dialogs
+  • Legacy automation scripts
+  • Some system CLISTs in SYS1.CLIST
+
+Migration:
+  Most shops have migrated to REXX.
+  New development should always use REXX.
+
+Pro Tip: If you inherit CLISTs, learn to read them but rewrite in REXX for new functionality.`
+    },
+
+
     { title:"Interview Questions", level:"All Levels",
       content:`REXX Interview Questions — 25+ Q&A.
 
