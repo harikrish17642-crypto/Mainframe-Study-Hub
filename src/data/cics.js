@@ -708,6 +708,913 @@ XRF (Extended Recovery Facility):
   If active fails, standby takes over within seconds.
   Terminals reconnect automatically.`
     },
+
+    { title:"CICS File Control — READ & WRITE", level:"Intermediate",
+      content:`File control commands access VSAM files in CICS.
+
+READ:
+  EXEC CICS READ DATASET('CUSTFILE')
+    INTO(WS-REC) RIDFLD(WS-KEY) LENGTH(WS-LEN)
+    RESP(WS-RESP) END-EXEC
+  RESP(DFHRESP(NORMAL)) = success
+  RESP(DFHRESP(NOTFND)) = record not found
+
+WRITE:
+  EXEC CICS WRITE DATASET('CUSTFILE')
+    FROM(WS-REC) RIDFLD(WS-KEY) LENGTH(WS-LEN)
+    RESP(WS-RESP) END-EXEC
+
+UPDATE Pattern:
+  READ with UPDATE option → modify → REWRITE
+  EXEC CICS READ DATASET('CUSTFILE')
+    INTO(WS-REC) RIDFLD(WS-KEY) UPDATE
+    RESP(WS-RESP) END-EXEC
+  ... modify WS-REC ...
+  EXEC CICS REWRITE DATASET('CUSTFILE')
+    FROM(WS-REC) RESP(WS-RESP) END-EXEC
+
+DELETE:
+  EXEC CICS DELETE DATASET('CUSTFILE')
+    RIDFLD(WS-KEY) RESP(WS-RESP) END-EXEC
+
+Pro Tip: Always use RESP option instead of HANDLE CONDITION — it's modern and explicit.`
+    },
+
+    { title:"CICS Browse Operations", level:"Intermediate",
+      content:`Browse reads multiple records sequentially from VSAM in CICS.
+
+START Browse:
+  EXEC CICS STARTBR DATASET('CUSTFILE')
+    RIDFLD(WS-KEY) GTEQ RESP(WS-RESP) END-EXEC
+  GTEQ = start at key >= WS-KEY
+  EQUAL = start at exact key
+
+Read Next:
+  EXEC CICS READNEXT DATASET('CUSTFILE')
+    INTO(WS-REC) RIDFLD(WS-KEY) LENGTH(WS-LEN)
+    RESP(WS-RESP) END-EXEC
+
+Read Previous:
+  EXEC CICS READPREV DATASET('CUSTFILE')
+    INTO(WS-REC) RIDFLD(WS-KEY) RESP(WS-RESP) END-EXEC
+
+End Browse:
+  EXEC CICS ENDBR DATASET('CUSTFILE') RESP(WS-RESP) END-EXEC
+
+Pattern — List first 20 customers:
+  STARTBR → Loop READNEXT 20 times (or until ENDFILE) → ENDBR
+
+Pro Tip: Always ENDBR when done. Forgetting leaves a browse token allocated — causes resource issues under load.`
+    },
+
+    { title:"CICS Temporary Storage (TS) Queues", level:"Intermediate",
+      content:`TS queues store temporary data accessible by queue name.
+
+WRITEQ TS:
+  EXEC CICS WRITEQ TS QUEUE('MYQUEUE')
+    FROM(WS-DATA) LENGTH(WS-LEN)
+    ITEM(WS-ITEM-NUM) RESP(WS-RESP) END-EXEC
+  ITEM returns the item number written.
+
+READQ TS:
+  EXEC CICS READQ TS QUEUE('MYQUEUE')
+    INTO(WS-DATA) LENGTH(WS-LEN)
+    ITEM(WS-ITEM-NUM) RESP(WS-RESP) END-EXEC
+
+DELETEQ TS:
+  EXEC CICS DELETEQ TS QUEUE('MYQUEUE') RESP(WS-RESP) END-EXEC
+
+Storage Options:
+  MAIN — Memory (fast, lost on CICS restart)
+  AUXILIARY — Disk (persists across restarts)
+  Default is AUXILIARY.
+
+Common Uses:
+  • Page-through screens (store all records, display page at a time)
+  • Session scratch pad data
+  • Passing large data between transactions
+  • Building report data before display
+
+Queue Naming:
+  Often: TRANSID + EIBTRMID (terminal ID) for uniqueness.
+
+Pro Tip: Delete TS queues when done. Orphaned queues waste storage.`
+    },
+
+    { title:"CICS Transient Data (TD) Queues", level:"Intermediate",
+      content:`TD queues are for sequential one-direction data flow.
+
+Types:
+  Intrapartition — Within CICS. Can trigger transactions.
+  Extrapartition — Maps to external file (dataset).
+
+WRITEQ TD:
+  EXEC CICS WRITEQ TD QUEUE('LOGA')
+    FROM(WS-LOG-REC) LENGTH(WS-LEN) END-EXEC
+
+READQ TD:
+  EXEC CICS READQ TD QUEUE('LOGA')
+    INTO(WS-REC) LENGTH(WS-LEN) END-EXEC
+
+DELETEQ TD:
+  EXEC CICS DELETEQ TD QUEUE('LOGA') END-EXEC
+
+Trigger Level:
+  Intrapartition queues can auto-start a transaction after N records.
+  Define trigger level in CICS resource definition.
+
+Extrapartition:
+  Maps to JCL DD. Writes go to a sequential file.
+  Used for: print output, audit logs, batch interface files.
+
+TS vs TD:
+  TS = random access by item number, read/write
+  TD = sequential, one-direction flow, trigger capable
+
+Pro Tip: Use TD for audit logs and print queues. Use TS for session data and scratch pads.`
+    },
+
+    { title:"CICS LINK, XCTL & RETURN", level:"Intermediate",
+      content:`Three ways to transfer control between CICS programs.
+
+LINK (Call — returns to caller):
+  EXEC CICS LINK PROGRAM('SUBPROG')
+    COMMAREA(WS-COMM) LENGTH(WS-LEN) END-EXEC
+  Like COBOL CALL. Subprogram returns to caller.
+  Both programs active in memory simultaneously.
+
+XCTL (Transfer — doesn't return):
+  EXEC CICS XCTL PROGRAM('NEXTPROG')
+    COMMAREA(WS-COMM) LENGTH(WS-LEN) END-EXEC
+  Current program ends. NEXTPROG takes over.
+  Caller's resources freed.
+
+RETURN (End program):
+  Without TRANSID: Task ends completely.
+  With TRANSID: Pseudo-conversational return.
+  EXEC CICS RETURN TRANSID('TRN1')
+    COMMAREA(WS-COMM) LENGTH(WS-LEN) END-EXEC
+
+When to Use:
+  LINK — Call a subroutine, need result back
+  XCTL — Hand off to next program in a chain (menu → detail)
+  RETURN with TRANSID — End pseudo-conversational interaction
+
+Pro Tip: LINK keeps both programs in memory. XCTL frees the caller. For memory efficiency, prefer XCTL when you don't need to return.`
+    },
+
+    { title:"CICS SEND MAP & RECEIVE MAP", level:"Beginner",
+      content:`BMS maps are the CICS screen interface — SEND displays, RECEIVE reads input.
+
+SEND MAP:
+  EXEC CICS SEND MAP('CUSTMAP') MAPSET('CUSTMST')
+    MAPONLY ERASE END-EXEC
+  MAPONLY — Send layout without data (first display)
+  DATAONLY — Send data into existing layout (updates)
+  ERASE — Clear screen first
+
+RECEIVE MAP:
+  EXEC CICS RECEIVE MAP('CUSTMAP') MAPSET('CUSTMST')
+    INTO(CUSTMAPI) RESP(WS-RESP) END-EXEC
+  Reads user input into the symbolic map structure.
+
+Symbolic Map Fields:
+  For field CUSTID: CUSTIDF (flag), CUSTIDL (length), CUSTIDI (input), CUSTIDO (output)
+  Check CUSTIDL > 0 to see if user entered data.
+
+Attribute Bytes:
+  Control field behavior: protected, bright, dark, numeric, modified.
+  MOVE DFHBMPRF TO CUSTIDA — Make field protected+bright.
+
+SEND TEXT:
+  EXEC CICS SEND TEXT FROM(WS-MSG) LENGTH(WS-LEN) ERASE END-EXEC
+  Quick message without BMS map.
+
+Pro Tip: Always check field length (xxxL > 0) before processing input. Users may press Enter without typing.`
+    },
+
+    { title:"CICS Attention Keys (AID)", level:"Beginner",
+      content:`AID (Attention Identifier) keys trigger CICS input — ENTER, PF keys, PA keys.
+
+EIBAID:
+  EIB field set to the AID key pressed by user.
+  Check after RECEIVE MAP.
+
+Common AID Values:
+  DFHENTER — Enter key
+  DFHPF1 thru DFHPF24 — PF1-PF24
+  DFHPA1, DFHPA2, DFHPA3 — PA keys
+  DFHCLEAR — Clear key
+
+Pattern:
+  EXEC CICS RECEIVE MAP(...) END-EXEC
+  EVALUATE EIBAID
+    WHEN DFHENTER PERFORM PROCESS-INPUT
+    WHEN DFHPF3   PERFORM EXIT-PROGRAM
+    WHEN DFHPF7   PERFORM PAGE-UP
+    WHEN DFHPF8   PERFORM PAGE-DOWN
+    WHEN DFHPF12  PERFORM CANCEL-ACTION
+    WHEN OTHER    PERFORM INVALID-KEY
+  END-EVALUATE
+
+PA Keys vs PF Keys:
+  PA keys do NOT transmit screen data (fast, no I/O)
+  PF keys transmit modified fields
+
+HANDLE AID (Legacy):
+  EXEC CICS HANDLE AID PF3(EXIT-LABEL) ENTER(PROCESS-LABEL) END-EXEC
+  Legacy — use EIBAID with EVALUATE instead.
+
+Pro Tip: Always handle PF3 as exit/back, ENTER as submit. This is the universal CICS convention.`
+    },
+
+    { title:"CICS COMMAREA Deep Dive", level:"Intermediate",
+      content:`COMMAREA is the primary data-passing mechanism in pseudo-conversational CICS.
+
+What It Is:
+  Communication Area — data preserved between pseudo-conversational interactions.
+  Max 32KB.
+
+Setting COMMAREA:
+  EXEC CICS RETURN TRANSID('TRN1')
+    COMMAREA(WS-COMM) LENGTH(WS-COMM-LEN) END-EXEC
+
+Receiving COMMAREA:
+  LINKAGE SECTION.
+  01 DFHCOMMAREA PIC X(n).
+  
+  PROCEDURE DIVISION.
+  IF EIBCALEN = 0
+    (First time — no COMMAREA yet)
+  ELSE
+    MOVE DFHCOMMAREA TO WS-COMM
+  END-IF
+
+Design Tips:
+  • Include a "state" field: WS-COMM-STATE PIC X (I=inquiry, U=update)
+  • Include key fields needed to re-read data
+  • Keep it small — every byte is saved/restored per interaction
+  • Version the layout — WS-COMM-VERSION PIC 9
+
+COMMAREA vs TS Queue:
+  COMMAREA: Small data (<32KB), fast, between interactions
+  TS Queue: Large data, persist across transactions, shared
+
+Pro Tip: First instruction in every CICS program: check EIBCALEN. 0 = first time. > 0 = returning user.`
+    },
+
+    { title:"CICS START & Interval Control", level:"Advanced",
+      content:`START schedules transactions for later or deferred execution.
+
+START:
+  EXEC CICS START TRANSID('RPT1')
+    INTERVAL(013000)
+    FROM(WS-DATA) LENGTH(WS-LEN)
+    RESP(WS-RESP) END-EXEC
+  Runs RPT1 after 1 hour 30 minutes.
+
+INTERVAL:
+  INTERVAL(HHMMSS) — Delay from now
+  TIME(HHMMSS) — Specific time today
+  AFTER HOURS(1) MINUTES(30)
+
+RETRIEVE (in started transaction):
+  EXEC CICS RETRIEVE INTO(WS-DATA) LENGTH(WS-LEN) END-EXEC
+  Gets the data passed by FROM in START.
+
+CANCEL:
+  EXEC CICS CANCEL REQID('REQ001') END-EXEC
+  Cancels a previously STARTed request.
+
+REQID:
+  Identifier for the START request. Needed for CANCEL.
+
+Common Uses:
+  • Deferred processing (submit report at end of day)
+  • Retry logic (retry failed operation after delay)
+  • Scheduled cleanups
+  • Asynchronous processing
+
+Pro Tip: Use REQID when you need the ability to cancel. Without it, you can't cancel a STARTed transaction.`
+    },
+
+    { title:"CICS Debugging — CEDF, CECI, CEBR", level:"Intermediate",
+      content:`Three essential CICS debugging tools.
+
+CEDF (Execution Diagnostic Facility):
+  Type CEDF at terminal → then run your transaction.
+  Steps through every EXEC CICS command showing:
+  - Command about to execute
+  - Parameters and values
+  - Response code after execution
+  Press ENTER to continue, PF3 to stop debugging.
+
+CECI (Command Interpreter):
+  Test CICS commands interactively.
+  CECI READ DATASET('CUSTFILE') RIDFLD('12345678')
+  Shows the result immediately. Great for testing file access.
+
+CEBR (TS Queue Browser):
+  View contents of Temporary Storage queues.
+  CEBR MYQUEUE
+  Shows items in the queue — useful for debugging TS data.
+
+CEMT (Master Terminal):
+  INQ TASK — Show active tasks
+  INQ PROG(name) — Check program status
+  INQ FILE(name) — Check file status
+  SET PROG(name) NEWCOPY — Load new version of program
+  SET FILE(name) OPEN/CLOSE — Open/close file
+
+Pro Tip: CEDF is the most powerful CICS debugging tool. Learn to read its output — it shows exactly what happens at each EXEC CICS command.`
+    },
+
+    { title:"CICS HANDLE ABEND & Recovery", level:"Advanced",
+      content:`Production CICS programs must handle errors gracefully.
+
+HANDLE ABEND:
+  EXEC CICS HANDLE ABEND PROGRAM('ERRPGM') END-EXEC
+  If this program ABENDs, CICS runs ERRPGM instead of crashing.
+
+HANDLE ABEND LABEL:
+  EXEC CICS HANDLE ABEND LABEL(ERR-RTN) END-EXEC
+  Transfer to paragraph ERR-RTN on ABEND.
+
+RESP Option (Modern — Preferred):
+  EXEC CICS READ ... RESP(WS-RESP) END-EXEC
+  IF WS-RESP NOT = DFHRESP(NORMAL)
+    PERFORM HANDLE-ERROR
+  END-IF
+  No ABEND occurs — program checks response code.
+
+ABEND Command:
+  EXEC CICS ABEND ABCODE('MYAB') END-EXEC
+  Intentionally ABEND with your code (for severe errors).
+
+Syncpoint (Commit/Rollback):
+  EXEC CICS SYNCPOINT END-EXEC — Commit all changes
+  EXEC CICS SYNCPOINT ROLLBACK END-EXEC — Undo all changes
+
+Dynamic Transaction Backout (DTB):
+  If a transaction ABENDs, CICS automatically rolls back all recoverable resource changes (files, TS queues with RECOVERY).
+
+Pro Tip: Use RESP on every EXEC CICS command. Reserve HANDLE ABEND for truly unexpected errors.`
+    },
+
+    { title:"CICS Channels & Containers", level:"Advanced",
+      content:`Modern alternative to COMMAREA for passing data between programs. Overcomes 32KB limit.
+
+Container:
+  Named data area within a channel. Any size.
+  EXEC CICS PUT CONTAINER('CUSTDATA') CHANNEL('MYCHAN')
+    FROM(WS-DATA) FLENGTH(WS-LEN) END-EXEC
+
+Channel:
+  Collection of containers. Passed on LINK/XCTL/RETURN.
+  EXEC CICS LINK PROGRAM('SUBPROG') CHANNEL('MYCHAN') END-EXEC
+
+GET CONTAINER:
+  EXEC CICS GET CONTAINER('CUSTDATA') CHANNEL('MYCHAN')
+    INTO(WS-DATA) FLENGTH(WS-LEN) END-EXEC
+
+Advantages over COMMAREA:
+  • No 32KB limit
+  • Multiple named containers (like a parameter list)
+  • Pass different data types in different containers
+  • Natural fit for web services (SOAP/REST)
+
+COMMAREA vs Channels:
+  Use COMMAREA for simple, small data (<32KB)
+  Use Channels for large data, multiple data structures, web services
+
+Pro Tip: New CICS development should use Channels. COMMAREA is legacy but still dominant in existing code.`
+    },
+
+    { title:"CICS Web Services — REST & SOAP", level:"Expert",
+      content:`CICS can expose COBOL programs as REST/SOAP web services and consume external APIs.
+
+Exposing as REST (CICS TS 5.2+):
+  1. Write normal COBOL program with COMMAREA/Container interface
+  2. Create URIMAP resource mapping URL to program
+  3. CICS handles HTTP → COBOL data conversion
+  4. JSON support: CICS auto-converts between JSON and COBOL structures
+
+Consuming REST:
+  EXEC CICS WEB OPEN ... END-EXEC (open HTTP connection)
+  EXEC CICS WEB SEND ... END-EXEC (send request)
+  EXEC CICS WEB RECEIVE ... END-EXEC (get response)
+
+SOAP (Legacy):
+  PIPELINE definitions + WSBIND files
+  DFHWS2LS utility converts WSDL to COBOL language structure
+  More complex setup than REST
+
+z/OS Connect (Modern):
+  API gateway that sits in front of CICS.
+  Maps REST URLs to CICS programs automatically.
+  No COBOL code changes needed.
+  Swagger/OpenAPI support for API documentation.
+
+Pro Tip: z/OS Connect is the modern way. For new projects, use REST with z/OS Connect. SOAP is legacy.`
+    },
+
+    { title:"CICS Multi-Threading & Task Control", level:"Expert",
+      content:`CICS is a multi-tasking system — hundreds of transactions run concurrently.
+
+Task:
+  Each user interaction creates a CICS task.
+  Tasks share CICS region resources (memory, files, queues).
+
+ENQ/DEQ (Resource Locking):
+  EXEC CICS ENQ RESOURCE('CUST-UPD-12345') LENGTH(16) END-EXEC
+  ... exclusive processing ...
+  EXEC CICS DEQ RESOURCE('CUST-UPD-12345') LENGTH(16) END-EXEC
+  Prevents two users from updating the same record simultaneously.
+
+SUSPEND & RESUME:
+  EXEC CICS SUSPEND END-EXEC — Yield CPU to other tasks
+
+DELAY:
+  EXEC CICS DELAY INTERVAL(000005) END-EXEC — Wait 5 seconds
+
+POST/WAIT:
+  Timer-based event control for background processing.
+
+Concurrency Issues:
+  • Two users reading same record → both update → last one wins (lost update)
+  • Fix: READ with UPDATE option (locks record) or use ENQ/DEQ
+  • Deadlocks: Task A locks X, waits for Y. Task B locks Y, waits for X.
+  • CICS detects deadlocks and ABENDs one task (ABEND code AKCS)
+
+Pro Tip: Keep locks short. READ UPDATE → immediate REWRITE → release. Long locks cause timeouts for other users.`
+    },
+
+
+
+    { title:"CICS Transaction Routing", level:"Advanced",
+      content:`Route transactions between CICS regions for load balancing and specialization.
+
+Local vs Remote:
+  Local: Transaction runs in the region where user is connected.
+  Remote: Transaction routed to another CICS region.
+
+Function Shipping:
+  EXEC CICS READ DATASET('REMFILE') sends file request to owning region.
+  Application code unchanged — CICS handles routing transparently.
+
+Transaction Routing:
+  User at Terminal → Region A → Routes TRN1 to Region B.
+  Defined via: REMOTESYSTEM in TRANSACTION definition.
+
+Distributed Program Link (DPL):
+  EXEC CICS LINK PROGRAM('REMPROG') — Runs program in remote region.
+  COMMAREA passed across regions.
+
+MRO (Multi-Region Operation):
+  CICS regions on same LPAR communicate via shared memory.
+  Faster than ISC (Inter-System Communication) across LPARs.
+
+ISC (Inter-System Communication):
+  Cross-LPAR or cross-system communication via VTAM/TCP.
+
+Pro Tip: MRO for same-LPAR communication (fast). ISC for cross-system (flexible but slower).`
+    },
+
+    { title:"CICS Storage Control", level:"Advanced",
+      content:`CICS manages storage for all transactions in the region.
+
+GETMAIN:
+  EXEC CICS GETMAIN SET(ADDRESS OF WS-AREA) LENGTH(WS-LEN) INITIMG(X'00') END-EXEC
+  Allocates memory dynamically. SET points to the acquired storage.
+
+FREEMAIN:
+  EXEC CICS FREEMAIN DATA(WS-AREA) END-EXEC
+  Releases dynamically acquired storage.
+
+Storage Types:
+  User storage — Allocated for application use
+  CICS storage — Internal CICS use
+  Shared storage — Accessible across tasks
+
+DSA (Dynamic Storage Area):
+  UDSA — User Dynamic Storage Area (below 16MB line)
+  ECDSA — Extended CICS DSA (above 16MB line)
+  EUDSA — Extended User DSA
+  Each has limits in CICS SIT parameters.
+
+Short-on-Storage (SOS):
+  When CICS runs low on storage, new transactions may be queued or rejected.
+  Monitor with CEMT INQ DSAS.
+
+Pro Tip: Avoid GETMAIN when possible — use COMMAREA or Channels. Dynamic storage that isn't FREEMAINed causes storage leaks.`
+    },
+
+    { title:"CICS Journal Control", level:"Advanced",
+      content:`Journals record transaction activity for recovery and audit.
+
+WRITE JOURNALNAME:
+  EXEC CICS WRITE JOURNALNAME('DFHLOG')
+    JTYPEID('XX') FROM(WS-DATA) LENGTH(WS-LEN)
+    RESP(WS-RESP) END-EXEC
+
+System Log (DFHLOG):
+  Records all recoverable resource changes.
+  Used by Dynamic Transaction Backout (DTB).
+  Automatic — CICS writes to it for all recoverable operations.
+
+User Journals:
+  Custom journals for audit trails.
+  JOURNAL01 through JOURNAL99.
+
+Forward Recovery:
+  Play back journal records to recreate changes.
+  DFHJUP utility reads journal records.
+
+Activity Keypoints:
+  CICS periodically writes snapshots of active transactions.
+  Used during emergency restart to determine in-flight transactions.
+
+Pro Tip: System logging is automatic for recoverable resources. User journals are for custom audit requirements.`
+    },
+
+    { title:"CICS Monitoring & Statistics", level:"Advanced",
+      content:`Monitor CICS performance and diagnose problems.
+
+CEMT INQ Commands:
+  CEMT INQ TASK — Active tasks (count, wait reasons)
+  CEMT INQ DSAS — Storage usage
+  CEMT INQ FILE — File status and access counts
+  CEMT INQ TRAN — Transaction definitions
+  CEMT INQ PROG — Program status and use counts
+  CEMT INQ TDQUEUE — TD queue depths
+  CEMT INQ TSQUEUE — TS queue info
+
+CICS Statistics:
+  Written to SMF or CICS statistics datasets.
+  Transaction stats: Response time, CPU, I/O counts per transaction.
+  File stats: Read/write counts, CI splits.
+  Storage stats: DSA usage, peaks.
+
+CICS Performance Analyzer (CPA):
+  IBM tool for analyzing CICS statistics.
+  Shows transaction response time breakdown.
+
+Key Metrics:
+  Transaction response time (average, 90th percentile)
+  Task count and throughput
+  File I/O counts
+  Storage utilization
+  Short-on-storage events
+
+Pro Tip: Monitor transaction response time trends. Gradual degradation usually means growing data volumes or file splits.`
+    },
+
+    { title:"CICS System Initialization (SIT)", level:"Expert",
+      content:`The SIT (System Initialization Table) configures how CICS starts up.
+
+Key SIT Parameters:
+  DSALIM — User storage limit below the line
+  EDSALIM — Extended storage limit above the line
+  MXT — Maximum tasks allowed concurrently
+  AMAXTASKS — Active max tasks
+  AKPFREQ — Activity keypoint frequency
+  DTRTRAN — Default routing transaction
+  GRPLIST — CSD group list to install at startup
+  TCPIPSERVICE — TCP/IP listeners
+  DB2CONN — DB2 connection name
+
+Overriding SIT:
+  At startup: PARM='SIT=6$,DSALIM=10M,MXT=200'
+  $ triggers override prompts at console.
+
+PLT (Program List Table):
+  PLTPI — Programs to run during startup (initialization)
+  PLTSD — Programs to run during shutdown (cleanup)
+
+CEDA vs CSD:
+  CSD (CICS System Definition) — File containing resource definitions.
+  CEDA — Online transaction to define/alter/install resources.
+  CICS reads CSD at startup, installs defined resources.
+
+Pro Tip: Know SIT parameters for CICS admin interviews: MXT, DSALIM, EDSALIM, and GRPLIST are most asked.`
+    },
+
+    { title:"CICS — BMS Map Assembly", level:"Intermediate",
+      content:`BMS maps are assembled to create physical and symbolic maps.
+
+BMS Macros:
+  DFHMSD — Mapset definition (collection of maps)
+  DFHMDI — Map definition (one screen layout)
+  DFHMDF — Field definition (one screen field)
+
+Field Attributes:
+  ATTRB=(PROT,BRT) — Protected, Bright
+  ATTRB=(UNPROT,NORM) — Unprotected, Normal (input field)
+  ATTRB=(UNPROT,BRT,IC) — Input, Bright, Initial Cursor
+  ATTRB=(ASKIP) — Auto-skip
+  ATTRB=(UNPROT,NUM) — Numeric input only
+
+Assembly:
+  Assemble with TYPE=DSECT → Symbolic map (COBOL copybook)
+  Assemble with TYPE=MAP → Physical map (load module)
+  Both needed: physical for display, symbolic for program data.
+
+Symbolic Map Structure:
+  For field CUSTID:
+  CUSTIDF — Flag byte (MDT, etc.)
+  CUSTIDL — Input length (S9(4) COMP)
+  CUSTIDA — Attribute byte
+  CUSTIDI — Input data (PIC X(n))
+  CUSTIDO — Output data (PIC X(n))
+
+Pro Tip: Check field length (xxxL > 0) to know if user entered data. Check MDT flag to know if field was modified.`
+    },
+
+    { title:"CICS — ASSIGN & INQUIRE", level:"Intermediate",
+      content:`ASSIGN retrieves system values. INQUIRE checks resource status.
+
+EXEC CICS ASSIGN:
+  EXEC CICS ASSIGN USERID(WS-USERID) END-EXEC — Current user
+  EXEC CICS ASSIGN SYSID(WS-SYSID) END-EXEC — Region name
+  EXEC CICS ASSIGN APPLID(WS-APPLID) END-EXEC — CICS applid
+  EXEC CICS ASSIGN FACILITY(WS-TERMID) END-EXEC — Terminal ID
+  EXEC CICS ASSIGN NETNAME(WS-NETNAME) END-EXEC — Network name
+  EXEC CICS ASSIGN STARTCODE(WS-START) END-EXEC — How started (TD, S, etc.)
+
+EXEC CICS INQUIRE:
+  EXEC CICS INQUIRE FILE('CUSTFILE')
+    OPENSTATUS(WS-STATUS) ENABLESTATUS(WS-ENABLE)
+    END-EXEC
+  Checks if file is open/closed, enabled/disabled.
+
+  EXEC CICS INQUIRE PROGRAM('MYPROG')
+    STATUS(WS-STATUS) USECOUNT(WS-COUNT)
+    END-EXEC
+
+EXEC CICS SET:
+  EXEC CICS SET FILE('CUSTFILE') OPEN END-EXEC — Open file
+  EXEC CICS SET PROGRAM('MYPROG') NEWCOPY END-EXEC — Load new version
+
+Pro Tip: Use ASSIGN USERID for security checks. Use INQUIRE before FILE operations to verify file is open.`
+    },
+
+    { title:"CICS — Batch Data Interchange (BDI)", level:"Expert",
+      content:`Patterns for exchanging data between CICS (online) and batch processing.
+
+Online-to-Batch:
+  1. CICS writes to TD extrapartition queue → Dataset → Batch reads
+  2. CICS writes to TS queue → Batch CICS transaction reads and writes to file
+  3. CICS updates shared VSAM file → Batch reads VSAM
+
+Batch-to-Online:
+  1. Batch writes sequential file → CICS reads via extrapartition TD
+  2. Batch updates shared VSAM → CICS reads VSAM
+  3. Batch sends MQ message → CICS MQ trigger starts transaction
+
+Shared VSAM:
+  SHAREOPTIONS(2,3) — Batch reads, CICS writes
+  Use CICS RLS for true sharing or BWO (batch window) approach.
+
+Batch Window:
+  1. Close files in CICS (CEMT SET FILE CLOSE)
+  2. Run batch processing
+  3. Reopen files (CEMT SET FILE OPEN)
+  Traditional approach — increasingly replaced by RLS.
+
+Pro Tip: MQ is the modern way for CICS-to-batch communication. File-based interchange is legacy but still dominant.`
+    },
+
+    { title:"CICS — Testing Strategies", level:"Intermediate",
+      content:`Testing CICS programs before production deployment.
+
+Unit Testing:
+  CEDF — Step through EXEC CICS commands
+  CECI — Test individual commands interactively
+  CEBR — Verify TS queue contents
+
+Integration Testing:
+  Test full transaction flow: map → process → file → response
+  Use test CICS region with test data
+
+Regression Testing:
+  Save screen captures of expected output
+  Compare after code changes
+  Automated tools: IBM CICS Test, CA Verify
+
+Debugging:
+  CEDF — Most powerful online debugger
+  CEEDUMP DD — Formatted dumps for ABENDs
+  EDF over terminal — Debug on user's terminal
+  CEDX — Extended debugging
+
+Common Test Scenarios:
+  1. Normal path — Valid input, successful processing
+  2. Not found — Record doesn't exist
+  3. Duplicate — Record already exists
+  4. Invalid input — Spaces, non-numeric in numeric field
+  5. File closed — CICS file not available
+  6. Security — User without authority
+
+Pro Tip: Always test with CEDF first. It shows every EXEC CICS command's input and output — catches 80% of bugs.`
+    },
+
+    { title:"CICS — Application Design Patterns", level:"Advanced",
+      content:`Proven architectural patterns for CICS applications.
+
+Menu-Detail Pattern:
+  Menu screen → User selects option → XCTL to detail program → Detail processes → XCTL back to menu.
+  Each screen is a separate program.
+
+Inquiry-Update Pattern:
+  1. Display inquiry screen (SEND MAP MAPONLY)
+  2. User enters key → RECEIVE → READ file → display data (SEND DATAONLY)
+  3. User modifies → RECEIVE → validate → REWRITE → confirm
+
+Scratchpad Pattern:
+  Store complex state in TS queue (keyed by EIBTRMID).
+  Each pseudo-conversational return saves state to TS.
+  Each return retrieves state from TS.
+
+Multi-Page Pattern:
+  Large result set stored in TS queue.
+  Display one page at a time.
+  PF7 = page up, PF8 = page down.
+  COMMAREA tracks current page number.
+
+Error Handling Pattern:
+  Central error program — LINK to it from any program.
+  Passes: error code, program name, transaction ID.
+  Error program logs, displays message, optionally ABENDs.
+
+Pro Tip: Keep programs small (one function each). Use XCTL to chain them. COMMAREA or channels pass data between programs.`
+    },
+
+
+
+    { title:"CICS — FORMATTIME & Date Handling", level:"Beginner",
+      content:`Working with dates and times in CICS programs.
+
+ASKTIME:
+  EXEC CICS ASKTIME ABSTIME(WS-ABSTIME) END-EXEC
+  Gets current timestamp as absolute time (packed decimal).
+
+FORMATTIME:
+  EXEC CICS FORMATTIME ABSTIME(WS-ABSTIME)
+    DDMMYYYY(WS-DATE) TIME(WS-TIME) TIMESEP(':') DATESEP('/')
+    RESP(WS-RESP) END-EXEC
+  Formats timestamp into readable fields.
+
+Output Fields:
+  DDMMYYYY, MMDDYYYY, YYYYMMDD — Date formats
+  YYYYDDD — Julian date
+  TIME — HHMMSS
+  DAYCOUNT — Days since Jan 1, 1900
+  DAYOFWEEK — 0=Sunday, 6=Saturday
+  MONTHOFYEAR — 1-12
+
+Common Use:
+  Display current date/time on BMS screen.
+  Stamp records with creation timestamp.
+
+Pro Tip: Always use ASKTIME + FORMATTIME together. ASKTIME captures the moment, FORMATTIME converts it.`
+    },
+
+    { title:"CICS — Interval Control Timer", level:"Intermediate",
+      content:`Schedule delayed and recurring tasks in CICS.
+
+DELAY:
+  EXEC CICS DELAY INTERVAL(000005) END-EXEC — Wait 5 seconds
+  EXEC CICS DELAY FOR HOURS(1) MINUTES(30) END-EXEC
+
+POST (Timer Event):
+  EXEC CICS POST INTERVAL(001000) SET(WS-TIMER-PTR) REQID('TMR1') END-EXEC
+  Posts a timer event after 10 minutes.
+
+WAIT EVENT:
+  EXEC CICS WAIT EVENT ECADDR(WS-TIMER-PTR) END-EXEC
+  Waits until the timer fires.
+
+CANCEL:
+  EXEC CICS CANCEL REQID('TMR1') END-EXEC
+  Cancels a pending timer.
+
+START with INTERVAL:
+  EXEC CICS START TRANSID('RPT1') INTERVAL(013000) END-EXEC
+  Schedules transaction RPT1 to run in 1h30m.
+
+Use Cases:
+  • Delayed notifications
+  • Scheduled cleanup tasks
+  • Retry logic with backoff
+  • Periodic health checks
+
+Pro Tip: DELAY blocks the task. START launches a new task. Use START for background work, DELAY only for brief waits.`
+    },
+
+    { title:"CICS — Queue Management Patterns", level:"Intermediate",
+      content:`Best practices for managing TS and TD queues in production.
+
+TS Queue Naming:
+  Convention: TRANSID + EIBTRMID for uniqueness per user.
+  STRING EIBTRNID EIBTRMID INTO WS-QUEUE-NAME
+  Or: 'CUST' + USER-ID for user-specific data.
+
+TS Queue Cleanup:
+  Always DELETEQ when done. Orphaned queues waste storage.
+  Add cleanup logic in error paths too.
+
+Paging Pattern (Multi-Page Display):
+  1. Read all matching records into TS queue (one item per record)
+  2. COMMAREA stores: current page, total items, queue name
+  3. PF8 (forward): Read items N+1 to N+PAGESIZE from TS
+  4. PF7 (backward): Read items N-PAGESIZE+1 to N from TS
+  5. On exit: DELETEQ TS
+
+TD Queue Monitoring:
+  Use trigger levels to auto-start processing when queue fills.
+  CEDA DEFINE TDQUEUE: TRIGGERLEVEL(100) TRANSID(PRTQ)
+  After 100 records written, PRTQ transaction starts automatically.
+
+TD Extrapartition for Batch Interface:
+  CICS writes to TD → TD maps to JCL DD → Sequential dataset → Batch reads.
+  Clean interface between online and batch.
+
+Pro Tip: For TS queues, always include cleanup in both normal and error paths. Storage leaks are hard to diagnose in production.`
+    },
+
+    { title:"CICS — Security Implementation", level:"Advanced",
+      content:`CICS security through RACF and CICS built-in mechanisms.
+
+RACF Integration:
+  CICS uses RACF (or equivalent) for authentication and authorization.
+  User signs on to CICS → RACF validates → Security token created.
+
+Transaction Security:
+  RACF class: TCICSTRN
+  PERMIT CUST IN CLASS(TCICSTRN) ID(USER1) ACCESS(READ)
+  User1 can execute transaction CUST.
+
+Resource Security:
+  File security: RACF class FCICSFCT
+  Program security: RACF class PCICSPPT
+  TS Queue security: RACF class TCICSTST
+
+EXEC CICS VERIFY:
+  EXEC CICS VERIFY USERID(WS-USER) PASSWORD(WS-PASS) RESP(WS-RESP) END-EXEC
+  Programmatic authentication check.
+
+EXEC CICS QUERY SECURITY:
+  EXEC CICS QUERY SECURITY RESTYPE('DATASET') RESID('MY.FILE')
+    LOGMESSAGE(WS-LOG) RESP(WS-RESP) END-EXEC
+  Check if current user has access before attempting operation.
+
+SIGNON/SIGNOFF:
+  EXEC CICS SIGNON USERID(WS-USER) PASSWORD(WS-PASS) END-EXEC
+  Changes the security context of the terminal.
+
+Pro Tip: Always use QUERY SECURITY before sensitive operations. Better to check access than ABEND with security violation.`
+    },
+
+    { title:"CICS — Problem Determination", level:"Advanced",
+      content:`Diagnosing CICS problems in production.
+
+Transaction Dumps:
+  EXEC CICS DUMP TRANSACTION DUMPCODE('MYCD') END-EXEC
+  Creates a transaction dump for analysis.
+
+System Dump:
+  Triggered by CICS or z/OS for severe errors.
+  Analyzed with IPCS (Interactive Problem Control System).
+
+CICS Messages:
+  DFHxxnnnn format. xx = component, nnnn = message number.
+  DFHFC — File Control. DFHDB — DB2. DFHTD — Transient Data.
+  Look up messages in CICS Messages and Codes manual.
+
+Trace:
+  CETR — CICS trace transaction.
+  Auxiliary trace → writes to trace dataset.
+  Internal trace → circular buffer in memory.
+  Use trace points to follow execution flow.
+
+Common ABENDs:
+  ASRA — Program check (like S0C7, S0C4 in batch)
+  AICA — Runaway task (infinite loop)
+  AEY9 — DB2 not available
+  AKCS — Deadlock detected
+  AEIO — File not found or disabled
+
+Diagnostic Steps:
+  1. Check CICS messages in CSMT log
+  2. Check transaction dump
+  3. Run CEDF to reproduce
+  4. Check trace if needed
+  5. Review CICS statistics for patterns
+
+Pro Tip: ASRA is the CICS equivalent of batch S0C7/S0C4. Debug the same way — check data values and statement offsets.`
+    },
+
+
     { title:"CICS Interview Questions", level:"All Levels",
       content:`CICS Interview Questions — 35+ Q&A organized by level.
 

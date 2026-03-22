@@ -2797,6 +2797,964 @@ Design for Restart:
     },
 
 
+
+    { title:"Working with Dates in COBOL", level:"Intermediate",
+      content:`Date handling is critical in batch processing — month-end, year-end, business days.
+
+ACCEPT FROM DATE:
+  ACCEPT WS-DATE FROM DATE YYYYMMDD — Gets 8-digit date
+  ACCEPT WS-TIME FROM TIME — Gets HHMMSSss
+  ACCEPT WS-DOW FROM DAY-OF-WEEK — 1=Mon, 7=Sun
+
+FUNCTION CURRENT-DATE:
+  Returns 21-char: YYYYMMDDHHMMSSss±HHMM (with timezone)
+  MOVE FUNCTION CURRENT-DATE TO WS-FULL-TIMESTAMP
+
+Date Arithmetic:
+  COMPUTE WS-DAYS = FUNCTION INTEGER-OF-DATE(WS-END-DATE)
+                   - FUNCTION INTEGER-OF-DATE(WS-START-DATE)
+  COMPUTE WS-FUTURE = FUNCTION DATE-OF-INTEGER(
+    FUNCTION INTEGER-OF-DATE(WS-TODAY) + 30)
+
+Date Validation:
+  FUNCTION TEST-DATE-YYYYMMDD(WS-DATE) returns 0 if valid, nonzero if invalid.
+
+Common Patterns:
+  • Month-end: Check if next day is different month
+  • Business day: Exclude weekends (DAY-OF-WEEK = 6 or 7)
+  • Age calculation: INTEGER-OF-DATE(today) - INTEGER-OF-DATE(birthdate) / 365
+
+💡 Pro Tip: Always validate dates from input files. Invalid dates cause S0C7 when used in date functions.`,
+      code:`       01  WS-DATES.
+           05  WS-TODAY        PIC 9(8).
+           05  WS-FUTURE       PIC 9(8).
+           05  WS-DAYS-DIFF    PIC S9(5) COMP-3.
+      *
+           ACCEPT WS-TODAY FROM DATE YYYYMMDD
+      *    Calculate 30 days from now:
+           COMPUTE WS-FUTURE = FUNCTION DATE-OF-INTEGER(
+               FUNCTION INTEGER-OF-DATE(WS-TODAY) + 30)
+      *    Days between two dates:
+           COMPUTE WS-DAYS-DIFF =
+               FUNCTION INTEGER-OF-DATE(WS-END-DATE) -
+               FUNCTION INTEGER-OF-DATE(WS-START-DATE)`
+    },
+
+    { title:"Variable-Length Records", level:"Intermediate",
+      content:`Files with records of different lengths use RECORD IS VARYING.
+
+FD Definition:
+  FD MY-FILE RECORD IS VARYING IN SIZE
+    FROM 50 TO 500 CHARACTERS
+    DEPENDING ON WS-REC-LEN.
+  01 MY-RECORD PIC X(500).
+
+WS-REC-LEN:
+  01 WS-REC-LEN PIC S9(4) COMP.
+  System sets this on READ. You set it before WRITE.
+
+Reading Variable-Length:
+  READ MY-FILE INTO WS-BUFFER
+  (WS-REC-LEN now contains actual record length)
+
+Writing Variable-Length:
+  MOVE desired-length TO WS-REC-LEN
+  WRITE MY-RECORD FROM WS-BUFFER
+
+Common Uses:
+  • Header/detail/trailer records of different sizes
+  • Packed records with variable number of line items
+  • VSAM variable-length KSDS files
+
+💡 Pro Tip: Always check WS-REC-LEN after READ — don't assume all records are the same size.`,
+      code:`       FILE SECTION.
+       FD  VAR-FILE
+           RECORD IS VARYING IN SIZE
+           FROM 20 TO 200 CHARACTERS
+           DEPENDING ON WS-REC-LEN.
+       01  VAR-RECORD         PIC X(200).
+      *
+       WORKING-STORAGE SECTION.
+       01  WS-REC-LEN         PIC S9(4) COMP.
+      *
+      *    Reading:
+           READ VAR-FILE INTO WS-BUFFER
+      *    WS-REC-LEN now = actual length
+           DISPLAY 'LENGTH: ' WS-REC-LEN
+      *
+      *    Writing:
+           MOVE 80 TO WS-REC-LEN
+           WRITE VAR-RECORD FROM WS-SHORT-REC`
+    },
+
+    { title:"Relative File Processing (RRDS)", level:"Intermediate",
+      content:`Relative files access records by record number — like an array on disk.
+
+SELECT:
+  SELECT REL-FILE ASSIGN TO RELDD
+    ORGANIZATION IS RELATIVE
+    ACCESS MODE IS RANDOM
+    RELATIVE KEY IS WS-REL-KEY
+    FILE STATUS IS WS-FS.
+
+RELATIVE KEY:
+  01 WS-REL-KEY PIC 9(8) — Record number (1-based).
+
+Operations:
+  READ: MOVE 5 TO WS-REL-KEY / READ REL-FILE
+  WRITE: MOVE 10 TO WS-REL-KEY / WRITE REL-RECORD
+  REWRITE: READ first, then REWRITE REL-RECORD
+  DELETE: MOVE n TO WS-REL-KEY / DELETE REL-FILE
+  START: START REL-FILE KEY >= WS-REL-KEY (for browse)
+
+Access Modes:
+  SEQUENTIAL — Read in order (record 1, 2, 3...)
+  RANDOM — Direct by record number
+  DYNAMIC — Both sequential and random
+
+When to Use:
+  • Lookup tables loaded by record number
+  • Fixed slots (e.g., calendar day data, 1-366)
+  • When record number IS the key
+
+💡 Pro Tip: RRDS is rare in production. KSDS is far more common. Know RRDS for interviews.`,
+      code:`           MOVE 42 TO WS-REL-KEY
+           READ REL-FILE INTO WS-REC
+               INVALID KEY
+                   DISPLAY 'RECORD 42 NOT FOUND'
+               NOT INVALID KEY
+                   DISPLAY 'FOUND: ' WS-REC
+           END-READ`
+    },
+
+    { title:"MERGE Verb", level:"Intermediate",
+      content:`MERGE combines multiple sorted files into one sorted output.
+
+Syntax:
+  MERGE MERGE-FILE
+    ON ASCENDING KEY M-KEY
+    USING FILE-1 FILE-2 FILE-3
+    GIVING OUTPUT-FILE
+
+Requirements:
+  • SD (Sort Description) in FILE SECTION
+  • Input files must ALREADY be sorted on the merge key
+  • Output is a single merged, sorted file
+
+MERGE vs SORT:
+  SORT takes one unsorted input → one sorted output
+  MERGE takes multiple sorted inputs → one sorted output
+  MERGE is faster than SORT when inputs are pre-sorted
+
+With OUTPUT PROCEDURE:
+  MERGE MERGE-FILE ON ASCENDING KEY M-KEY
+    USING FILE-1 FILE-2
+    OUTPUT PROCEDURE IS FORMAT-OUTPUT
+  (RETURN merge-record to process each merged record)
+
+💡 Pro Tip: MERGE is perfect for combining daily extracts into a weekly file. Much faster than SORT on concatenated input.`,
+      code:`       FILE SECTION.
+       SD  MERGE-FILE.
+       01  MERGE-REC.
+           05  M-KEY           PIC X(10).
+           05  M-DATA          PIC X(90).
+      *
+           MERGE MERGE-FILE
+               ON ASCENDING KEY M-KEY
+               USING DAILY-MON DAILY-TUE DAILY-WED
+                     DAILY-THU DAILY-FRI
+               GIVING WEEKLY-FILE`
+    },
+
+    { title:"Inter-Program Communication", level:"Advanced",
+      content:`COBOL programs communicate via CALL parameters, COMMAREA, or shared files.
+
+CALL...USING (Batch):
+  Main calls sub with shared data areas.
+  BY REFERENCE — Sub modifies caller's data
+  BY CONTENT — Sub gets a copy (read-only to caller)
+  BY VALUE — Passes actual value (for C/Java interop)
+
+COMMAREA (CICS):
+  Data passed between pseudo-conversational interactions.
+  Max 32KB. Stored by CICS between transactions.
+  IF EIBCALEN = 0 → first invocation, no COMMAREA.
+
+Shared Files:
+  Multiple programs in a job step share files via JCL DD.
+  Open in main program, pass file status/data via CALL.
+
+RETURN-CODE:
+  Set by called program: MOVE 0 TO RETURN-CODE
+  Checked by caller or JCL COND parameter.
+
+EXTERNAL Data:
+  01 WS-SHARED EXTERNAL PIC X(100).
+  Shared across programs in same run unit — same memory.
+
+💡 Pro Tip: Use RETURN-CODE for status (0=OK, 4=warn, 8=error). Use CALL parameters for data.`,
+      code:`      *    Main program passes customer record to validator:
+           CALL 'VALIDATE' USING
+               BY REFERENCE WS-CUST-REC
+               BY CONTENT   WS-VALID-TABLE
+               BY REFERENCE WS-ERROR-MSG
+           END-CALL
+           EVALUATE RETURN-CODE
+               WHEN 0 PERFORM PROCESS-VALID
+               WHEN 4 PERFORM PROCESS-WARNING
+               WHEN 8 PERFORM PROCESS-ERROR
+           END-EVALUATE`
+    },
+
+    { title:"Condition Handling (USE AFTER ERROR)", level:"Advanced",
+      content:`DECLARATIVES provide automatic error handling for file I/O.
+
+Syntax:
+  DECLARATIVES.
+  FILE-ERR SECTION.
+    USE AFTER ERROR PROCEDURE ON file-name.
+  FILE-ERR-PARA.
+    DISPLAY 'FILE ERROR: ' WS-FS
+    MOVE 8 TO RETURN-CODE.
+  END DECLARATIVES.
+
+How It Works:
+  When any I/O error occurs on the named file, control transfers to the USE procedure automatically. After the procedure, control returns to the statement AFTER the failed I/O.
+
+Scope:
+  USE AFTER ERROR ON file-name — specific file
+  USE AFTER ERROR ON INPUT — all input files
+  USE AFTER ERROR ON OUTPUT — all output files
+  USE AFTER ERROR ON I-O — all I-O files
+  USE AFTER ERROR ON EXTEND — all extend files
+
+Modern Alternative:
+  Most shops prefer FILE STATUS checking after each I/O operation instead of DECLARATIVES. It's more explicit and easier to debug.
+
+💡 Pro Tip: DECLARATIVES are legacy. Use FILE STATUS checking — it's clearer and every mainframe shop expects it.`,
+      code:`       PROCEDURE DIVISION.
+       DECLARATIVES.
+       FILE-ERR SECTION.
+           USE AFTER ERROR PROCEDURE ON CUST-FILE.
+       FILE-ERR-PARA.
+           DISPLAY 'CUST-FILE ERROR: ' WS-CUST-FS
+           MOVE 12 TO RETURN-CODE
+           STOP RUN.
+       END DECLARATIVES.
+      *
+       MAIN SECTION.
+       MAIN-PARA.
+           OPEN INPUT CUST-FILE
+           PERFORM READ-LOOP UNTIL EOF
+           CLOSE CUST-FILE
+           STOP RUN.`
+    },
+
+    { title:"Debugging with SYSUDUMP & CEEDUMP", level:"Advanced",
+      content:`When a COBOL program ABENDs, dump datasets help identify the failing statement.
+
+SYSUDUMP (Unformatted Dump):
+  //SYSUDUMP DD SYSOUT=*
+  Shows raw memory — registers, PSW, storage areas.
+  Use OFFSET compiler option to map PSW to source line.
+
+SYSABEND (Full Dump):
+  //SYSABEND DD SYSOUT=*
+  More detail than SYSUDUMP including system areas.
+
+CEEDUMP (Language Environment):
+  //CEEDUMP DD SYSOUT=*
+  Formatted, readable. Shows COBOL variable names and values!
+  Best option for COBOL debugging.
+
+Debugging Steps:
+  1. Get the ABEND code (e.g., S0C7)
+  2. Find the PSW address in the dump
+  3. Subtract the EPA (Entry Point Address) to get offset
+  4. Look up offset in compiler listing (OFFSET option)
+  5. Find the source line → identify the failing variable
+  6. Check variable contents in CEEDUMP
+
+Compile for Debug:
+  IGYCRCTL PARM='LIB,MAP,XREF,OFFSET,LIST,TEST'
+  • OFFSET — Maps machine code offsets to source lines
+  • MAP — Shows variable memory locations
+  • TEST — Enables z/OS Debugger
+
+💡 Pro Tip: Always compile with OFFSET in production. Without it, ABEND debugging is nearly impossible.`,
+      code:`      //* JCL for dump output:
+      //STEP1    EXEC PGM=MYPROG
+      //STEPLIB  DD  DSN=MY.LOADLIB,DISP=SHR
+      //CEEDUMP  DD  SYSOUT=*
+      //SYSUDUMP DD  SYSOUT=*
+      //SYSOUT   DD  SYSOUT=*
+      //*
+      //* CEEDUMP shows:
+      //*   Condition: CEE3207S
+      //*   Location: MYPROG, statement 247
+      //*   WS-AMOUNT = X'0000000F4C'
+      //*   (Non-numeric data in numeric field)`
+    },
+
+    { title:"Common S0C7 Debugging", level:"Intermediate",
+      content:`S0C7 (Data Exception) is the #1 COBOL ABEND. Always caused by non-numeric data in a numeric field during arithmetic or MOVE.
+
+Common Causes:
+  1. Uninitialized COMP-3 field (contains garbage)
+  2. Spaces in a numeric field from input file
+  3. REDEFINES misalignment — writing alpha, reading numeric
+  4. Missing initialization after first READ
+  5. Packed field corrupted by wrong MOVE
+
+How to Find It:
+  1. Check CEEDUMP for variable values
+  2. Find the statement number from dump offset
+  3. Look at which variables are on that line
+  4. DISPLAY suspect variables BEFORE the failing line
+
+Prevention:
+  • INITIALIZE all working storage
+  • Validate input: IF WS-FIELD IS NUMERIC
+  • Use SSRANGE compiler option to catch bad subscripts
+  • Check FILE STATUS after every I/O
+  • Be careful with REDEFINES
+
+Quick Fix Pattern:
+  IF WS-AMOUNT IS NUMERIC
+    ADD WS-AMOUNT TO WS-TOTAL
+  ELSE
+    DISPLAY 'BAD DATA: ' WS-AMOUNT
+    MOVE 0 TO WS-AMOUNT
+  END-IF
+
+💡 Interview Favorite: "How do you debug S0C7?" — This is asked in every mainframe interview. Know the full debugging flow.`,
+      code:`      *    Prevention pattern:
+           INITIALIZE WS-OUTPUT-RECORD
+      *
+      *    Validation before computation:
+           IF WS-INPUT-AMT IS NUMERIC
+               COMPUTE WS-TAX ROUNDED =
+                   WS-INPUT-AMT * WS-TAX-RATE
+           ELSE
+               DISPLAY 'S0C7 PREVENTED: '
+                       WS-INPUT-AMT
+               DISPLAY 'RECORD: ' WS-KEY
+               ADD 1 TO WS-ERROR-COUNT
+               MOVE 0 TO WS-INPUT-AMT
+           END-IF
+      *
+      *    Dump numeric field contents:
+           DISPLAY 'FIELD HEX: ' WS-PACKED-FLD`
+    },
+
+    { title:"COBOL & JCL Integration", level:"Intermediate",
+      content:`COBOL programs run via JCL. Understanding the connection is essential.
+
+DD → SELECT Mapping:
+  JCL: //CUSTMAST DD DSN=MY.CUST.FILE,DISP=SHR
+  COBOL: SELECT CUST-FILE ASSIGN TO CUSTMAST
+
+PARM Parameter:
+  JCL: //STEP1 EXEC PGM=MYPROG,PARM='20260321'
+  COBOL: LINKAGE SECTION.
+         01 LS-PARM.
+           05 LS-PARM-LEN PIC S9(4) COMP.
+           05 LS-PARM-DATA PIC X(100).
+         PROCEDURE DIVISION USING LS-PARM.
+  Max 100 characters.
+
+SYSIN Data:
+  JCL: //SYSIN DD *
+       PARAM1=VALUE1
+       /*
+  COBOL: SELECT SYSIN-FILE ASSIGN TO SYSIN.
+  Read SYSIN like any sequential file.
+
+Return Codes:
+  COBOL: MOVE 0 TO RETURN-CODE (or 4, 8, 12, 16)
+  JCL: //STEP2 EXEC PGM=NEXT,COND=(4,LT,STEP1)
+  RC controls conditional step execution.
+
+SYSOUT:
+  DISPLAY 'message' — goes to //SYSOUT DD SYSOUT=*
+  WRITE print-rec — goes to //REPORT DD SYSOUT=*
+
+💡 Pro Tip: Every COBOL developer must understand JCL. They're inseparable in mainframe batch processing.`,
+      code:`      //* JCL calling COBOL with PARM:
+      //STEP1    EXEC PGM=DAYRPT,PARM='20260321'
+      //STEPLIB  DD  DSN=PROD.LOADLIB,DISP=SHR
+      //CUSTMAST DD  DSN=PROD.CUST.MASTER,DISP=SHR
+      //TRANSIN  DD  DSN=DAILY.TRANS.FILE,DISP=SHR
+      //REPORT   DD  SYSOUT=*
+      //ERRFILE  DD  DSN=DAILY.ERRORS,
+      //             DISP=(NEW,CATLG,DELETE),
+      //             SPACE=(CYL,(1,1)),
+      //             DCB=(RECFM=FB,LRECL=200)
+      //SYSOUT   DD  SYSOUT=*
+      //CEEDUMP  DD  SYSOUT=*`
+    },
+
+    { title:"COBOL Naming Conventions", level:"Beginner",
+      content:`Consistent naming makes programs readable and maintainable across teams.
+
+Standard Prefixes:
+  WS- — Working Storage variables
+  LS- — Linkage Section variables
+  FD- — File record fields
+  WS-I, WS-J — Loop counters/subscripts
+  WS-EOF — End-of-file flag
+  WS-FS — File status
+
+Naming Rules:
+  • Max 30 characters (COBOL-85)
+  • Letters, digits, hyphens only (no underscores)
+  • Must contain at least one letter
+  • Cannot start/end with hyphen
+  • Case insensitive (CUST-NAME = cust-name)
+
+Best Practices:
+  • Descriptive names: WS-CUSTOMER-BALANCE not WS-CB
+  • Consistent prefixes per section
+  • Group names reflect hierarchy: EMP-RECORD → EMP-NAME → EMP-FIRST
+  • 88-level names should read as conditions: VALID-STATUS, EOF-REACHED
+  • Paragraph names describe action: PROCESS-TRANSACTION, VALIDATE-INPUT
+
+Copybook Conventions:
+  Use prefix tags for REPLACING: :TAG:-FIELD-NAME
+  COPY GENREC REPLACING ==:TAG:== BY ==CUST==
+
+💡 Pro Tip: Adopt your shop's naming conventions from day one. Inconsistent naming is the fastest way to get code rejected in review.`,
+      code:`       01  WS-CUSTOMER-RECORD.
+           05  WS-CUST-ID         PIC 9(8).
+           05  WS-CUST-NAME.
+               10  WS-CUST-FIRST  PIC X(20).
+               10  WS-CUST-LAST   PIC X(25).
+           05  WS-CUST-STATUS     PIC X.
+               88  CUST-ACTIVE    VALUE 'A'.
+               88  CUST-INACTIVE  VALUE 'I'.
+               88  CUST-VALID     VALUE 'A' 'I'.
+           05  WS-CUST-BALANCE    PIC S9(9)V99 COMP-3.
+      *
+       01  WS-FLAGS.
+           05  WS-EOF-FLAG        PIC X VALUE 'N'.
+               88  EOF-REACHED    VALUE 'Y'.
+           05  WS-CUST-FS         PIC XX VALUE '00'.`
+    },
+
+    { title:"Packed Decimal Arithmetic Deep Dive", level:"Intermediate",
+      content:`COMP-3 (packed decimal) is the backbone of mainframe financial processing. Understanding its internals prevents bugs.
+
+Storage Format:
+  Each byte holds 2 digits. Last nibble = sign (C=positive, D=negative, F=unsigned).
+  PIC S9(5) COMP-3 = 3 bytes: dd dd ds (5 digits + sign)
+  PIC S9(7)V99 COMP-3 = 5 bytes: dd dd dd dd ds
+
+Sign Nibble:
+  X'C' = positive (+)
+  X'D' = negative (-)
+  X'F' = unsigned (no sign)
+  If sign nibble is invalid (e.g., X'0') → S0C7
+
+Precision Rules:
+  ADD A TO B — result precision = max(A,B) digits
+  MULTIPLY A BY B — result can be larger than either
+  Use COMPUTE with ROUNDED for controlled precision
+
+Truncation:
+  Without ROUNDED: COMPUTE X = 10 / 3 → 3 (truncated)
+  With ROUNDED: COMPUTE X ROUNDED = 10 / 3 → 3 (rounds to pic)
+  ON SIZE ERROR catches overflow
+
+Why Not COMP (Binary)?
+  Binary arithmetic rounds differently than decimal.
+  $1.00 / 3 = $0.33 in packed (exact), but floating point may give $0.33333...
+  Financial regulations require exact decimal arithmetic.
+
+💡 Pro Tip: COMP-3 with S9(n)V99 and ROUNDED — this is how every bank does it.`,
+      code:`       01  WS-MONEY.
+           05  WS-PRICE      PIC S9(5)V99 COMP-3.
+           05  WS-QTY        PIC S9(5) COMP-3.
+           05  WS-SUBTOTAL   PIC S9(9)V99 COMP-3.
+           05  WS-TAX        PIC S9(7)V99 COMP-3.
+           05  WS-TOTAL      PIC S9(9)V99 COMP-3.
+      *
+           COMPUTE WS-SUBTOTAL ROUNDED =
+               WS-PRICE * WS-QTY
+           COMPUTE WS-TAX ROUNDED =
+               WS-SUBTOTAL * 0.085
+           ADD WS-SUBTOTAL WS-TAX
+               GIVING WS-TOTAL ROUNDED
+               ON SIZE ERROR
+                   DISPLAY 'OVERFLOW IN TOTAL'
+                   MOVE 99999999.99 TO WS-TOTAL
+           END-ADD`
+    },
+
+    { title:"COBOL & MQ Series Basics", level:"Expert",
+      content:`IBM MQ (formerly MQSeries/WebSphere MQ) enables COBOL programs to exchange messages with other systems.
+
+How It Works:
+  COBOL puts messages on queues → MQ delivers to target.
+  Target can be: another COBOL program, Java app, web service, another mainframe.
+
+Key Concepts:
+  Queue Manager — Manages queues on this system
+  Queue — Named message store (like a pipe)
+  Message — Data payload (your COBOL record)
+  Channel — Connection between queue managers
+  MQPUT — Send a message to a queue
+  MQGET — Receive a message from a queue
+
+COBOL API Calls:
+  CALL 'MQCONN' USING WS-QM-NAME WS-HCONN WS-CC WS-RC
+  CALL 'MQOPEN' USING WS-HCONN WS-OBJ-DESC WS-OPTIONS ...
+  CALL 'MQPUT'  USING WS-HCONN WS-HOBJ WS-MSG-DESC WS-PUT-OPTS WS-MSG-LEN WS-MSG-BUFFER ...
+  CALL 'MQGET'  USING WS-HCONN WS-HOBJ WS-MSG-DESC WS-GET-OPTS WS-BUF-LEN WS-MSG-BUFFER WS-MSG-LEN ...
+  CALL 'MQCLOSE' ...
+  CALL 'MQDISC' ...
+
+Common Pattern:
+  Batch COBOL reads file → MQPUTs each record → MQ delivers to target system.
+
+💡 Pro Tip: MQ is how mainframes talk to the rest of the world. Know MQPUT/MQGET for enterprise integration interviews.`,
+      code:`      *    Simplified MQ PUT pattern:
+           CALL 'MQCONN' USING WS-QM-NAME
+                WS-HCONN WS-COMP-CODE WS-REASON
+           IF WS-COMP-CODE NOT = MQCC-OK
+               DISPLAY 'MQCONN FAILED: ' WS-REASON
+               STOP RUN
+           END-IF
+      *
+           CALL 'MQOPEN' USING WS-HCONN
+                WS-OBJECT-DESC WS-OPEN-OPTS
+                WS-HOBJ WS-COMP-CODE WS-REASON
+      *
+           MOVE WS-OUTPUT-REC TO WS-MSG-BUFFER
+           MOVE LENGTH OF WS-OUTPUT-REC TO WS-MSG-LEN
+           CALL 'MQPUT' USING WS-HCONN WS-HOBJ
+                WS-MSG-DESC WS-PUT-OPTS
+                WS-MSG-LEN WS-MSG-BUFFER
+                WS-COMP-CODE WS-REASON`
+    },
+
+    { title:"Production COBOL Patterns", level:"Advanced",
+      content:`Patterns used in every production mainframe shop.
+
+1. Read-Process-Write:
+  OPEN files → Read first record → Loop until EOF → Close files
+  This is 80% of all batch COBOL programs.
+
+2. Match-Merge:
+  Two sorted files, same key → Walk both simultaneously
+  Match: both have key → update. Master only → pass through. Trans only → new record.
+
+3. Control Break:
+  Sorted input by group key → Detect key change → Print subtotals → Accumulate grand total.
+
+4. Multi-File Split:
+  One input → multiple outputs based on record type or criteria.
+
+5. Accumulator Pattern:
+  INITIALIZE counters before loop. Accumulate in loop. Report after loop.
+  Always: record count, total amount, error count.
+
+6. Error File Pattern:
+  Write bad records to error file with error reason.
+  Continue processing good records. Report error count at end.
+
+7. Checkpoint/Restart:
+  Commit every N records. Write checkpoint info. On restart, skip past checkpoint.
+
+8. Header/Detail/Trailer:
+  First record = header (date, file ID). Middle = details. Last = trailer (record count, hash total). Validate trailer counts.
+
+💡 Pro Tip: Learn patterns 1-4 by heart. You'll write variations of these every day.`,
+      code:`      *    Match-Merge pattern (skeleton):
+       MAIN-LOGIC.
+           OPEN INPUT MASTER-FILE TRANS-FILE
+                OUTPUT OUTPUT-FILE
+           PERFORM READ-MASTER
+           PERFORM READ-TRANS
+           PERFORM UNTIL MAST-EOF AND TRAN-EOF
+               EVALUATE TRUE
+                   WHEN MAST-KEY < TRAN-KEY
+                       PERFORM WRITE-MASTER-ONLY
+                       PERFORM READ-MASTER
+                   WHEN MAST-KEY = TRAN-KEY
+                       PERFORM UPDATE-MASTER
+                       PERFORM READ-MASTER
+                       PERFORM READ-TRANS
+                   WHEN MAST-KEY > TRAN-KEY
+                       PERFORM ADD-NEW-RECORD
+                       PERFORM READ-TRANS
+               END-EVALUATE
+           END-PERFORM
+           CLOSE MASTER-FILE TRANS-FILE OUTPUT-FILE.`
+    },
+
+    { title:"COBOL Migration & Modernization", level:"Expert",
+      content:`Strategies for keeping COBOL relevant in modern architectures.
+
+API Wrapping:
+  Expose existing COBOL via REST APIs using CICS Web Services or z/OS Connect.
+  No COBOL changes needed — the middleware handles JSON conversion.
+
+Micro-Frontend:
+  Replace 3270 screens with web UI that calls COBOL backend via API.
+  COBOL stays as-is. Only the presentation layer modernizes.
+
+DevOps Integration:
+  Git for source control (replace Endevor/ChangeMan for new projects)
+  Jenkins/IBM DBB for automated builds
+  zUnit for unit testing
+  IDz (Eclipse) or VS Code + Zowe Explorer for editing
+
+Code Quality:
+  SonarQube has COBOL plugins for static analysis.
+  Detect dead code, complexity, naming violations, missing error handling.
+
+Refactoring:
+  Break monolithic programs into smaller callable modules.
+  Extract business rules into separate programs.
+  Use copybooks for shared data structures.
+
+What NOT to Do:
+  Don't rewrite working COBOL to Java. The risk is enormous — hidden business logic, edge cases, performance regression.
+  Wrap and modernize the interface, keep the proven engine.
+
+💡 Pro Tip: "Modernize the interface, not the engine" — this is the industry consensus.`,
+      code:`      *    Modern COBOL — exposed as REST API:
+      *    No code changes needed in COBOL.
+      *    z/OS Connect or CICS Web Services handles:
+      *    HTTP request → JSON → COBOL COMMAREA → process → JSON → HTTP response
+      *
+      *    Your COBOL program just does:
+       PROCEDURE DIVISION.
+           MOVE DFHCOMMAREA TO WS-REQUEST
+           EVALUATE WS-ACTION
+               WHEN 'GET'  PERFORM GET-CUSTOMER
+               WHEN 'UPD'  PERFORM UPDATE-CUSTOMER
+               WHEN 'DEL'  PERFORM DELETE-CUSTOMER
+           END-EVALUATE
+           MOVE WS-RESPONSE TO DFHCOMMAREA
+           EXEC CICS RETURN END-EXEC.`
+    },
+
+    { title:"COBOL Signed Numbers & Display", level:"Beginner",
+      content:`Understanding signed vs unsigned is critical for correct arithmetic.
+
+Unsigned:
+  PIC 9(5) — Always positive. No sign stored. 5 bytes DISPLAY.
+
+Signed:
+  PIC S9(5) — Positive or negative. Sign stored in last byte (overpunch).
+  PIC S9(5) COMP-3 — Sign in last nibble (C/D/F).
+
+Why Sign Matters:
+  Without S, SUBTRACT gives wrong results when result goes negative.
+  SUBTRACT 100 FROM 50 without S → result wraps or truncates.
+  SUBTRACT 100 FROM 50 with S → result = -50.
+
+Display of Signed Numbers:
+  PIC S9(5) DISPLAY — last digit "overpunched" with sign.
+  +12345 displays as 1234E (E = +5 in EBCDIC)
+  -12345 displays as 1234N (N = -5 in EBCDIC)
+
+Separate Sign:
+  PIC S9(5) SIGN LEADING SEPARATE — +12345 stored as +12345 (6 bytes)
+  PIC S9(5) SIGN TRAILING SEPARATE — 12345+ (6 bytes)
+
+For Display/Print:
+  Use edited PIC: PIC -(5)9 → shows "  -100"
+  Or PIC +ZZZZ9 → shows "  +100" or "  -100"
+
+💡 Interview Tip: "Always use PIC S for any field involved in arithmetic. Unsigned fields cause silent errors."`,
+      code:`       01  WS-EXAMPLES.
+      *    Unsigned — NEVER use for arithmetic
+           05  WS-COUNT      PIC 9(5).
+      *    Signed — use for ALL calculations
+           05  WS-AMOUNT     PIC S9(7)V99 COMP-3.
+           05  WS-BALANCE    PIC S9(9)V99 COMP-3.
+      *    For display/print:
+           05  WS-DISP-AMT   PIC -(7)9.99.
+           05  WS-DISP-BAL   PIC $$$,$$$,$$9.99CR.
+      *
+      *    Correct: signed arithmetic
+           SUBTRACT WS-DEBIT FROM WS-BALANCE
+      *    If BALANCE=50, DEBIT=100 → BALANCE=-50 (correct)
+      *
+      *    WRONG: unsigned arithmetic
+      *    SUBTRACT 100 FROM WS-COUNT
+      *    If COUNT=50 → result is WRONG (no negative)`
+    },
+
+    { title:"Alphanumeric Operations", level:"Beginner",
+      content:`COBOL treats text (PIC X) differently from numbers (PIC 9). Know the rules.
+
+MOVE Rules for Alphanumeric:
+  Left-justified, space-padded on right.
+  MOVE 'HI' TO WS-NAME (PIC X(10)) → 'HI        '
+  Truncated from right if too long.
+
+Comparison:
+  Alphanumeric comparison is left-to-right, character by character, using EBCDIC collating sequence.
+  SPACES < numbers < uppercase < lowercase (in EBCDIC)
+
+Concatenation:
+  Use STRING verb (not + operator like other languages).
+  STRING WS-FIRST DELIMITED BY SPACES
+         ' ' DELIMITED BY SIZE
+         WS-LAST DELIMITED BY SPACES
+    INTO WS-FULL-NAME
+
+Justification:
+  JUSTIFIED RIGHT on PIC X fields right-justifies the data.
+  05 WS-CODE PIC X(10) JUSTIFIED RIGHT.
+  MOVE 'ABC' TO WS-CODE → '       ABC'
+
+Case Conversion:
+  FUNCTION UPPER-CASE(WS-INPUT)
+  FUNCTION LOWER-CASE(WS-INPUT)
+  Or INSPECT CONVERTING 'abc...z' TO 'ABC...Z'
+
+Padding/Trimming:
+  FUNCTION TRIM(WS-FIELD) (COBOL 6.3+)
+  Or use INSPECT TALLYING...FOR LEADING SPACES
+
+💡 Pro Tip: Always understand EBCDIC collating sequence — it's different from ASCII. Spaces sort BEFORE numbers in EBCDIC.`,
+      code:`      *    String concatenation:
+           INITIALIZE WS-FULL-NAME
+           STRING WS-FIRST-NAME DELIMITED BY '  '
+                  ' ' DELIMITED BY SIZE
+                  WS-LAST-NAME DELIMITED BY '  '
+             INTO WS-FULL-NAME
+           END-STRING
+      *
+      *    Case conversion:
+           MOVE FUNCTION UPPER-CASE(WS-INPUT)
+               TO WS-UPPER
+      *
+      *    Right justify:
+       05  WS-RJUST  PIC X(10) JUSTIFIED RIGHT.
+           MOVE 'ABC' TO WS-RJUST
+      *    Result: '       ABC'`
+    },
+
+    { title:"COBOL Program Structure Best Practices", level:"Beginner",
+      content:`A well-structured COBOL program is easy to read, debug, and maintain.
+
+Recommended Layout:
+  1. IDENTIFICATION DIVISION — Program name, author
+  2. ENVIRONMENT DIVISION — File mappings
+  3. DATA DIVISION
+     - FILE SECTION — Record layouts
+     - WORKING-STORAGE — Variables, flags, counters
+     - LINKAGE SECTION — Parameters from caller
+  4. PROCEDURE DIVISION
+     - MAIN paragraph — Overall flow (open, process loop, close, stop)
+     - Functional paragraphs — One task per paragraph
+     - Exit paragraphs — Clean exit points
+
+Main Paragraph Pattern:
+  MAIN-PARA.
+    PERFORM INIT-PARA
+    PERFORM PROCESS-PARA UNTIL EOF-REACHED
+    PERFORM CLEANUP-PARA
+    STOP RUN.
+
+Paragraph Guidelines:
+  • 30-50 lines max per paragraph
+  • One logical function per paragraph
+  • Descriptive names: VALIDATE-INPUT, WRITE-REPORT
+  • Always have an exit paragraph: MAIN-EXIT. EXIT.
+  • Use PERFORM...THRU for paragraphs with multiple paths
+
+Comment Standards:
+  * in column 7 for full-line comments
+  *--- separator lines between sections
+  Comment blocks before each paragraph explaining purpose
+
+💡 Pro Tip: A senior developer should understand your program by reading ONLY the MAIN paragraph. If they can't, refactor.`,
+      code:`       PROCEDURE DIVISION.
+      *============================================*
+      *    MAIN PROCESSING LOGIC                   *
+      *============================================*
+       MAIN-PARA.
+           PERFORM INIT-PARA
+           PERFORM READ-INPUT
+           PERFORM PROCESS-LOOP
+               UNTIL EOF-REACHED
+           PERFORM PRINT-SUMMARY
+           PERFORM CLEANUP-PARA
+           STOP RUN.
+       MAIN-EXIT.
+           EXIT.
+      *
+      *--- Initialize files and counters ---
+       INIT-PARA.
+           INITIALIZE WS-COUNTERS
+           OPEN INPUT  CUST-FILE
+                OUTPUT REPORT-FILE ERROR-FILE
+           IF WS-CUST-FS NOT = '00'
+               DISPLAY 'OPEN ERROR: ' WS-CUST-FS
+               MOVE 12 TO RETURN-CODE
+               STOP RUN
+           END-IF.
+       INIT-EXIT.
+           EXIT.`
+    },
+
+
+
+    { title:"Sequential vs Random vs Dynamic Access", level:"Beginner",
+      content:`ACCESS MODE controls how records are read/written in indexed and relative files.
+
+SEQUENTIAL:
+  Records processed in key order (first to last).
+  READ gets next record. No key needed.
+  Used for: batch processing, full-file scans.
+
+RANDOM:
+  Direct access by key value.
+  MOVE key TO record-key, then READ.
+  Used for: lookups, single-record access.
+
+DYNAMIC:
+  Both sequential AND random in the same program.
+  Use READ (random) and READ NEXT (sequential).
+  START positions for sequential browse after random access.
+  Used for: lookup + browse patterns.
+
+File Type Compatibility:
+  Sequential files: SEQUENTIAL only
+  Indexed files (KSDS): All three
+  Relative files (RRDS): All three
+
+When to Use:
+  SEQUENTIAL — Process entire file or large portion
+  RANDOM — Individual record lookups
+  DYNAMIC — Mix of both (most flexible, slight overhead)
+
+Pro Tip: Use DYNAMIC as default for VSAM KSDS files — it gives you maximum flexibility.`,
+      code:`           SELECT CUST-FILE ASSIGN TO CUSTVSAM
+               ORGANIZATION IS INDEXED
+               ACCESS MODE IS DYNAMIC
+               RECORD KEY IS CUST-KEY
+               FILE STATUS IS WS-FS.
+      *
+      *    Random read:
+           MOVE '12345678' TO CUST-KEY
+           READ CUST-FILE
+      *
+      *    Then browse from that point:
+           READ CUST-FILE NEXT
+           READ CUST-FILE NEXT`
+    },
+
+    { title:"COBOL Copybook Design", level:"Intermediate",
+      content:`Copybooks are shared data definitions included at compile time. Good design is critical.
+
+What Goes in a Copybook:
+  - Record layouts for files (one copybook per file)
+  - DCLGEN for DB2 tables (auto-generated)
+  - SQLCA and other system areas
+  - Common constants and configuration values
+  - Shared data structures for CALL parameters
+
+Naming Convention:
+  CUSTREC — Customer record layout
+  DCUSTMR — DCLGEN for CUSTOMER table
+  WSCOMON — Common working storage constants
+
+Using REPLACING:
+  Design copybooks with tag placeholders:
+  05 :TAG:-ID PIC 9(8).
+  Then: COPY GENREC REPLACING ==:TAG:== BY ==CUST==
+  Result: 05 CUST-ID PIC 9(8).
+  Same copybook, different prefixes — reduces duplication.
+
+Version Control:
+  One source of truth. Change the copybook → recompile all affected programs.
+  Track which programs use which copybooks (XREF listing).
+
+Common Mistakes:
+  - Duplicating record layouts instead of using copybooks
+  - Including VALUE clauses in FILE SECTION copybooks
+  - Not recompiling all programs after copybook change
+
+Pro Tip: Run a compile of ALL programs using a changed copybook. Missing even one causes production ABENDs.`,
+      code:`      *    Copybook: CUSTREC
+      *    (stored in PDS library)
+           05  CUST-ID            PIC 9(8).
+           05  CUST-NAME          PIC X(30).
+           05  CUST-ADDR.
+               10  CUST-STREET    PIC X(40).
+               10  CUST-CITY      PIC X(20).
+               10  CUST-STATE     PIC XX.
+               10  CUST-ZIP       PIC 9(5).
+           05  CUST-BALANCE       PIC S9(9)V99 COMP-3.
+      *
+      *    In the program:
+           COPY CUSTREC.
+      *
+      *    With REPLACING:
+           COPY GENREC REPLACING ==:PFX:== BY ==INP==.
+      *    :PFX:-ID becomes INP-ID`
+    },
+
+    { title:"Handling Multiple Return Codes", level:"Intermediate",
+      content:`Production programs must handle return codes from every called program and utility.
+
+Setting Return Codes:
+  MOVE 0 TO RETURN-CODE — Success
+  MOVE 4 TO RETURN-CODE — Warning
+  MOVE 8 TO RETURN-CODE — Error (processing continued)
+  MOVE 12 TO RETURN-CODE — Severe error
+  MOVE 16 TO RETURN-CODE — Terminal error
+
+Checking After CALL:
+  CALL 'SUBPROG' USING WS-DATA
+  EVALUATE RETURN-CODE
+    WHEN 0    CONTINUE
+    WHEN 4    ADD 1 TO WS-WARN-COUNT
+    WHEN 8    PERFORM LOG-ERROR
+    WHEN OTHER
+      DISPLAY 'FATAL: RC=' RETURN-CODE
+      MOVE 16 TO RETURN-CODE
+      STOP RUN
+  END-EVALUATE
+
+Max Return Code Pattern:
+  Track the highest RC throughout the program:
+  IF RETURN-CODE > WS-MAX-RC
+    MOVE RETURN-CODE TO WS-MAX-RC
+  END-IF
+  At end: MOVE WS-MAX-RC TO RETURN-CODE
+
+JCL COND Interaction:
+  JCL COND=(4,LT) means: skip if prior RC > 4
+  So RC=0 or 4 continues. RC=8+ stops dependent steps.
+
+Pro Tip: Always set RETURN-CODE before STOP RUN. JCL uses it for conditional step execution.`,
+      code:`       01  WS-MAX-RC     PIC S9(4) COMP VALUE 0.
+      *
+           CALL 'VALIDATE' USING WS-REC
+           IF RETURN-CODE > WS-MAX-RC
+               MOVE RETURN-CODE TO WS-MAX-RC
+           END-IF
+      *
+           CALL 'PROCESS' USING WS-REC
+           IF RETURN-CODE > WS-MAX-RC
+               MOVE RETURN-CODE TO WS-MAX-RC
+           END-IF
+      *
+      *    Set final RC for JCL:
+           MOVE WS-MAX-RC TO RETURN-CODE
+           DISPLAY 'FINAL RC: ' RETURN-CODE
+           STOP RUN`
+    },
+
+
     { title:"COBOL Interview Q&A (40+)", level:"All Levels",
       content:`COBOL Interview Questions — 40+ Q&A organized by level.
 

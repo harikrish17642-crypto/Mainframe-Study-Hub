@@ -1,5 +1,5 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Hero3D-Da0O8-uU.js","assets/react-vendor-l7B-ugng.js","assets/supabase-B4W4BUrO.js"])))=>i.map(i=>d[i]);
-import{r as Co,a as l,R as De}from"./react-vendor-l7B-ugng.js";import{c as uo}from"./supabase-B4W4BUrO.js";(function(){const T=document.createElement("link").relList;if(T&&T.supports&&T.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))I(r);new MutationObserver(r=>{for(const h of r)if(h.type==="childList")for(const R of h.addedNodes)R.tagName==="LINK"&&R.rel==="modulepreload"&&I(R)}).observe(document,{childList:!0,subtree:!0});function u(r){const h={};return r.integrity&&(h.integrity=r.integrity),r.referrerPolicy&&(h.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?h.credentials="include":r.crossOrigin==="anonymous"?h.credentials="omit":h.credentials="same-origin",h}function I(r){if(r.ep)return;r.ep=!0;const h=u(r);fetch(r.href,h)}})();var _t={},ea=Co;_t.createRoot=ea.createRoot,_t.hydrateRoot=ea.hydrateRoot;const mo="modulepreload",To=function(p){return"/"+p},ta={},Do=function(T,u,I){let r=Promise.resolve();if(u&&u.length>0){document.getElementsByTagName("link");const R=document.querySelector("meta[property=csp-nonce]"),U=R?.nonce||R?.getAttribute("nonce");r=Promise.allSettled(u.map(y=>{if(y=To(y),y in ta)return;ta[y]=!0;const W=y.endsWith(".css"),K=W?'[rel="stylesheet"]':"";if(document.querySelector(`link[href="${y}"]${K}`))return;const m=document.createElement("link");if(m.rel=W?"stylesheet":mo,W||(m.as="script"),m.crossOrigin="",m.href=y,U&&m.setAttribute("nonce",U),document.head.appendChild(m),W)return new Promise((d,M)=>{m.addEventListener("load",d),m.addEventListener("error",()=>M(new Error(`Unable to preload CSS for ${y}`)))})}))}function h(R){const U=new Event("vite:preloadError",{cancelable:!0});if(U.payload=R,window.dispatchEvent(U),!U.defaultPrevented)throw R}return r.then(R=>{for(const U of R||[])U.status==="rejected"&&h(U.reason);return T().catch(h)})};var Sa={exports:{}},mt={};/**
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/Hero3D-B7TWN8mW.js","assets/react-vendor-l7B-ugng.js","assets/supabase-B4W4BUrO.js"])))=>i.map(i=>d[i]);
+import{r as To,a as l,R as De}from"./react-vendor-l7B-ugng.js";import{c as uo}from"./supabase-B4W4BUrO.js";(function(){const m=document.createElement("link").relList;if(m&&m.supports&&m.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))A(i);new MutationObserver(i=>{for(const h of i)if(h.type==="childList")for(const R of h.addedNodes)R.tagName==="LINK"&&R.rel==="modulepreload"&&A(R)}).observe(document,{childList:!0,subtree:!0});function u(i){const h={};return i.integrity&&(h.integrity=i.integrity),i.referrerPolicy&&(h.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?h.credentials="include":i.crossOrigin==="anonymous"?h.credentials="omit":h.credentials="same-origin",h}function A(i){if(i.ep)return;i.ep=!0;const h=u(i);fetch(i.href,h)}})();var Zt={},$a=To;Zt.createRoot=$a.createRoot,Zt.hydrateRoot=$a.hydrateRoot;const po="modulepreload",mo=function(C){return"/"+C},en={},Do=function(m,u,A){let i=Promise.resolve();if(u&&u.length>0){document.getElementsByTagName("link");const R=document.querySelector("meta[property=csp-nonce]"),U=R?.nonce||R?.getAttribute("nonce");i=Promise.allSettled(u.map(M=>{if(M=mo(M),M in en)return;en[M]=!0;const G=M.endsWith(".css"),K=G?'[rel="stylesheet"]':"";if(document.querySelector(`link[href="${M}"]${K}`))return;const p=document.createElement("link");if(p.rel=G?"stylesheet":po,G||(p.as="script"),p.crossOrigin="",p.href=M,U&&p.setAttribute("nonce",U),document.head.appendChild(p),G)return new Promise((S,y)=>{p.addEventListener("load",S),p.addEventListener("error",()=>y(new Error(`Unable to preload CSS for ${M}`)))})}))}function h(R){const U=new Event("vite:preloadError",{cancelable:!0});if(U.payload=R,window.dispatchEvent(U),!U.defaultPrevented)throw R}return i.then(R=>{for(const U of R||[])U.status==="rejected"&&h(U.reason);return m().catch(h)})};var cn={exports:{}},pt={};/**
  * @license React
  * react-jsx-runtime.production.min.js
  *
@@ -7,7 +7,7 @@ import{r as Co,a as l,R as De}from"./react-vendor-l7B-ugng.js";import{c as uo}fr
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- */var Io=l,Ao=Symbol.for("react.element"),Ro=Symbol.for("react.fragment"),Oo=Object.prototype.hasOwnProperty,ho=Io.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,go={key:!0,ref:!0,__self:!0,__source:!0};function da(p,T,u){var I,r={},h=null,R=null;u!==void 0&&(h=""+u),T.key!==void 0&&(h=""+T.key),T.ref!==void 0&&(R=T.ref);for(I in T)Oo.call(T,I)&&!go.hasOwnProperty(I)&&(r[I]=T[I]);if(p&&p.defaultProps)for(I in T=p.defaultProps,T)r[I]===void 0&&(r[I]=T[I]);return{$$typeof:Ao,type:p,key:h,ref:R,props:r,_owner:ho.current}}mt.Fragment=Ro;mt.jsx=da;mt.jsxs=da;Sa.exports=mt;var e=Sa.exports;const fo="https://xnvxdnltimsmlelpyxeq.supabase.co",Lo="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhudnhkbmx0aW1zbWxlbHB5eGVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzcyMjAsImV4cCI6MjA4NzkxMzIyMH0.PFEldS3f6MgegbF5FfnujP5I59kAnFnvXvGzr-vgh9o",f=uo(fo,Lo),Po={id:"jcl",icon:"⚙️",title:"JCL",subtitle:"Job Control Language",color:"#0071e3",level:"Beginner → Expert",description:"The command language of z/OS batch. Every production job on the planet's busiest systems starts here. 80 comprehensive lessons from fundamentals to expert techniques.",sections:[{title:"1.1 — What is JCL?",level:"Beginner",content:`Job Control Language (JCL) is the scripting language used to instruct IBM z/OS how to run batch jobs. It acts as the interface between your program and the operating system — telling z/OS which program to run, what data to use, and what to do with the results.
+ */var Ao=l,Io=Symbol.for("react.element"),Ro=Symbol.for("react.fragment"),Oo=Object.prototype.hasOwnProperty,ho=Ao.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,Lo={key:!0,ref:!0,__self:!0,__source:!0};function Sn(C,m,u){var A,i={},h=null,R=null;u!==void 0&&(h=""+u),m.key!==void 0&&(h=""+m.key),m.ref!==void 0&&(R=m.ref);for(A in m)Oo.call(m,A)&&!Lo.hasOwnProperty(A)&&(i[A]=m[A]);if(C&&C.defaultProps)for(A in m=C.defaultProps,m)i[A]===void 0&&(i[A]=m[A]);return{$$typeof:Io,type:C,key:h,ref:R,props:i,_owner:ho.current}}pt.Fragment=Ro;pt.jsx=Sn;pt.jsxs=Sn;cn.exports=pt;var e=cn.exports;const go="https://xnvxdnltimsmlelpyxeq.supabase.co",fo="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhudnhkbmx0aW1zbWxlbHB5eGVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzcyMjAsImV4cCI6MjA4NzkxMzIyMH0.PFEldS3f6MgegbF5FfnujP5I59kAnFnvXvGzr-vgh9o",g=uo(go,fo),No={id:"jcl",icon:"⚙️",title:"JCL",subtitle:"Job Control Language",color:"#0071e3",level:"Beginner → Expert",description:"The command language of z/OS batch. Every production job on the planet's busiest systems starts here. 80 comprehensive lessons from fundamentals to expert techniques.",sections:[{title:"1.1 — What is JCL?",level:"Beginner",content:`Job Control Language (JCL) is the scripting language used to instruct IBM z/OS how to run batch jobs. It acts as the interface between your program and the operating system — telling z/OS which program to run, what data to use, and what to do with the results.
 
 JCL was introduced with OS/360 in 1964 and has evolved through MVS, OS/390, and z/OS. Despite its age, JCL remains the backbone of mainframe batch processing because of its precision, reliability, and integration with z/OS subsystems.
 
@@ -3683,7 +3683,7 @@ JOINKEYS FILE=F1,FIELDS=(pos,len,ord)
 //REPORT   DD   SYSOUT=*
 //CHK      ENDIF
 //*--- Cleanup (always runs) ---
-//CLEANUP  EXEC PGM=IEFBR14,COND=EVEN`}]},No={id:"cobol",icon:"📝",title:"COBOL",subtitle:"Common Business Oriented Language",color:"#ff6b35",level:"Beginner → Expert",description:"Powers $3 trillion in daily commerce. 220 billion lines in production. The language that runs the world.",sections:[{title:"What is COBOL?",level:"Beginner",content:`COBOL (Common Business Oriented Language) is the world's most-used business programming language. Created in 1959 by a committee including Grace Hopper, it processes $3 trillion in daily commerce.
+//CLEANUP  EXEC PGM=IEFBR14,COND=EVEN`}]},Po={id:"cobol",icon:"📝",title:"COBOL",subtitle:"Common Business Oriented Language",color:"#ff6b35",level:"Beginner → Expert",description:"Powers $3 trillion in daily commerce. 220 billion lines in production. The language that runs the world.",sections:[{title:"What is COBOL?",level:"Beginner",content:`COBOL (Common Business Oriented Language) is the world's most-used business programming language. Created in 1959 by a committee including Grace Hopper, it processes $3 trillion in daily commerce.
 
 Why COBOL Matters Today:
   • 95% of ATM transactions use COBOL
@@ -6182,7 +6182,861 @@ Design for Restart:
   • COMMIT at regular intervals
   • Log restart information to SYSOUT
 
-💡 Pro Tip: Design every batch program to be restartable from day one. Production ABENDs happen.`},{title:"COBOL Interview Q&A (40+)",level:"All Levels",content:`COBOL Interview Questions — 40+ Q&A organized by level.
+💡 Pro Tip: Design every batch program to be restartable from day one. Production ABENDs happen.`},{title:"Working with Dates in COBOL",level:"Intermediate",content:`Date handling is critical in batch processing — month-end, year-end, business days.
+
+ACCEPT FROM DATE:
+  ACCEPT WS-DATE FROM DATE YYYYMMDD — Gets 8-digit date
+  ACCEPT WS-TIME FROM TIME — Gets HHMMSSss
+  ACCEPT WS-DOW FROM DAY-OF-WEEK — 1=Mon, 7=Sun
+
+FUNCTION CURRENT-DATE:
+  Returns 21-char: YYYYMMDDHHMMSSss±HHMM (with timezone)
+  MOVE FUNCTION CURRENT-DATE TO WS-FULL-TIMESTAMP
+
+Date Arithmetic:
+  COMPUTE WS-DAYS = FUNCTION INTEGER-OF-DATE(WS-END-DATE)
+                   - FUNCTION INTEGER-OF-DATE(WS-START-DATE)
+  COMPUTE WS-FUTURE = FUNCTION DATE-OF-INTEGER(
+    FUNCTION INTEGER-OF-DATE(WS-TODAY) + 30)
+
+Date Validation:
+  FUNCTION TEST-DATE-YYYYMMDD(WS-DATE) returns 0 if valid, nonzero if invalid.
+
+Common Patterns:
+  • Month-end: Check if next day is different month
+  • Business day: Exclude weekends (DAY-OF-WEEK = 6 or 7)
+  • Age calculation: INTEGER-OF-DATE(today) - INTEGER-OF-DATE(birthdate) / 365
+
+💡 Pro Tip: Always validate dates from input files. Invalid dates cause S0C7 when used in date functions.`,code:`       01  WS-DATES.
+           05  WS-TODAY        PIC 9(8).
+           05  WS-FUTURE       PIC 9(8).
+           05  WS-DAYS-DIFF    PIC S9(5) COMP-3.
+      *
+           ACCEPT WS-TODAY FROM DATE YYYYMMDD
+      *    Calculate 30 days from now:
+           COMPUTE WS-FUTURE = FUNCTION DATE-OF-INTEGER(
+               FUNCTION INTEGER-OF-DATE(WS-TODAY) + 30)
+      *    Days between two dates:
+           COMPUTE WS-DAYS-DIFF =
+               FUNCTION INTEGER-OF-DATE(WS-END-DATE) -
+               FUNCTION INTEGER-OF-DATE(WS-START-DATE)`},{title:"Variable-Length Records",level:"Intermediate",content:`Files with records of different lengths use RECORD IS VARYING.
+
+FD Definition:
+  FD MY-FILE RECORD IS VARYING IN SIZE
+    FROM 50 TO 500 CHARACTERS
+    DEPENDING ON WS-REC-LEN.
+  01 MY-RECORD PIC X(500).
+
+WS-REC-LEN:
+  01 WS-REC-LEN PIC S9(4) COMP.
+  System sets this on READ. You set it before WRITE.
+
+Reading Variable-Length:
+  READ MY-FILE INTO WS-BUFFER
+  (WS-REC-LEN now contains actual record length)
+
+Writing Variable-Length:
+  MOVE desired-length TO WS-REC-LEN
+  WRITE MY-RECORD FROM WS-BUFFER
+
+Common Uses:
+  • Header/detail/trailer records of different sizes
+  • Packed records with variable number of line items
+  • VSAM variable-length KSDS files
+
+💡 Pro Tip: Always check WS-REC-LEN after READ — don't assume all records are the same size.`,code:`       FILE SECTION.
+       FD  VAR-FILE
+           RECORD IS VARYING IN SIZE
+           FROM 20 TO 200 CHARACTERS
+           DEPENDING ON WS-REC-LEN.
+       01  VAR-RECORD         PIC X(200).
+      *
+       WORKING-STORAGE SECTION.
+       01  WS-REC-LEN         PIC S9(4) COMP.
+      *
+      *    Reading:
+           READ VAR-FILE INTO WS-BUFFER
+      *    WS-REC-LEN now = actual length
+           DISPLAY 'LENGTH: ' WS-REC-LEN
+      *
+      *    Writing:
+           MOVE 80 TO WS-REC-LEN
+           WRITE VAR-RECORD FROM WS-SHORT-REC`},{title:"Relative File Processing (RRDS)",level:"Intermediate",content:`Relative files access records by record number — like an array on disk.
+
+SELECT:
+  SELECT REL-FILE ASSIGN TO RELDD
+    ORGANIZATION IS RELATIVE
+    ACCESS MODE IS RANDOM
+    RELATIVE KEY IS WS-REL-KEY
+    FILE STATUS IS WS-FS.
+
+RELATIVE KEY:
+  01 WS-REL-KEY PIC 9(8) — Record number (1-based).
+
+Operations:
+  READ: MOVE 5 TO WS-REL-KEY / READ REL-FILE
+  WRITE: MOVE 10 TO WS-REL-KEY / WRITE REL-RECORD
+  REWRITE: READ first, then REWRITE REL-RECORD
+  DELETE: MOVE n TO WS-REL-KEY / DELETE REL-FILE
+  START: START REL-FILE KEY >= WS-REL-KEY (for browse)
+
+Access Modes:
+  SEQUENTIAL — Read in order (record 1, 2, 3...)
+  RANDOM — Direct by record number
+  DYNAMIC — Both sequential and random
+
+When to Use:
+  • Lookup tables loaded by record number
+  • Fixed slots (e.g., calendar day data, 1-366)
+  • When record number IS the key
+
+💡 Pro Tip: RRDS is rare in production. KSDS is far more common. Know RRDS for interviews.`,code:`           MOVE 42 TO WS-REL-KEY
+           READ REL-FILE INTO WS-REC
+               INVALID KEY
+                   DISPLAY 'RECORD 42 NOT FOUND'
+               NOT INVALID KEY
+                   DISPLAY 'FOUND: ' WS-REC
+           END-READ`},{title:"MERGE Verb",level:"Intermediate",content:`MERGE combines multiple sorted files into one sorted output.
+
+Syntax:
+  MERGE MERGE-FILE
+    ON ASCENDING KEY M-KEY
+    USING FILE-1 FILE-2 FILE-3
+    GIVING OUTPUT-FILE
+
+Requirements:
+  • SD (Sort Description) in FILE SECTION
+  • Input files must ALREADY be sorted on the merge key
+  • Output is a single merged, sorted file
+
+MERGE vs SORT:
+  SORT takes one unsorted input → one sorted output
+  MERGE takes multiple sorted inputs → one sorted output
+  MERGE is faster than SORT when inputs are pre-sorted
+
+With OUTPUT PROCEDURE:
+  MERGE MERGE-FILE ON ASCENDING KEY M-KEY
+    USING FILE-1 FILE-2
+    OUTPUT PROCEDURE IS FORMAT-OUTPUT
+  (RETURN merge-record to process each merged record)
+
+💡 Pro Tip: MERGE is perfect for combining daily extracts into a weekly file. Much faster than SORT on concatenated input.`,code:`       FILE SECTION.
+       SD  MERGE-FILE.
+       01  MERGE-REC.
+           05  M-KEY           PIC X(10).
+           05  M-DATA          PIC X(90).
+      *
+           MERGE MERGE-FILE
+               ON ASCENDING KEY M-KEY
+               USING DAILY-MON DAILY-TUE DAILY-WED
+                     DAILY-THU DAILY-FRI
+               GIVING WEEKLY-FILE`},{title:"Inter-Program Communication",level:"Advanced",content:`COBOL programs communicate via CALL parameters, COMMAREA, or shared files.
+
+CALL...USING (Batch):
+  Main calls sub with shared data areas.
+  BY REFERENCE — Sub modifies caller's data
+  BY CONTENT — Sub gets a copy (read-only to caller)
+  BY VALUE — Passes actual value (for C/Java interop)
+
+COMMAREA (CICS):
+  Data passed between pseudo-conversational interactions.
+  Max 32KB. Stored by CICS between transactions.
+  IF EIBCALEN = 0 → first invocation, no COMMAREA.
+
+Shared Files:
+  Multiple programs in a job step share files via JCL DD.
+  Open in main program, pass file status/data via CALL.
+
+RETURN-CODE:
+  Set by called program: MOVE 0 TO RETURN-CODE
+  Checked by caller or JCL COND parameter.
+
+EXTERNAL Data:
+  01 WS-SHARED EXTERNAL PIC X(100).
+  Shared across programs in same run unit — same memory.
+
+💡 Pro Tip: Use RETURN-CODE for status (0=OK, 4=warn, 8=error). Use CALL parameters for data.`,code:`      *    Main program passes customer record to validator:
+           CALL 'VALIDATE' USING
+               BY REFERENCE WS-CUST-REC
+               BY CONTENT   WS-VALID-TABLE
+               BY REFERENCE WS-ERROR-MSG
+           END-CALL
+           EVALUATE RETURN-CODE
+               WHEN 0 PERFORM PROCESS-VALID
+               WHEN 4 PERFORM PROCESS-WARNING
+               WHEN 8 PERFORM PROCESS-ERROR
+           END-EVALUATE`},{title:"Condition Handling (USE AFTER ERROR)",level:"Advanced",content:`DECLARATIVES provide automatic error handling for file I/O.
+
+Syntax:
+  DECLARATIVES.
+  FILE-ERR SECTION.
+    USE AFTER ERROR PROCEDURE ON file-name.
+  FILE-ERR-PARA.
+    DISPLAY 'FILE ERROR: ' WS-FS
+    MOVE 8 TO RETURN-CODE.
+  END DECLARATIVES.
+
+How It Works:
+  When any I/O error occurs on the named file, control transfers to the USE procedure automatically. After the procedure, control returns to the statement AFTER the failed I/O.
+
+Scope:
+  USE AFTER ERROR ON file-name — specific file
+  USE AFTER ERROR ON INPUT — all input files
+  USE AFTER ERROR ON OUTPUT — all output files
+  USE AFTER ERROR ON I-O — all I-O files
+  USE AFTER ERROR ON EXTEND — all extend files
+
+Modern Alternative:
+  Most shops prefer FILE STATUS checking after each I/O operation instead of DECLARATIVES. It's more explicit and easier to debug.
+
+💡 Pro Tip: DECLARATIVES are legacy. Use FILE STATUS checking — it's clearer and every mainframe shop expects it.`,code:`       PROCEDURE DIVISION.
+       DECLARATIVES.
+       FILE-ERR SECTION.
+           USE AFTER ERROR PROCEDURE ON CUST-FILE.
+       FILE-ERR-PARA.
+           DISPLAY 'CUST-FILE ERROR: ' WS-CUST-FS
+           MOVE 12 TO RETURN-CODE
+           STOP RUN.
+       END DECLARATIVES.
+      *
+       MAIN SECTION.
+       MAIN-PARA.
+           OPEN INPUT CUST-FILE
+           PERFORM READ-LOOP UNTIL EOF
+           CLOSE CUST-FILE
+           STOP RUN.`},{title:"Debugging with SYSUDUMP & CEEDUMP",level:"Advanced",content:`When a COBOL program ABENDs, dump datasets help identify the failing statement.
+
+SYSUDUMP (Unformatted Dump):
+  //SYSUDUMP DD SYSOUT=*
+  Shows raw memory — registers, PSW, storage areas.
+  Use OFFSET compiler option to map PSW to source line.
+
+SYSABEND (Full Dump):
+  //SYSABEND DD SYSOUT=*
+  More detail than SYSUDUMP including system areas.
+
+CEEDUMP (Language Environment):
+  //CEEDUMP DD SYSOUT=*
+  Formatted, readable. Shows COBOL variable names and values!
+  Best option for COBOL debugging.
+
+Debugging Steps:
+  1. Get the ABEND code (e.g., S0C7)
+  2. Find the PSW address in the dump
+  3. Subtract the EPA (Entry Point Address) to get offset
+  4. Look up offset in compiler listing (OFFSET option)
+  5. Find the source line → identify the failing variable
+  6. Check variable contents in CEEDUMP
+
+Compile for Debug:
+  IGYCRCTL PARM='LIB,MAP,XREF,OFFSET,LIST,TEST'
+  • OFFSET — Maps machine code offsets to source lines
+  • MAP — Shows variable memory locations
+  • TEST — Enables z/OS Debugger
+
+💡 Pro Tip: Always compile with OFFSET in production. Without it, ABEND debugging is nearly impossible.`,code:`      //* JCL for dump output:
+      //STEP1    EXEC PGM=MYPROG
+      //STEPLIB  DD  DSN=MY.LOADLIB,DISP=SHR
+      //CEEDUMP  DD  SYSOUT=*
+      //SYSUDUMP DD  SYSOUT=*
+      //SYSOUT   DD  SYSOUT=*
+      //*
+      //* CEEDUMP shows:
+      //*   Condition: CEE3207S
+      //*   Location: MYPROG, statement 247
+      //*   WS-AMOUNT = X'0000000F4C'
+      //*   (Non-numeric data in numeric field)`},{title:"Common S0C7 Debugging",level:"Intermediate",content:`S0C7 (Data Exception) is the #1 COBOL ABEND. Always caused by non-numeric data in a numeric field during arithmetic or MOVE.
+
+Common Causes:
+  1. Uninitialized COMP-3 field (contains garbage)
+  2. Spaces in a numeric field from input file
+  3. REDEFINES misalignment — writing alpha, reading numeric
+  4. Missing initialization after first READ
+  5. Packed field corrupted by wrong MOVE
+
+How to Find It:
+  1. Check CEEDUMP for variable values
+  2. Find the statement number from dump offset
+  3. Look at which variables are on that line
+  4. DISPLAY suspect variables BEFORE the failing line
+
+Prevention:
+  • INITIALIZE all working storage
+  • Validate input: IF WS-FIELD IS NUMERIC
+  • Use SSRANGE compiler option to catch bad subscripts
+  • Check FILE STATUS after every I/O
+  • Be careful with REDEFINES
+
+Quick Fix Pattern:
+  IF WS-AMOUNT IS NUMERIC
+    ADD WS-AMOUNT TO WS-TOTAL
+  ELSE
+    DISPLAY 'BAD DATA: ' WS-AMOUNT
+    MOVE 0 TO WS-AMOUNT
+  END-IF
+
+💡 Interview Favorite: "How do you debug S0C7?" — This is asked in every mainframe interview. Know the full debugging flow.`,code:`      *    Prevention pattern:
+           INITIALIZE WS-OUTPUT-RECORD
+      *
+      *    Validation before computation:
+           IF WS-INPUT-AMT IS NUMERIC
+               COMPUTE WS-TAX ROUNDED =
+                   WS-INPUT-AMT * WS-TAX-RATE
+           ELSE
+               DISPLAY 'S0C7 PREVENTED: '
+                       WS-INPUT-AMT
+               DISPLAY 'RECORD: ' WS-KEY
+               ADD 1 TO WS-ERROR-COUNT
+               MOVE 0 TO WS-INPUT-AMT
+           END-IF
+      *
+      *    Dump numeric field contents:
+           DISPLAY 'FIELD HEX: ' WS-PACKED-FLD`},{title:"COBOL & JCL Integration",level:"Intermediate",content:`COBOL programs run via JCL. Understanding the connection is essential.
+
+DD → SELECT Mapping:
+  JCL: //CUSTMAST DD DSN=MY.CUST.FILE,DISP=SHR
+  COBOL: SELECT CUST-FILE ASSIGN TO CUSTMAST
+
+PARM Parameter:
+  JCL: //STEP1 EXEC PGM=MYPROG,PARM='20260321'
+  COBOL: LINKAGE SECTION.
+         01 LS-PARM.
+           05 LS-PARM-LEN PIC S9(4) COMP.
+           05 LS-PARM-DATA PIC X(100).
+         PROCEDURE DIVISION USING LS-PARM.
+  Max 100 characters.
+
+SYSIN Data:
+  JCL: //SYSIN DD *
+       PARAM1=VALUE1
+       /*
+  COBOL: SELECT SYSIN-FILE ASSIGN TO SYSIN.
+  Read SYSIN like any sequential file.
+
+Return Codes:
+  COBOL: MOVE 0 TO RETURN-CODE (or 4, 8, 12, 16)
+  JCL: //STEP2 EXEC PGM=NEXT,COND=(4,LT,STEP1)
+  RC controls conditional step execution.
+
+SYSOUT:
+  DISPLAY 'message' — goes to //SYSOUT DD SYSOUT=*
+  WRITE print-rec — goes to //REPORT DD SYSOUT=*
+
+💡 Pro Tip: Every COBOL developer must understand JCL. They're inseparable in mainframe batch processing.`,code:`      //* JCL calling COBOL with PARM:
+      //STEP1    EXEC PGM=DAYRPT,PARM='20260321'
+      //STEPLIB  DD  DSN=PROD.LOADLIB,DISP=SHR
+      //CUSTMAST DD  DSN=PROD.CUST.MASTER,DISP=SHR
+      //TRANSIN  DD  DSN=DAILY.TRANS.FILE,DISP=SHR
+      //REPORT   DD  SYSOUT=*
+      //ERRFILE  DD  DSN=DAILY.ERRORS,
+      //             DISP=(NEW,CATLG,DELETE),
+      //             SPACE=(CYL,(1,1)),
+      //             DCB=(RECFM=FB,LRECL=200)
+      //SYSOUT   DD  SYSOUT=*
+      //CEEDUMP  DD  SYSOUT=*`},{title:"COBOL Naming Conventions",level:"Beginner",content:`Consistent naming makes programs readable and maintainable across teams.
+
+Standard Prefixes:
+  WS- — Working Storage variables
+  LS- — Linkage Section variables
+  FD- — File record fields
+  WS-I, WS-J — Loop counters/subscripts
+  WS-EOF — End-of-file flag
+  WS-FS — File status
+
+Naming Rules:
+  • Max 30 characters (COBOL-85)
+  • Letters, digits, hyphens only (no underscores)
+  • Must contain at least one letter
+  • Cannot start/end with hyphen
+  • Case insensitive (CUST-NAME = cust-name)
+
+Best Practices:
+  • Descriptive names: WS-CUSTOMER-BALANCE not WS-CB
+  • Consistent prefixes per section
+  • Group names reflect hierarchy: EMP-RECORD → EMP-NAME → EMP-FIRST
+  • 88-level names should read as conditions: VALID-STATUS, EOF-REACHED
+  • Paragraph names describe action: PROCESS-TRANSACTION, VALIDATE-INPUT
+
+Copybook Conventions:
+  Use prefix tags for REPLACING: :TAG:-FIELD-NAME
+  COPY GENREC REPLACING ==:TAG:== BY ==CUST==
+
+💡 Pro Tip: Adopt your shop's naming conventions from day one. Inconsistent naming is the fastest way to get code rejected in review.`,code:`       01  WS-CUSTOMER-RECORD.
+           05  WS-CUST-ID         PIC 9(8).
+           05  WS-CUST-NAME.
+               10  WS-CUST-FIRST  PIC X(20).
+               10  WS-CUST-LAST   PIC X(25).
+           05  WS-CUST-STATUS     PIC X.
+               88  CUST-ACTIVE    VALUE 'A'.
+               88  CUST-INACTIVE  VALUE 'I'.
+               88  CUST-VALID     VALUE 'A' 'I'.
+           05  WS-CUST-BALANCE    PIC S9(9)V99 COMP-3.
+      *
+       01  WS-FLAGS.
+           05  WS-EOF-FLAG        PIC X VALUE 'N'.
+               88  EOF-REACHED    VALUE 'Y'.
+           05  WS-CUST-FS         PIC XX VALUE '00'.`},{title:"Packed Decimal Arithmetic Deep Dive",level:"Intermediate",content:`COMP-3 (packed decimal) is the backbone of mainframe financial processing. Understanding its internals prevents bugs.
+
+Storage Format:
+  Each byte holds 2 digits. Last nibble = sign (C=positive, D=negative, F=unsigned).
+  PIC S9(5) COMP-3 = 3 bytes: dd dd ds (5 digits + sign)
+  PIC S9(7)V99 COMP-3 = 5 bytes: dd dd dd dd ds
+
+Sign Nibble:
+  X'C' = positive (+)
+  X'D' = negative (-)
+  X'F' = unsigned (no sign)
+  If sign nibble is invalid (e.g., X'0') → S0C7
+
+Precision Rules:
+  ADD A TO B — result precision = max(A,B) digits
+  MULTIPLY A BY B — result can be larger than either
+  Use COMPUTE with ROUNDED for controlled precision
+
+Truncation:
+  Without ROUNDED: COMPUTE X = 10 / 3 → 3 (truncated)
+  With ROUNDED: COMPUTE X ROUNDED = 10 / 3 → 3 (rounds to pic)
+  ON SIZE ERROR catches overflow
+
+Why Not COMP (Binary)?
+  Binary arithmetic rounds differently than decimal.
+  $1.00 / 3 = $0.33 in packed (exact), but floating point may give $0.33333...
+  Financial regulations require exact decimal arithmetic.
+
+💡 Pro Tip: COMP-3 with S9(n)V99 and ROUNDED — this is how every bank does it.`,code:`       01  WS-MONEY.
+           05  WS-PRICE      PIC S9(5)V99 COMP-3.
+           05  WS-QTY        PIC S9(5) COMP-3.
+           05  WS-SUBTOTAL   PIC S9(9)V99 COMP-3.
+           05  WS-TAX        PIC S9(7)V99 COMP-3.
+           05  WS-TOTAL      PIC S9(9)V99 COMP-3.
+      *
+           COMPUTE WS-SUBTOTAL ROUNDED =
+               WS-PRICE * WS-QTY
+           COMPUTE WS-TAX ROUNDED =
+               WS-SUBTOTAL * 0.085
+           ADD WS-SUBTOTAL WS-TAX
+               GIVING WS-TOTAL ROUNDED
+               ON SIZE ERROR
+                   DISPLAY 'OVERFLOW IN TOTAL'
+                   MOVE 99999999.99 TO WS-TOTAL
+           END-ADD`},{title:"COBOL & MQ Series Basics",level:"Expert",content:`IBM MQ (formerly MQSeries/WebSphere MQ) enables COBOL programs to exchange messages with other systems.
+
+How It Works:
+  COBOL puts messages on queues → MQ delivers to target.
+  Target can be: another COBOL program, Java app, web service, another mainframe.
+
+Key Concepts:
+  Queue Manager — Manages queues on this system
+  Queue — Named message store (like a pipe)
+  Message — Data payload (your COBOL record)
+  Channel — Connection between queue managers
+  MQPUT — Send a message to a queue
+  MQGET — Receive a message from a queue
+
+COBOL API Calls:
+  CALL 'MQCONN' USING WS-QM-NAME WS-HCONN WS-CC WS-RC
+  CALL 'MQOPEN' USING WS-HCONN WS-OBJ-DESC WS-OPTIONS ...
+  CALL 'MQPUT'  USING WS-HCONN WS-HOBJ WS-MSG-DESC WS-PUT-OPTS WS-MSG-LEN WS-MSG-BUFFER ...
+  CALL 'MQGET'  USING WS-HCONN WS-HOBJ WS-MSG-DESC WS-GET-OPTS WS-BUF-LEN WS-MSG-BUFFER WS-MSG-LEN ...
+  CALL 'MQCLOSE' ...
+  CALL 'MQDISC' ...
+
+Common Pattern:
+  Batch COBOL reads file → MQPUTs each record → MQ delivers to target system.
+
+💡 Pro Tip: MQ is how mainframes talk to the rest of the world. Know MQPUT/MQGET for enterprise integration interviews.`,code:`      *    Simplified MQ PUT pattern:
+           CALL 'MQCONN' USING WS-QM-NAME
+                WS-HCONN WS-COMP-CODE WS-REASON
+           IF WS-COMP-CODE NOT = MQCC-OK
+               DISPLAY 'MQCONN FAILED: ' WS-REASON
+               STOP RUN
+           END-IF
+      *
+           CALL 'MQOPEN' USING WS-HCONN
+                WS-OBJECT-DESC WS-OPEN-OPTS
+                WS-HOBJ WS-COMP-CODE WS-REASON
+      *
+           MOVE WS-OUTPUT-REC TO WS-MSG-BUFFER
+           MOVE LENGTH OF WS-OUTPUT-REC TO WS-MSG-LEN
+           CALL 'MQPUT' USING WS-HCONN WS-HOBJ
+                WS-MSG-DESC WS-PUT-OPTS
+                WS-MSG-LEN WS-MSG-BUFFER
+                WS-COMP-CODE WS-REASON`},{title:"Production COBOL Patterns",level:"Advanced",content:`Patterns used in every production mainframe shop.
+
+1. Read-Process-Write:
+  OPEN files → Read first record → Loop until EOF → Close files
+  This is 80% of all batch COBOL programs.
+
+2. Match-Merge:
+  Two sorted files, same key → Walk both simultaneously
+  Match: both have key → update. Master only → pass through. Trans only → new record.
+
+3. Control Break:
+  Sorted input by group key → Detect key change → Print subtotals → Accumulate grand total.
+
+4. Multi-File Split:
+  One input → multiple outputs based on record type or criteria.
+
+5. Accumulator Pattern:
+  INITIALIZE counters before loop. Accumulate in loop. Report after loop.
+  Always: record count, total amount, error count.
+
+6. Error File Pattern:
+  Write bad records to error file with error reason.
+  Continue processing good records. Report error count at end.
+
+7. Checkpoint/Restart:
+  Commit every N records. Write checkpoint info. On restart, skip past checkpoint.
+
+8. Header/Detail/Trailer:
+  First record = header (date, file ID). Middle = details. Last = trailer (record count, hash total). Validate trailer counts.
+
+💡 Pro Tip: Learn patterns 1-4 by heart. You'll write variations of these every day.`,code:`      *    Match-Merge pattern (skeleton):
+       MAIN-LOGIC.
+           OPEN INPUT MASTER-FILE TRANS-FILE
+                OUTPUT OUTPUT-FILE
+           PERFORM READ-MASTER
+           PERFORM READ-TRANS
+           PERFORM UNTIL MAST-EOF AND TRAN-EOF
+               EVALUATE TRUE
+                   WHEN MAST-KEY < TRAN-KEY
+                       PERFORM WRITE-MASTER-ONLY
+                       PERFORM READ-MASTER
+                   WHEN MAST-KEY = TRAN-KEY
+                       PERFORM UPDATE-MASTER
+                       PERFORM READ-MASTER
+                       PERFORM READ-TRANS
+                   WHEN MAST-KEY > TRAN-KEY
+                       PERFORM ADD-NEW-RECORD
+                       PERFORM READ-TRANS
+               END-EVALUATE
+           END-PERFORM
+           CLOSE MASTER-FILE TRANS-FILE OUTPUT-FILE.`},{title:"COBOL Migration & Modernization",level:"Expert",content:`Strategies for keeping COBOL relevant in modern architectures.
+
+API Wrapping:
+  Expose existing COBOL via REST APIs using CICS Web Services or z/OS Connect.
+  No COBOL changes needed — the middleware handles JSON conversion.
+
+Micro-Frontend:
+  Replace 3270 screens with web UI that calls COBOL backend via API.
+  COBOL stays as-is. Only the presentation layer modernizes.
+
+DevOps Integration:
+  Git for source control (replace Endevor/ChangeMan for new projects)
+  Jenkins/IBM DBB for automated builds
+  zUnit for unit testing
+  IDz (Eclipse) or VS Code + Zowe Explorer for editing
+
+Code Quality:
+  SonarQube has COBOL plugins for static analysis.
+  Detect dead code, complexity, naming violations, missing error handling.
+
+Refactoring:
+  Break monolithic programs into smaller callable modules.
+  Extract business rules into separate programs.
+  Use copybooks for shared data structures.
+
+What NOT to Do:
+  Don't rewrite working COBOL to Java. The risk is enormous — hidden business logic, edge cases, performance regression.
+  Wrap and modernize the interface, keep the proven engine.
+
+💡 Pro Tip: "Modernize the interface, not the engine" — this is the industry consensus.`,code:`      *    Modern COBOL — exposed as REST API:
+      *    No code changes needed in COBOL.
+      *    z/OS Connect or CICS Web Services handles:
+      *    HTTP request → JSON → COBOL COMMAREA → process → JSON → HTTP response
+      *
+      *    Your COBOL program just does:
+       PROCEDURE DIVISION.
+           MOVE DFHCOMMAREA TO WS-REQUEST
+           EVALUATE WS-ACTION
+               WHEN 'GET'  PERFORM GET-CUSTOMER
+               WHEN 'UPD'  PERFORM UPDATE-CUSTOMER
+               WHEN 'DEL'  PERFORM DELETE-CUSTOMER
+           END-EVALUATE
+           MOVE WS-RESPONSE TO DFHCOMMAREA
+           EXEC CICS RETURN END-EXEC.`},{title:"COBOL Signed Numbers & Display",level:"Beginner",content:`Understanding signed vs unsigned is critical for correct arithmetic.
+
+Unsigned:
+  PIC 9(5) — Always positive. No sign stored. 5 bytes DISPLAY.
+
+Signed:
+  PIC S9(5) — Positive or negative. Sign stored in last byte (overpunch).
+  PIC S9(5) COMP-3 — Sign in last nibble (C/D/F).
+
+Why Sign Matters:
+  Without S, SUBTRACT gives wrong results when result goes negative.
+  SUBTRACT 100 FROM 50 without S → result wraps or truncates.
+  SUBTRACT 100 FROM 50 with S → result = -50.
+
+Display of Signed Numbers:
+  PIC S9(5) DISPLAY — last digit "overpunched" with sign.
+  +12345 displays as 1234E (E = +5 in EBCDIC)
+  -12345 displays as 1234N (N = -5 in EBCDIC)
+
+Separate Sign:
+  PIC S9(5) SIGN LEADING SEPARATE — +12345 stored as +12345 (6 bytes)
+  PIC S9(5) SIGN TRAILING SEPARATE — 12345+ (6 bytes)
+
+For Display/Print:
+  Use edited PIC: PIC -(5)9 → shows "  -100"
+  Or PIC +ZZZZ9 → shows "  +100" or "  -100"
+
+💡 Interview Tip: "Always use PIC S for any field involved in arithmetic. Unsigned fields cause silent errors."`,code:`       01  WS-EXAMPLES.
+      *    Unsigned — NEVER use for arithmetic
+           05  WS-COUNT      PIC 9(5).
+      *    Signed — use for ALL calculations
+           05  WS-AMOUNT     PIC S9(7)V99 COMP-3.
+           05  WS-BALANCE    PIC S9(9)V99 COMP-3.
+      *    For display/print:
+           05  WS-DISP-AMT   PIC -(7)9.99.
+           05  WS-DISP-BAL   PIC $$$,$$$,$$9.99CR.
+      *
+      *    Correct: signed arithmetic
+           SUBTRACT WS-DEBIT FROM WS-BALANCE
+      *    If BALANCE=50, DEBIT=100 → BALANCE=-50 (correct)
+      *
+      *    WRONG: unsigned arithmetic
+      *    SUBTRACT 100 FROM WS-COUNT
+      *    If COUNT=50 → result is WRONG (no negative)`},{title:"Alphanumeric Operations",level:"Beginner",content:`COBOL treats text (PIC X) differently from numbers (PIC 9). Know the rules.
+
+MOVE Rules for Alphanumeric:
+  Left-justified, space-padded on right.
+  MOVE 'HI' TO WS-NAME (PIC X(10)) → 'HI        '
+  Truncated from right if too long.
+
+Comparison:
+  Alphanumeric comparison is left-to-right, character by character, using EBCDIC collating sequence.
+  SPACES < numbers < uppercase < lowercase (in EBCDIC)
+
+Concatenation:
+  Use STRING verb (not + operator like other languages).
+  STRING WS-FIRST DELIMITED BY SPACES
+         ' ' DELIMITED BY SIZE
+         WS-LAST DELIMITED BY SPACES
+    INTO WS-FULL-NAME
+
+Justification:
+  JUSTIFIED RIGHT on PIC X fields right-justifies the data.
+  05 WS-CODE PIC X(10) JUSTIFIED RIGHT.
+  MOVE 'ABC' TO WS-CODE → '       ABC'
+
+Case Conversion:
+  FUNCTION UPPER-CASE(WS-INPUT)
+  FUNCTION LOWER-CASE(WS-INPUT)
+  Or INSPECT CONVERTING 'abc...z' TO 'ABC...Z'
+
+Padding/Trimming:
+  FUNCTION TRIM(WS-FIELD) (COBOL 6.3+)
+  Or use INSPECT TALLYING...FOR LEADING SPACES
+
+💡 Pro Tip: Always understand EBCDIC collating sequence — it's different from ASCII. Spaces sort BEFORE numbers in EBCDIC.`,code:`      *    String concatenation:
+           INITIALIZE WS-FULL-NAME
+           STRING WS-FIRST-NAME DELIMITED BY '  '
+                  ' ' DELIMITED BY SIZE
+                  WS-LAST-NAME DELIMITED BY '  '
+             INTO WS-FULL-NAME
+           END-STRING
+      *
+      *    Case conversion:
+           MOVE FUNCTION UPPER-CASE(WS-INPUT)
+               TO WS-UPPER
+      *
+      *    Right justify:
+       05  WS-RJUST  PIC X(10) JUSTIFIED RIGHT.
+           MOVE 'ABC' TO WS-RJUST
+      *    Result: '       ABC'`},{title:"COBOL Program Structure Best Practices",level:"Beginner",content:`A well-structured COBOL program is easy to read, debug, and maintain.
+
+Recommended Layout:
+  1. IDENTIFICATION DIVISION — Program name, author
+  2. ENVIRONMENT DIVISION — File mappings
+  3. DATA DIVISION
+     - FILE SECTION — Record layouts
+     - WORKING-STORAGE — Variables, flags, counters
+     - LINKAGE SECTION — Parameters from caller
+  4. PROCEDURE DIVISION
+     - MAIN paragraph — Overall flow (open, process loop, close, stop)
+     - Functional paragraphs — One task per paragraph
+     - Exit paragraphs — Clean exit points
+
+Main Paragraph Pattern:
+  MAIN-PARA.
+    PERFORM INIT-PARA
+    PERFORM PROCESS-PARA UNTIL EOF-REACHED
+    PERFORM CLEANUP-PARA
+    STOP RUN.
+
+Paragraph Guidelines:
+  • 30-50 lines max per paragraph
+  • One logical function per paragraph
+  • Descriptive names: VALIDATE-INPUT, WRITE-REPORT
+  • Always have an exit paragraph: MAIN-EXIT. EXIT.
+  • Use PERFORM...THRU for paragraphs with multiple paths
+
+Comment Standards:
+  * in column 7 for full-line comments
+  *--- separator lines between sections
+  Comment blocks before each paragraph explaining purpose
+
+💡 Pro Tip: A senior developer should understand your program by reading ONLY the MAIN paragraph. If they can't, refactor.`,code:`       PROCEDURE DIVISION.
+      *============================================*
+      *    MAIN PROCESSING LOGIC                   *
+      *============================================*
+       MAIN-PARA.
+           PERFORM INIT-PARA
+           PERFORM READ-INPUT
+           PERFORM PROCESS-LOOP
+               UNTIL EOF-REACHED
+           PERFORM PRINT-SUMMARY
+           PERFORM CLEANUP-PARA
+           STOP RUN.
+       MAIN-EXIT.
+           EXIT.
+      *
+      *--- Initialize files and counters ---
+       INIT-PARA.
+           INITIALIZE WS-COUNTERS
+           OPEN INPUT  CUST-FILE
+                OUTPUT REPORT-FILE ERROR-FILE
+           IF WS-CUST-FS NOT = '00'
+               DISPLAY 'OPEN ERROR: ' WS-CUST-FS
+               MOVE 12 TO RETURN-CODE
+               STOP RUN
+           END-IF.
+       INIT-EXIT.
+           EXIT.`},{title:"Sequential vs Random vs Dynamic Access",level:"Beginner",content:`ACCESS MODE controls how records are read/written in indexed and relative files.
+
+SEQUENTIAL:
+  Records processed in key order (first to last).
+  READ gets next record. No key needed.
+  Used for: batch processing, full-file scans.
+
+RANDOM:
+  Direct access by key value.
+  MOVE key TO record-key, then READ.
+  Used for: lookups, single-record access.
+
+DYNAMIC:
+  Both sequential AND random in the same program.
+  Use READ (random) and READ NEXT (sequential).
+  START positions for sequential browse after random access.
+  Used for: lookup + browse patterns.
+
+File Type Compatibility:
+  Sequential files: SEQUENTIAL only
+  Indexed files (KSDS): All three
+  Relative files (RRDS): All three
+
+When to Use:
+  SEQUENTIAL — Process entire file or large portion
+  RANDOM — Individual record lookups
+  DYNAMIC — Mix of both (most flexible, slight overhead)
+
+Pro Tip: Use DYNAMIC as default for VSAM KSDS files — it gives you maximum flexibility.`,code:`           SELECT CUST-FILE ASSIGN TO CUSTVSAM
+               ORGANIZATION IS INDEXED
+               ACCESS MODE IS DYNAMIC
+               RECORD KEY IS CUST-KEY
+               FILE STATUS IS WS-FS.
+      *
+      *    Random read:
+           MOVE '12345678' TO CUST-KEY
+           READ CUST-FILE
+      *
+      *    Then browse from that point:
+           READ CUST-FILE NEXT
+           READ CUST-FILE NEXT`},{title:"COBOL Copybook Design",level:"Intermediate",content:`Copybooks are shared data definitions included at compile time. Good design is critical.
+
+What Goes in a Copybook:
+  - Record layouts for files (one copybook per file)
+  - DCLGEN for DB2 tables (auto-generated)
+  - SQLCA and other system areas
+  - Common constants and configuration values
+  - Shared data structures for CALL parameters
+
+Naming Convention:
+  CUSTREC — Customer record layout
+  DCUSTMR — DCLGEN for CUSTOMER table
+  WSCOMON — Common working storage constants
+
+Using REPLACING:
+  Design copybooks with tag placeholders:
+  05 :TAG:-ID PIC 9(8).
+  Then: COPY GENREC REPLACING ==:TAG:== BY ==CUST==
+  Result: 05 CUST-ID PIC 9(8).
+  Same copybook, different prefixes — reduces duplication.
+
+Version Control:
+  One source of truth. Change the copybook → recompile all affected programs.
+  Track which programs use which copybooks (XREF listing).
+
+Common Mistakes:
+  - Duplicating record layouts instead of using copybooks
+  - Including VALUE clauses in FILE SECTION copybooks
+  - Not recompiling all programs after copybook change
+
+Pro Tip: Run a compile of ALL programs using a changed copybook. Missing even one causes production ABENDs.`,code:`      *    Copybook: CUSTREC
+      *    (stored in PDS library)
+           05  CUST-ID            PIC 9(8).
+           05  CUST-NAME          PIC X(30).
+           05  CUST-ADDR.
+               10  CUST-STREET    PIC X(40).
+               10  CUST-CITY      PIC X(20).
+               10  CUST-STATE     PIC XX.
+               10  CUST-ZIP       PIC 9(5).
+           05  CUST-BALANCE       PIC S9(9)V99 COMP-3.
+      *
+      *    In the program:
+           COPY CUSTREC.
+      *
+      *    With REPLACING:
+           COPY GENREC REPLACING ==:PFX:== BY ==INP==.
+      *    :PFX:-ID becomes INP-ID`},{title:"Handling Multiple Return Codes",level:"Intermediate",content:`Production programs must handle return codes from every called program and utility.
+
+Setting Return Codes:
+  MOVE 0 TO RETURN-CODE — Success
+  MOVE 4 TO RETURN-CODE — Warning
+  MOVE 8 TO RETURN-CODE — Error (processing continued)
+  MOVE 12 TO RETURN-CODE — Severe error
+  MOVE 16 TO RETURN-CODE — Terminal error
+
+Checking After CALL:
+  CALL 'SUBPROG' USING WS-DATA
+  EVALUATE RETURN-CODE
+    WHEN 0    CONTINUE
+    WHEN 4    ADD 1 TO WS-WARN-COUNT
+    WHEN 8    PERFORM LOG-ERROR
+    WHEN OTHER
+      DISPLAY 'FATAL: RC=' RETURN-CODE
+      MOVE 16 TO RETURN-CODE
+      STOP RUN
+  END-EVALUATE
+
+Max Return Code Pattern:
+  Track the highest RC throughout the program:
+  IF RETURN-CODE > WS-MAX-RC
+    MOVE RETURN-CODE TO WS-MAX-RC
+  END-IF
+  At end: MOVE WS-MAX-RC TO RETURN-CODE
+
+JCL COND Interaction:
+  JCL COND=(4,LT) means: skip if prior RC > 4
+  So RC=0 or 4 continues. RC=8+ stops dependent steps.
+
+Pro Tip: Always set RETURN-CODE before STOP RUN. JCL uses it for conditional step execution.`,code:`       01  WS-MAX-RC     PIC S9(4) COMP VALUE 0.
+      *
+           CALL 'VALIDATE' USING WS-REC
+           IF RETURN-CODE > WS-MAX-RC
+               MOVE RETURN-CODE TO WS-MAX-RC
+           END-IF
+      *
+           CALL 'PROCESS' USING WS-REC
+           IF RETURN-CODE > WS-MAX-RC
+               MOVE RETURN-CODE TO WS-MAX-RC
+           END-IF
+      *
+      *    Set final RC for JCL:
+           MOVE WS-MAX-RC TO RETURN-CODE
+           DISPLAY 'FINAL RC: ' RETURN-CODE
+           STOP RUN`},{title:"COBOL Interview Q&A (40+)",level:"All Levels",content:`COBOL Interview Questions — 40+ Q&A organized by level.
 
 === BEGINNER ===
 
@@ -6326,7 +7180,7 @@ IGYCRCTL PARM='LIB,MAP,XREF,OFFSET'`,code:`      *    COBOL TEMPLATE:
            END-PERFORM
            CLOSE IN-FILE
            DISPLAY 'COUNT: ' WS-COUNT
-           STOP RUN.`}]},yo={id:"rexx",icon:"🧩",title:"REXX",subtitle:"Restructured Extended Executor",color:"#f97316",level:"Beginner → Expert",description:"The Swiss-army-knife scripting language of z/OS. Automate anything on TSO, ISPF, batch, and beyond.",sections:[{title:"REXX Fundamentals",level:"Beginner",content:`REXX (Restructured Extended Executor) is a powerful, interpreted scripting language created by Mike Cowlishaw at IBM in 1979. On z/OS, REXX is the primary automation and scripting language.
+           STOP RUN.`}]},Mo={id:"rexx",icon:"🧩",title:"REXX",subtitle:"Restructured Extended Executor",color:"#f97316",level:"Beginner → Expert",description:"The Swiss-army-knife scripting language of z/OS. Automate anything on TSO, ISPF, batch, and beyond.",sections:[{title:"REXX Fundamentals",level:"Beginner",content:`REXX (Restructured Extended Executor) is a powerful, interpreted scripting language created by Mike Cowlishaw at IBM in 1979. On z/OS, REXX is the primary automation and scripting language.
 
 Where REXX Runs on z/OS:
   • TSO/ISPF — Interactive command automation
@@ -7029,7 +7883,7 @@ ADDRESS ISPEXEC "DISPLAY PANEL(panelname)"
 
 ═══ PARSE ═══
 PARSE VAR string word1 word2 rest
-PARSE VALUE expr WITH var1 ',' var2`}]},Mo={id:"vsam",icon:"🗄️",title:"VSAM",subtitle:"Virtual Storage Access Method",color:"#8b5cf6",level:"Beginner → Expert",description:"The high-performance file system powering CICS, IMS, and enterprise batch. Master VSAM, master z/OS.",sections:[{title:"Introduction to VSAM",level:"Beginner",content:`Virtual Storage Access Method (VSAM) is the primary high-performance file access method on z/OS. Unlike simple sequential datasets, VSAM provides indexed access, direct (random) access, and sophisticated space management — making it the backbone of enterprise applications.
+PARSE VALUE expr WITH var1 ',' var2`}]},yo={id:"vsam",icon:"🗄️",title:"VSAM",subtitle:"Virtual Storage Access Method",color:"#8b5cf6",level:"Beginner → Expert",description:"The high-performance file system powering CICS, IMS, and enterprise batch. Master VSAM, master z/OS.",sections:[{title:"Introduction to VSAM",level:"Beginner",content:`Virtual Storage Access Method (VSAM) is the primary high-performance file access method on z/OS. Unlike simple sequential datasets, VSAM provides indexed access, direct (random) access, and sophisticated space management — making it the backbone of enterprise applications.
 
 Why VSAM Matters:
   • Powers nearly every CICS online transaction
@@ -7960,7 +8814,668 @@ Diagnostic Commands:
   LISTCAT ENTRIES(dsn) ALL — Full statistics and attributes
   PRINT INDATASET(dsn) CHARACTER COUNT(10) — View first 10 records
   EXAMINE INDATASET(dsn) INDEXTEST DATATEST — Check structural integrity
-  VERIFY DATASET(dsn) — Reset end-of-file after abend`},{title:"VSAM Interview Questions",level:"All Levels",content:`VSAM Interview Questions — 30+ Q&A organized by level.
+  VERIFY DATASET(dsn) — Reset end-of-file after abend`},{title:"VSAM KSDS — Complete Guide",level:"Beginner",content:`KSDS (Key-Sequenced Data Set) is the most common VSAM type.
+
+Structure:
+  DATA component — Actual records stored in CIs
+  INDEX component — B-tree index for key lookup
+
+Key Characteristics:
+  • Primary key — unique, identifies each record
+  • Records stored in key sequence
+  • Supports sequential, random, and skip-sequential access
+  • Insertions cause CI/CA splits when space is full
+  • Max record size: 32,761 bytes
+
+DEFINE CLUSTER:
+  DEFINE CLUSTER (NAME(MY.KSDS.FILE) INDEXED -
+    KEYS(8 0) RECORDSIZE(100 200) SHAREOPTIONS(2 3)) -
+  DATA (CYLINDERS(10 5) FREESPACE(20 10) CISZ(4096)) -
+  INDEX (CYLINDERS(1 1))
+
+  KEYS(length offset) — 8-byte key starting at position 0
+  RECORDSIZE(avg max) — Average and maximum record sizes
+  FREESPACE(CI% CA%) — Free space for inserts
+
+Access Modes:
+  Sequential — Read all records in key order
+  Random — Direct access by key (RIDFLD)
+  Dynamic — Both in same program (most flexible)
+
+Pro Tip: Use DYNAMIC access mode as default for KSDS. It gives maximum flexibility with minimal overhead.`},{title:"VSAM CI and CA Splits",level:"Intermediate",content:`Splits occur when inserting a record into a full CI or CA. They degrade performance.
+
+CI Split:
+  CI is full → New record needs to insert → VSAM splits the CI:
+  1. Allocates a new CI from free CIs in the CA
+  2. Moves ~half the records to new CI
+  3. Inserts the new record in correct position
+  4. Updates index to reflect new CI
+
+CA Split:
+  All CIs in a CA are full → Needs new CI → VSAM splits the CA:
+  1. Allocates an entirely new CA (secondary allocation)
+  2. Moves half the CIs to the new CA
+  3. Much more expensive than CI split
+
+Impact:
+  • Splits are I/O intensive (multiple reads/writes)
+  • Records no longer physically sequential → random I/O
+  • Sequential read performance degrades
+  • CA splits are 10-100x worse than CI splits
+
+Prevention:
+  FREESPACE(CI% CA%) — Reserve space for future inserts
+  CI% = 20: Leave 20% of each CI free
+  CA% = 10: Leave 10% of CIs in each CA free
+
+Fixing Splits:
+  REORG (IDCAMS REPRO to sequential → DELETE → REDEFINE → REPRO back)
+  Or AMS ALTER ... FREESPACE(20 10) then REORG
+
+Pro Tip: Monitor split counts with LISTCAT ALL. If splits are high, REORG and increase FREESPACE.`},{title:"VSAM REPRO & PRINT",level:"Beginner",content:`REPRO copies data. PRINT displays data. Both are IDCAMS commands.
+
+REPRO (Copy):
+  REPRO INFILE(INPUT) OUTFILE(OUTPUT)
+  Copies all records from INPUT to OUTPUT.
+
+  REPRO INFILE(INPUT) OUTFILE(OUTPUT) COUNT(100)
+  First 100 records only.
+
+  REPRO INFILE(INPUT) OUTFILE(OUTPUT) SKIP(50) COUNT(100)
+  Skip 50, copy next 100.
+
+  REPRO INFILE(INPUT) OUTFILE(OUTPUT) FROMKEY(key) TOKEY(key)
+  Copy key range.
+
+REPRO Uses:
+  • Backup: VSAM → Sequential flat file
+  • Restore: Sequential → VSAM
+  • Copy between VSAM clusters
+  • Migrate data between environments
+
+PRINT (Display):
+  PRINT INFILE(INPUT) CHARACTER COUNT(10)
+  PRINT INFILE(INPUT) HEX COUNT(5)
+  PRINT INFILE(INPUT) DUMP COUNT(5)
+
+  CHARACTER — Readable text
+  HEX — Hexadecimal
+  DUMP — Both character and hex
+
+Pro Tip: Always REPRO a backup before any data migration or REORG. It's your safety net.`,code:`//STEP1    EXEC PGM=IDCAMS
+//SYSPRINT DD  SYSOUT=*
+//INPUT    DD  DSN=PROD.CUST.KSDS,DISP=SHR
+//OUTPUT   DD  DSN=BACKUP.CUST.SEQ,
+//             DISP=(NEW,CATLG,DELETE),
+//             SPACE=(CYL,(10,5)),
+//             DCB=(RECFM=VB,LRECL=32760,BLKSIZE=0)
+//SYSIN    DD  *
+  REPRO INFILE(INPUT) OUTFILE(OUTPUT)
+  IF LASTCC > 0 THEN DO
+    SET MAXCC = 16
+  END
+/*`},{title:"VSAM DEFINE — All Options",level:"Intermediate",content:`Complete DEFINE CLUSTER reference for all VSAM types.
+
+KSDS:
+  DEFINE CLUSTER (NAME(MY.KSDS) INDEXED -
+    KEYS(8 0) RECORDSIZE(100 200) -
+    SHAREOPTIONS(2 3) SPEED) -
+  DATA (CYLINDERS(10 5) FREESPACE(20 10) -
+    CISZ(4096) BUFFERSPACE(65536)) -
+  INDEX (CYLINDERS(1 1) CISZ(2048))
+
+ESDS:
+  DEFINE CLUSTER (NAME(MY.ESDS) NONINDEXED -
+    RECORDSIZE(80 80)) -
+  DATA (CYLINDERS(5 2) CISZ(4096))
+
+RRDS:
+  DEFINE CLUSTER (NAME(MY.RRDS) NUMBERED -
+    RECORDSIZE(200 200)) -
+  DATA (CYLINDERS(5 2))
+
+LDS:
+  DEFINE CLUSTER (NAME(MY.LDS) LINEAR) -
+  DATA (CYLINDERS(10 5))
+
+Key Parameters:
+  SPEED — Skip CI preformat (faster initial load)
+  RECOVERY — Preformat CIs (safer, slower)
+  SHAREOPTIONS(cross-region cross-system)
+  ERASE — Zero-fill on delete (security)
+  REUSE — Allows REPRO to reuse existing cluster
+  SPANNED — Records can span CIs (for very large records)
+
+Pro Tip: Use SPEED for initial loads, RECOVERY for production. Always specify SHAREOPTIONS.`},{title:"VSAM ALTER & VERIFY",level:"Intermediate",content:`ALTER modifies cluster attributes. VERIFY fixes end-of-file markers.
+
+ALTER:
+  ALTER MY.KSDS.FILE -
+    FREESPACE(25 15) -
+    BUFFERSPACE(131072) -
+    SHAREOPTIONS(2 3)
+
+  Can change: FREESPACE, BUFFERSPACE, SHAREOPTIONS, ERASE, REUSE, passwords.
+  Cannot change: KEYS, RECORDSIZE, CISZ (require DELETE + REDEFINE).
+
+VERIFY:
+  VERIFY DATASET(MY.KSDS.FILE)
+  
+  Resets end-of-file marker after abnormal close.
+  When needed: Program ABENDs with VSAM file open → file may be marked as "improperly closed."
+  Without VERIFY, next OPEN may fail.
+
+LISTCAT:
+  LISTCAT ENT(MY.KSDS.FILE) ALL
+  Shows ALL attributes: KEYS, CISZ, FREESPACE, record counts, split counts, extents.
+  Most important fields:
+  - REC-TOTAL — Record count
+  - SPLITS-CI — CI split count
+  - SPLITS-CA — CA split count
+  - EXTENTS — Number of extents used
+
+Pro Tip: Run LISTCAT before and after REORG to verify improvements. Watch split counts and extent counts.`},{title:"VSAM in JCL",level:"Beginner",content:`JCL DD statements connect COBOL SELECT to physical VSAM files.
+
+Basic DD for VSAM:
+  //CUSTMAST DD DSN=PROD.CUST.KSDS,DISP=SHR
+
+  DISP=SHR — Shared read access
+  DISP=OLD — Exclusive access (for update)
+  AMP parameter for special VSAM options.
+
+AMP Parameter:
+  //CUSTMAST DD DSN=PROD.CUST.KSDS,DISP=SHR,
+  //   AMP=('BUFND=10,BUFNI=5')
+  BUFND — Data buffers (more = better sequential read)
+  BUFNI — Index buffers (more = better random read)
+
+Path (Alternate Index):
+  //CUSTNAME DD DSN=PROD.CUST.NAME.PATH,DISP=SHR
+  PATH connects to the AIX path, not the base cluster.
+
+No DCB for VSAM:
+  VSAM files do NOT need DCB (RECFM, LRECL, BLKSIZE).
+  These are defined in the cluster definition (DEFINE CLUSTER).
+
+IDCAMS in JCL:
+  //STEP1 EXEC PGM=IDCAMS
+  //SYSPRINT DD SYSOUT=*
+  //SYSIN DD *
+    DELETE MY.KSDS.FILE CLUSTER PURGE
+    IF LASTCC = 8 THEN SET MAXCC = 0
+  /*
+
+Pro Tip: Use AMP BUFND/BUFNI for performance tuning in batch. Default buffers are often too small for large files.`},{title:"VSAM Performance Best Practices",level:"Advanced",content:`Optimize VSAM for maximum throughput in batch and online processing.
+
+CI Size Selection:
+  Small CI (4K) — Better for random access (less I/O per read)
+  Large CI (16K-32K) — Better for sequential access (more records per I/O)
+  Match CI size to access pattern.
+
+Buffer Allocation:
+  Batch: AMP=('BUFND=20,BUFNI=10') — More buffers for throughput
+  CICS: LSR (Local Shared Resources) buffering — Shared pool
+  
+  Data buffers (BUFND): CI reads/writes
+  Index buffers (BUFNI): Index lookups
+
+FREESPACE Strategy:
+  High insert rate: FREESPACE(30 20)
+  Low insert rate: FREESPACE(10 5)
+  Read-only: FREESPACE(0 0)
+
+Regular Maintenance:
+  1. Monitor with LISTCAT (check splits, extents)
+  2. REORG when splits exceed threshold
+  3. VERIFY after any ABEND
+  4. REPRO backup before maintenance
+
+Control Interval Processing:
+  CISZ should be multiple of physical block size.
+  3390 DASD: 4096 optimal for random, 16384+ for sequential.
+
+Pro Tip: The #1 VSAM performance killer is uncontrolled CI/CA splits. Monitor and REORG regularly.`},{title:"VSAM GDG Integration",level:"Intermediate",content:`VSAM files can be managed as Generation Data Groups for versioning.
+
+GDG for VSAM:
+  GDGs version your VSAM files automatically.
+  (+1) creates new generation, (0) is current, (-1) is previous.
+
+DEFINE GDG Base:
+  DEFINE GDG (NAME(MY.CUST.HISTORY) LIMIT(7) SCRATCH NOEMPTY)
+
+Daily Pattern:
+  1. Define new KSDS as (+1)
+  2. REPRO from current to (+1) (backup)
+  3. Process updates on current (0)
+  
+  Keeps 7 days of history automatically.
+
+JCL:
+  //HISTORY DD DSN=MY.CUST.HISTORY(+1),DISP=(NEW,CATLG),
+  //   SPACE=(CYL,(10,5)),
+  //   DCB=(RECFM=VB,LRECL=32760)
+
+Note: GDG generations for VSAM are usually flat sequential copies (via REPRO), not VSAM clusters.
+
+Pro Tip: Use GDG + REPRO for daily VSAM backups. Automatic rotation keeps storage manageable.`},{title:"VSAM ESDS — Entry-Sequenced",level:"Beginner",content:`ESDS stores records in the order they are written — like a sequential file with VSAM benefits.
+
+Characteristics:
+  • Records added at end only (no insert)
+  • No primary key — accessed by RBA (Relative Byte Address)
+  • Cannot delete individual records
+  • Can update records in place (same length)
+  • Supports alternate indexes
+
+DEFINE:
+  DEFINE CLUSTER (NAME(MY.ESDS.LOG) NONINDEXED -
+    RECORDSIZE(200 200) SHAREOPTIONS(2 3)) -
+  DATA (CYLINDERS(10 5) CISZ(4096))
+
+Access in COBOL:
+  SELECT LOG-FILE ASSIGN TO LOGDD
+    ORGANIZATION IS SEQUENTIAL
+    ACCESS MODE IS SEQUENTIAL
+    FILE STATUS IS WS-FS.
+
+Common Uses:
+  • Log files — append-only records
+  • Transaction journals
+  • Audit trails
+  • Data feeds (sequential processing)
+
+ESDS vs Sequential (PS):
+  ESDS: Password protection, alternate indexes, CI-based I/O
+  PS: Simpler, standard tape/disk, wider utility support
+
+Pro Tip: Use ESDS for logs and journals that need VSAM features. Use PS for simple sequential data.`},{title:"VSAM Linear Data Set (LDS)",level:"Advanced",content:`LDS is byte-addressable VSAM — used for DB2, CICS, and system components.
+
+Characteristics:
+  • No record structure — just a stream of bytes
+  • Accessed by page (4K) via DIV (Data-in-Virtual)
+  • No primary key, no control intervals in traditional sense
+  • Used internally by DB2 tablespaces, CICS resources
+
+DEFINE:
+  DEFINE CLUSTER (NAME(MY.LDS.DATA) LINEAR) -
+  DATA (CYLINDERS(50 10))
+
+Access:
+  Not directly accessible by COBOL programs.
+  Accessed via DIV (Data-in-Virtual) macros in Assembler.
+  Or indirectly through DB2/CICS which use LDS internally.
+
+Common Uses:
+  • DB2 tablespaces (each tablespace is one or more LDS)
+  • CICS system datasets
+  • Hiperspaces (data caching)
+  • Coupling Facility structures
+
+Pro Tip: You rarely interact with LDS directly. Know it for interviews — "What are the four VSAM types?" Always include LDS.`},{title:"VSAM Alternate Index — Complete Guide",level:"Intermediate",content:`Alternate indexes let you access KSDS records by fields other than the primary key.
+
+Step 1 — DEFINE AIX:
+  DEFINE AIX (NAME(MY.CUST.NAMEAIX) -
+    RELATE(MY.CUST.KSDS) -
+    KEYS(30 8) -
+    NONUNIQUEKEY -
+    RECORDSIZE(50 100) -
+    SHAREOPTIONS(2 3)) -
+  DATA (CYLINDERS(2 1))
+
+  KEYS(30 8) = 30-byte key starting at offset 8 in base record
+  NONUNIQUEKEY = Multiple records can have same alternate key
+  UNIQUEKEY = Each alternate key value must be unique
+
+Step 2 — DEFINE PATH:
+  DEFINE PATH (NAME(MY.CUST.NAMEPATH) -
+    PATHENTRY(MY.CUST.NAMEAIX))
+
+Step 3 — BLDINDEX:
+  BLDINDEX INDATASET(MY.CUST.KSDS) -
+    OUTDATASET(MY.CUST.NAMEAIX)
+
+In COBOL:
+  SELECT CUST-BY-NAME ASSIGN TO NAMEPATH
+    ORGANIZATION IS INDEXED
+    ACCESS MODE IS DYNAMIC
+    RECORD KEY IS CUST-NAME-KEY
+    FILE STATUS IS WS-FS.
+
+UPGRADE vs NOUPGRADE:
+  UPGRADE (default) — AIX updated automatically when base cluster changes
+  NOUPGRADE — AIX not maintained automatically (must rebuild manually)
+
+Pro Tip: Always UPGRADE for production AIXes. NOUPGRADE means stale data on reads.`},{title:"VSAM Catalog Management",level:"Intermediate",content:`VSAM files are managed through ICF (Integrated Catalog Facility) catalogs.
+
+Catalog Hierarchy:
+  Master Catalog → User Catalogs → VSAM Clusters
+
+LISTCAT:
+  LISTCAT ENT(MY.CUST.KSDS) ALL
+  Shows everything: attributes, statistics, space usage, split counts.
+
+Key LISTCAT Fields:
+  REC-TOTAL — Number of records
+  REC-DELETED — Deleted records (reclaimable space)
+  SPLITS-CI — CI split count
+  SPLITS-CA — CA split count (bad if high)
+  EXTENTS — Number of extents (max 123 per volume)
+  FREESPACE-CI — Free space percentage in CIs
+  HIGH-KEY — Highest key value
+  HURBA — High Used RBA (end of data)
+
+ALTER:
+  ALTER MY.KSDS.FILE FREESPACE(25 15)
+  ALTER MY.KSDS.FILE BUFFERSPACE(131072)
+
+DELETE:
+  DELETE MY.KSDS.FILE CLUSTER PURGE
+  PURGE overrides retention period.
+  Without CLUSTER, deletes only the entry (not data/index components).
+
+Pro Tip: Check LISTCAT SPLITS-CA regularly. High CA splits = performance problem = time to REORG.`},{title:"VSAM REORG Procedure",level:"Intermediate",content:`REORG restores VSAM performance by eliminating splits and fragmentation.
+
+Standard REORG Steps:
+  1. REPRO to backup (VSAM → sequential)
+  2. DELETE the VSAM cluster
+  3. DEFINE new cluster (with updated FREESPACE)
+  4. REPRO from backup (sequential → VSAM)
+  5. BLDINDEX for any alternate indexes
+
+JCL Pattern:
+  //STEP1 — IDCAMS REPRO INFILE(VSAM) OUTFILE(BACKUP)
+  //STEP2 — IDCAMS DELETE cluster PURGE
+  //STEP3 — IDCAMS DEFINE CLUSTER (same definition, adjusted FREESPACE)
+  //STEP4 — IDCAMS REPRO INFILE(BACKUP) OUTFILE(VSAM)
+  //STEP5 — IDCAMS BLDINDEX (for each AIX)
+
+When to REORG:
+  • CI splits > 10% of total CIs
+  • CA splits occurring regularly
+  • Sequential read performance degrading
+  • Many deleted records (wasted space)
+
+During REORG:
+  File is unavailable. Schedule in batch window.
+  For CICS files: CEMT SET FILE CLOSE first.
+
+Pro Tip: ALWAYS back up (REPRO to sequential) before DELETE. If anything fails, you can recover from the backup.`,code:`//REORG    JOB (ACCT),'VSAM REORG',CLASS=A,NOTIFY=&SYSUID
+//*--- Backup ---
+//STEP1    EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//INDD     DD DSN=PROD.CUST.KSDS,DISP=SHR
+//OUTDD    DD DSN=TEMP.CUST.BACKUP,
+//            DISP=(NEW,CATLG),SPACE=(CYL,(20,5))
+//SYSIN    DD *
+  REPRO INFILE(INDD) OUTFILE(OUTDD)
+/*
+//*--- Delete ---
+//STEP2    EXEC PGM=IDCAMS,COND=(0,NE)
+//SYSIN    DD *
+  DELETE PROD.CUST.KSDS CLUSTER PURGE
+  IF LASTCC = 8 THEN SET MAXCC = 0
+/*
+//*--- Redefine ---
+//STEP3    EXEC PGM=IDCAMS,COND=(0,NE)
+//SYSIN    DD *
+  DEFINE CLUSTER (NAME(PROD.CUST.KSDS) INDEXED -
+    KEYS(8 0) RECSZ(200 200) SHROPT(2 3)) -
+  DATA (CYL(20 10) FSPC(20 10) CISZ(4096)) -
+  INDEX (CYL(2 1))
+/*
+//*--- Reload ---
+//STEP4    EXEC PGM=IDCAMS,COND=(0,NE)
+//INDD     DD DSN=TEMP.CUST.BACKUP,DISP=SHR
+//OUTDD    DD DSN=PROD.CUST.KSDS,DISP=SHR
+//SYSIN    DD *
+  REPRO INFILE(INDD) OUTFILE(OUTDD)
+/*`},{title:"VSAM Record-Level Sharing (RLS)",level:"Expert",content:`RLS allows multiple CICS regions to access the same VSAM file simultaneously with record-level locking.
+
+Without RLS:
+  Only one region can open a VSAM file for update.
+  Batch window needed to close CICS files for batch processing.
+
+With RLS:
+  Multiple CICS regions + batch can access same file.
+  Locking at record level via Coupling Facility.
+  No batch window needed.
+
+Requirements:
+  • Parallel Sysplex with Coupling Facility
+  • SMSVSAM address space running
+  • CF lock structure defined
+  • File defined with LOG(UNDO) or LOG(ALL)
+
+CICS Configuration:
+  FILE definition: RLSACCESS(YES)
+  File opened in RLS mode automatically.
+
+LOG Options:
+  LOG(NONE) — No logging. No recovery.
+  LOG(UNDO) — Backout logging. CICS can rollback on ABEND.
+  LOG(ALL) — Forward recovery logging. Can rebuild from log.
+
+VSAM Non-RLS vs RLS:
+  Non-RLS: SHAREOPTIONS controls sharing (limited)
+  RLS: True record-level sharing via CF (scalable)
+
+Pro Tip: RLS is required for modern Sysplex environments. Know it for CICS admin and systems programmer interviews.`},{title:"VSAM — Common Errors & Solutions",level:"Beginner",content:`Troubleshooting guide for the most common VSAM problems.
+
+File Status 35 — File Not Found:
+  Cause: Dataset doesn't exist or DD missing from JCL.
+  Fix: Check DSN spelling. Verify LISTCAT shows the cluster. Check JCL DD name matches COBOL SELECT.
+
+File Status 39 — Attribute Mismatch:
+  Cause: COBOL program expects different attributes than actual file.
+  Fix: Check RECFM, LRECL, KEY definition matches DEFINE CLUSTER.
+
+File Status 97 — OPEN Failed:
+  Cause: Various — security, file in use, improperly closed.
+  Fix: VERIFY the dataset. Check RACF access. Check SHAREOPTIONS.
+
+VSAM OPEN Error — IEC161I:
+  Improperly closed. Run VERIFY DATASET(name).
+
+VSAM Space Error — IEC070I:
+  Out of space. Increase secondary allocation or add volumes.
+
+CI Split Performance:
+  LISTCAT shows high SPLITS-CI or SPLITS-CA.
+  Fix: REORG with increased FREESPACE.
+
+Record Not Found (Status 23):
+  Key doesn't exist in file.
+  Check: Key alignment, packed vs display, leading spaces.
+
+Duplicate Key (Status 22):
+  Record with this key already exists.
+  Check: Is this an expected duplicate or data error?
+
+Pro Tip: 90% of VSAM problems are: wrong DSN (35), needs VERIFY (97), or needs REORG (performance). Check these first.`},{title:"VSAM — Batch Window Processing",level:"Intermediate",content:`Traditional pattern for batch processing against CICS VSAM files.
+
+The Batch Window:
+  1. CICS closes files (CEMT SET FILE(name) CLOSE)
+  2. Batch jobs run (updates, REORG, loads)
+  3. CICS reopens files (CEMT SET FILE(name) OPEN)
+
+Why Needed (without RLS):
+  VSAM SHAREOPTIONS don't fully support concurrent update from CICS and batch.
+  Batch needs exclusive access for heavy updates and REORGs.
+
+Automated Batch Window:
+  1. PLTSD program closes files at scheduled time
+  2. Batch scheduler (CA-7) triggers batch jobs
+  3. After batch completes, PLTPI or operator reopens files
+
+Minimizing Batch Window:
+  • Use RLS (eliminates batch window entirely)
+  • Process only changed records (delta processing)
+  • Parallel processing across partitions
+  • Schedule long jobs for off-peak hours
+
+BWO (Batch Window Overlap):
+  Process KSDS data component in batch while CICS uses index.
+  Requires careful design — partial overlap, not full concurrent access.
+
+Pro Tip: RLS eliminates the batch window. If your shop hasn't moved to RLS yet, advocate for it — it's the modern standard.`},{title:"VSAM — SHAREOPTIONS Explained",level:"Intermediate",content:`SHAREOPTIONS control how multiple programs/regions access the same VSAM file.
+
+Format: SHAREOPTIONS(cross-region, cross-system)
+
+Cross-Region Values:
+  1 — One writer OR multiple readers. Not both simultaneously. Safest.
+  2 — One writer AND multiple readers. Readers may see stale data.
+  3 — Multiple writers, multiple readers. No integrity guarantee. Use with care.
+  4 — Like 3 but with buffer refresh for reads. Slightly safer.
+
+Cross-System Values:
+  3 — Common default. Multiple systems, no integrity.
+  4 — Buffer refresh across systems.
+
+Common Combinations:
+  SHAREOPTIONS(2,3) — Standard production. One batch writer, multiple CICS readers.
+  SHAREOPTIONS(1,3) — Strict. Only one accessor at a time.
+  SHAREOPTIONS(3,3) — Maximum sharing. Risk of corruption without external coordination.
+  SHAREOPTIONS(4,3) — Like (3,3) but readers refresh buffers.
+
+Data Integrity Warning:
+  SHAREOPTIONS 3 and 4 do NOT provide true serialization.
+  If two writers update simultaneously, data can corrupt.
+  For true sharing: Use CICS RLS or ENQ/DEQ in batch.
+
+Pro Tip: Use SHAREOPTIONS(2,3) for most files. Only use (3,3) if you have external serialization (ENQ/DEQ or RLS).`},{title:"VSAM & SMS Integration",level:"Intermediate",content:`SMS (Storage Management Subsystem) automates VSAM storage management.
+
+ACS Routines:
+  Automatic Class Selection routines assign storage classes based on dataset naming rules.
+  MY.PROD.*.KSDS → STORCLAS=PRODFAST, MGMTCLAS=PROD30DAY
+
+Storage Classes:
+  STORCLAS — Performance: which volumes, caching, I/O priority
+  MGMTCLAS — Management: backup frequency, retention, migration
+  DATACLAS — Data: RECFM, LRECL, space, VSAM attributes
+
+SMS-Managed VSAM:
+  DEFINE CLUSTER without VOLUMES — SMS picks the volume.
+  STORCLAS, MGMTCLAS, DATACLAS applied automatically.
+  Benefits: Automatic space management, tiered storage, HSM migration.
+
+Extended Addressability:
+  SMS allows VSAM files larger than 4GB (4GB barrier removed).
+  DFSMS EXTENDED FORMAT required.
+
+VSAM Data Striping:
+  Spread data across multiple volumes for parallel I/O.
+  Configured in SMS DATACLAS: DATACLASS(STRIPE4)
+
+Pro Tip: In modern z/OS shops, all VSAM is SMS-managed. Know STORCLAS, MGMTCLAS, DATACLAS for interviews.`},{title:"VSAM — IDCAMS Return Codes",level:"Beginner",content:`Understanding IDCAMS return codes for proper error handling in JCL.
+
+Return Codes:
+  0 — Success. All operations completed normally.
+  4 — Warning. Operation completed but with minor issues (e.g., dataset already cataloged).
+  8 — Error. Operation failed (e.g., dataset not found for DELETE, duplicate on DEFINE).
+  12 — Severe error. Logical error in IDCAMS commands.
+  16 — Critical error. Unable to open SYSIN or SYSPRINT.
+
+Handling in JCL:
+  IF LASTCC = 8 THEN SET MAXCC = 0
+  Resets the max condition code after an expected error (like DELETE of non-existent file).
+
+Common Pattern:
+  DELETE name CLUSTER PURGE
+  IF LASTCC = 8 THEN SET MAXCC = 0
+  DEFINE CLUSTER (...)
+  
+  This deletes-if-exists, ignores "not found" error, then defines fresh.
+
+LASTCC vs MAXCC:
+  LASTCC = Return code from last command
+  MAXCC = Highest return code so far
+  SET MAXCC = 0 resets the maximum (useful after expected errors)
+
+Pro Tip: Always include IF LASTCC = 8 THEN SET MAXCC = 0 after DELETE. Every production JCL does this.`},{title:"VSAM — COBOL File Processing Patterns",level:"Intermediate",content:`Common VSAM access patterns in production COBOL programs.
+
+Pattern 1 — Sequential Read (Full Scan):
+  OPEN INPUT file → READ loop → CLOSE
+  For: Reports, extracts, batch processing entire file.
+
+Pattern 2 — Random Read (Lookup):
+  OPEN INPUT file → MOVE key → READ → process → CLOSE
+  For: Validations, single-record lookups.
+
+Pattern 3 — Browse from Starting Point:
+  OPEN INPUT file → MOVE start-key → START KEY >= → READNEXT loop → CLOSE
+  For: Range queries, partial scans.
+
+Pattern 4 — Random Update:
+  OPEN I-O file → MOVE key → READ (locks record) → modify → REWRITE → CLOSE
+  For: Online updates, transaction processing.
+
+Pattern 5 — Sequential Load:
+  OPEN OUTPUT file → Loop: build record → WRITE → CLOSE
+  For: Initial data load, rebuilding from extract.
+
+Pattern 6 — Insert & Update Mix:
+  OPEN I-O file → READ (check if exists) → if yes REWRITE, if no WRITE → CLOSE
+  For: Upsert logic, merge processing.
+
+Error Handling:
+  ALWAYS check FILE STATUS after every I/O.
+  EVALUATE WS-FS: WHEN '00' WHEN '10' WHEN '22' WHEN '23' WHEN OTHER.
+
+Pro Tip: Pattern 4 (random update) is the most common in production. Pattern 6 (upsert) is the trickiest — handle both paths.`},{title:"VSAM — Spanned Records",level:"Advanced",content:`Spanned records can exceed CI size by spanning across multiple CIs.
+
+When Needed:
+  Record size > CI size minus control fields.
+  Normal max record per CI: CISZ - 10 bytes (overhead).
+  With SPANNED: records can be any size up to 32,760 bytes.
+
+DEFINE:
+  DEFINE CLUSTER (NAME(MY.SPAN.FILE) INDEXED -
+    KEYS(8 0) RECORDSIZE(200 8000) SPANNED -
+    SHAREOPTIONS(2 3)) -
+  DATA (CYLINDERS(10 5) CISZ(4096))
+
+How It Works:
+  Record split into segments. Each segment in a different CI.
+  Segment 1 in one CI, segment 2 in next CI, etc.
+  VSAM reassembles on read — transparent to program.
+
+Performance Impact:
+  Spanned records require multiple I/Os per read/write.
+  Sequential: Manageable. Random: Slow.
+
+When to Use:
+  • Records genuinely vary in size (e.g., variable-length text)
+  • Can't increase CI size (already at 32K max)
+  • Very rare in practice
+
+Alternative:
+  Increase CI size to accommodate largest record.
+  CISZ(8192) or CISZ(16384) often eliminates need for SPANNED.
+
+Pro Tip: Avoid SPANNED if possible. Increase CI size first. SPANNED records have significant performance overhead.`},{title:"VSAM — Extended Format & Large Files",level:"Advanced",content:`Extended format removes the 4GB barrier and enables advanced VSAM features.
+
+Extended Format:
+  SMS DATACLAS with DSNTYPE=EXT enables extended format.
+  Benefits: Large files (>4GB), data striping, compression.
+
+Extended Addressability:
+  Standard VSAM: Max ~4GB per component.
+  Extended: Virtually unlimited size.
+  Required for: Large databases, high-volume transaction logs.
+
+Data Striping:
+  Spreads data across multiple volumes for parallel I/O.
+  DATACLAS with COMPACTION=YES and stripe count.
+  Dramatic sequential read improvement.
+
+Compression:
+  VSAM extended format supports data compression.
+  Reduces disk usage by 40-70% for text data.
+  Slight CPU overhead on read/write.
+
+System-Managed Buffering (SMB):
+  ACCBIAS=USER/SYSTEM/DO/DW/SO/SW in DATACLAS.
+  Lets DFSMS optimize buffering automatically based on access pattern.
+
+Pro Tip: Extended format is the modern standard. New VSAM files should always be extended format in SMS-managed environments.`},{title:"VSAM Interview Questions",level:"All Levels",content:`VSAM Interview Questions — 30+ Q&A organized by level.
 
 === BEGINNER ===
 
@@ -8966,7 +10481,1431 @@ Monitoring Data Sharing:
   • CF structure activity (GBP hit ratios)
   • Cross-invalidation (XI) rates
   • Lock contention between members
-  • Inter-DB2 read/write activity`},{title:"DB2 Interview Questions",level:"All Levels",content:`DB2 Interview Questions — 40+ Q&A organized by level.
+  • Inter-DB2 read/write activity`},{title:"SQL — WHERE Clause & Operators",level:"Beginner",content:`WHERE filters rows. Master the operators for effective queries.
+
+Comparison: =, <>, <, >, <=, >=
+Logical: AND, OR, NOT
+Range: BETWEEN low AND high
+List: IN ('A','B','C')
+Pattern: LIKE 'pattern' (% = any chars, _ = one char)
+Null: IS NULL, IS NOT NULL
+Exists: EXISTS (subquery)
+
+BETWEEN:
+  WHERE SALARY BETWEEN 50000 AND 100000
+  Inclusive on both ends.
+
+IN:
+  WHERE DEPT IN ('HR','FIN','IT')
+  Cleaner than multiple OR conditions.
+
+LIKE:
+  WHERE NAME LIKE 'HAR%' — Starts with HAR
+  WHERE NAME LIKE '%KRISH%' — Contains KRISH
+  WHERE CODE LIKE 'A_B' — A, any char, B
+
+IS NULL:
+  WHERE MANAGER IS NULL
+  Cannot use = NULL (always false in SQL).
+
+Pro Tip: Put the most selective condition first in WHERE for better performance.`,code:`-- Various WHERE examples:
+SELECT * FROM EMPLOYEE
+WHERE DEPT = 'IT'
+  AND SALARY > 60000
+  AND HIRE_DATE BETWEEN '2020-01-01' AND '2026-12-31'
+  AND STATUS IN ('A','L')
+  AND NAME LIKE '%KUMAR%'
+  AND MANAGER IS NOT NULL
+ORDER BY SALARY DESC;`},{title:"SQL — Aggregate Functions",level:"Beginner",content:`Aggregate functions compute values across groups of rows.
+
+Functions:
+  COUNT(*) — Total rows
+  COUNT(col) — Non-null values
+  COUNT(DISTINCT col) — Unique values
+  SUM(col) — Total of numeric column
+  AVG(col) — Average
+  MIN(col) — Minimum value
+  MAX(col) — Maximum value
+
+GROUP BY:
+  SELECT DEPT, COUNT(*), AVG(SALARY)
+  FROM EMPLOYEE
+  GROUP BY DEPT
+
+HAVING (filter groups):
+  SELECT DEPT, COUNT(*) AS CNT
+  FROM EMPLOYEE
+  GROUP BY DEPT
+  HAVING COUNT(*) > 10
+
+Order of Operations:
+  FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
+  WHERE filters rows BEFORE grouping.
+  HAVING filters groups AFTER grouping.
+
+Pro Tip: Never put aggregate functions in WHERE — use HAVING instead.`,code:`-- Department summary:
+SELECT DEPT,
+       COUNT(*) AS EMP_COUNT,
+       SUM(SALARY) AS TOTAL_SAL,
+       AVG(SALARY) AS AVG_SAL,
+       MIN(HIRE_DATE) AS EARLIEST,
+       MAX(SALARY) AS HIGHEST
+FROM EMPLOYEE
+WHERE STATUS = 'A'
+GROUP BY DEPT
+HAVING COUNT(*) >= 5
+ORDER BY AVG_SAL DESC;`},{title:"SQL — CASE Expression",level:"Beginner",content:`CASE provides if-then-else logic within SQL statements.
+
+Simple CASE:
+  CASE DEPT
+    WHEN 'HR' THEN 'Human Resources'
+    WHEN 'FIN' THEN 'Finance'
+    ELSE 'Other'
+  END
+
+Searched CASE:
+  CASE
+    WHEN SALARY > 100000 THEN 'Executive'
+    WHEN SALARY > 60000 THEN 'Senior'
+    WHEN SALARY > 30000 THEN 'Mid-Level'
+    ELSE 'Junior'
+  END AS LEVEL
+
+Uses:
+  • SELECT (computed columns)
+  • WHERE (conditional filtering)
+  • ORDER BY (custom sort order)
+  • UPDATE SET (conditional updates)
+
+Pro Tip: CASE is evaluated top-down — first matching WHEN wins. Put specific conditions before general ones.`,code:`SELECT EMP_ID, NAME, SALARY,
+  CASE
+    WHEN SALARY > 100000 THEN 'HIGH'
+    WHEN SALARY > 50000 THEN 'MED'
+    ELSE 'LOW'
+  END AS PAY_BAND,
+  CASE DEPT
+    WHEN 'IT' THEN SALARY * 1.10
+    WHEN 'HR' THEN SALARY * 1.05
+    ELSE SALARY * 1.03
+  END AS PROJECTED_SAL
+FROM EMPLOYEE
+ORDER BY SALARY DESC;`},{title:"SQL — String Functions",level:"Beginner",content:`DB2 string functions for text manipulation in queries.
+
+SUBSTR(str, pos, len) — Extract substring (1-based)
+LENGTH(str) — String length
+TRIM(str) — Remove leading/trailing spaces
+LTRIM/RTRIM — Left/Right trim
+UPPER(str) / LOWER(str) — Case conversion
+CONCAT(s1, s2) or s1 || s2 — Concatenation
+LOCATE(search, str) — Find position (0 if not found)
+REPLACE(str, old, new) — Replace text
+LEFT(str, n) / RIGHT(str, n) — Extract from left/right
+CHAR(num) — Convert number to string
+STRIP(str) — Remove blanks
+COALESCE(a, b, c) — First non-null value
+
+Pro Tip: COALESCE is essential for handling NULLs in output — COALESCE(MANAGER, 'NO MANAGER').`,code:`SELECT
+  EMP_ID,
+  TRIM(FIRST_NAME) || ' ' || TRIM(LAST_NAME) AS FULL_NAME,
+  UPPER(DEPT) AS DEPT_UPPER,
+  SUBSTR(HIRE_DATE, 1, 4) AS HIRE_YEAR,
+  LENGTH(TRIM(EMAIL)) AS EMAIL_LEN,
+  COALESCE(PHONE, 'N/A') AS PHONE,
+  LOCATE('@', EMAIL) AS AT_POS
+FROM EMPLOYEE
+WHERE UPPER(LAST_NAME) LIKE 'K%';`},{title:"SQL — Date/Time Functions",level:"Beginner",content:`DB2 date arithmetic and formatting functions.
+
+CURRENT DATE — Today's date
+CURRENT TIME — Current time
+CURRENT TIMESTAMP — Date + time + microseconds
+
+Date Arithmetic:
+  CURRENT DATE + 30 DAYS
+  CURRENT DATE - 1 MONTH
+  HIRE_DATE + 1 YEAR
+
+DAYS(date) — Integer days since year 0
+  DAYS(CURRENT DATE) - DAYS(HIRE_DATE) = tenure in days
+
+DATE(expression) — Convert to date
+YEAR(date), MONTH(date), DAY(date) — Extract parts
+DAYOFWEEK(date) — 1=Sunday, 7=Saturday
+
+Formatting:
+  CHAR(date, ISO) → '2026-03-21'
+  CHAR(date, USA) → '03/21/2026'
+  CHAR(date, EUR) → '21.03.2026'
+
+TIMESTAMPDIFF:
+  TIMESTAMPDIFF(16, CHAR(CURRENT TIMESTAMP - HIRE_TIMESTAMP))
+  Element 16 = days, 256 = months, 1 = fractions of second
+
+Pro Tip: Use CURRENT DATE (not HOST variable) in SQL for consistency and optimizer efficiency.`,code:`SELECT EMP_ID, NAME, HIRE_DATE,
+  DAYS(CURRENT DATE) - DAYS(HIRE_DATE) AS DAYS_EMPLOYED,
+  YEAR(CURRENT DATE) - YEAR(HIRE_DATE) AS YEARS_APPROX,
+  HIRE_DATE + 90 DAYS AS PROBATION_END,
+  CASE
+    WHEN HIRE_DATE + 1 YEAR > CURRENT DATE
+    THEN 'NEW HIRE'
+    ELSE 'VETERAN'
+  END AS STATUS
+FROM EMPLOYEE
+WHERE HIRE_DATE >= CURRENT DATE - 5 YEARS
+ORDER BY HIRE_DATE DESC;`},{title:"Cursors — Complete Guide",level:"Intermediate",content:`Cursors process multi-row result sets one row at a time in COBOL.
+
+Lifecycle: DECLARE → OPEN → FETCH (loop) → CLOSE
+
+DECLARE:
+  EXEC SQL DECLARE C1 CURSOR FOR
+    SELECT col1, col2 FROM table WHERE condition
+    ORDER BY col1
+  END-EXEC
+
+WITH HOLD:
+  DECLARE C1 CURSOR WITH HOLD FOR ...
+  Keeps cursor open across COMMITs. Without HOLD, COMMIT closes all cursors.
+
+FOR UPDATE OF:
+  DECLARE C1 CURSOR FOR SELECT ... FOR UPDATE OF col
+  Allows positioned UPDATE: UPDATE table SET col = val WHERE CURRENT OF C1
+
+FOR FETCH ONLY:
+  DECLARE C1 CURSOR FOR SELECT ... FOR FETCH ONLY
+  Read-only. Allows DB2 to optimize (block fetch, parallelism).
+
+SCROLLABLE:
+  DECLARE C1 SCROLL CURSOR FOR ...
+  FETCH FIRST, FETCH LAST, FETCH PRIOR, FETCH ABSOLUTE n
+
+Best Practices:
+  • Use FOR FETCH ONLY when not updating
+  • Use WITH HOLD if COMMITting inside fetch loop
+  • Close cursors as soon as done
+  • Don't FETCH into too many host variables — use a structure
+
+Pro Tip: COMMIT every 500-1000 rows to release locks. Use WITH HOLD so cursor stays open.`,code:`EXEC SQL DECLARE CUST_CUR CURSOR WITH HOLD FOR
+  SELECT CUST_ID, CUST_NAME, BALANCE
+  FROM CUSTOMER
+  WHERE STATUS = :WS-STATUS
+  ORDER BY CUST_NAME
+  FOR FETCH ONLY
+END-EXEC
+
+EXEC SQL OPEN CUST_CUR END-EXEC
+
+PERFORM UNTIL SQLCODE NOT = 0
+  EXEC SQL FETCH CUST_CUR
+    INTO :WS-ID, :WS-NAME, :WS-BAL
+  END-EXEC
+  IF SQLCODE = 0
+    PERFORM PROCESS-ROW
+    ADD 1 TO WS-COUNT
+    IF WS-COUNT >= 1000
+      EXEC SQL COMMIT END-EXEC
+      MOVE 0 TO WS-COUNT
+    END-IF
+  END-IF
+END-PERFORM
+
+EXEC SQL CLOSE CUST_CUR END-EXEC`},{title:"NULL Handling",level:"Intermediate",content:`NULLs represent unknown/missing values. They require special handling in DB2.
+
+Testing:
+  WHERE col IS NULL — Has no value
+  WHERE col IS NOT NULL — Has a value
+  NEVER use col = NULL (always evaluates to UNKNOWN)
+
+Indicator Variables (COBOL):
+  01 WS-NAME PIC X(30).
+  01 WS-NAME-IND PIC S9(4) COMP.
+  
+  EXEC SQL SELECT NAME INTO :WS-NAME :WS-NAME-IND FROM...
+  IF WS-NAME-IND < 0 → value is NULL
+  IF WS-NAME-IND >= 0 → value is valid
+
+COALESCE:
+  SELECT COALESCE(PHONE, 'NO PHONE') FROM EMPLOYEE
+  Returns first non-null argument.
+
+NULLIF:
+  NULLIF(A, B) — Returns NULL if A = B, else returns A.
+  Useful for avoiding divide-by-zero: SUM(AMT) / NULLIF(COUNT, 0)
+
+NULLs in Aggregates:
+  SUM, AVG, MIN, MAX ignore NULLs.
+  COUNT(*) counts all rows. COUNT(col) counts non-null only.
+
+NULLs in Sorting:
+  DB2 sorts NULLs HIGH by default (last in ASC, first in DESC).
+
+Pro Tip: SQLCODE -305 means you tried to FETCH a NULL into a host variable without an indicator. Always use indicator variables for nullable columns.`,code:`-- COBOL host variables with indicators:
+EXEC SQL
+  SELECT CUST_NAME, PHONE, EMAIL
+  INTO :WS-NAME :WS-NAME-IND,
+       :WS-PHONE :WS-PHONE-IND,
+       :WS-EMAIL :WS-EMAIL-IND
+  FROM CUSTOMER
+  WHERE CUST_ID = :WS-CUST-ID
+END-EXEC
+
+IF WS-PHONE-IND < 0
+  MOVE 'NO PHONE' TO WS-PHONE-DISPLAY
+ELSE
+  MOVE WS-PHONE TO WS-PHONE-DISPLAY
+END-IF`},{title:"Stored Procedures",level:"Intermediate",content:`Stored procedures run SQL logic on the DB2 server, reducing network calls.
+
+Creating:
+  CREATE PROCEDURE schema.proc_name
+    (IN p_id INTEGER, OUT p_name VARCHAR(30))
+    LANGUAGE SQL
+  BEGIN
+    SELECT NAME INTO p_name FROM EMPLOYEE WHERE EMP_ID = p_id;
+  END;
+
+Calling from COBOL:
+  EXEC SQL CALL schema.proc_name(:WS-ID, :WS-NAME) END-EXEC
+
+Parameter Modes:
+  IN — Input to procedure (read-only)
+  OUT — Output from procedure
+  INOUT — Both input and output
+
+LANGUAGE SQL vs EXTERNAL:
+  LANGUAGE SQL — Written in SQL PL (runs inside DB2)
+  LANGUAGE COBOL — External COBOL program called by DB2
+
+Benefits:
+  • Reduces network traffic (logic runs on server)
+  • Encapsulates business logic
+  • Security (GRANT EXECUTE, not table access)
+  • Reusable across programs
+
+Result Sets:
+  Procedures can return multiple result sets using DECLARE CURSOR and SET RESULT SETS.
+
+Pro Tip: Use stored procedures for complex multi-table operations. One CALL replaces many individual SQL statements.`,code:`-- Create:
+CREATE PROCEDURE GET_CUST_BALANCE
+  (IN P_ID INTEGER,
+   OUT P_NAME VARCHAR(30),
+   OUT P_BAL DECIMAL(11,2))
+  LANGUAGE SQL
+BEGIN
+  SELECT CUST_NAME, BALANCE
+  INTO P_NAME, P_BAL
+  FROM CUSTOMER
+  WHERE CUST_ID = P_ID;
+END;
+
+-- Call from COBOL:
+EXEC SQL
+  CALL GET_CUST_BALANCE(:WS-CUST-ID,
+                         :WS-CUST-NAME,
+                         :WS-CUST-BAL)
+END-EXEC`},{title:"Tablespace Types & Design",level:"Intermediate",content:`Tablespaces are the physical storage containers for DB2 tables.
+
+Types:
+  Simple — Multiple tables, one dataset. Legacy, avoid.
+  Segmented — Tables in segments. Good for small tables.
+  Partitioned (Classic) — Large tables split by key range. Up to 4096 partitions.
+  Partition-by-Growth (PBG) — Auto-adds partitions as data grows.
+  Universal (UTS) — Modern default. Range-partitioned or PBG.
+
+Partitioned Tables:
+  CREATE TABLESPACE ts1 IN dbname
+    USING STOGROUP sg1
+    NUMPARTS 12
+    BUFFERPOOL BP1;
+  
+  Table partitioned by date range — each month in its own partition.
+  Benefits: Partition-level utilities (REORG one partition, not whole table).
+
+Buffer Pools:
+  BP0 — Default (4K pages)
+  BP1-BP49 — 4K pages
+  BP8K0-BP8K9 — 8K pages
+  BP16K0-BP16K9 — 16K pages
+  BP32K — 32K pages
+  
+  Larger pages for large rows. More buffer pool = more caching = faster reads.
+
+LOB Tablespace:
+  For BLOB/CLOB columns. Separate storage.
+
+Pro Tip: Use Universal Tablespace (UTS) for all new tables. Classic partitioned is legacy.`,code:`-- Create partitioned tablespace:
+CREATE TABLESPACE CUSTTS
+  IN CUSTDB
+  USING STOGROUP PRODSGRP
+  NUMPARTS 12
+  BUFFERPOOL BP1
+  LOCKSIZE ROW
+  CLOSE NO
+  COMPRESS YES;
+
+-- Create table in tablespace:
+CREATE TABLE CUSTOMER (
+  CUST_ID INTEGER NOT NULL,
+  CUST_NAME VARCHAR(50),
+  BALANCE DECIMAL(11,2),
+  REGION CHAR(2)
+) IN CUSTDB.CUSTTS
+  PARTITION BY (REGION ASC);`},{title:"Index Design & Strategy",level:"Intermediate",content:`Indexes speed up data retrieval but slow down inserts/updates.
+
+Unique Index:
+  CREATE UNIQUE INDEX idx1 ON table(col1);
+  Enforces uniqueness. Required for primary keys.
+
+Non-Unique Index:
+  CREATE INDEX idx2 ON table(col1, col2);
+  Speeds up WHERE, JOIN, ORDER BY on these columns.
+
+Clustering Index:
+  One per table. Determines physical row order.
+  CREATE INDEX idx3 ON table(col1) CLUSTER;
+  Rows stored in index order — sequential reads are fast.
+
+Index-Only Access:
+  If all needed columns are IN the index, DB2 reads only the index (no table access).
+  CREATE INDEX idx4 ON table(key, col1, col2) — includes non-key columns.
+
+When to Index:
+  • Primary key (always)
+  • Foreign keys (for JOINs)
+  • Frequently filtered columns (WHERE)
+  • Columns in ORDER BY
+  • Columns in GROUP BY
+
+When NOT to Index:
+  • Small tables (full scan is faster)
+  • Columns with few distinct values (low cardinality)
+  • Frequently updated columns (index maintenance overhead)
+
+Pro Tip: Run EXPLAIN to see if your index is actually being used. An unused index is pure overhead.`,code:`-- Primary key index:
+CREATE UNIQUE INDEX CUST_PK
+  ON CUSTOMER(CUST_ID)
+  CLUSTER
+  BUFFERPOOL BP1;
+
+-- Foreign key index:
+CREATE INDEX ORDER_CUST_FK
+  ON ORDERS(CUST_ID);
+
+-- Composite index for common query:
+CREATE INDEX CUST_NAME_IDX
+  ON CUSTOMER(LAST_NAME, FIRST_NAME)
+  INCLUDE(EMAIL, PHONE);
+-- Enables index-only access for name lookups`},{title:"SQL — UNION, INTERSECT, EXCEPT",level:"Intermediate",content:`Set operations combine results from multiple SELECT statements.
+
+UNION:
+  SELECT col FROM table1
+  UNION
+  SELECT col FROM table2
+  Combines results, removes duplicates.
+
+UNION ALL:
+  Same but KEEPS duplicates. Faster (no sort needed).
+
+INTERSECT:
+  Returns rows that exist in BOTH queries.
+
+EXCEPT:
+  Returns rows in first query that are NOT in second.
+
+Rules:
+  • Same number of columns in both SELECTs
+  • Compatible data types
+  • Column names come from first SELECT
+  • ORDER BY applies to the combined result (goes at the end)
+
+Pro Tip: Always use UNION ALL unless you specifically need duplicate removal. UNION sorts internally which is expensive.`,code:`-- Active employees from both systems:
+SELECT EMP_ID, NAME FROM SYSTEM_A
+WHERE STATUS = 'A'
+UNION ALL
+SELECT EMP_ID, NAME FROM SYSTEM_B
+WHERE STATUS = 'A'
+ORDER BY NAME;
+
+-- Employees in HR but not in TRAINING table:
+SELECT EMP_ID FROM EMPLOYEE
+WHERE DEPT = 'HR'
+EXCEPT
+SELECT EMP_ID FROM TRAINING_COMPLETED;`},{title:"DB2 Catalog & System Tables",level:"Intermediate",content:`The DB2 catalog stores metadata about all DB2 objects.
+
+Key Catalog Tables:
+  SYSIBM.SYSTABLES — All tables/views
+  SYSIBM.SYSCOLUMNS — All columns
+  SYSIBM.SYSINDEXES — All indexes
+  SYSIBM.SYSTABLESPACE — Tablespaces
+  SYSIBM.SYSRELS — Foreign key relationships
+  SYSIBM.SYSDATABASE — Databases
+  SYSIBM.SYSPLAN — Plans
+  SYSIBM.SYSPACKAGE — Packages
+
+Useful Queries:
+  List tables in a schema:
+  SELECT NAME, TYPE FROM SYSIBM.SYSTABLES WHERE CREATOR = 'MYSCHEMA'
+
+  List columns:
+  SELECT NAME, COLTYPE, LENGTH FROM SYSIBM.SYSCOLUMNS WHERE TBNAME = 'CUSTOMER'
+
+  Find indexes on a table:
+  SELECT NAME, UNIQUERULE, CLUSTERING FROM SYSIBM.SYSINDEXES WHERE TBNAME = 'CUSTOMER'
+
+RUNSTATS updates the catalog with current data distribution statistics. DB2 optimizer uses catalog stats to choose access paths.
+
+Pro Tip: Query SYSIBM.SYSCOLUMNS to quickly understand any table structure without needing documentation.`,code:`-- What tables exist in my schema?
+SELECT NAME, TYPE, CARDF
+FROM SYSIBM.SYSTABLES
+WHERE CREATOR = 'PRODSCHM'
+  AND TYPE = 'T'
+ORDER BY NAME;
+
+-- What columns does CUSTOMER have?
+SELECT NAME, COLTYPE, LENGTH, NULLS, DEFAULT
+FROM SYSIBM.SYSCOLUMNS
+WHERE TBNAME = 'CUSTOMER'
+  AND TBCREATOR = 'PRODSCHM'
+ORDER BY COLNO;`},{title:"DB2 Triggers",level:"Advanced",content:`Triggers execute automatically when INSERT, UPDATE, or DELETE occurs.
+
+Types:
+  BEFORE — Runs before the operation (can modify values)
+  AFTER — Runs after the operation (for auditing, cascading)
+  INSTEAD OF — Runs instead of the operation (on views)
+
+Granularity:
+  FOR EACH ROW — Fires per row affected
+  FOR EACH STATEMENT — Fires once per statement
+
+Transition Variables:
+  OLD.col — Value before change
+  NEW.col — Value after change (modifiable in BEFORE trigger)
+
+Common Uses:
+  • Audit logging (AFTER INSERT/UPDATE/DELETE)
+  • Auto-populating columns (BEFORE INSERT)
+  • Business rule enforcement (BEFORE UPDATE)
+  • Cascading updates to related tables
+
+Pro Tip: Be careful with triggers on high-volume tables — they add overhead to every DML operation.`,code:`-- Audit trigger:
+CREATE TRIGGER CUST_AUDIT
+  AFTER UPDATE ON CUSTOMER
+  REFERENCING OLD AS O NEW AS N
+  FOR EACH ROW
+BEGIN ATOMIC
+  INSERT INTO CUSTOMER_AUDIT
+    (CUST_ID, FIELD_CHANGED, OLD_VAL, NEW_VAL, CHG_DATE)
+  VALUES
+    (O.CUST_ID, 'BALANCE',
+     CHAR(O.BALANCE), CHAR(N.BALANCE),
+     CURRENT TIMESTAMP);
+END;
+
+-- Auto-populate timestamp:
+CREATE TRIGGER CUST_MODIFIED
+  BEFORE UPDATE ON CUSTOMER
+  REFERENCING NEW AS N
+  FOR EACH ROW
+  SET N.LAST_MODIFIED = CURRENT TIMESTAMP;`},{title:"Dynamic SQL",level:"Advanced",content:`Dynamic SQL builds and executes SQL statements at runtime.
+
+EXECUTE IMMEDIATE:
+  MOVE 'DELETE FROM TEMP_TABLE' TO WS-SQL-STMT
+  EXEC SQL EXECUTE IMMEDIATE :WS-SQL-STMT END-EXEC
+  For DDL or DML without host variables.
+
+PREPARE + EXECUTE:
+  MOVE 'SELECT NAME FROM EMP WHERE ID = ?' TO WS-SQL
+  EXEC SQL PREPARE S1 FROM :WS-SQL END-EXEC
+  EXEC SQL EXECUTE S1 USING :WS-EMP-ID END-EXEC
+  For parameterized queries.
+
+PREPARE + DECLARE CURSOR:
+  EXEC SQL PREPARE S1 FROM :WS-SQL END-EXEC
+  EXEC SQL DECLARE C1 CURSOR FOR S1 END-EXEC
+  EXEC SQL OPEN C1 USING :WS-PARAM END-EXEC
+  EXEC SQL FETCH C1 INTO :WS-RESULT END-EXEC
+
+Static vs Dynamic:
+  Static — SQL known at compile, bound into package. Faster, secure.
+  Dynamic — SQL built at runtime. Flexible but overhead per execution.
+
+SQLDA:
+  SQL Descriptor Area — describes columns of dynamic query results.
+  Used when column count/types unknown at compile time.
+
+Pro Tip: Static SQL is preferred for production batch. Dynamic SQL is useful for ad-hoc tools and variable table names.`,code:`-- Dynamic DELETE:
+MOVE 'DELETE FROM TEMP_EXTRACT' TO WS-SQL
+EXEC SQL EXECUTE IMMEDIATE :WS-SQL END-EXEC
+
+-- Parameterized dynamic query:
+STRING 'SELECT NAME, BALANCE FROM '
+       WS-TABLE-NAME
+       ' WHERE STATUS = ?'
+  DELIMITED BY SIZE INTO WS-SQL
+EXEC SQL PREPARE STMT1 FROM :WS-SQL END-EXEC
+EXEC SQL DECLARE CUR1 CURSOR FOR STMT1 END-EXEC
+EXEC SQL OPEN CUR1 USING :WS-STATUS END-EXEC`},{title:"SQLCODE Reference",level:"Beginner",content:`SQLCODE is set after every SQL statement. Always check it.
+
+Success:
+  0 — Successful execution
+  100 — Not found (SELECT INTO) or end of data (FETCH)
+
+Warnings (positive):
+  +100 — No rows found
+  +304 — Value truncated
+  +802 — Null eliminated from function
+
+Common Errors (negative):
+  -180 — Invalid date/time value
+  -181 — Value not valid for date/time
+  -204 — Object not defined
+  -206 — Column not in table
+  -305 — NULL without indicator variable
+  -530 — Foreign key violation (parent not found)
+  -532 — DELETE restricted by foreign key
+  -803 — Duplicate key on unique index
+  -805 — Plan/package not found
+  -811 — SELECT INTO returned multiple rows
+  -818 — Timestamp mismatch (rebind needed)
+  -904 — Resource unavailable (locked/stopped)
+  -911 — Deadlock or timeout (rollback occurred)
+  -922 — Authorization failure
+  -927 — DB2 not available
+
+SQLCA Fields:
+  SQLCODE — Return code
+  SQLERRM — Error message text
+  SQLERRD(3) — Rows affected
+  SQLWARN — Warning flags
+
+Pro Tip: Memorize -803, -805, -811, -904, -911 — these are asked in every DB2 interview.`,code:`EXEC SQL
+  INSERT INTO CUSTOMER VALUES(...)
+END-EXEC
+
+EVALUATE SQLCODE
+  WHEN 0    DISPLAY 'INSERT OK'
+  WHEN -803 DISPLAY 'DUPLICATE KEY'
+  WHEN -530 DISPLAY 'FK VIOLATION'
+  WHEN -904 DISPLAY 'TABLE LOCKED'
+  WHEN -911 DISPLAY 'DEADLOCK - RETRY'
+  WHEN OTHER
+    DISPLAY 'SQL ERROR: ' SQLCODE
+    DISPLAY 'MSG: ' SQLERRMC
+END-EVALUATE`},{title:"EXPLAIN & Access Path Analysis",level:"Advanced",content:`EXPLAIN shows how DB2 will execute your query — essential for tuning.
+
+How to Run:
+  EXPLAIN PLAN FOR SELECT ... — Populates PLAN_TABLE
+  Or use SPUFI/QMF: EXPLAIN ALL SET QUERYNO=n FOR SELECT ...
+
+PLAN_TABLE Key Columns:
+  ACCESSTYPE — How table is accessed:
+    I = Index, R = Table scan, N = Index-only
+  MATCHCOLS — Index columns used for matching
+  INDEXONLY — Y/N (reading only the index?)
+  SORTC_UNIQ — Sort needed for DISTINCT?
+  SORTC_ORDERBY — Sort needed for ORDER BY?
+  PREFETCH — S=Sequential, L=List, D=Dynamic
+
+What to Look For:
+  • Table scans (ACCESSTYPE=R) on large tables — BAD
+  • MATCHCOLS=0 on index access — index not fully used
+  • Sorts (SORTC=Y) — expensive, can we avoid?
+  • INDEXONLY=Y — GOOD (no table access needed)
+
+Fixing Bad Access Paths:
+  1. Add/modify indexes for MATCHCOLS > 0
+  2. Run RUNSTATS to update catalog statistics
+  3. Rewrite SQL (avoid functions on indexed columns)
+  4. REBIND to pick up new stats/indexes
+
+Pro Tip: Run EXPLAIN after every SQL change. A small syntax change can completely alter the access path.`,code:`-- Run EXPLAIN:
+EXPLAIN ALL SET QUERYNO = 100 FOR
+SELECT C.NAME, O.ORDER_DATE, O.TOTAL
+FROM CUSTOMER C
+JOIN ORDERS O ON C.CUST_ID = O.CUST_ID
+WHERE C.REGION = 'EAST'
+  AND O.ORDER_DATE > '2026-01-01'
+ORDER BY O.TOTAL DESC;
+
+-- Check results:
+SELECT QUERYNO, QBLOCKNO, PLANNO, ACCESSTYPE,
+       MATCHCOLS, INDEXONLY, TNAME, ACCESSNAME
+FROM PLAN_TABLE
+WHERE QUERYNO = 100
+ORDER BY QBLOCKNO, PLANNO;`},{title:"RUNSTATS, REORG & COPY",level:"Intermediate",content:`The three essential DB2 maintenance utilities.
+
+RUNSTATS:
+  Updates catalog statistics about data distribution.
+  DB2 optimizer uses stats to choose access paths.
+  Run AFTER: bulk loads, major INSERT/DELETE, index changes.
+  
+  RUNSTATS TABLESPACE dbname.tsname TABLE(ALL) INDEX(ALL)
+  SHRLEVEL CHANGE — Allows concurrent access during RUNSTATS.
+
+REORG:
+  Reorganizes tablespace/index to restore physical order.
+  Reclaims space from DELETEs.
+  Run WHEN: Data fragmented, many CI splits, poor clustering.
+  
+  REORG TABLESPACE dbname.tsname SHRLEVEL CHANGE
+
+COPY (Image Copy):
+  Backs up tablespace for recovery.
+  FULL COPY — Complete backup
+  INCREMENTAL — Only changed pages since last full
+  
+  COPY TABLESPACE dbname.tsname FULL YES
+
+Typical Maintenance Order:
+  1. REORG (fix fragmentation)
+  2. RUNSTATS (update statistics)
+  3. REBIND (pick up new stats)
+  4. COPY (backup)
+
+Pro Tip: Always RUNSTATS after REORG. Always REBIND after RUNSTATS. This is the golden maintenance sequence.`,code:`//* DB2 Maintenance JCL sequence:
+//*
+//REORG   EXEC DSNUPROC,UID='REORG',
+//        UTPROC='',SYSTEM='DB2P'
+//SYSIN    DD *
+  REORG TABLESPACE CUSTDB.CUSTTS
+    SHRLEVEL CHANGE
+/*
+//*
+//RSTATS  EXEC DSNUPROC,UID='RSTATS',
+//        UTPROC='',SYSTEM='DB2P'
+//SYSIN    DD *
+  RUNSTATS TABLESPACE CUSTDB.CUSTTS
+    TABLE(ALL) INDEX(ALL)
+    SHRLEVEL CHANGE
+/*`},{title:"DB2 Security & Authorization",level:"Intermediate",content:`DB2 uses GRANT/REVOKE to control access to objects.
+
+GRANT:
+  GRANT SELECT ON CUSTOMER TO USERID1
+  GRANT INSERT, UPDATE ON CUSTOMER TO ROLE_WRITER
+  GRANT EXECUTE ON PROCEDURE GET_BALANCE TO PUBLIC
+  GRANT ALL ON CUSTOMER TO DBA_ROLE WITH GRANT OPTION
+
+REVOKE:
+  REVOKE UPDATE ON CUSTOMER FROM USERID1
+
+Authorities:
+  SYSADM — Full DB2 authority
+  DBADM — Database administration
+  SQLADM — Can explain/tune but not access data
+  DATAACCESS — Can access any table data
+
+Object Privileges:
+  SELECT, INSERT, UPDATE, DELETE — Table DML
+  ALTER — Modify table structure
+  INDEX — Create indexes
+  REFERENCES — Create foreign keys
+  EXECUTE — Run stored procedures
+
+Roles (DB2 10+):
+  CREATE ROLE APP_READER
+  GRANT SELECT ON CUSTOMER TO ROLE APP_READER
+  GRANT ROLE APP_READER TO USERID1
+  Simplifies authorization management.
+
+Pro Tip: Use roles instead of granting to individual users. When someone leaves, just revoke the role.`,code:`-- Create role and grant access:
+CREATE ROLE CUST_READER;
+GRANT SELECT ON CUSTOMER TO ROLE CUST_READER;
+GRANT SELECT ON ORDERS TO ROLE CUST_READER;
+
+-- Assign role to users:
+GRANT ROLE CUST_READER TO USER1, USER2;
+
+-- Application role with write access:
+CREATE ROLE CUST_WRITER;
+GRANT SELECT, INSERT, UPDATE ON CUSTOMER
+  TO ROLE CUST_WRITER;
+GRANT EXECUTE ON PROCEDURE UPDATE_BALANCE
+  TO ROLE CUST_WRITER;`},{title:"SQL — Views",level:"Beginner",content:`Views are virtual tables based on SELECT statements. They simplify access and enhance security.
+
+CREATE VIEW:
+  CREATE VIEW ACTIVE_CUSTOMERS AS
+    SELECT CUST_ID, NAME, BALANCE FROM CUSTOMER WHERE STATUS = 'A';
+
+Using Views:
+  SELECT * FROM ACTIVE_CUSTOMERS WHERE BALANCE > 1000;
+  Behaves like a table but no physical storage.
+
+Updatable Views:
+  Simple views (single table, no aggregates, no DISTINCT) can be updated:
+  UPDATE ACTIVE_CUSTOMERS SET BALANCE = 5000 WHERE CUST_ID = 123;
+
+WITH CHECK OPTION:
+  CREATE VIEW HIGH_BAL AS SELECT * FROM CUSTOMER WHERE BALANCE > 10000 WITH CHECK OPTION;
+  Prevents inserting rows that don't satisfy the view's WHERE clause.
+
+Benefits: Simplify complex queries, restrict column/row access, present data differently per application.
+
+Pro Tip: Use views for security — grant SELECT on view, not on base table. Users see only what they need.`},{title:"SQL — Subqueries",level:"Intermediate",content:`Subqueries are queries nested inside other queries.
+
+Scalar Subquery (returns one value):
+  SELECT NAME, SALARY, (SELECT AVG(SALARY) FROM EMPLOYEE) AS COMPANY_AVG FROM EMPLOYEE;
+
+IN Subquery:
+  SELECT * FROM EMPLOYEE WHERE DEPT IN (SELECT DEPT_ID FROM DEPARTMENT WHERE LOCATION = 'NYC');
+
+EXISTS Subquery:
+  SELECT * FROM CUSTOMER C WHERE EXISTS (SELECT 1 FROM ORDERS O WHERE O.CUST_ID = C.CUST_ID);
+  Returns TRUE if subquery returns any rows. Faster than IN for large datasets.
+
+NOT EXISTS:
+  SELECT * FROM CUSTOMER C WHERE NOT EXISTS (SELECT 1 FROM ORDERS O WHERE O.CUST_ID = C.CUST_ID);
+  Customers with no orders.
+
+Correlated Subquery:
+  References outer query. Executes once per outer row.
+  SELECT E.* FROM EMPLOYEE E WHERE E.SALARY > (SELECT AVG(SALARY) FROM EMPLOYEE WHERE DEPT = E.DEPT);
+
+Pro Tip: EXISTS is generally faster than IN for correlated subqueries. Use EXPLAIN to compare.`},{title:"SQL — Common Table Expressions (CTE)",level:"Intermediate",content:`CTEs (WITH clause) create temporary named result sets for complex queries.
+
+Syntax:
+  WITH cte_name AS (SELECT ...) SELECT ... FROM cte_name;
+
+Example:
+  WITH DEPT_STATS AS (
+    SELECT DEPT, AVG(SALARY) AS AVG_SAL, COUNT(*) AS CNT FROM EMPLOYEE GROUP BY DEPT
+  )
+  SELECT E.NAME, E.SALARY, D.AVG_SAL
+  FROM EMPLOYEE E JOIN DEPT_STATS D ON E.DEPT = D.DEPT
+  WHERE E.SALARY > D.AVG_SAL;
+
+Multiple CTEs:
+  WITH cte1 AS (...), cte2 AS (SELECT ... FROM cte1 ...) SELECT ... FROM cte2;
+
+Recursive CTE:
+  WITH RECURSIVE hierarchy AS (
+    SELECT emp_id, mgr_id, name, 1 AS level FROM employee WHERE mgr_id IS NULL
+    UNION ALL
+    SELECT e.emp_id, e.mgr_id, e.name, h.level+1 FROM employee e JOIN hierarchy h ON e.mgr_id = h.emp_id
+  ) SELECT * FROM hierarchy;
+
+Pro Tip: CTEs make complex queries readable. Use them instead of nested subqueries.`},{title:"SQL — INSERT with SELECT",level:"Beginner",content:`Insert data from one table into another using INSERT...SELECT.
+
+Basic:
+  INSERT INTO ARCHIVE_TABLE SELECT * FROM ACTIVE_TABLE WHERE STATUS = 'C';
+
+With Column List:
+  INSERT INTO SUMMARY (DEPT, TOTAL_SAL, EMP_COUNT)
+  SELECT DEPT, SUM(SALARY), COUNT(*) FROM EMPLOYEE GROUP BY DEPT;
+
+MERGE (Upsert):
+  MERGE INTO TARGET T USING SOURCE S ON T.KEY = S.KEY
+  WHEN MATCHED THEN UPDATE SET T.VAL = S.VAL
+  WHEN NOT MATCHED THEN INSERT (KEY, VAL) VALUES (S.KEY, S.VAL);
+  Combines INSERT and UPDATE in one statement.
+
+INSERT with VALUES (multiple rows):
+  INSERT INTO TABLE VALUES (1,'A'), (2,'B'), (3,'C');
+
+Pro Tip: MERGE is the most efficient way to synchronize two tables — one pass, no duplicates.`},{title:"SQL — Temporary Tables",level:"Intermediate",content:`Temporary tables store intermediate results during a session or transaction.
+
+DECLARED Global Temporary Table (DGTT):
+  DECLARE GLOBAL TEMPORARY TABLE SESSION.TEMP_CUST
+    (ID INT, NAME VARCHAR(30), BAL DECIMAL(11,2))
+    ON COMMIT PRESERVE ROWS;
+  • Exists only for the session
+  • No GRANT needed, no catalog entry
+  • Qualified with SESSION schema
+  • ON COMMIT DELETE ROWS or PRESERVE ROWS
+
+Created Global Temporary Table (CGTT):
+  CREATE GLOBAL TEMPORARY TABLE TEMP_WORK (...);
+  Definition persists in catalog. Data is session-specific.
+
+When to Use:
+  • Store intermediate results in complex batch processing
+  • Break complex queries into steps
+  • Avoid repeating expensive subqueries
+  • Stage data for multi-step transformations
+
+Pro Tip: DGTT is preferred for batch — no catalog overhead, automatic cleanup.`},{title:"DB2 BIND Process",level:"Intermediate",content:`BIND converts a DBRM into an executable plan or package.
+
+What BIND Does:
+  1. Reads DBRM (compiled SQL extracted from program)
+  2. Checks SQL syntax and authorization
+  3. Optimizes access paths (using current catalog stats)
+  4. Creates a plan or package in DB2 catalog
+
+BIND PACKAGE:
+  BIND PACKAGE(collection) MEMBER(dbrm) ACT(REP) ISO(CS) VALIDATE(BIND)
+  One package per program. Stored in collection.
+
+BIND PLAN:
+  BIND PLAN(planname) PKLIST(collection.*) ACT(REP)
+  Plan = collection of packages. Application runs under a plan.
+
+Key Options:
+  ACT(REP) — Replace existing
+  ISO(CS/RR/UR/RS) — Isolation level
+  VALIDATE(BIND/RUN) — Check auth at bind or runtime
+  EXPLAIN(YES) — Populate PLAN_TABLE
+
+REBIND:
+  REBIND PACKAGE(coll.pkg) — Reoptimize with current stats
+  Run after RUNSTATS to pick up new statistics.
+
+Free:
+  FREE PACKAGE(coll.pkg) — Remove package
+  FREE PLAN(planname) — Remove plan
+
+Pro Tip: RUNSTATS → REBIND is the golden sequence after data changes. Without REBIND, DB2 uses stale access paths.`},{title:"DB2 LOAD Utility",level:"Intermediate",content:`LOAD is the fastest way to bulk-insert data into DB2 tables.
+
+Syntax:
+  LOAD DATA INDDN SYSREC INTO TABLE schema.table
+    (col1 POSITION(1:8) CHAR,
+     col2 POSITION(9:18) DECIMAL EXTERNAL)
+  When loaded, indexes are rebuilt automatically.
+
+Phases:
+  UTILINIT — Initialization
+  RELOAD — Load data
+  SORT — Sort index keys
+  BUILD — Rebuild indexes
+  UTILTERM — Cleanup
+
+Options:
+  REPLACE — Delete existing data, then load
+  RESUME YES — Append to existing data
+  LOG NO — Skip logging (faster, but no recovery)
+  ENFORCE NO — Skip referential integrity checks (faster)
+
+LOAD vs INSERT:
+  LOAD: 10-100x faster for bulk data. Bypasses SQL layer.
+  INSERT: Row-by-row through SQL. Slower but supports triggers/constraints.
+
+After LOAD:
+  RUNSTATS (update statistics)
+  COPY (image backup — required if LOG NO used)
+  REBIND (pick up new stats)
+
+Pro Tip: Always RUNSTATS + COPY after LOAD. Without COPY, tablespace goes to COPY-pending status.`},{title:"DB2 UNLOAD Utility",level:"Intermediate",content:`UNLOAD extracts data from DB2 tables to sequential files.
+
+Syntax:
+  UNLOAD TABLESPACE dbname.tsname
+    FROM TABLE schema.tablename
+    WHEN (DEPT = 'IT')
+
+Output:
+  SYSREC — Data records
+  SYSPUNCH — LOAD control statements (for reload)
+
+WITH SELECT:
+  UNLOAD DATA FROM TABLE schema.table
+    HEADER NONE
+    SELECT col1, col2 FROM table WHERE condition ORDER BY col1;
+  Custom selection and ordering.
+
+UNLOAD vs SELECT INTO FLAT FILE:
+  UNLOAD: Faster, utility-level (bypasses SQL)
+  SPUFI/QMF export: Through SQL layer, more flexible formatting
+
+Common Pattern:
+  UNLOAD (extract) → Transform (SORT/COBOL) → LOAD (target table)
+  Classic ETL on mainframe.
+
+Pro Tip: UNLOAD generates matching LOAD statements in SYSPUNCH — use them to reload data into another table/environment.`},{title:"DB2 CHECK Utility",level:"Intermediate",content:`CHECK verifies data integrity — referential constraints and check constraints.
+
+CHECK DATA:
+  CHECK DATA TABLESPACE dbname.tsname
+  Finds rows that violate referential integrity.
+  Violations written to exception table.
+
+CHECK INDEX:
+  CHECK INDEX(schema.indexname)
+  Verifies index entries match table data.
+  Detects corrupted or inconsistent indexes.
+
+CHECK LOB:
+  Validates LOB data consistency.
+
+Exception Tables:
+  Create before CHECK DATA:
+  CREATE TABLE schema.EXCEPT_tablename LIKE schema.tablename;
+  ALTER TABLE schema.EXCEPT_tablename ADD RID ROWID NOT NULL GENERATED ALWAYS;
+  Violations go here for review.
+
+When to Run:
+  After LOAD with ENFORCE NO
+  After system crash or ABEND during update
+  After REORG with SHRLEVEL CHANGE
+  Periodic integrity audits
+
+Pro Tip: Schedule CHECK DATA monthly on critical tables. Finding data corruption early prevents cascading errors.`},{title:"DB2 Recovery — COPY & RECOVER",level:"Advanced",content:`COPY creates backups. RECOVER restores from backups.
+
+IMAGE COPY:
+  COPY TABLESPACE dbname.tsname FULL YES SHRLEVEL CHANGE
+  FULL YES — Complete copy
+  FULL NO — Incremental (only changed pages since last full)
+  SHRLEVEL CHANGE — Allow concurrent access during copy
+
+RECOVER:
+  RECOVER TABLESPACE dbname.tsname
+  Restores from most recent image copy + applies log records.
+
+Point-in-Time Recovery:
+  RECOVER TABLESPACE dbname.tsname TOLOGPOINT X'...'
+  Recover to a specific log point (before a bad UPDATE, for example).
+
+Recovery Process:
+  1. Find last image copy
+  2. Restore from copy
+  3. Apply log records forward to desired point
+  4. Tablespace back online
+
+QUIESCE:
+  QUIESCE TABLESPACE dbname.tsname
+  Establishes a recovery point — all pending changes flushed.
+  Creates a known-good point for point-in-time recovery.
+
+Pending States:
+  COPY-pending: Needs image copy (after LOAD LOG NO)
+  RECOVER-pending: Needs recovery (after failed operation)
+  CHECK-pending: Needs CHECK DATA (after LOAD ENFORCE NO)
+
+Pro Tip: Take FULL COPY after every REORG and LOAD. Your recovery can only go back as far as your last copy.`},{title:"DB2 Application Programming — SPUFI",level:"Beginner",content:`SPUFI (SQL Processing Using File Input) executes SQL interactively from ISPF.
+
+Accessing SPUFI:
+  ISPF → DB2I (DB2 Interactive) → Option 1: SPUFI
+
+How It Works:
+  1. Write SQL in an input dataset
+  2. SPUFI executes it against DB2
+  3. Results appear in an output dataset
+  4. Browse output in ISPF
+
+SPUFI Settings:
+  Input dataset — PDS member with your SQL
+  Output dataset — Where results go
+  AUTOCOMMIT — YES (commit after each statement) or NO
+  ISOLATION — CS, RR, UR, RS
+
+Good For:
+  • Ad-hoc queries during development
+  • Testing SQL before embedding in COBOL
+  • DDL (CREATE, ALTER, DROP)
+  • Quick data checks and fixes
+
+Limitations:
+  • One SQL statement per execution (by default)
+  • No procedural logic
+  • Output formatting basic
+
+Alternatives:
+  QMF — Better formatting, reports, charts
+  Data Studio — Modern GUI tool
+  DBeaver — Open source, connects to DB2 z/OS
+
+Pro Tip: Test ALL SQL in SPUFI before embedding in COBOL. Debugging SQL in a COBOL program is 10x harder.`},{title:"DB2 Stored Procedure — SQL PL",level:"Advanced",content:`SQL PL (SQL Procedural Language) adds procedural logic to stored procedures.
+
+Variables:
+  DECLARE v_count INTEGER DEFAULT 0;
+  SET v_count = v_count + 1;
+
+IF/ELSE:
+  IF v_balance > 10000 THEN SET v_status = 'HIGH';
+  ELSEIF v_balance > 0 THEN SET v_status = 'NORMAL';
+  ELSE SET v_status = 'OVERDRAWN';
+  END IF;
+
+WHILE Loop:
+  WHILE v_count < 100 DO
+    SET v_count = v_count + 1;
+    INSERT INTO LOG VALUES(v_count, CURRENT TIMESTAMP);
+  END WHILE;
+
+FOR Loop:
+  FOR v_row AS SELECT * FROM EMPLOYEE DO
+    IF v_row.SALARY > 100000 THEN
+      UPDATE EMPLOYEE SET BONUS = 5000 WHERE EMP_ID = v_row.EMP_ID;
+    END IF;
+  END FOR;
+
+CASE:
+  CASE v_type WHEN 'A' THEN ... WHEN 'B' THEN ... ELSE ... END CASE;
+
+Error Handling:
+  DECLARE CONTINUE HANDLER FOR SQLSTATE '23505'
+    SET v_dup = TRUE;
+  Catches specific SQL errors without ABENDing.
+
+Pro Tip: SQL PL runs inside DB2 — much faster than multiple CALL/FETCH cycles from COBOL.`},{title:"DB2 — Referential Integrity",level:"Intermediate",content:`Foreign keys enforce parent-child relationships between tables.
+
+Defining:
+  CREATE TABLE ORDERS (
+    ORDER_ID INT NOT NULL PRIMARY KEY,
+    CUST_ID INT NOT NULL,
+    FOREIGN KEY (CUST_ID) REFERENCES CUSTOMER(CUST_ID)
+      ON DELETE RESTRICT
+  );
+
+ON DELETE Options:
+  RESTRICT — Prevent delete if children exist (default)
+  CASCADE — Delete children automatically
+  SET NULL — Set FK to NULL in children
+  NO ACTION — Like RESTRICT but checked at statement end
+
+ON UPDATE:
+  No CASCADE for UPDATE in DB2 z/OS. Must update manually.
+
+Benefits:
+  • Data integrity guaranteed by DB2
+  • No orphan child records
+  • Self-documenting relationships
+
+Performance Impact:
+  Every INSERT checks parent exists. Every DELETE checks children.
+  Index on FK column is essential for performance.
+
+Pro Tip: Always create an index on foreign key columns. Without it, FK checks cause table scans on the child table.`},{title:"DB2 — Constraints",level:"Intermediate",content:`Constraints enforce data rules at the database level.
+
+PRIMARY KEY:
+  CREATE TABLE EMP (EMP_ID INT NOT NULL PRIMARY KEY);
+  Unique + NOT NULL. One per table. Creates unique index.
+
+UNIQUE:
+  ALTER TABLE EMP ADD CONSTRAINT UQ_EMAIL UNIQUE(EMAIL);
+  Allows NULL (unlike PK). Multiple unique constraints per table.
+
+NOT NULL:
+  EMP_NAME VARCHAR(50) NOT NULL
+  Column must have a value.
+
+CHECK:
+  ALTER TABLE EMP ADD CONSTRAINT CK_SAL CHECK(SALARY >= 0);
+  Validates data on INSERT/UPDATE. Rejected if condition fails.
+  CHECK(STATUS IN ('A','I','T'))
+  CHECK(END_DATE >= START_DATE)
+
+DEFAULT:
+  HIRE_DATE DATE DEFAULT CURRENT DATE
+  STATUS CHAR(1) DEFAULT 'A'
+
+FOREIGN KEY:
+  Referential integrity (see previous lesson).
+
+Pro Tip: Use CHECK constraints for business rules. They're enforced by DB2 — no COBOL code needed.`},{title:"DB2 — Sequences & Identity Columns",level:"Intermediate",content:`Auto-generated unique numbers for primary keys.
+
+IDENTITY Column:
+  CREATE TABLE ORDERS (
+    ORDER_ID INT GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    ORDER_DATE DATE, ...
+  );
+  DB2 auto-assigns ORDER_ID on INSERT.
+
+GENERATED ALWAYS vs BY DEFAULT:
+  ALWAYS — DB2 always generates (can't specify value)
+  BY DEFAULT — DB2 generates unless you provide a value
+
+SEQUENCE:
+  CREATE SEQUENCE ORDER_SEQ START WITH 1000 INCREMENT BY 1 NO CYCLE;
+  
+  INSERT INTO ORDERS (ORDER_ID, ...) VALUES (NEXT VALUE FOR ORDER_SEQ, ...);
+  
+  Separate from table. Can be used across multiple tables.
+
+SEQUENCE vs IDENTITY:
+  IDENTITY: Tied to one table. Automatic.
+  SEQUENCE: Independent object. Manual reference. More flexible.
+
+In COBOL:
+  EXEC SQL SELECT NEXT VALUE FOR ORDER_SEQ INTO :WS-ORDER-ID FROM SYSIBM.SYSDUMMY1 END-EXEC
+
+Pro Tip: Use IDENTITY for simple auto-increment. Use SEQUENCE when multiple tables need coordinated numbering.`},{title:"DB2 Data Types Reference",level:"Beginner",content:`Complete DB2 data type reference for z/OS.
+
+Numeric:
+  SMALLINT — 2 bytes (-32768 to 32767)
+  INTEGER — 4 bytes (-2.1B to 2.1B)
+  BIGINT — 8 bytes
+  DECIMAL(p,s) — Packed decimal (p digits, s decimal places)
+  REAL — Single float. DOUBLE — Double float.
+  DECFLOAT — Decimal floating point (financial precision)
+
+String:
+  CHAR(n) — Fixed-length (1-255). Padded with spaces.
+  VARCHAR(n) — Variable-length (1-32704). Stores actual length.
+  CLOB — Character Large Object (up to 2GB)
+  GRAPHIC/VARGRAPHIC — Double-byte character strings
+  DBCLOB — Double-byte CLOB
+
+Binary:
+  BINARY(n) — Fixed-length binary
+  VARBINARY(n) — Variable-length binary
+  BLOB — Binary Large Object (up to 2GB)
+
+Date/Time:
+  DATE — YYYY-MM-DD (4 bytes)
+  TIME — HH.MM.SS (3 bytes)
+  TIMESTAMP — Date + Time + microseconds (10 bytes)
+
+Special:
+  ROWID — Unique row identifier
+  XML — Native XML storage
+
+COBOL Mapping:
+  INTEGER → PIC S9(9) COMP
+  DECIMAL(7,2) → PIC S9(5)V99 COMP-3
+  VARCHAR(30) → 49 WS-LEN PIC S9(4) COMP. 49 WS-DATA PIC X(30).
+
+Pro Tip: Use DECIMAL for money (exact). Never REAL/DOUBLE for financial data (rounding errors).`},{title:"DB2 — GRANT & Authorization IDs",level:"Intermediate",content:`DB2 security controls who can access what.
+
+Authorization IDs:
+  Primary: TSO user ID
+  Secondary: RACF group memberships
+  Roles: Named collections of privileges (DB2 10+)
+
+GRANT on Tables:
+  GRANT SELECT ON CUSTOMER TO USER1;
+  GRANT INSERT, UPDATE ON CUSTOMER TO ROLE APP_WRITER;
+  GRANT ALL ON CUSTOMER TO DBA_ROLE WITH GRANT OPTION;
+
+GRANT on Plans/Packages:
+  GRANT EXECUTE ON PLAN MYPLAN TO USER1;
+  GRANT BIND ON PACKAGE COLL.PKG TO DEVELOPER1;
+
+System Authorities:
+  SYSADM — Everything. DBADM — Database admin.
+  SQLADM — Explain/tune. DATAACCESS — Read any table.
+
+Revoking:
+  REVOKE UPDATE ON CUSTOMER FROM USER1;
+
+Checking Authorization:
+  SELECT * FROM SYSIBM.SYSPLANAUTH WHERE GRANTEE = 'USER1';
+  SELECT * FROM SYSIBM.SYSTABAUTH WHERE GRANTEE = 'USER1';
+
+Pro Tip: Use roles for application access. GRANT to role, then GRANT role to users. Much easier to manage.`},{title:"DB2 — Locking Deep Dive",level:"Advanced",content:`DB2 uses locks to manage concurrent access. Understanding locking prevents deadlocks and timeouts.
+
+Lock Modes:
+  S (Share) — Read lock. Others can read, not write.
+  U (Update) — Intention to update. Upgrades to X when updating.
+  X (Exclusive) — Write lock. No one else can read or write.
+  IS/IX/SIX — Intent locks at tablespace/table level.
+
+Lock Granularity:
+  ROW — Lock individual rows (default for most)
+  PAGE — Lock pages (4K-32K of data)
+  TABLE — Lock entire table
+  TABLESPACE — Lock entire tablespace
+  LOCKSIZE ROW on CREATE TABLESPACE for finest granularity.
+
+Lock Escalation:
+  Too many row locks → DB2 escalates to table lock.
+  Threshold: LOCKMAX parameter. Default: system-defined.
+  Escalation hurts concurrency — other transactions wait.
+
+Deadlock:
+  Task A locks Row 1, waits for Row 2.
+  Task B locks Row 2, waits for Row 1.
+  DB2 detects and ABENDs one (SQLCODE -911 REASON 2).
+
+Prevention:
+  • COMMIT frequently (release locks)
+  • Access tables in same order across programs
+  • Use lowest isolation level needed
+  • Keep transactions short
+  • Index FK columns
+
+LOCK TABLE:
+  LOCK TABLE schema.tablename IN EXCLUSIVE MODE;
+  For batch updates — prevents deadlocks by locking everything upfront.
+
+Pro Tip: SQLCODE -911 REASON 2 = deadlock, REASON 68 = timeout. Both mean lock contention. Fix: COMMIT more often.`},{title:"DB2 — Connection & Thread Management",level:"Advanced",content:`How COBOL programs connect to DB2 in batch and online.
+
+Batch Connection:
+  Via TSO (IKJEFT01) or CAF (Call Attach Facility).
+  JCL: EXEC PGM=IKJEFT01 with SYSTSIN: DSN SYSTEM(subsystem) RUN PROGRAM(prog) PLAN(plan)
+  Thread created at RUN, released at END.
+
+CICS Connection:
+  CICS DB2 Attachment Facility manages threads.
+  Threads created from pool when transaction starts.
+  CICS COBOL: Just use EXEC SQL — thread management is automatic.
+
+Thread Types:
+  ALLIED — For batch and TSO
+  DATABASE ACCESS — For distributed requests (DRDA)
+
+Connection Pooling (CICS):
+  CICS maintains a pool of DB2 threads.
+  Protects: THREADLIM, ACCOUNTREC parameters in RCT.
+
+RELEASE(COMMIT) vs RELEASE(DEALLOCATE):
+  COMMIT — Thread released after COMMIT (shares with others)
+  DEALLOCATE — Thread held for entire transaction (faster, but consumes resources)
+
+DDF (Distributed Data Facility):
+  Enables remote DB2 access. DRDA protocol.
+  CONNECT TO location. Three-part names: location.schema.table.
+
+Pro Tip: Use RELEASE(COMMIT) in CICS for better thread utilization. DEALLOCATE only for high-frequency transactions.`},{title:"DB2 — Data Sharing & Sysplex",level:"Expert",content:`Data sharing allows multiple DB2 subsystems to access the same data simultaneously.
+
+Parallel Sysplex:
+  Multiple z/OS LPARs connected via Coupling Facility (CF).
+  Each LPAR runs its own DB2 — all share the same database.
+
+Data Sharing Group:
+  Collection of DB2 members sharing data.
+  Each member has its own buffer pools and log.
+  CF coordinates locking and buffer coherency.
+
+Coupling Facility:
+  Lock Structure — Global lock manager
+  SCA (Shared Communications Area) — Status info
+  Group Buffer Pools — Shared caching
+
+Benefits:
+  • Horizontal scaling (add members for more capacity)
+  • High availability (one member fails, others continue)
+  • Workload balancing across members
+  • Near-zero downtime for maintenance
+
+DSNZPARM:
+  Each DB2 member has its own system parameters.
+  Some parameters must be consistent across the group.
+
+Sysplex Routing:
+  WLM/DVIPA routes work to least-loaded member.
+
+Pro Tip: Data sharing is enterprise-grade HA. Know the concepts for architect-level interviews.`},{title:"DB2 — REXX & DB2",level:"Intermediate",content:`REXX can execute SQL dynamically — useful for automation and ad-hoc tasks.
+
+Setup:
+  In REXX: ADDRESS DSNREXX "CONNECT subsystem"
+  Execute SQL: ADDRESS DSNREXX "EXECSQL stmt"
+
+Pattern:
+  /* REXX */
+  ADDRESS DSNREXX "CONNECT DB2P"
+  sqlstmt = "SELECT NAME, SALARY FROM EMPLOYEE WHERE DEPT = 'IT'"
+  ADDRESS DSNREXX "EXECSQL PREPARE S1 FROM :sqlstmt"
+  ADDRESS DSNREXX "EXECSQL DECLARE C1 CURSOR FOR S1"
+  ADDRESS DSNREXX "EXECSQL OPEN C1"
+  DO WHILE SQLCODE = 0
+    ADDRESS DSNREXX "EXECSQL FETCH C1 INTO :name, :salary"
+    IF SQLCODE = 0 THEN SAY name salary
+  END
+  ADDRESS DSNREXX "EXECSQL CLOSE C1"
+  ADDRESS DSNREXX "DISCONNECT"
+
+Use Cases:
+  • Quick data queries from TSO
+  • Automated reports
+  • Data migration scripts
+  • Database administration tasks
+
+Pro Tip: REXX + DB2 is perfect for one-off queries and automation scripts that don't need full COBOL programs.`},{title:"DB2 — Pagination & FETCH FIRST",level:"Beginner",content:`Limit result rows for display or performance.
+
+FETCH FIRST n ROWS ONLY:
+  SELECT * FROM EMPLOYEE ORDER BY SALARY DESC FETCH FIRST 10 ROWS ONLY;
+  Returns top 10 highest-paid employees.
+
+OFFSET (DB2 12+):
+  SELECT * FROM EMPLOYEE ORDER BY NAME OFFSET 20 ROWS FETCH FIRST 10 ROWS ONLY;
+  Skip 20, return next 10. Perfect for page 3 of results.
+
+ROW_NUMBER():
+  SELECT * FROM (
+    SELECT ROW_NUMBER() OVER(ORDER BY SALARY DESC) AS RN, NAME, SALARY FROM EMPLOYEE
+  ) WHERE RN BETWEEN 11 AND 20;
+  Page 2 (rows 11-20). Works in all DB2 versions.
+
+OPTIMIZE FOR n ROWS:
+  SELECT ... OPTIMIZE FOR 20 ROWS;
+  Tells DB2 optimizer you only need ~20 rows. May choose different access path.
+
+In COBOL:
+  Fetch first 100 rows into a table, display page by page.
+  Or fetch one page at a time using key-based pagination.
+
+Pro Tip: Key-based pagination (WHERE key > last_key FETCH FIRST n) is faster than OFFSET for large tables.`},{title:"DB2 — Error Handling Patterns",level:"Intermediate",content:`Robust error handling for production DB2 COBOL programs.
+
+Basic Pattern:
+  EXEC SQL statement END-EXEC
+  IF SQLCODE < 0 PERFORM DB2-ERROR END-IF
+  IF SQLCODE = 100 PERFORM NOT-FOUND END-IF
+
+WHENEVER (Automatic):
+  EXEC SQL WHENEVER SQLERROR GO TO DB2-ERR-RTN END-EXEC
+  EXEC SQL WHENEVER NOT FOUND GO TO NOT-FOUND-RTN END-EXEC
+  EXEC SQL WHENEVER SQLWARNING CONTINUE END-EXEC
+  Legacy approach — modern code prefers explicit checking.
+
+Deadlock Retry:
+  IF SQLCODE = -911
+    ADD 1 TO WS-RETRY-COUNT
+    IF WS-RETRY-COUNT <= 3
+      EXEC SQL ROLLBACK END-EXEC
+      PERFORM DELAY-1-SECOND
+      PERFORM RETRY-OPERATION
+    ELSE
+      PERFORM FATAL-ERROR
+    END-IF
+
+Logging Errors:
+  MOVE SQLCODE TO WS-SAVE-SQLCODE
+  MOVE SQLERRMC TO WS-SAVE-ERRMSG
+  MOVE SQLERRD(3) TO WS-ROWS-AFFECTED
+  DISPLAY 'SQL ERROR: ' WS-SAVE-SQLCODE ' MSG: ' WS-SAVE-ERRMSG
+
+Pro Tip: Always save SQLCODE/SQLERRMC immediately — the next SQL statement overwrites them.`},{title:"DB2 — Batch Processing Patterns",level:"Advanced",content:`Production batch DB2 patterns used in every mainframe shop.
+
+Cursor-Based Update:
+  DECLARE cur CURSOR WITH HOLD FOR SELECT ... FOR UPDATE OF col
+  OPEN → FETCH loop → UPDATE WHERE CURRENT OF cur → COMMIT every N rows → CLOSE
+
+Mass DELETE:
+  DELETE FROM ARCHIVE WHERE CREATE_DATE < CURRENT DATE - 1 YEAR;
+  For millions of rows: delete in batches with COMMIT to avoid log full.
+
+Bulk INSERT:
+  INSERT INTO TARGET SELECT * FROM SOURCE WHERE condition;
+  Faster than row-by-row INSERT from COBOL.
+
+ETL Pattern:
+  1. UNLOAD source data
+  2. SORT/Transform with DFSORT or COBOL
+  3. LOAD into target table
+  4. RUNSTATS → REBIND → COPY
+
+Commit Strategy:
+  COMMIT every 500-1000 rows for updates/deletes.
+  Prevents: log full, lock escalation, long rollback on failure.
+  WITH HOLD cursor stays open across COMMITs.
+
+Restart Pattern:
+  Track last-processed key in control table.
+  On restart: SELECT last_key FROM CONTROL → resume from there.
+
+Pro Tip: The #1 batch DB2 problem is log full (SQLCODE -904). Fix: COMMIT frequently.`},{title:"DB2 — Performance Tuning Checklist",level:"Advanced",content:`Systematic approach to DB2 performance optimization.
+
+SQL Tuning:
+  1. Run EXPLAIN — check access paths
+  2. Avoid table scans on large tables (need index)
+  3. Use MATCHCOLS > 0 (index is being used effectively)
+  4. Avoid functions on indexed columns in WHERE
+  5. Use BETWEEN instead of >= AND <=
+  6. Avoid SELECT * — specify only needed columns
+  7. Use EXISTS instead of IN for correlated subqueries
+
+Index Tuning:
+  1. Index columns in WHERE, JOIN, ORDER BY
+  2. Consider index-only access (INCLUDE columns)
+  3. Clustering index on most-used access path
+  4. Remove unused indexes (overhead on INSERT)
+
+Utility Tuning:
+  1. Current RUNSTATS (stale stats = bad access paths)
+  2. Regular REORG (fix fragmentation)
+  3. Adequate BUFFERPOOL size
+
+Application Tuning:
+  1. COMMIT frequently (release locks)
+  2. FOR FETCH ONLY on read cursors
+  3. OPTIMIZE FOR n ROWS for pagination
+  4. Static SQL over dynamic (bound access paths)
+  5. Array FETCH/INSERT for bulk operations
+
+Pro Tip: 90% of DB2 performance problems are solved by: current RUNSTATS + proper indexes + EXPLAIN analysis.`},{title:"DB2 Interview Questions",level:"All Levels",content:`DB2 Interview Questions — 40+ Q&A organized by level.
 
 === BEGINNER ===
 
@@ -9754,7 +12693,792 @@ XRF (Extended Recovery Facility):
   Provides automatic takeover.
   Active CICS region + Standby CICS region.
   If active fails, standby takes over within seconds.
-  Terminals reconnect automatically.`},{title:"CICS Interview Questions",level:"All Levels",content:`CICS Interview Questions — 35+ Q&A organized by level.
+  Terminals reconnect automatically.`},{title:"CICS File Control — READ & WRITE",level:"Intermediate",content:`File control commands access VSAM files in CICS.
+
+READ:
+  EXEC CICS READ DATASET('CUSTFILE')
+    INTO(WS-REC) RIDFLD(WS-KEY) LENGTH(WS-LEN)
+    RESP(WS-RESP) END-EXEC
+  RESP(DFHRESP(NORMAL)) = success
+  RESP(DFHRESP(NOTFND)) = record not found
+
+WRITE:
+  EXEC CICS WRITE DATASET('CUSTFILE')
+    FROM(WS-REC) RIDFLD(WS-KEY) LENGTH(WS-LEN)
+    RESP(WS-RESP) END-EXEC
+
+UPDATE Pattern:
+  READ with UPDATE option → modify → REWRITE
+  EXEC CICS READ DATASET('CUSTFILE')
+    INTO(WS-REC) RIDFLD(WS-KEY) UPDATE
+    RESP(WS-RESP) END-EXEC
+  ... modify WS-REC ...
+  EXEC CICS REWRITE DATASET('CUSTFILE')
+    FROM(WS-REC) RESP(WS-RESP) END-EXEC
+
+DELETE:
+  EXEC CICS DELETE DATASET('CUSTFILE')
+    RIDFLD(WS-KEY) RESP(WS-RESP) END-EXEC
+
+Pro Tip: Always use RESP option instead of HANDLE CONDITION — it's modern and explicit.`},{title:"CICS Browse Operations",level:"Intermediate",content:`Browse reads multiple records sequentially from VSAM in CICS.
+
+START Browse:
+  EXEC CICS STARTBR DATASET('CUSTFILE')
+    RIDFLD(WS-KEY) GTEQ RESP(WS-RESP) END-EXEC
+  GTEQ = start at key >= WS-KEY
+  EQUAL = start at exact key
+
+Read Next:
+  EXEC CICS READNEXT DATASET('CUSTFILE')
+    INTO(WS-REC) RIDFLD(WS-KEY) LENGTH(WS-LEN)
+    RESP(WS-RESP) END-EXEC
+
+Read Previous:
+  EXEC CICS READPREV DATASET('CUSTFILE')
+    INTO(WS-REC) RIDFLD(WS-KEY) RESP(WS-RESP) END-EXEC
+
+End Browse:
+  EXEC CICS ENDBR DATASET('CUSTFILE') RESP(WS-RESP) END-EXEC
+
+Pattern — List first 20 customers:
+  STARTBR → Loop READNEXT 20 times (or until ENDFILE) → ENDBR
+
+Pro Tip: Always ENDBR when done. Forgetting leaves a browse token allocated — causes resource issues under load.`},{title:"CICS Temporary Storage (TS) Queues",level:"Intermediate",content:`TS queues store temporary data accessible by queue name.
+
+WRITEQ TS:
+  EXEC CICS WRITEQ TS QUEUE('MYQUEUE')
+    FROM(WS-DATA) LENGTH(WS-LEN)
+    ITEM(WS-ITEM-NUM) RESP(WS-RESP) END-EXEC
+  ITEM returns the item number written.
+
+READQ TS:
+  EXEC CICS READQ TS QUEUE('MYQUEUE')
+    INTO(WS-DATA) LENGTH(WS-LEN)
+    ITEM(WS-ITEM-NUM) RESP(WS-RESP) END-EXEC
+
+DELETEQ TS:
+  EXEC CICS DELETEQ TS QUEUE('MYQUEUE') RESP(WS-RESP) END-EXEC
+
+Storage Options:
+  MAIN — Memory (fast, lost on CICS restart)
+  AUXILIARY — Disk (persists across restarts)
+  Default is AUXILIARY.
+
+Common Uses:
+  • Page-through screens (store all records, display page at a time)
+  • Session scratch pad data
+  • Passing large data between transactions
+  • Building report data before display
+
+Queue Naming:
+  Often: TRANSID + EIBTRMID (terminal ID) for uniqueness.
+
+Pro Tip: Delete TS queues when done. Orphaned queues waste storage.`},{title:"CICS Transient Data (TD) Queues",level:"Intermediate",content:`TD queues are for sequential one-direction data flow.
+
+Types:
+  Intrapartition — Within CICS. Can trigger transactions.
+  Extrapartition — Maps to external file (dataset).
+
+WRITEQ TD:
+  EXEC CICS WRITEQ TD QUEUE('LOGA')
+    FROM(WS-LOG-REC) LENGTH(WS-LEN) END-EXEC
+
+READQ TD:
+  EXEC CICS READQ TD QUEUE('LOGA')
+    INTO(WS-REC) LENGTH(WS-LEN) END-EXEC
+
+DELETEQ TD:
+  EXEC CICS DELETEQ TD QUEUE('LOGA') END-EXEC
+
+Trigger Level:
+  Intrapartition queues can auto-start a transaction after N records.
+  Define trigger level in CICS resource definition.
+
+Extrapartition:
+  Maps to JCL DD. Writes go to a sequential file.
+  Used for: print output, audit logs, batch interface files.
+
+TS vs TD:
+  TS = random access by item number, read/write
+  TD = sequential, one-direction flow, trigger capable
+
+Pro Tip: Use TD for audit logs and print queues. Use TS for session data and scratch pads.`},{title:"CICS LINK, XCTL & RETURN",level:"Intermediate",content:`Three ways to transfer control between CICS programs.
+
+LINK (Call — returns to caller):
+  EXEC CICS LINK PROGRAM('SUBPROG')
+    COMMAREA(WS-COMM) LENGTH(WS-LEN) END-EXEC
+  Like COBOL CALL. Subprogram returns to caller.
+  Both programs active in memory simultaneously.
+
+XCTL (Transfer — doesn't return):
+  EXEC CICS XCTL PROGRAM('NEXTPROG')
+    COMMAREA(WS-COMM) LENGTH(WS-LEN) END-EXEC
+  Current program ends. NEXTPROG takes over.
+  Caller's resources freed.
+
+RETURN (End program):
+  Without TRANSID: Task ends completely.
+  With TRANSID: Pseudo-conversational return.
+  EXEC CICS RETURN TRANSID('TRN1')
+    COMMAREA(WS-COMM) LENGTH(WS-LEN) END-EXEC
+
+When to Use:
+  LINK — Call a subroutine, need result back
+  XCTL — Hand off to next program in a chain (menu → detail)
+  RETURN with TRANSID — End pseudo-conversational interaction
+
+Pro Tip: LINK keeps both programs in memory. XCTL frees the caller. For memory efficiency, prefer XCTL when you don't need to return.`},{title:"CICS SEND MAP & RECEIVE MAP",level:"Beginner",content:`BMS maps are the CICS screen interface — SEND displays, RECEIVE reads input.
+
+SEND MAP:
+  EXEC CICS SEND MAP('CUSTMAP') MAPSET('CUSTMST')
+    MAPONLY ERASE END-EXEC
+  MAPONLY — Send layout without data (first display)
+  DATAONLY — Send data into existing layout (updates)
+  ERASE — Clear screen first
+
+RECEIVE MAP:
+  EXEC CICS RECEIVE MAP('CUSTMAP') MAPSET('CUSTMST')
+    INTO(CUSTMAPI) RESP(WS-RESP) END-EXEC
+  Reads user input into the symbolic map structure.
+
+Symbolic Map Fields:
+  For field CUSTID: CUSTIDF (flag), CUSTIDL (length), CUSTIDI (input), CUSTIDO (output)
+  Check CUSTIDL > 0 to see if user entered data.
+
+Attribute Bytes:
+  Control field behavior: protected, bright, dark, numeric, modified.
+  MOVE DFHBMPRF TO CUSTIDA — Make field protected+bright.
+
+SEND TEXT:
+  EXEC CICS SEND TEXT FROM(WS-MSG) LENGTH(WS-LEN) ERASE END-EXEC
+  Quick message without BMS map.
+
+Pro Tip: Always check field length (xxxL > 0) before processing input. Users may press Enter without typing.`},{title:"CICS Attention Keys (AID)",level:"Beginner",content:`AID (Attention Identifier) keys trigger CICS input — ENTER, PF keys, PA keys.
+
+EIBAID:
+  EIB field set to the AID key pressed by user.
+  Check after RECEIVE MAP.
+
+Common AID Values:
+  DFHENTER — Enter key
+  DFHPF1 thru DFHPF24 — PF1-PF24
+  DFHPA1, DFHPA2, DFHPA3 — PA keys
+  DFHCLEAR — Clear key
+
+Pattern:
+  EXEC CICS RECEIVE MAP(...) END-EXEC
+  EVALUATE EIBAID
+    WHEN DFHENTER PERFORM PROCESS-INPUT
+    WHEN DFHPF3   PERFORM EXIT-PROGRAM
+    WHEN DFHPF7   PERFORM PAGE-UP
+    WHEN DFHPF8   PERFORM PAGE-DOWN
+    WHEN DFHPF12  PERFORM CANCEL-ACTION
+    WHEN OTHER    PERFORM INVALID-KEY
+  END-EVALUATE
+
+PA Keys vs PF Keys:
+  PA keys do NOT transmit screen data (fast, no I/O)
+  PF keys transmit modified fields
+
+HANDLE AID (Legacy):
+  EXEC CICS HANDLE AID PF3(EXIT-LABEL) ENTER(PROCESS-LABEL) END-EXEC
+  Legacy — use EIBAID with EVALUATE instead.
+
+Pro Tip: Always handle PF3 as exit/back, ENTER as submit. This is the universal CICS convention.`},{title:"CICS COMMAREA Deep Dive",level:"Intermediate",content:`COMMAREA is the primary data-passing mechanism in pseudo-conversational CICS.
+
+What It Is:
+  Communication Area — data preserved between pseudo-conversational interactions.
+  Max 32KB.
+
+Setting COMMAREA:
+  EXEC CICS RETURN TRANSID('TRN1')
+    COMMAREA(WS-COMM) LENGTH(WS-COMM-LEN) END-EXEC
+
+Receiving COMMAREA:
+  LINKAGE SECTION.
+  01 DFHCOMMAREA PIC X(n).
+  
+  PROCEDURE DIVISION.
+  IF EIBCALEN = 0
+    (First time — no COMMAREA yet)
+  ELSE
+    MOVE DFHCOMMAREA TO WS-COMM
+  END-IF
+
+Design Tips:
+  • Include a "state" field: WS-COMM-STATE PIC X (I=inquiry, U=update)
+  • Include key fields needed to re-read data
+  • Keep it small — every byte is saved/restored per interaction
+  • Version the layout — WS-COMM-VERSION PIC 9
+
+COMMAREA vs TS Queue:
+  COMMAREA: Small data (<32KB), fast, between interactions
+  TS Queue: Large data, persist across transactions, shared
+
+Pro Tip: First instruction in every CICS program: check EIBCALEN. 0 = first time. > 0 = returning user.`},{title:"CICS START & Interval Control",level:"Advanced",content:`START schedules transactions for later or deferred execution.
+
+START:
+  EXEC CICS START TRANSID('RPT1')
+    INTERVAL(013000)
+    FROM(WS-DATA) LENGTH(WS-LEN)
+    RESP(WS-RESP) END-EXEC
+  Runs RPT1 after 1 hour 30 minutes.
+
+INTERVAL:
+  INTERVAL(HHMMSS) — Delay from now
+  TIME(HHMMSS) — Specific time today
+  AFTER HOURS(1) MINUTES(30)
+
+RETRIEVE (in started transaction):
+  EXEC CICS RETRIEVE INTO(WS-DATA) LENGTH(WS-LEN) END-EXEC
+  Gets the data passed by FROM in START.
+
+CANCEL:
+  EXEC CICS CANCEL REQID('REQ001') END-EXEC
+  Cancels a previously STARTed request.
+
+REQID:
+  Identifier for the START request. Needed for CANCEL.
+
+Common Uses:
+  • Deferred processing (submit report at end of day)
+  • Retry logic (retry failed operation after delay)
+  • Scheduled cleanups
+  • Asynchronous processing
+
+Pro Tip: Use REQID when you need the ability to cancel. Without it, you can't cancel a STARTed transaction.`},{title:"CICS Debugging — CEDF, CECI, CEBR",level:"Intermediate",content:`Three essential CICS debugging tools.
+
+CEDF (Execution Diagnostic Facility):
+  Type CEDF at terminal → then run your transaction.
+  Steps through every EXEC CICS command showing:
+  - Command about to execute
+  - Parameters and values
+  - Response code after execution
+  Press ENTER to continue, PF3 to stop debugging.
+
+CECI (Command Interpreter):
+  Test CICS commands interactively.
+  CECI READ DATASET('CUSTFILE') RIDFLD('12345678')
+  Shows the result immediately. Great for testing file access.
+
+CEBR (TS Queue Browser):
+  View contents of Temporary Storage queues.
+  CEBR MYQUEUE
+  Shows items in the queue — useful for debugging TS data.
+
+CEMT (Master Terminal):
+  INQ TASK — Show active tasks
+  INQ PROG(name) — Check program status
+  INQ FILE(name) — Check file status
+  SET PROG(name) NEWCOPY — Load new version of program
+  SET FILE(name) OPEN/CLOSE — Open/close file
+
+Pro Tip: CEDF is the most powerful CICS debugging tool. Learn to read its output — it shows exactly what happens at each EXEC CICS command.`},{title:"CICS HANDLE ABEND & Recovery",level:"Advanced",content:`Production CICS programs must handle errors gracefully.
+
+HANDLE ABEND:
+  EXEC CICS HANDLE ABEND PROGRAM('ERRPGM') END-EXEC
+  If this program ABENDs, CICS runs ERRPGM instead of crashing.
+
+HANDLE ABEND LABEL:
+  EXEC CICS HANDLE ABEND LABEL(ERR-RTN) END-EXEC
+  Transfer to paragraph ERR-RTN on ABEND.
+
+RESP Option (Modern — Preferred):
+  EXEC CICS READ ... RESP(WS-RESP) END-EXEC
+  IF WS-RESP NOT = DFHRESP(NORMAL)
+    PERFORM HANDLE-ERROR
+  END-IF
+  No ABEND occurs — program checks response code.
+
+ABEND Command:
+  EXEC CICS ABEND ABCODE('MYAB') END-EXEC
+  Intentionally ABEND with your code (for severe errors).
+
+Syncpoint (Commit/Rollback):
+  EXEC CICS SYNCPOINT END-EXEC — Commit all changes
+  EXEC CICS SYNCPOINT ROLLBACK END-EXEC — Undo all changes
+
+Dynamic Transaction Backout (DTB):
+  If a transaction ABENDs, CICS automatically rolls back all recoverable resource changes (files, TS queues with RECOVERY).
+
+Pro Tip: Use RESP on every EXEC CICS command. Reserve HANDLE ABEND for truly unexpected errors.`},{title:"CICS Channels & Containers",level:"Advanced",content:`Modern alternative to COMMAREA for passing data between programs. Overcomes 32KB limit.
+
+Container:
+  Named data area within a channel. Any size.
+  EXEC CICS PUT CONTAINER('CUSTDATA') CHANNEL('MYCHAN')
+    FROM(WS-DATA) FLENGTH(WS-LEN) END-EXEC
+
+Channel:
+  Collection of containers. Passed on LINK/XCTL/RETURN.
+  EXEC CICS LINK PROGRAM('SUBPROG') CHANNEL('MYCHAN') END-EXEC
+
+GET CONTAINER:
+  EXEC CICS GET CONTAINER('CUSTDATA') CHANNEL('MYCHAN')
+    INTO(WS-DATA) FLENGTH(WS-LEN) END-EXEC
+
+Advantages over COMMAREA:
+  • No 32KB limit
+  • Multiple named containers (like a parameter list)
+  • Pass different data types in different containers
+  • Natural fit for web services (SOAP/REST)
+
+COMMAREA vs Channels:
+  Use COMMAREA for simple, small data (<32KB)
+  Use Channels for large data, multiple data structures, web services
+
+Pro Tip: New CICS development should use Channels. COMMAREA is legacy but still dominant in existing code.`},{title:"CICS Web Services — REST & SOAP",level:"Expert",content:`CICS can expose COBOL programs as REST/SOAP web services and consume external APIs.
+
+Exposing as REST (CICS TS 5.2+):
+  1. Write normal COBOL program with COMMAREA/Container interface
+  2. Create URIMAP resource mapping URL to program
+  3. CICS handles HTTP → COBOL data conversion
+  4. JSON support: CICS auto-converts between JSON and COBOL structures
+
+Consuming REST:
+  EXEC CICS WEB OPEN ... END-EXEC (open HTTP connection)
+  EXEC CICS WEB SEND ... END-EXEC (send request)
+  EXEC CICS WEB RECEIVE ... END-EXEC (get response)
+
+SOAP (Legacy):
+  PIPELINE definitions + WSBIND files
+  DFHWS2LS utility converts WSDL to COBOL language structure
+  More complex setup than REST
+
+z/OS Connect (Modern):
+  API gateway that sits in front of CICS.
+  Maps REST URLs to CICS programs automatically.
+  No COBOL code changes needed.
+  Swagger/OpenAPI support for API documentation.
+
+Pro Tip: z/OS Connect is the modern way. For new projects, use REST with z/OS Connect. SOAP is legacy.`},{title:"CICS Multi-Threading & Task Control",level:"Expert",content:`CICS is a multi-tasking system — hundreds of transactions run concurrently.
+
+Task:
+  Each user interaction creates a CICS task.
+  Tasks share CICS region resources (memory, files, queues).
+
+ENQ/DEQ (Resource Locking):
+  EXEC CICS ENQ RESOURCE('CUST-UPD-12345') LENGTH(16) END-EXEC
+  ... exclusive processing ...
+  EXEC CICS DEQ RESOURCE('CUST-UPD-12345') LENGTH(16) END-EXEC
+  Prevents two users from updating the same record simultaneously.
+
+SUSPEND & RESUME:
+  EXEC CICS SUSPEND END-EXEC — Yield CPU to other tasks
+
+DELAY:
+  EXEC CICS DELAY INTERVAL(000005) END-EXEC — Wait 5 seconds
+
+POST/WAIT:
+  Timer-based event control for background processing.
+
+Concurrency Issues:
+  • Two users reading same record → both update → last one wins (lost update)
+  • Fix: READ with UPDATE option (locks record) or use ENQ/DEQ
+  • Deadlocks: Task A locks X, waits for Y. Task B locks Y, waits for X.
+  • CICS detects deadlocks and ABENDs one task (ABEND code AKCS)
+
+Pro Tip: Keep locks short. READ UPDATE → immediate REWRITE → release. Long locks cause timeouts for other users.`},{title:"CICS Transaction Routing",level:"Advanced",content:`Route transactions between CICS regions for load balancing and specialization.
+
+Local vs Remote:
+  Local: Transaction runs in the region where user is connected.
+  Remote: Transaction routed to another CICS region.
+
+Function Shipping:
+  EXEC CICS READ DATASET('REMFILE') sends file request to owning region.
+  Application code unchanged — CICS handles routing transparently.
+
+Transaction Routing:
+  User at Terminal → Region A → Routes TRN1 to Region B.
+  Defined via: REMOTESYSTEM in TRANSACTION definition.
+
+Distributed Program Link (DPL):
+  EXEC CICS LINK PROGRAM('REMPROG') — Runs program in remote region.
+  COMMAREA passed across regions.
+
+MRO (Multi-Region Operation):
+  CICS regions on same LPAR communicate via shared memory.
+  Faster than ISC (Inter-System Communication) across LPARs.
+
+ISC (Inter-System Communication):
+  Cross-LPAR or cross-system communication via VTAM/TCP.
+
+Pro Tip: MRO for same-LPAR communication (fast). ISC for cross-system (flexible but slower).`},{title:"CICS Storage Control",level:"Advanced",content:`CICS manages storage for all transactions in the region.
+
+GETMAIN:
+  EXEC CICS GETMAIN SET(ADDRESS OF WS-AREA) LENGTH(WS-LEN) INITIMG(X'00') END-EXEC
+  Allocates memory dynamically. SET points to the acquired storage.
+
+FREEMAIN:
+  EXEC CICS FREEMAIN DATA(WS-AREA) END-EXEC
+  Releases dynamically acquired storage.
+
+Storage Types:
+  User storage — Allocated for application use
+  CICS storage — Internal CICS use
+  Shared storage — Accessible across tasks
+
+DSA (Dynamic Storage Area):
+  UDSA — User Dynamic Storage Area (below 16MB line)
+  ECDSA — Extended CICS DSA (above 16MB line)
+  EUDSA — Extended User DSA
+  Each has limits in CICS SIT parameters.
+
+Short-on-Storage (SOS):
+  When CICS runs low on storage, new transactions may be queued or rejected.
+  Monitor with CEMT INQ DSAS.
+
+Pro Tip: Avoid GETMAIN when possible — use COMMAREA or Channels. Dynamic storage that isn't FREEMAINed causes storage leaks.`},{title:"CICS Journal Control",level:"Advanced",content:`Journals record transaction activity for recovery and audit.
+
+WRITE JOURNALNAME:
+  EXEC CICS WRITE JOURNALNAME('DFHLOG')
+    JTYPEID('XX') FROM(WS-DATA) LENGTH(WS-LEN)
+    RESP(WS-RESP) END-EXEC
+
+System Log (DFHLOG):
+  Records all recoverable resource changes.
+  Used by Dynamic Transaction Backout (DTB).
+  Automatic — CICS writes to it for all recoverable operations.
+
+User Journals:
+  Custom journals for audit trails.
+  JOURNAL01 through JOURNAL99.
+
+Forward Recovery:
+  Play back journal records to recreate changes.
+  DFHJUP utility reads journal records.
+
+Activity Keypoints:
+  CICS periodically writes snapshots of active transactions.
+  Used during emergency restart to determine in-flight transactions.
+
+Pro Tip: System logging is automatic for recoverable resources. User journals are for custom audit requirements.`},{title:"CICS Monitoring & Statistics",level:"Advanced",content:`Monitor CICS performance and diagnose problems.
+
+CEMT INQ Commands:
+  CEMT INQ TASK — Active tasks (count, wait reasons)
+  CEMT INQ DSAS — Storage usage
+  CEMT INQ FILE — File status and access counts
+  CEMT INQ TRAN — Transaction definitions
+  CEMT INQ PROG — Program status and use counts
+  CEMT INQ TDQUEUE — TD queue depths
+  CEMT INQ TSQUEUE — TS queue info
+
+CICS Statistics:
+  Written to SMF or CICS statistics datasets.
+  Transaction stats: Response time, CPU, I/O counts per transaction.
+  File stats: Read/write counts, CI splits.
+  Storage stats: DSA usage, peaks.
+
+CICS Performance Analyzer (CPA):
+  IBM tool for analyzing CICS statistics.
+  Shows transaction response time breakdown.
+
+Key Metrics:
+  Transaction response time (average, 90th percentile)
+  Task count and throughput
+  File I/O counts
+  Storage utilization
+  Short-on-storage events
+
+Pro Tip: Monitor transaction response time trends. Gradual degradation usually means growing data volumes or file splits.`},{title:"CICS System Initialization (SIT)",level:"Expert",content:`The SIT (System Initialization Table) configures how CICS starts up.
+
+Key SIT Parameters:
+  DSALIM — User storage limit below the line
+  EDSALIM — Extended storage limit above the line
+  MXT — Maximum tasks allowed concurrently
+  AMAXTASKS — Active max tasks
+  AKPFREQ — Activity keypoint frequency
+  DTRTRAN — Default routing transaction
+  GRPLIST — CSD group list to install at startup
+  TCPIPSERVICE — TCP/IP listeners
+  DB2CONN — DB2 connection name
+
+Overriding SIT:
+  At startup: PARM='SIT=6$,DSALIM=10M,MXT=200'
+  $ triggers override prompts at console.
+
+PLT (Program List Table):
+  PLTPI — Programs to run during startup (initialization)
+  PLTSD — Programs to run during shutdown (cleanup)
+
+CEDA vs CSD:
+  CSD (CICS System Definition) — File containing resource definitions.
+  CEDA — Online transaction to define/alter/install resources.
+  CICS reads CSD at startup, installs defined resources.
+
+Pro Tip: Know SIT parameters for CICS admin interviews: MXT, DSALIM, EDSALIM, and GRPLIST are most asked.`},{title:"CICS — BMS Map Assembly",level:"Intermediate",content:`BMS maps are assembled to create physical and symbolic maps.
+
+BMS Macros:
+  DFHMSD — Mapset definition (collection of maps)
+  DFHMDI — Map definition (one screen layout)
+  DFHMDF — Field definition (one screen field)
+
+Field Attributes:
+  ATTRB=(PROT,BRT) — Protected, Bright
+  ATTRB=(UNPROT,NORM) — Unprotected, Normal (input field)
+  ATTRB=(UNPROT,BRT,IC) — Input, Bright, Initial Cursor
+  ATTRB=(ASKIP) — Auto-skip
+  ATTRB=(UNPROT,NUM) — Numeric input only
+
+Assembly:
+  Assemble with TYPE=DSECT → Symbolic map (COBOL copybook)
+  Assemble with TYPE=MAP → Physical map (load module)
+  Both needed: physical for display, symbolic for program data.
+
+Symbolic Map Structure:
+  For field CUSTID:
+  CUSTIDF — Flag byte (MDT, etc.)
+  CUSTIDL — Input length (S9(4) COMP)
+  CUSTIDA — Attribute byte
+  CUSTIDI — Input data (PIC X(n))
+  CUSTIDO — Output data (PIC X(n))
+
+Pro Tip: Check field length (xxxL > 0) to know if user entered data. Check MDT flag to know if field was modified.`},{title:"CICS — ASSIGN & INQUIRE",level:"Intermediate",content:`ASSIGN retrieves system values. INQUIRE checks resource status.
+
+EXEC CICS ASSIGN:
+  EXEC CICS ASSIGN USERID(WS-USERID) END-EXEC — Current user
+  EXEC CICS ASSIGN SYSID(WS-SYSID) END-EXEC — Region name
+  EXEC CICS ASSIGN APPLID(WS-APPLID) END-EXEC — CICS applid
+  EXEC CICS ASSIGN FACILITY(WS-TERMID) END-EXEC — Terminal ID
+  EXEC CICS ASSIGN NETNAME(WS-NETNAME) END-EXEC — Network name
+  EXEC CICS ASSIGN STARTCODE(WS-START) END-EXEC — How started (TD, S, etc.)
+
+EXEC CICS INQUIRE:
+  EXEC CICS INQUIRE FILE('CUSTFILE')
+    OPENSTATUS(WS-STATUS) ENABLESTATUS(WS-ENABLE)
+    END-EXEC
+  Checks if file is open/closed, enabled/disabled.
+
+  EXEC CICS INQUIRE PROGRAM('MYPROG')
+    STATUS(WS-STATUS) USECOUNT(WS-COUNT)
+    END-EXEC
+
+EXEC CICS SET:
+  EXEC CICS SET FILE('CUSTFILE') OPEN END-EXEC — Open file
+  EXEC CICS SET PROGRAM('MYPROG') NEWCOPY END-EXEC — Load new version
+
+Pro Tip: Use ASSIGN USERID for security checks. Use INQUIRE before FILE operations to verify file is open.`},{title:"CICS — Batch Data Interchange (BDI)",level:"Expert",content:`Patterns for exchanging data between CICS (online) and batch processing.
+
+Online-to-Batch:
+  1. CICS writes to TD extrapartition queue → Dataset → Batch reads
+  2. CICS writes to TS queue → Batch CICS transaction reads and writes to file
+  3. CICS updates shared VSAM file → Batch reads VSAM
+
+Batch-to-Online:
+  1. Batch writes sequential file → CICS reads via extrapartition TD
+  2. Batch updates shared VSAM → CICS reads VSAM
+  3. Batch sends MQ message → CICS MQ trigger starts transaction
+
+Shared VSAM:
+  SHAREOPTIONS(2,3) — Batch reads, CICS writes
+  Use CICS RLS for true sharing or BWO (batch window) approach.
+
+Batch Window:
+  1. Close files in CICS (CEMT SET FILE CLOSE)
+  2. Run batch processing
+  3. Reopen files (CEMT SET FILE OPEN)
+  Traditional approach — increasingly replaced by RLS.
+
+Pro Tip: MQ is the modern way for CICS-to-batch communication. File-based interchange is legacy but still dominant.`},{title:"CICS — Testing Strategies",level:"Intermediate",content:`Testing CICS programs before production deployment.
+
+Unit Testing:
+  CEDF — Step through EXEC CICS commands
+  CECI — Test individual commands interactively
+  CEBR — Verify TS queue contents
+
+Integration Testing:
+  Test full transaction flow: map → process → file → response
+  Use test CICS region with test data
+
+Regression Testing:
+  Save screen captures of expected output
+  Compare after code changes
+  Automated tools: IBM CICS Test, CA Verify
+
+Debugging:
+  CEDF — Most powerful online debugger
+  CEEDUMP DD — Formatted dumps for ABENDs
+  EDF over terminal — Debug on user's terminal
+  CEDX — Extended debugging
+
+Common Test Scenarios:
+  1. Normal path — Valid input, successful processing
+  2. Not found — Record doesn't exist
+  3. Duplicate — Record already exists
+  4. Invalid input — Spaces, non-numeric in numeric field
+  5. File closed — CICS file not available
+  6. Security — User without authority
+
+Pro Tip: Always test with CEDF first. It shows every EXEC CICS command's input and output — catches 80% of bugs.`},{title:"CICS — Application Design Patterns",level:"Advanced",content:`Proven architectural patterns for CICS applications.
+
+Menu-Detail Pattern:
+  Menu screen → User selects option → XCTL to detail program → Detail processes → XCTL back to menu.
+  Each screen is a separate program.
+
+Inquiry-Update Pattern:
+  1. Display inquiry screen (SEND MAP MAPONLY)
+  2. User enters key → RECEIVE → READ file → display data (SEND DATAONLY)
+  3. User modifies → RECEIVE → validate → REWRITE → confirm
+
+Scratchpad Pattern:
+  Store complex state in TS queue (keyed by EIBTRMID).
+  Each pseudo-conversational return saves state to TS.
+  Each return retrieves state from TS.
+
+Multi-Page Pattern:
+  Large result set stored in TS queue.
+  Display one page at a time.
+  PF7 = page up, PF8 = page down.
+  COMMAREA tracks current page number.
+
+Error Handling Pattern:
+  Central error program — LINK to it from any program.
+  Passes: error code, program name, transaction ID.
+  Error program logs, displays message, optionally ABENDs.
+
+Pro Tip: Keep programs small (one function each). Use XCTL to chain them. COMMAREA or channels pass data between programs.`},{title:"CICS — FORMATTIME & Date Handling",level:"Beginner",content:`Working with dates and times in CICS programs.
+
+ASKTIME:
+  EXEC CICS ASKTIME ABSTIME(WS-ABSTIME) END-EXEC
+  Gets current timestamp as absolute time (packed decimal).
+
+FORMATTIME:
+  EXEC CICS FORMATTIME ABSTIME(WS-ABSTIME)
+    DDMMYYYY(WS-DATE) TIME(WS-TIME) TIMESEP(':') DATESEP('/')
+    RESP(WS-RESP) END-EXEC
+  Formats timestamp into readable fields.
+
+Output Fields:
+  DDMMYYYY, MMDDYYYY, YYYYMMDD — Date formats
+  YYYYDDD — Julian date
+  TIME — HHMMSS
+  DAYCOUNT — Days since Jan 1, 1900
+  DAYOFWEEK — 0=Sunday, 6=Saturday
+  MONTHOFYEAR — 1-12
+
+Common Use:
+  Display current date/time on BMS screen.
+  Stamp records with creation timestamp.
+
+Pro Tip: Always use ASKTIME + FORMATTIME together. ASKTIME captures the moment, FORMATTIME converts it.`},{title:"CICS — Interval Control Timer",level:"Intermediate",content:`Schedule delayed and recurring tasks in CICS.
+
+DELAY:
+  EXEC CICS DELAY INTERVAL(000005) END-EXEC — Wait 5 seconds
+  EXEC CICS DELAY FOR HOURS(1) MINUTES(30) END-EXEC
+
+POST (Timer Event):
+  EXEC CICS POST INTERVAL(001000) SET(WS-TIMER-PTR) REQID('TMR1') END-EXEC
+  Posts a timer event after 10 minutes.
+
+WAIT EVENT:
+  EXEC CICS WAIT EVENT ECADDR(WS-TIMER-PTR) END-EXEC
+  Waits until the timer fires.
+
+CANCEL:
+  EXEC CICS CANCEL REQID('TMR1') END-EXEC
+  Cancels a pending timer.
+
+START with INTERVAL:
+  EXEC CICS START TRANSID('RPT1') INTERVAL(013000) END-EXEC
+  Schedules transaction RPT1 to run in 1h30m.
+
+Use Cases:
+  • Delayed notifications
+  • Scheduled cleanup tasks
+  • Retry logic with backoff
+  • Periodic health checks
+
+Pro Tip: DELAY blocks the task. START launches a new task. Use START for background work, DELAY only for brief waits.`},{title:"CICS — Queue Management Patterns",level:"Intermediate",content:`Best practices for managing TS and TD queues in production.
+
+TS Queue Naming:
+  Convention: TRANSID + EIBTRMID for uniqueness per user.
+  STRING EIBTRNID EIBTRMID INTO WS-QUEUE-NAME
+  Or: 'CUST' + USER-ID for user-specific data.
+
+TS Queue Cleanup:
+  Always DELETEQ when done. Orphaned queues waste storage.
+  Add cleanup logic in error paths too.
+
+Paging Pattern (Multi-Page Display):
+  1. Read all matching records into TS queue (one item per record)
+  2. COMMAREA stores: current page, total items, queue name
+  3. PF8 (forward): Read items N+1 to N+PAGESIZE from TS
+  4. PF7 (backward): Read items N-PAGESIZE+1 to N from TS
+  5. On exit: DELETEQ TS
+
+TD Queue Monitoring:
+  Use trigger levels to auto-start processing when queue fills.
+  CEDA DEFINE TDQUEUE: TRIGGERLEVEL(100) TRANSID(PRTQ)
+  After 100 records written, PRTQ transaction starts automatically.
+
+TD Extrapartition for Batch Interface:
+  CICS writes to TD → TD maps to JCL DD → Sequential dataset → Batch reads.
+  Clean interface between online and batch.
+
+Pro Tip: For TS queues, always include cleanup in both normal and error paths. Storage leaks are hard to diagnose in production.`},{title:"CICS — Security Implementation",level:"Advanced",content:`CICS security through RACF and CICS built-in mechanisms.
+
+RACF Integration:
+  CICS uses RACF (or equivalent) for authentication and authorization.
+  User signs on to CICS → RACF validates → Security token created.
+
+Transaction Security:
+  RACF class: TCICSTRN
+  PERMIT CUST IN CLASS(TCICSTRN) ID(USER1) ACCESS(READ)
+  User1 can execute transaction CUST.
+
+Resource Security:
+  File security: RACF class FCICSFCT
+  Program security: RACF class PCICSPPT
+  TS Queue security: RACF class TCICSTST
+
+EXEC CICS VERIFY:
+  EXEC CICS VERIFY USERID(WS-USER) PASSWORD(WS-PASS) RESP(WS-RESP) END-EXEC
+  Programmatic authentication check.
+
+EXEC CICS QUERY SECURITY:
+  EXEC CICS QUERY SECURITY RESTYPE('DATASET') RESID('MY.FILE')
+    LOGMESSAGE(WS-LOG) RESP(WS-RESP) END-EXEC
+  Check if current user has access before attempting operation.
+
+SIGNON/SIGNOFF:
+  EXEC CICS SIGNON USERID(WS-USER) PASSWORD(WS-PASS) END-EXEC
+  Changes the security context of the terminal.
+
+Pro Tip: Always use QUERY SECURITY before sensitive operations. Better to check access than ABEND with security violation.`},{title:"CICS — Problem Determination",level:"Advanced",content:`Diagnosing CICS problems in production.
+
+Transaction Dumps:
+  EXEC CICS DUMP TRANSACTION DUMPCODE('MYCD') END-EXEC
+  Creates a transaction dump for analysis.
+
+System Dump:
+  Triggered by CICS or z/OS for severe errors.
+  Analyzed with IPCS (Interactive Problem Control System).
+
+CICS Messages:
+  DFHxxnnnn format. xx = component, nnnn = message number.
+  DFHFC — File Control. DFHDB — DB2. DFHTD — Transient Data.
+  Look up messages in CICS Messages and Codes manual.
+
+Trace:
+  CETR — CICS trace transaction.
+  Auxiliary trace → writes to trace dataset.
+  Internal trace → circular buffer in memory.
+  Use trace points to follow execution flow.
+
+Common ABENDs:
+  ASRA — Program check (like S0C7, S0C4 in batch)
+  AICA — Runaway task (infinite loop)
+  AEY9 — DB2 not available
+  AKCS — Deadlock detected
+  AEIO — File not found or disabled
+
+Diagnostic Steps:
+  1. Check CICS messages in CSMT log
+  2. Check transaction dump
+  3. Run CEDF to reproduce
+  4. Check trace if needed
+  5. Review CICS statistics for patterns
+
+Pro Tip: ASRA is the CICS equivalent of batch S0C7/S0C4. Debug the same way — check data values and statement offsets.`},{title:"CICS Interview Questions",level:"All Levels",content:`CICS Interview Questions — 35+ Q&A organized by level.
 
 === BEGINNER ===
 
@@ -9865,7 +13589,7 @@ CEMT — Master terminal (INQ/SET resources)
 CEDA — Resource definition
 CEDF — Execution diagnostic facility
 CECI — Command interpreter
-CEBR — TS queue browser`}]},xo={id:"imsdb",icon:"🌳",title:"IMS DB",subtitle:"Hierarchical Database System",color:"#22c55e",level:"Beginner → Expert",description:"The grandfather of all databases. Still processing millions of transactions for the world's largest financial systems.",sections:[{title:"Introduction to IMS",level:"Beginner",content:`IMS (Information Management System) was developed by IBM and North American Rockwell for the Apollo space program in 1966. It is the world's first commercial database management system and remains one of the most powerful transaction processors ever built.
+CEBR — TS queue browser`}]},Fo={id:"imsdb",icon:"🌳",title:"IMS DB",subtitle:"Hierarchical Database System",color:"#22c55e",level:"Beginner → Expert",description:"The grandfather of all databases. Still processing millions of transactions for the world's largest financial systems.",sections:[{title:"Introduction to IMS",level:"Beginner",content:`IMS (Information Management System) was developed by IBM and North American Rockwell for the Apollo space program in 1966. It is the world's first commercial database management system and remains one of the most powerful transaction processors ever built.
 
 IMS has two major components:
   • IMS DB (Database Manager) — Hierarchical database management
@@ -10659,7 +14383,7 @@ AI — Open failure        IX — Deadlock
 ═══ SSA FORMAT ═══
 Unqualified: segname
 Qualified: segname(field OP value)
-Operators: =, >=, <=, >, <, !=`}]},vo={id:"ca7",icon:"📅",title:"CA7",subtitle:"Workload Automation Scheduler",color:"#f97316",level:"Beginner → Expert",description:"The scheduler that never sleeps. Millions of jobs, zero missed SLAs, full dependency management.",sections:[{title:"Introduction to CA7",level:"Beginner",content:`CA7 (now Broadcom AutoSys Workload Automation for z/OS, but universally known as CA7) is the dominant workload automation scheduler on IBM z/OS mainframes. It controls when, how, and in what order batch jobs run.
+Operators: =, >=, <=, >, <, !=`}]},Bo={id:"ca7",icon:"📅",title:"CA7",subtitle:"Workload Automation Scheduler",color:"#f97316",level:"Beginner → Expert",description:"The scheduler that never sleeps. Millions of jobs, zero missed SLAs, full dependency management.",sections:[{title:"Introduction to CA7",level:"Beginner",content:`CA7 (now Broadcom AutoSys Workload Automation for z/OS, but universally known as CA7) is the dominant workload automation scheduler on IBM z/OS mainframes. It controls when, how, and in what order batch jobs run.
 
 Why Scheduling Matters:
   A typical mainframe data center runs 50,000–500,000+ batch jobs per day. These jobs have complex dependencies — Job B can't run until Job A finishes, Job C needs a file from Job B, and Job D must complete before 6 AM. CA7 manages all of this automatically.
@@ -11169,7 +14893,7 @@ Successor — Triggered after completion
 Schedule ID — Calendar-based trigger
 
 ═══ COMMON SCHEDULERS ═══
-CA-7 (Broadcom), TWS (IBM), Control-M (BMC), Zeke`}]},Bo={id:"security",icon:"🔐",title:"RACF & Security",subtitle:"z/OS Access Control",color:"#ec4899",level:"Beginner → Expert",description:"Protecting the world's most sensitive data. RACF, ACF2, TopSecret — z/OS security from login to dataset.",sections:[{title:"z/OS Security Fundamentals",level:"Beginner",content:`Mainframe Security — Why It's the Gold Standard:
+CA-7 (Broadcom), TWS (IBM), Control-M (BMC), Zeke`}]},vo={id:"security",icon:"🔐",title:"RACF & Security",subtitle:"z/OS Access Control",color:"#ec4899",level:"Beginner → Expert",description:"Protecting the world's most sensitive data. RACF, ACF2, TopSecret — z/OS security from login to dataset.",sections:[{title:"z/OS Security Fundamentals",level:"Beginner",content:`Mainframe Security — Why It's the Gold Standard:
 
 IBM mainframes process the world's most sensitive transactions: banking, healthcare, government, insurance. z/OS security is built into the operating system at every level — it's not an add-on.
 
@@ -11747,7 +15471,7 @@ LISTDSD DA('dataset') ALL
 SEARCH FILTER(pattern)
 
 ═══ ACCESS LEVELS ═══
-NONE → READ → UPDATE → CONTROL → ALTER`}]},Fo={id:"tso",icon:"🖥️",title:"TSO / ISPF",subtitle:"z/OS Interactive Environment",color:"#14b8a6",level:"Beginner → Expert",description:"The interactive command shell and editor of z/OS. Every mainframe developer's daily workspace.",sections:[{title:"Introduction to TSO & ISPF",level:"Beginner",content:`TSO (Time Sharing Option) and ISPF (Interactive System Productivity Facility) are the primary interactive interfaces on z/OS.
+NONE → READ → UPDATE → CONTROL → ALTER`}]},xo={id:"tso",icon:"🖥️",title:"TSO / ISPF",subtitle:"z/OS Interactive Environment",color:"#14b8a6",level:"Beginner → Expert",description:"The interactive command shell and editor of z/OS. Every mainframe developer's daily workspace.",sections:[{title:"Introduction to TSO & ISPF",level:"Beginner",content:`TSO (Time Sharing Option) and ISPF (Interactive System Productivity Facility) are the primary interactive interfaces on z/OS.
 
 TSO — The Command Shell:
   TSO is z/OS's interactive command processor. Think of it as the mainframe equivalent of a Unix shell or Windows command prompt. TSO allows users to:
@@ -13966,7 +17690,7 @@ Q: What is the difference between RMF Monitor I, II, and III?
 A: Monitor I collects data at intervals (15 min) to SMF for long-term trend analysis and capacity planning. Monitor II provides real-time interactive display via TSO for immediate problem diagnosis. Monitor III provides detailed per-address-space data for analyzing individual job performance. Use I for reporting, II for firefighting, III for deep analysis.
 
 Q: How does MSU-based pricing work?
-A: IBM z/OS software pricing (MLC) is based on the Rolling 4-Hour Average (R4HA) of MSU (Million Service Units) consumption. The system records MSU usage every 5 minutes, calculates the highest rolling 4-hour average, and software charges are based on this peak. This incentivizes spreading workloads to avoid peaks — batch scheduling, zIIP offload, and WLM tuning all reduce the R4HA and thus software costs.`}]},Go={id:"procs",icon:"📋",title:"PROCs & Utilities",subtitle:"JCL PROCs, DFSORT, ICETOOL, Utilities",color:"#ef4444",level:"Beginner → Expert",description:"Production JCL is built on reusable procedures and powerful utilities. Master them and you can automate anything.",sections:[{title:"Understanding JCL PROCs",level:"Beginner",content:`JCL Procedures (PROCs) — Reusable JCL Templates:
+A: IBM z/OS software pricing (MLC) is based on the Rolling 4-Hour Average (R4HA) of MSU (Million Service Units) consumption. The system records MSU usage every 5 minutes, calculates the highest rolling 4-hour average, and software charges are based on this peak. This incentivizes spreading workloads to avoid peaks — batch scheduling, zIIP offload, and WLM tuning all reduce the R4HA and thus software costs.`}]},Wo={id:"procs",icon:"📋",title:"PROCs & Utilities",subtitle:"JCL PROCs, DFSORT, ICETOOL, Utilities",color:"#ef4444",level:"Beginner → Expert",description:"Production JCL is built on reusable procedures and powerful utilities. Master them and you can automate anything.",sections:[{title:"Understanding JCL PROCs",level:"Beginner",content:`JCL Procedures (PROCs) — Reusable JCL Templates:
 
 A PROC is a pre-defined set of JCL statements stored in a library that can be invoked by multiple jobs. PROCs are fundamental to standardized, maintainable production JCL.
 
@@ -14694,7 +18418,7 @@ Q: How do you pass parameters to a PROC?
 A: Through symbolic parameters. Define parameters in the PROC statement with defaults: //MYPROC PROC HLQ=TEST,ENV=DEV. Override on the EXEC statement calling the PROC: //STEP1 EXEC MYPROC,HLQ=PROD,ENV=LIVE. System symbols (&SYSUID, &LYYMMDD) are also available.
 
 Q: How would you join two flat files like a SQL JOIN?
-A: Use ICETOOL SPLICE or DFSORT JOINKEYS. SPLICE is simpler for basic joins: SPLICE FROM(MASTER) TO(OUTPUT) ON(1,6,CH) WITH(TRANS) USING(CTL1). JOINKEYS is more powerful for complex joins including outer joins: JOINKEYS FILE=F1,FIELDS=(1,6,A) / JOINKEYS FILE=F2,FIELDS=(1,6,A) / JOIN UNPAIRED,F1,F2.`}]},Wo={id:"zos",icon:"🖥️",title:"z/OS Fundamentals",subtitle:"The Operating System That Runs the World",color:"#1d4ed8",level:"Beginner → Expert",description:"z/OS is the most reliable operating system ever built. Understanding its architecture is the foundation of everything mainframe.",sections:[{title:"What is z/OS?",level:"Beginner",content:`z/OS — The Operating System of Enterprise Computing:
+A: Use ICETOOL SPLICE or DFSORT JOINKEYS. SPLICE is simpler for basic joins: SPLICE FROM(MASTER) TO(OUTPUT) ON(1,6,CH) WITH(TRANS) USING(CTL1). JOINKEYS is more powerful for complex joins including outer joins: JOINKEYS FILE=F1,FIELDS=(1,6,A) / JOINKEYS FILE=F2,FIELDS=(1,6,A) / JOIN UNPAIRED,F1,F2.`}]},Go={id:"zos",icon:"🖥️",title:"z/OS Fundamentals",subtitle:"The Operating System That Runs the World",color:"#1d4ed8",level:"Beginner → Expert",description:"z/OS is the most reliable operating system ever built. Understanding its architecture is the foundation of everything mainframe.",sections:[{title:"What is z/OS?",level:"Beginner",content:`z/OS — The Operating System of Enterprise Computing:
 
 z/OS is IBM’s flagship operating system for the IBM Z mainframe platform. It is the most robust, secure, and reliable operating system ever created — designed for continuous operation with 99.999% uptime.
 
@@ -15078,7 +18802,7 @@ Q: What is a Parallel Sysplex?
 A: A cluster of up to 32 z/OS systems sharing a Coupling Facility. Benefits: automatic failover, rolling maintenance, workload balancing, DB2 data sharing.
 
 Q: How does RACF protect resources?
-A: RACF uses profiles to define access rules. Checks discrete profile, then generic profile, evaluates access level (NONE/READ/UPDATE/CONTROL/ALTER), logs to SMF Type 80.`}]},P=[Wo,Po,No,yo,Mo,bo,xo,Uo,vo,Bo,Fo,Go,ko,wo,Yo],na=[{id:"s1",category:"JCL",difficulty:"Beginner",question:"Your JCL job abended with ABEND S0C7 in STEP2. What does this mean and how do you diagnose it?",answer:`S0C7 is a Data Exception abend — it occurs when a program attempts arithmetic on a field that does not contain valid numeric data (packed decimal or zoned decimal).
+A: RACF uses profiles to define access rules. Checks discrete profile, then generic profile, evaluates access level (NONE/READ/UPDATE/CONTROL/ALTER), logs to SMF Type 80.`}]},N=[Go,No,Po,Mo,yo,bo,Fo,Uo,Bo,vo,xo,Wo,ko,wo,Yo],tn=[{id:"s1",category:"JCL",difficulty:"Beginner",question:"Your JCL job abended with ABEND S0C7 in STEP2. What does this mean and how do you diagnose it?",answer:`S0C7 is a Data Exception abend — it occurs when a program attempts arithmetic on a field that does not contain valid numeric data (packed decimal or zoned decimal).
 
 DIAGNOSIS STEPS:
 1. Check SYSOUT/JESMSGLG for the exact PSW (Program Status Word) and offset
@@ -17083,7 +20807,7 @@ Most large shops run:
 The data often flows: IMS (OLTP) → DB2 (reporting/analytics) via batch or real-time CDC (Change Data Capture).
 
 Modern Consideration: IMS Universal Drivers
-IBM's IMS Universal Drivers allow Java applications and SQL-like access to IMS data through JDBC and SQL-like syntax. This significantly reduces the argument for "we have to move to DB2 to get SQL access" — you can get SQL-like access while keeping IMS's performance characteristics.`}],Te=[{q:"What does S0C7 abend code mean?",options:["Storage violation","Data exception - non-numeric in numeric field","Program not found","Time limit exceeded"],answer:1,explanation:"S0C7 is a data exception - occurs when packed decimal or zoned decimal arithmetic is performed on a field containing non-numeric data.",topic:"z/OS"},{q:"What is the maximum addressable storage in 64-bit z/OS?",options:["2 GB","16 EB (exabytes)","4 TB","256 TB"],answer:1,explanation:"64-bit z/OS addressing supports up to 16 exabytes (2^64 bytes) of virtual storage per address space.",topic:"z/OS"},{q:"What is the '16 MB line' in z/OS?",options:["Maximum file size","24-bit addressing boundary","Network packet limit","Console buffer size"],answer:1,explanation:"The 16 MB line is the boundary of 24-bit addressing (2^24 = 16,777,216). Programs below use 24-bit addresses; above uses 31-bit.",topic:"z/OS"},{q:"What does IPL stand for in z/OS?",options:["Internal Program Load","Initial Program Load","Integrated Processing Layer","Input Program Launcher"],answer:1,explanation:"IPL = Initial Program Load. It's the mainframe equivalent of booting — loading the z/OS nucleus into memory.",topic:"z/OS"},{q:"Which z/OS component manages workload distribution?",options:["JES2","WLM","RACF","VTAM"],answer:1,explanation:"WLM (Workload Manager) distributes system resources based on business goals and service classes.",topic:"z/OS"},{q:"What does the z/OS Master Scheduler do?",options:["Schedules batch jobs","Controls system init and shutdown","Manages tape mounts","Handles network routing"],answer:1,explanation:"The Master Scheduler controls z/OS initialization, shutdown, and manages the operator console interface.",topic:"z/OS"},{q:"What is a z/OS LPAR?",options:["Logical Partition - a virtual mainframe","Load Program Archive","Library Partition","Linked Process Area"],answer:0,explanation:"LPAR (Logical Partition) divides a physical mainframe into independent virtual machines, each running its own z/OS.",topic:"z/OS"},{q:"What does S0C4 abend indicate?",options:["Data exception","Protection exception (invalid memory access)","Time exceeded","I/O error"],answer:1,explanation:"S0C4 is a protection exception — the program tried to access storage it doesn't own.",topic:"z/OS"},{q:"What is the '2 GB bar' in z/OS?",options:["Maximum dataset size","31-bit addressing limit","Network throughput cap","JES spool limit"],answer:1,explanation:"The 2 GB bar is the 31-bit addressing boundary (2^31). Storage above the bar requires AMODE 64 programs.",topic:"z/OS"},{q:"What does z/OS USS stand for?",options:["Universal Storage System","UNIX System Services","User Security Subsystem","Utility Sort Service"],answer:1,explanation:"USS = UNIX System Services. Provides a POSIX-compliant UNIX environment within z/OS.",topic:"z/OS"},{q:"Which utility creates a memory dump for debugging?",options:["IEBCOPY","AMATERSE","IEATDUMP","IDCAMS"],answer:2,explanation:"IEATDUMP creates SVC dumps for debugging. You can also use SNAP dumps or SYSMDUMP/SYSUDUMP DD statements.",topic:"z/OS"},{q:"What is a z/OS catalog?",options:["A list of all programs","An index mapping dataset names to physical locations","A security database","A job schedule"],answer:1,explanation:"The z/OS catalog maps dataset names to their physical locations on DASD volumes.",topic:"z/OS"},{q:"What is DASD in mainframe terminology?",options:["Direct Access Storage Device (disk)","Data Archive Storage Drive","Digital Analog Signal Device","Dynamic Allocation Storage"],answer:0,explanation:"DASD = Direct Access Storage Device, i.e., disk drives. Unlike tape, DASD supports random I/O access.",topic:"z/OS"},{q:"What does S878 abend code mean?",options:["Security violation","Virtual storage exhausted","Dataset not found","Program check"],answer:1,explanation:"S878 means the address space ran out of virtual storage. Increase REGION parameter or reduce memory usage.",topic:"z/OS"},{q:"Which JCL DISP value gives exclusive access to an existing dataset?",options:["SHR","NEW","MOD","OLD"],answer:3,explanation:"OLD gives exclusive access - no other job can access the dataset simultaneously.",topic:"JCL"},{q:"What does DISP=(NEW,CATLG,DELETE) mean?",options:["Create new, catalog if ok, delete if fail","New allocation, always catalog","Catalog then delete","Create and replace existing"],answer:0,explanation:"DISP=(status,normal,abnormal): NEW creates it, CATLG catalogs on success, DELETE removes on abnormal end.",topic:"JCL"},{q:"What does COND=(4,LT) on an EXEC statement mean?",options:["Skip if any prior RC < 4","Execute only if all RCs < 4","Skip if any prior RC > 4","Execute if RC = 4"],answer:0,explanation:"COND=(4,LT): skip if 4 is Less Than any prior return code. In other words, skip if any RC > 4.",topic:"JCL"},{q:"What is the purpose of the JCLLIB statement?",options:["Define job libraries","Specify PROC search order","Set JCL variables","Load program libraries"],answer:1,explanation:"JCLLIB ORDER specifies libraries JES searches to find PROCs and INCLUDEs.",topic:"JCL"},{q:"What does REGION=0M request?",options:["Zero memory","Maximum available region","Default region","Minimum region"],answer:1,explanation:"REGION=0M requests the maximum available private area below and above the 16 MB line.",topic:"JCL"},{q:"What is the maximum number of steps in a JCL job?",options:["99","255","999","Unlimited"],answer:1,explanation:"A JCL job can have a maximum of 255 steps.",topic:"JCL"},{q:"What DD parameter specifies record format?",options:["RECFM","FORMAT","RECORD","DCB"],answer:0,explanation:"RECFM specifies record format: F (fixed), V (variable), FB (fixed blocked), VB (variable blocked), U (undefined).",topic:"JCL"},{q:"What does MOD disposition do for sequential datasets?",options:["Modifies record format","Opens for append (adds to end)","Creates modified copy","Moves data"],answer:1,explanation:"MOD opens an existing sequential dataset for append — new records added after the last existing record.",topic:"JCL"},{q:"What is MSGLEVEL=(1,1) in JCL?",options:["Minimum messages","All JCL + all allocation messages","Errors only","No output"],answer:1,explanation:"MSGLEVEL=(1,1) shows all JCL statements (including PROCs) and all allocation messages — best for debugging.",topic:"JCL"},{q:"What does SPACE=(CYL,(10,5),RLSE) mean?",options:["10 cyl, 5 tracks, release","10 primary CYL, 5 secondary CYL, release unused","10 MB, 5 MB overflow","Cylinder 10 through 5"],answer:1,explanation:"Allocate 10 primary cylinders, up to 15 secondary extents of 5 cylinders each, release unused space at close.",topic:"JCL"},{q:"What is the purpose of STEPLIB DD?",options:["Step output library","Search library for load modules in this step","Step listing","Library for SYSIN data"],answer:1,explanation:"STEPLIB specifies private libraries to search for load modules before the system LNKLST. Applies to one step.",topic:"JCL"},{q:"What is a JCL PROC?",options:["A reusable set of JCL steps","A program call","A process ID","A procedure division"],answer:0,explanation:"A PROC is a pre-written set of JCL statements stored in a library. PROCs enable reuse and reduce errors.",topic:"JCL"},{q:"What does SET symbolics do in JCL?",options:["Set system time","Define symbolic parameter values","Set job priority","Configure output"],answer:1,explanation:"SET assigns values to JCL symbolic parameters which are substituted throughout the JCL before execution.",topic:"JCL"},{q:"What is the purpose of DD DUMMY?",options:["Creates empty dataset","Skips I/O — reads return EOF, writes discarded","Deletes dataset","Placeholder"],answer:1,explanation:"DD DUMMY causes reads to return EOF and writes to be discarded. Useful for testing without actual I/O.",topic:"JCL"},{q:"Which JCL parameter overrides a PROC step DD?",options:["OVERRIDE","step.DD","MODIFY","REPLACE"],answer:1,explanation:"Override PROC DDs using stepname.ddname syntax: //STEP1.SORTIN DD DSN=MY.FILE",topic:"JCL"},{q:"What does IEF212I message indicate?",options:["Job completed","Dataset not found during allocation","Security violation","JCL error"],answer:1,explanation:"IEF212I means a dataset specified in JCL was not found during allocation.",topic:"JCL"},{q:"In COBOL, what does COMP-3 (PACKED-DECIMAL) storage use?",options:["1 byte per digit","2 digits per byte plus sign nibble","4 bytes fixed","Platform-dependent"],answer:1,explanation:"COMP-3 stores 2 decimal digits per byte, with the last nibble for the sign.",topic:"COBOL"},{q:"What COBOL statement reads the next sequential record?",options:["GET NEXT","READ file NEXT","FETCH NEXT","INPUT RECORD"],answer:1,explanation:"READ filename NEXT RECORD reads the next sequential record.",topic:"COBOL"},{q:"What does INITIALIZE do in COBOL?",options:["Starts program","Sets fields to defaults (spaces/zeros)","Opens files","Allocates memory"],answer:1,explanation:"INITIALIZE sets alphanumeric fields to spaces and numeric fields to zeros.",topic:"COBOL"},{q:"What is the maximum length of a COBOL PIC X field?",options:["256","1024","32767","16777215"],answer:2,explanation:"PIC X fields can be up to 32,767 characters.",topic:"COBOL"},{q:"What does PERFORM VARYING do?",options:["Variable execution","Loop with counter incrementing","Dynamic call","Performance monitoring"],answer:1,explanation:"PERFORM VARYING creates a counted loop: PERFORM para VARYING idx FROM 1 BY 1 UNTIL idx > 100.",topic:"COBOL"},{q:"What is a COBOL COPYBOOK?",options:["A backup copy","Reusable code included at compile time","A print format","Documentation"],answer:1,explanation:"A COPYBOOK is a source member included via COPY statement at compile time. Used for shared data structures.",topic:"COBOL"},{q:"Which COBOL division contains file definitions?",options:["DATA DIVISION","ENVIRONMENT DIVISION","PROCEDURE DIVISION","IDENTIFICATION DIVISION"],answer:1,explanation:"FILE-CONTROL in ENVIRONMENT DIVISION maps logical names to physical files. FD entries in DATA DIVISION define layouts.",topic:"COBOL"},{q:"What does STRING ... DELIMITED BY do?",options:["Deletes strings","Concatenates strings with a delimiter","Splits strings","Searches strings"],answer:1,explanation:"STRING concatenates multiple source fields into one destination, using DELIMITED BY to control inclusion.",topic:"COBOL"},{q:"What is COMP (BINARY) storage format?",options:["Character","Binary integer (halfword/fullword)","Floating point","Packed decimal"],answer:1,explanation:"COMP/BINARY stores data as binary integers: PIC S9(4) COMP = 2 bytes, PIC S9(9) COMP = 4 bytes.",topic:"COBOL"},{q:"What does EVALUATE TRUE do in COBOL?",options:["Validates data","Acts as CASE/SWITCH statement","Checks boolean","Evaluates expressions"],answer:1,explanation:"EVALUATE TRUE works like a CASE statement — each WHEN tests a condition, executing the first match.",topic:"COBOL"},{q:"What is COBOL's LINKAGE SECTION for?",options:["Link to external files","Describes data passed from calling program","Define network links","Connect databases"],answer:1,explanation:"LINKAGE SECTION describes parameters passed via CALL...USING. The data exists in the caller's storage.",topic:"COBOL"},{q:"What does ON SIZE ERROR do?",options:["Checks field size","Handles arithmetic overflow","Validates screen size","Checks record length"],answer:1,explanation:"ON SIZE ERROR catches arithmetic overflow during COMPUTE/ADD/SUBTRACT/MULTIPLY/DIVIDE.",topic:"COBOL"},{q:"How do you call a subprogram dynamically?",options:["CALL literal","CALL identifier","PERFORM","INVOKE"],answer:1,explanation:"CALL identifier (variable) performs dynamic calling — program loaded at runtime. CALL literal is static.",topic:"COBOL"},{q:"What is COBOL REDEFINES used for?",options:["Redefining paragraphs","Mapping different layouts to same memory","Renaming variables","Overriding values"],answer:1,explanation:"REDEFINES allows two data descriptions to share the same physical storage — like a C union.",topic:"COBOL"},{q:"What does Enterprise COBOL V6 JSON GENERATE do?",options:["Creates JSON config","Converts COBOL data to JSON natively","Generates test data","Parses web input"],answer:1,explanation:"JSON GENERATE creates JSON from COBOL data structures. Combined with z/OS Connect, COBOL can produce API responses.",topic:"COBOL"},{q:"What is the COBOL INSPECT statement used for?",options:["Debug inspection","Counting and replacing characters in a field","File inspection","Security audit"],answer:1,explanation:"INSPECT TALLYING counts occurrences; INSPECT REPLACING substitutes characters.",topic:"COBOL"},{q:"What does GOBACK do in COBOL?",options:["Returns to previous paragraph","Returns control to caller or system","Goes to beginning","Backs up a record"],answer:1,explanation:"GOBACK returns control to the calling program or to z/OS if it's the main program. Preferred over STOP RUN.",topic:"COBOL"},{q:"What is FILE STATUS in COBOL?",options:["File open/close state","2-byte return code from file operations","File size","Disk status"],answer:1,explanation:"FILE STATUS is a 2-byte field: '00' = success, '10' = EOF, '23' = record not found, etc.",topic:"COBOL"},{q:"What does CORRESPONDING (CORR) do?",options:["Creates correspondence","Moves/adds fields with matching names between groups","Correlates files","Links records"],answer:1,explanation:"MOVE CORRESPONDING moves data between groups where subordinate fields have the same name.",topic:"COBOL"},{q:"What COBOL clause makes a program reentrant?",options:["REENTRANT","RECURSIVE","IS INITIAL","THREAD"],answer:2,explanation:"IS INITIAL reinitializes working storage each call. For true reentrancy, compile with RENT option.",topic:"COBOL"},{q:"Which VSAM type supports key-based random access?",options:["ESDS","RRDS","KSDS","LDS"],answer:2,explanation:"KSDS (Key-Sequenced Data Set) stores records sorted by key and supports random and sequential access.",topic:"VSAM"},{q:"What is a VSAM Control Interval (CI)?",options:["Time between operations","The basic unit of data transfer","A monitoring interval","Index level"],answer:1,explanation:"A CI is the smallest unit of data transfer between DASD and memory.",topic:"VSAM"},{q:"What does a CI split mean?",options:["CI corrupted","A full CI splits to fit a new record","CI backed up","CI formatting"],answer:1,explanation:"When a CI is full, VSAM splits it — moving half the records to a new CI. Frequent splits hurt performance.",topic:"VSAM"},{q:"What is FREESPACE(CI% CA%) in VSAM?",options:["Disk free space","Reserved space in CIs/CAs for inserts","Unused allocation","Memory buffer"],answer:1,explanation:"FREESPACE reserves empty space for future inserts. Reduces CI/CA splits for insert-heavy files.",topic:"VSAM"},{q:"What IDCAMS command creates a VSAM cluster?",options:["CREATE CLUSTER","DEFINE CLUSTER","ALLOCATE VSAM","BUILD CLUSTER"],answer:1,explanation:"DEFINE CLUSTER creates a new VSAM dataset with key position, record size, space, etc.",topic:"VSAM"},{q:"What is an Alternate Index (AIX)?",options:["Backup index","Secondary access path using non-primary key","Alternate file","Index copy"],answer:1,explanation:"An AIX provides access using a different key — e.g., employee file by name instead of ID.",topic:"VSAM"},{q:"What does SHAREOPTIONS(2,3) mean?",options:["2 readers, 3 writers","Cross-region(2) and cross-system(3) sharing levels","Buffer settings","2 indexes, 3 data"],answer:1,explanation:"Level 2 = multiple readers OR one writer within a system. Level 3 = multiple readers/writers across systems.",topic:"VSAM"},{q:"What is VSAM RLS?",options:["Record Level Sharing","Read Lock System","Remote Library","Record Length Spec"],answer:0,explanation:"RLS enables multiple CICS regions to access the same VSAM file with record-level locking via the coupling facility.",topic:"VSAM"},{q:"What does REPRO do in IDCAMS?",options:["Reproduce definition","Copy records between datasets","Repair files","Replace records"],answer:1,explanation:"REPRO copies records between datasets. Used for VSAM backup/restore and loading from sequential.",topic:"VSAM"},{q:"What is the max number of extents for VSAM?",options:["16","123","255","Unlimited"],answer:1,explanation:"A VSAM dataset can have up to 123 extents per volume and span up to 59 volumes.",topic:"VSAM"},{q:"What does VERIFY do in IDCAMS?",options:["Validates integrity","Corrects EOF marker after abnormal close","Verifies passwords","Checks catalog"],answer:1,explanation:"VERIFY corrects the VSAM catalog high-used RBA after an abnormal close.",topic:"VSAM"},{q:"What is a VSAM ESDS?",options:["Entry-Sequenced Data Set","Extended Sequential","Error-Safe Data Set","Enterprise Storage"],answer:0,explanation:"ESDS stores records in insertion order. No key, no delete, no variable-length rewrite. Like a log file.",topic:"VSAM"},{q:"What does LISTCAT show for VSAM?",options:["Catalog list","Detailed attributes: splits, extents, RBA","Listed categories","File contents"],answer:1,explanation:"LISTCAT ALL shows CI/CA splits, FREESPACE usage, extents, record counts — vital for VSAM health monitoring.",topic:"VSAM"},{q:"What is VSAM RRDS organization?",options:["Relative Record Data Set","Random Read Data Set","Relational Record","Recovery Record"],answer:0,explanation:"RRDS accesses records by relative record number (slot number). Fixed-length records in numbered slots.",topic:"VSAM"},{q:"In DB2, what does SQLCODE 100 mean?",options:["Successful","Row not found / End of cursor","Duplicate key","Auth error"],answer:1,explanation:"SQLCODE 100 = row not found for SELECT, or end of data for FETCH. Expected, not an error.",topic:"DB2"},{q:"What does SQLCODE -805 mean?",options:["Table not found","Package not found in plan","Column mismatch","Deadlock"],answer:1,explanation:"-805: DBRM not found in the plan/package. Usually means BIND needed after recompile.",topic:"DB2"},{q:"What is the purpose of RUNSTATS in DB2?",options:["Run statistics program","Update catalog stats for the optimizer","Monitor runtime","Calculate storage"],answer:1,explanation:"RUNSTATS collects statistics about data distribution. The optimizer uses these for access path selection.",topic:"DB2"},{q:"What does BIND do in DB2?",options:["Connects to database","Creates access plan from SQL","Binds variables","Links tables"],answer:1,explanation:"BIND compiles SQL from a DBRM into an optimized package, choosing indexes and join methods.",topic:"DB2"},{q:"What is a DB2 tablespace?",options:["Disk partition","Physical storage container for tables","Memory area","Schema definition"],answer:1,explanation:"A tablespace is the physical storage for tables. Types: simple, segmented, partitioned, universal.",topic:"DB2"},{q:"What does SQLCODE -911 mean?",options:["Syntax error","Timeout/deadlock — rollback occurred","Auth failure","Type mismatch"],answer:1,explanation:"-911: unit of work rolled back due to deadlock or timeout. Retry the transaction.",topic:"DB2"},{q:"What is DB2 EXPLAIN?",options:["Documentation","Shows optimizer's access path for SQL","Explains errors","Schema description"],answer:1,explanation:"EXPLAIN shows how DB2 will execute SQL — scans vs index, join methods, sorts. Essential for tuning.",topic:"DB2"},{q:"What does REORG do for DB2 tables?",options:["Reorganizes code","Physically reorganizes data for performance","Renames objects","Restructures SQL"],answer:1,explanation:"REORG reclaims space, restores clustering order, eliminates fragmentation.",topic:"DB2"},{q:"What is a DB2 cursor?",options:["Screen pointer","Processes multiple rows one at a time","Database pointer","Index entry"],answer:1,explanation:"Cursor processes multi-row results one at a time: DECLARE, OPEN, FETCH loop, CLOSE.",topic:"DB2"},{q:"What does WITH UR isolation do?",options:["Read committed only","Read uncommitted data (dirty read)","Update and read","Read with rollback"],answer:1,explanation:"WITH UR allows dirty reads. Highest concurrency, lowest consistency.",topic:"DB2"},{q:"What is SQLCODE -818?",options:["Plan mismatch","Timestamp mismatch precompile vs bind","Table dropped","Index error"],answer:1,explanation:"-818: DBRM timestamp doesn't match package. Recompile and rebind.",topic:"DB2"},{q:"What does DB2 QUIESCE do?",options:["Quiet mode","Establishes recovery point for tablespace","Stops queries","Reduces logging"],answer:1,explanation:"QUIESCE establishes a consistent recovery point useful for point-in-time recovery.",topic:"DB2"},{q:"What is a DB2 STOGROUP?",options:["Storage group for DASD volumes","Stored procedure group","Table group","Security group"],answer:0,explanation:"STOGROUP maps DB2 objects to physical DASD volumes for space allocation.",topic:"DB2"},{q:"What does SELECT ... FOR UPDATE OF do?",options:["Updates immediately","Locks rows for subsequent cursor UPDATE","Selects updates","Formats update"],answer:1,explanation:"FOR UPDATE OF acquires stronger locks to prevent others from changing the data you'll update.",topic:"DB2"},{q:"What is SQLCODE -803?",options:["Duplicate key on unique index","Constraint error","Data truncation","Null violation"],answer:0,explanation:"-803: INSERT/UPDATE would create a duplicate key in a unique index.",topic:"DB2"},{q:"What does DB2 RECOVER TABLESPACE do?",options:["Restores from image copy + applies log","Fixes corrupt data","Recovers dropped tables","Restores indexes"],answer:0,explanation:"RECOVER restores from image copy, then applies log to bring to current or specific point in time.",topic:"DB2"},{q:"What is a DB2 package vs plan?",options:["Same thing","Package = one program's SQL; Plan = collection of packages","Package is bigger","Plan is older"],answer:1,explanation:"Package contains access path for one DBRM. Plan binds packages together for execution.",topic:"DB2"},{q:"What does SQLCODE -904 mean?",options:["Resource unavailable","SQL syntax error","Auth failure","Connection lost"],answer:0,explanation:"-904: tablespace/index stopped, in COPY PENDING, or being recovered.",topic:"DB2"},{q:"Which CICS command reads the next record in a browse?",options:["READNEXT","GETNEXT","BROWSEFWD","READQ"],answer:0,explanation:"EXEC CICS READNEXT reads the next record in a browse started with STARTBR.",topic:"CICS"},{q:"What is the purpose of EXEC CICS SYNCPOINT?",options:["Synchronize screen","Commit current unit of work","Check system time","Synchronize files"],answer:1,explanation:"SYNCPOINT commits all updates, making DB2/VSAM changes permanent.",topic:"CICS"},{q:"What does CICS COMMAREA do?",options:["Communication area — passes data between programs","Command area","Comment storage","Commit area"],answer:0,explanation:"COMMAREA passes data between linked programs or pseudo-conversational iterations. Max 32 KB.",topic:"CICS"},{q:"What is a CICS BMS map?",options:["Basic Mapping Support — screen layouts","Business Map Service","Batch Map System","Binary Map Set"],answer:0,explanation:"BMS defines 3270 screen layouts. SEND MAP displays; RECEIVE MAP gets input.",topic:"CICS"},{q:"What does EXEC CICS LINK do?",options:["Links to website","Calls another program expecting return","Links datasets","Creates connection"],answer:1,explanation:"LINK invokes another program, passing COMMAREA. Control returns when linked program ends.",topic:"CICS"},{q:"What is pseudo-conversational programming?",options:["Fake conversation","Transaction ends between user interactions","Two-user chat","Simulated conversation"],answer:1,explanation:"Transaction ends after screen send, freeing resources. New transaction starts on Enter with COMMAREA.",topic:"CICS"},{q:"What does RESP/RESP2 do in CICS?",options:["Response time","Returns response code — replaces HANDLE CONDITION","Response text","Restart point"],answer:1,explanation:"RESP receives primary response (e.g., DFHRESP(NOTFND)). RESP2 gives detail. Modern error handling.",topic:"CICS"},{q:"What CICS abend is ASRA?",options:["Security violation","Program check (like S0C4/S0C7)","Storage violation","Timeout"],answer:1,explanation:"ASRA = program check within CICS. Same as S0Cx abends in batch.",topic:"CICS"},{q:"What is CICS CSD?",options:["System Definition — resource definitions","Central Storage Device","Customer Service DB","Control Directory"],answer:0,explanation:"CSD contains definitions for programs, transactions, files. Managed with CEDA/CEMT.",topic:"CICS"},{q:"What does EXEC CICS XCTL do?",options:["Transfer control — no return","Execute control","External call","Exit control"],answer:0,explanation:"XCTL transfers control without returning. Caller's storage freed. Unlike LINK which returns.",topic:"CICS"},{q:"What does CICS channel/container replace?",options:["BMS maps","COMMAREA — with no size limit","Files","Queues"],answer:1,explanation:"Channels/containers replace COMMAREA with no 32 KB limit. Supports structured data and microservices.",topic:"CICS"},{q:"What is CICS CEMT?",options:["Master terminal for managing resources","Error handler","Config editor","Memory tool"],answer:0,explanation:"CEMT is the operator transaction: CEMT I PROG(name), CEMT S FILE(name) OPEN, etc.",topic:"CICS"},{q:"What does ATSP abend mean?",options:["Auth failed","Transaction purged due to deadlock timeout","Storage protection","App error"],answer:1,explanation:"ATSP: transaction exceeded DTIMOUT (deadlock timeout). Usually DB2/VSAM lock contention.",topic:"CICS"},{q:"What is CICS Temporary Storage Queue?",options:["Temp disk","Named queue for data between transactions","Temp table","Sort workspace"],answer:1,explanation:"TS queues store data by name across transactions. Main (memory) or Auxiliary (disk).",topic:"CICS"},{q:"What does EXEC CICS RETURN TRANSID do?",options:["Returns error","Sets next transaction for pseudo-conversational","Returns to menu","Identifies transaction"],answer:1,explanation:"RETURN TRANSID('xxxx') COMMAREA(data) ends current transaction and sets next one for Enter key.",topic:"CICS"},{q:"What is DFHCOMMAREA?",options:["Default communication area passed to program","Configuration area","Common definition","Dynamic handler"],answer:0,explanation:"DFHCOMMAREA is the standard LINKAGE SECTION name for the communication area in CICS COBOL.",topic:"CICS"},{q:"What does CICS INQUIRE TRANSACTION do?",options:["Queries transaction definition and status","Ask user","Search logs","Check syntax"],answer:0,explanation:"Returns transaction info: status, program, priority. Used for monitoring and automation.",topic:"CICS"},{q:"What is the CICS EIB?",options:["Execute Interface Block — system info for programs","Error Info Base","External Index Block","Entry Buffer"],answer:0,explanation:"EIB contains EIBTRNID, EIBTRMID, EIBTIME, EIBDATE, response codes, etc.",topic:"CICS"},{q:"In IMS DL/I, what does GHU mean?",options:["Get Hold Unique","Get Next Unit","Get Hierarchical Update","Generic Hold Update"],answer:0,explanation:"GHU = Get Hold Unique. HOLD locks the segment for subsequent REPL or DLET.",topic:"IMS"},{q:"What is IMS PCB status code GE?",options:["Good execution","Segment not found","General error","Get error"],answer:1,explanation:"GE = segment not found. Check your SSA qualifications.",topic:"IMS"},{q:"What is a DL/I SSA?",options:["Segment Search Argument","System Security Area","Storage Segment Address","Sequential Search"],answer:0,explanation:"SSA specifies which segment to access: unqualified names the type; qualified adds WHERE (field=value).",topic:"IMS"},{q:"What does IMS Fast Path (DEDB) provide?",options:["Quick copy","Sub-millisecond access via memory-resident data","Fast backup","Accelerated batch"],answer:1,explanation:"Fast Path DEDBs keep data in memory for ultra-low latency — designed for ATM transactions.",topic:"IMS"},{q:"What does the IMS REPL call do?",options:["Replicates","Replaces (updates) a held segment","Replays","Reports"],answer:1,explanation:"REPL replaces a segment previously retrieved with a Hold call.",topic:"IMS"},{q:"What is an IMS PSB?",options:["Program Specification Block — database view for program","Physical Storage Base","Process Buffer","Primary Segment Block"],answer:0,explanation:"PSB defines which databases/segments a program can access and allowed operations.",topic:"IMS"},{q:"What IMS call inserts a new segment?",options:["ADD","ISRT","PUT","CREATE"],answer:1,explanation:"ISRT adds a new segment. The parent must exist before inserting a child.",topic:"IMS"},{q:"What does IMS status code II mean?",options:["Invalid input","Duplicate segment on insert","Info incomplete","Index invalid"],answer:1,explanation:"II = duplicate insert. Sequence field value already exists under same parent.",topic:"IMS"},{q:"What is IMS DBD?",options:["Database Description — physical definition","Data Block Def","Dynamic Buffer","Database Driver"],answer:0,explanation:"DBD defines physical structure: segment types, fields, relationships, access method, storage.",topic:"IMS"},{q:"What is IMS MFS?",options:["Message Format Service — screen layouts","Master File System","Message Filing","Mainframe Format"],answer:0,explanation:"MFS defines input/output message formats for IMS DC terminals, similar to CICS BMS.",topic:"IMS"},{q:"What does GNP call do in IMS?",options:["Get Next within Parent","General Next Process","Get Named Pointer","Go Next Position"],answer:0,explanation:"GNP retrieves the next segment under the current parent. Stops when no more children.",topic:"IMS"},{q:"What is an IMS HALDB?",options:["High Availability Large Database","Hardware Abstraction","Hierarchical Archive","Half-size DB"],answer:0,explanation:"HALDB partitions large IMS databases for better performance and availability.",topic:"IMS"},{q:"What does U0778 abend mean in IMS?",options:["DL/I status code not handled","Utility error","Unauthorized","Update failure"],answer:0,explanation:"U0778: program encountered unexpected DL/I status code and didn't handle it.",topic:"IMS"},{q:"What is IMS DB/DC?",options:["Database/Data Communications","Debug/Diagnostic","Direct/Batch Channel","Data Bridge"],answer:0,explanation:"IMS DB/DC combines database manager (DB) with transaction manager (DC/TM).",topic:"IMS"},{q:"What REXX function captures TSO command output?",options:["CAPTURE()","OUTTRAP()","TSO()","GETOUT()"],answer:1,explanation:"OUTTRAP(stem.) captures TSO command output into stem variables.",topic:"REXX"},{q:"What does PARSE ARG do in REXX?",options:["Parses arguments passed to program","Parses a file","Argues logic","Partial argument"],answer:0,explanation:"PARSE ARG retrieves and optionally parses arguments passed to the program.",topic:"REXX"},{q:"What is a REXX stem variable?",options:["Root variable","Array-like compound variable (stem.1, stem.2)","System variable","Template"],answer:1,explanation:"Stem variables act as arrays: mydata.0 = count, mydata.1 = first element.",topic:"REXX"},{q:"What does SYSDSN() return?",options:["Dataset size","'OK' if dataset exists, error if not","System DSN","Dataset name"],answer:1,explanation:`SYSDSN("'MY.DATASET'") returns 'OK' if it exists, or an error message.`,topic:"REXX"},{q:"How do you issue a TSO command from REXX?",options:["TSO 'command'","Put command in quotes","CALL TSO","EXECUTE command"],answer:1,explanation:`Enclose TSO commands in quotes: "ALLOC DA('MY.FILE') SHR". REXX passes quoted strings to TSO.`,topic:"REXX"},{q:"What does SIGNAL ON ERROR do?",options:["Sends signal","Jumps to ERROR: label on non-zero RC","Signal processing","Error logging"],answer:1,explanation:"SIGNAL ON ERROR causes REXX to jump to ERROR: label when a command returns non-zero RC.",topic:"REXX"},{q:"What is REXX INTERPRET?",options:["Translation","Dynamically executes a string as REXX code","Interprets data","Comment handler"],answer:1,explanation:"INTERPRET executes a string as code at runtime. Powerful but use sparingly.",topic:"REXX"},{q:"What does SUBSTR() do?",options:["Subtracts","Extracts a substring","Substitutes","Substructure"],answer:1,explanation:"SUBSTR(string, start, length) extracts a portion. SUBSTR('HELLO',2,3) = 'ELL'.",topic:"REXX"},{q:"How do you access ISPF from REXX?",options:["CALL ISPF","ADDRESS ISPEXEC","ISPF()","LINK ISPF"],answer:1,explanation:'ADDRESS ISPEXEC routes commands to ISPF: ADDRESS ISPEXEC "DISPLAY PANEL(MYPANEL)"',topic:"REXX"},{q:"What does QUEUED() return?",options:["Queue status","Lines on data stack","Queued jobs","Buffer count"],answer:1,explanation:"QUEUED() returns number of lines on the REXX data stack.",topic:"REXX"},{q:"What is EXECIO used for?",options:["Read/write datasets from REXX","Execute programs","I/O config","External execution"],answer:0,explanation:"EXECIO * DISKR ddname (STEM data. reads all records into stem. EXECIO 0 DISKW ddname (FINIS closes.",topic:"REXX"},{q:"What does PARSE UPPER VAR do?",options:["Parses and uppercases a variable","Parses upper memory","Gets uppercase input","Validates uppercase"],answer:0,explanation:"PARSE UPPER VAR myvar word1 word2 rest — parses contents into words while uppercasing.",topic:"REXX"},{q:"What is a REXX external function?",options:["Third-party lib","Separate program called as function","OS function","Network call"],answer:1,explanation:"External functions are separate REXX programs or compiled routines called as: result = MYFUNC(arg1).",topic:"REXX"},{q:"What does OVERLAY() do in REXX?",options:["Creates overlay","Overlays one string on another at position","Layer graphics","Overwrite file"],answer:1,explanation:"OVERLAY('XX','ABCDE',3) = 'ABXXE'. Overlays new onto target at position.",topic:"REXX"},{q:"What CA7 command satisfies a dependency manually?",options:["RELEASE","SATISFY","FORCE","OVERRIDE"],answer:1,explanation:"SATISFY manually fulfills a dependency without the predecessor completing.",topic:"CA7"},{q:"What does CA7 DEMAND command do?",options:["Demands resources","Submits a job on-demand outside schedule","Requires attention","Priority override"],answer:1,explanation:"DEMAND submits immediately, bypassing normal schedule. For reruns and ad-hoc.",topic:"CA7"},{q:"What is a CA7 SCHID?",options:["Schedule ID — identifies schedule instance","Schema ID","Scheduler","Screen ID"],answer:0,explanation:"SCHID distinguishes different schedule instances — e.g., daily vs weekly runs.",topic:"CA7"},{q:"What does CA7 LJOB do?",options:["List job definition and status","Load job","Launch job","Link job"],answer:0,explanation:"LJOB lists definition: schedule, predecessors, successors, triggers, current status.",topic:"CA7"},{q:"What is CA7 DBADD for?",options:["Add database","Add job dependencies","Add batch","Add dataset"],answer:1,explanation:"DBADD adds predecessors, dataset triggers, or resource requirements to a job.",topic:"CA7"},{q:"What does CA7 HOLD do?",options:["Pauses system","Prevents job from being submitted","Holds output","Freezes schedule"],answer:1,explanation:"HOLD prevents submission until RELEASE, even if all dependencies are met.",topic:"CA7"},{q:"What is CA7 LEADTIME?",options:["Processing delay","Time before deadline when CA7 starts tracking","Lead dev's time","Setup time"],answer:1,explanation:"LEADTIME tells CA7 when to start tracking relative to deadline. For SLA compliance.",topic:"CA7"},{q:"What does a CA7 TRIGGER do?",options:["Starts workflow","Auto-submits job when dataset created/updated","System alert","Manual kick-off"],answer:1,explanation:"Dataset trigger automatically submits a job when specified dataset is created/updated.",topic:"CA7"},{q:"What is the difference between CA7 and AutoSys?",options:["Same product","CA7 mainframe-focused; AutoSys cross-platform","CA7 newer","AutoSys batch only"],answer:1,explanation:"CA7 is mainframe-native. AutoSys is cross-platform. Many shops use both.",topic:"CA7"},{q:"What does CA7 RESTART do?",options:["Restarts CA7","Restarts failed job from specific step","Reboots mainframe","Resets schedule"],answer:1,explanation:"RESTART re-submits failed job, optionally from a specific step, preserving prior outputs.",topic:"CA7"},{q:"What is a CA7 virtual resource?",options:["Memory allocation","Logical resource controlling concurrency","Virtual machine","Cloud resource"],answer:1,explanation:"Virtual resources limit concurrent jobs — e.g., only 3 jobs using same database at once.",topic:"CA7"},{q:"What CA7 status means a job missed its deadline?",options:["FAILED","LATE","OVERDUE","MISSED"],answer:1,explanation:"LATE = job hasn't completed by deadline. CA7 triggers alerts and escalation.",topic:"CA7"},{q:"In RACF, what does UACC(NONE) mean?",options:["Universal access","No access unless explicitly permitted","Utility access","Update for owner"],answer:1,explanation:"UACC(NONE) = users without explicit PERMIT get no access. Most secure default.",topic:"RACF"},{q:"What RACF command grants READ access?",options:["GRANT READ","PERMIT dsn ID(user) ACCESS(READ)","ALLOW READ","AUTHORIZE"],answer:1,explanation:"PERMIT profile ID(userid) ACCESS(READ). Other levels: NONE, UPDATE, CONTROL, ALTER.",topic:"RACF"},{q:"What does RACF SPECIAL attribute give?",options:["Special login","Full RACF admin authority","Special output","Priority access"],answer:1,explanation:"SPECIAL gives complete RACF admin authority. Limit to very few security admins.",topic:"RACF"},{q:"What is a RACF generic profile?",options:["General purpose","Wildcard profile protecting multiple datasets","Generic user","Default profile"],answer:1,explanation:"Generic profiles use wildcards: SYS1.** protects all SYS1.* datasets.",topic:"RACF"},{q:"What does RACF OPERATIONS attribute allow?",options:["Console operation","Access to all datasets regardless of PERMIT","Operational monitoring","System operations"],answer:1,explanation:"OPERATIONS allows access to any dataset. Intended for storage admins, must be audited.",topic:"RACF"},{q:"What is a RACF PassTicket?",options:["Password replacement","One-time auth token for SSO","Entry pass","Ticket system"],answer:1,explanation:"PassTickets are one-time, time-limited tokens enabling SSO without transmitting passwords.",topic:"RACF"},{q:"What does SETROPTS RACLIST do?",options:["Lists options","Caches profiles in memory for performance","Sets router","Lists resources"],answer:1,explanation:"RACLIST caches general resource profiles in memory, improving access-check performance.",topic:"RACF"},{q:"What SMF record type logs RACF events?",options:["Type 30","Type 80","Type 110","Type 14"],answer:1,explanation:"SMF Type 80 captures RACF events: logins, violations, profile changes. Essential for auditing.",topic:"RACF"},{q:"What does AUDIT attribute on a profile do?",options:["Enables auditing","Logs all access attempts","Audits users","Financial audit"],answer:1,explanation:"AUDIT(ALL) logs every access attempt. AUDIT(FAILURES) logs denied access only. For compliance.",topic:"RACF"},{q:"What is RACF CONNECT used for?",options:["Network connection","Links user to group with authority","Connect systems","DB connection"],answer:1,explanation:"CONNECT userid GROUP(grp) AUTHORITY(level). Levels: USE, CREATE, CONNECT, JOIN.",topic:"RACF"},{q:"What does PROTECTALL do?",options:["Protect all files","Denies access to datasets without covering profile","Full protection","Enable all security"],answer:1,explanation:"PROTECTALL denies access to any dataset without a matching RACF profile.",topic:"RACF"},{q:"What is RACF FACILITY class?",options:["Building access","General resource class for subsystem auth","Network facility","Hardware"],answer:1,explanation:"FACILITY profiles control access to CICS transactions, DB2 resources, UNIX services, etc.",topic:"RACF"},{q:"What is RACF digital certificate support?",options:["Email encryption","X.509 certificate management for TLS/SSL","Doc signing","PDF certificates"],answer:1,explanation:"RACF manages X.509 certificates and key rings for TLS/SSL on z/OS.",topic:"RACF"},{q:"What does RACF REVOKE do?",options:["Permanently deletes","Disables ID — can be resumed later","Revokes permissions","Resets password"],answer:1,explanation:"REVOKE disables a user ID. Permissions remain intact. Use RESUME to reactivate.",topic:"RACF"},{q:"What does ISPF option 3.4 do?",options:["Edit member","Dataset list utility","Compile program","Submit job"],answer:1,explanation:"ISPF 3.4 lists datasets by pattern, letting you browse, edit, delete, rename, manage.",topic:"TSO/ISPF"},{q:"Where do you type ISPF line commands?",options:["Command line","In the line number area","Menu bar","Function key"],answer:1,explanation:"Line commands go in the line number area: D (delete), I (insert), C/M (copy/move), R (repeat).",topic:"TSO/ISPF"},{q:"What does ISPF CHANGE command do?",options:["Changes dataset","Find and replace: C 'old' 'new' ALL","Change permissions","Modify attributes"],answer:1,explanation:"C 'old' 'new' ALL replaces all occurrences. C ... FIRST for just the first.",topic:"TSO/ISPF"},{q:"What is SuperC (ISRSUPC)?",options:["Supercomputer","File comparison utility","Super copy","Compression"],answer:1,explanation:"SuperC compares two datasets and shows differences. Supports search and wildcards.",topic:"TSO/ISPF"},{q:"What does TSO ALLOC command do?",options:["Allocate memory","Connects dataset to DD name","Allocate users","Allocate CPU"],answer:1,explanation:"ALLOC associates dataset with DD name for TSO session. Like JCL DD statement.",topic:"TSO/ISPF"},{q:"What is SDSF?",options:["System Display and Search Facility","Structured Data Set Format","System Debug","Sequential Display"],answer:0,explanation:"SDSF shows job output, system logs, active jobs, resources. Essential for batch results.",topic:"TSO/ISPF"},{q:"What does ISPF 3.14 do?",options:["Web search","Searches for strings across PDS members","Searches catalogs","Find datasets"],answer:1,explanation:"ISPF 3.14 searches every member of a PDS for a specified string.",topic:"TSO/ISPF"},{q:"What is a TSO CLIST?",options:["Command List — TSO scripting","Close List","Clipboard","Client List"],answer:0,explanation:"CLIST is older TSO scripting language. Most shops now prefer REXX.",topic:"TSO/ISPF"},{q:"How do you filter lines in ISPF edit?",options:["SEL ALL","Use macros","X ALL then F 'string' ALL","FILTER command"],answer:2,explanation:"X ALL excludes all, F 'string' ALL reveals matching lines. Great for filtering.",topic:"TSO/ISPF"},{q:"What does TSO LISTDS show?",options:["Dataset attributes (RECFM, LRECL, etc.)","Contents","Directory listing","User datasets"],answer:0,explanation:"LISTDS 'dsname' STATUS shows DCB attributes, volume, space. MEMBERS lists PDS members.",topic:"TSO/ISPF"},{q:"What is ISPF option 2?",options:["Browse","Edit — full-screen editor","Utilities","Settings"],answer:1,explanation:"ISPF 2 is the Edit facility — full-screen editing with line commands and macros.",topic:"TSO/ISPF"},{q:"What does TSO PROFILE PREFIX do?",options:["Sets profile","Auto-prepends userid to unquoted dataset names","Creates profile","Prefix override"],answer:1,explanation:"PREFIX sets high-level qualifier for unquoted names. PREFIX(USER01): MY.FILE → USER01.MY.FILE.",topic:"TSO/ISPF"},{q:"What does DFSORT OPTION COPY do?",options:["Creates backup","Copies records without sorting","Copies control file","Duplicates all"],answer:1,explanation:"OPTION COPY processes through transforms without sorting — faster when sort isn't needed.",topic:"Utilities"},{q:"What does IEBCOPY do?",options:["Copies sequential","Copies/compresses/merges PDS members","Copies IEB data","Copies catalogs"],answer:1,explanation:"IEBCOPY copies, compresses, merges PDS members between libraries.",topic:"Utilities"},{q:"What does IEBGENER do?",options:["Generates programs","Copies sequential datasets","Generates reports","Creates test data"],answer:1,explanation:"IEBGENER copies sequential datasets. Simple but SORT COPY is often faster.",topic:"Utilities"},{q:"What is DFSORT JOINKEYS for?",options:["Joining tables","Matching/joining two files by key","Key generation","Index merge"],answer:1,explanation:"JOINKEYS performs inner, left, right, full outer joins between files.",topic:"Utilities"},{q:"What does INCLUDE/OMIT do in DFSORT?",options:["Include/exclude files","Filters records by condition (like WHERE)","Include headers","Omit duplicates"],answer:1,explanation:"INCLUDE COND=(1,5,CH,EQ,C'SALES') selects matching records. OMIT excludes them.",topic:"Utilities"},{q:"What is ICETOOL?",options:["Ice cream tool","Multi-function DFSORT utility","Index creation","Compression"],answer:1,explanation:"ICETOOL performs SPLICE, DISPLAY, SELECT, COUNT, STATS, UNIQUE in one step.",topic:"Utilities"},{q:"What does IDCAMS DELETE do?",options:["Deletes programs","Deletes datasets and catalog entries","Deletes users","Deletes jobs"],answer:1,explanation:"DELETE removes datasets + catalog entries. CLUSTER, NONVSAM keywords specify type.",topic:"Utilities"},{q:"What is DFSORT OUTREC for?",options:["Output recovery","Reformats output records","Record counting","Output recording"],answer:1,explanation:"OUTREC reformats records before writing: rearrange, add constants, convert formats.",topic:"Utilities"},{q:"What does ADRDSSU do?",options:["Dataset dump/restore/copy/move","Address resolution","DSS utilities","Compression"],answer:0,explanation:"ADRDSSU performs DUMP/RESTORE/COPY/MOVE at physical dataset/track level.",topic:"Utilities"},{q:"What does DFSORT INREC do?",options:["Input count","Reformats input before sort/copy","Internal recording","Initial record"],answer:1,explanation:"INREC reformats BEFORE sorting — create keys from transformed data or trim fields early.",topic:"Utilities"},{q:"What is IEFBR14?",options:["Does nothing — for dataset allocation/deletion","File browser","Batch runner","Error handler"],answer:0,explanation:"IEFBR14 is 'do nothing' — triggers JCL DD allocation/deallocation only.",topic:"Utilities"},{q:"What does ICETOOL SPLICE do?",options:["Joins cables","Merges records from two files by key","Splits files","Splices strings"],answer:1,explanation:"SPLICE merges fields from matching records. Simpler than JOINKEYS for basic merging.",topic:"Utilities"},{q:"What SMF type captures DB2 accounting data?",options:["Type 80","Type 100","Type 110","Type 30"],answer:2,explanation:"SMF 110 captures DB2 accounting — CPU, I/O, waits, SQL stats per thread.",topic:"SMF"},{q:"What does SMF Type 30 record?",options:["Security events","Job/step resource usage (CPU, memory, I/O)","Network traffic","Disk space"],answer:1,explanation:"Type 30: subtype 1=start, 2=interval, 3=step end, 4=job end. CPU, EXCP, elapsed time.",topic:"SMF"},{q:"What is RMF in z/OS?",options:["Resource Measurement Facility","Record Management File","Remote Monitor","Recovery Management"],answer:0,explanation:"RMF collects system-wide performance: CPU, paging, channel, I/O. For capacity planning.",topic:"SMF"},{q:"What does high paging rate indicate?",options:["Fast processing","Memory shortage","Good performance","Disk activity"],answer:1,explanation:"High paging = real storage constrained. Pages swapping to auxiliary storage. Add memory or reduce load.",topic:"SMF"},{q:"What does WLM service class period do?",options:["Billing period","Defines response goals and resource allocation","Service contract","Time limit"],answer:1,explanation:"Service class periods define performance goals. WLM adjusts priority to meet them.",topic:"SMF"},{q:"What is an EXCP?",options:["Exception","Execute Channel Program — one I/O operation","External Copy","Exit Point"],answer:1,explanation:"EXCP counts = individual I/O operations. High counts may mean inefficient I/O or small blocks.",topic:"SMF"},{q:"What does SMF Type 14/15 record?",options:["Dataset open/close events","Security events","Network data","Console messages"],answer:0,explanation:"Type 14 = dataset close for input; Type 15 = close for output. DSN, volume, EXCP count.",topic:"SMF"},{q:"What is GTF in z/OS?",options:["Generalized Trace Facility","Global Transfer","General Task File","Group Trace"],answer:0,explanation:"GTF captures detailed trace: I/O ops, SVC calls, program interrupts. High overhead.",topic:"SMF"},{q:"What does sustained high CPU busy % mean?",options:["Efficient","System at capacity — optimize or upgrade","Good health","Fast processing"],answer:1,explanation:"CPU > 85-90% sustained = capacity constraint. Optimize programs, WLM tune, or add capacity.",topic:"SMF"},{q:"What is zIIP?",options:["Zip compression","Specialty processor offloading eligible work from GP CPs","ZIP format","Zone processor"],answer:1,explanation:"zIIP offloads DB2, XML, Java, IP networking from expensive general-purpose processors.",topic:"SMF"},{q:"What does WLM velocity goal measure?",options:["Network speed","Percentage of time work is not delayed","Data rate","Processing speed"],answer:1,explanation:"Velocity = undelayed time / total time. Goal of 80 = work undelayed 80% of the time.",topic:"SMF"},{q:"What is SMF interval recording?",options:["Periodic collection","Type 30 subtype 2 at timed intervals","Interval timer","Schedule"],answer:1,explanation:"Interval recording produces Type 30 subtype 2 records at intervals for long-running address spaces.",topic:"SMF"},{q:"What Zowe CLI command submits JCL from a PDS?",options:["zowe jcl run","zowe jobs submit ds","zowe batch execute","zowe jcl submit"],answer:1,explanation:`'zowe jobs submit ds' submits from dataset: zowe jobs submit ds "USER.JCL(MYJOB)"`,topic:"Modernization"},{q:"What is z/OS Connect EE?",options:["Network connector","API gateway for CICS/IMS/batch as REST","DB connector","Email connector"],answer:1,explanation:"z/OS Connect maps RESTful APIs to CICS/IMS transactions and batch — zero code changes.",topic:"Modernization"},{q:"What is the Strangler Fig pattern?",options:["Removing old code","Gradually replacing monolith with new services","Code strangling","Legacy removal"],answer:1,explanation:"Route new features to modern services while legacy handles existing logic, eventually retiring it.",topic:"Modernization"},{q:"What does Zowe provide?",options:["New hardware","Open-source CLI, APIs, VS Code extension for z/OS","New OS","Replacement system"],answer:1,explanation:"Zowe: CLI scripting, REST APIs, VS Code extension, app framework for modern mainframe dev.",topic:"Modernization"},{q:"What is IBM Wazi?",options:["New language","Cloud-based mainframe dev/test environment","Monitoring","Database"],answer:1,explanation:"Wazi provides containerized z/OS dev/test on x86/cloud for modern DevOps workflows.",topic:"Modernization"},{q:"What is CPACF on IBM Z?",options:["Central Processing","Hardware crypto at no extra cost","Copy Facility","Cache Processor"],answer:1,explanation:"CPACF provides hardware-accelerated AES, SHA, etc. built into every Z processor for free.",topic:"Modernization"},{q:"How many Linux instances can a z16 run?",options:["50","200","Thousands","10"],answer:2,explanation:"A single z16 can run thousands of Linux instances with 10:1-20:1 consolidation ratios vs x86.",topic:"Modernization"},{q:"What is IFL in IBM Z?",options:["Integrated Facility for Linux","Internal File Layer","Index Facility","Interface Library"],answer:0,explanation:"IFL is a Z processor dedicated to Linux, not counting toward z/OS software licensing.",topic:"Modernization"},{q:"What language does Zowe CLI use for plugins?",options:["COBOL","Node.js/TypeScript","Java","Python"],answer:1,explanation:"Zowe CLI is built on Node.js. Plugins are TypeScript/JavaScript.",topic:"Modernization"},{q:"What is the main benefit of APIs over screen scraping?",options:["Prettier UI","Structured data, versioning, security, reliability","Faster screens","Less code"],answer:1,explanation:"APIs provide JSON, OAuth2, versioning, error handling — unlike fragile screen scraping.",topic:"Modernization"}],aa=[{code:"S001",name:"I/O Error",category:"System",severity:"high",cause:"Record length mismatch between program and DD statement, or dataset corrupted. S001-0=wrong length, S001-4=block count.",fix:`1) Verify LRECL/BLKSIZE in JCL matches dataset.
+IBM's IMS Universal Drivers allow Java applications and SQL-like access to IMS data through JDBC and SQL-like syntax. This significantly reduces the argument for "we have to move to DB2 to get SQL access" — you can get SQL-like access while keeping IMS's performance characteristics.`}],me=[{q:"What does S0C7 abend code mean?",options:["Storage violation","Data exception - non-numeric in numeric field","Program not found","Time limit exceeded"],answer:1,explanation:"S0C7 is a data exception - occurs when packed decimal or zoned decimal arithmetic is performed on a field containing non-numeric data.",topic:"z/OS"},{q:"What is the maximum addressable storage in 64-bit z/OS?",options:["2 GB","16 EB (exabytes)","4 TB","256 TB"],answer:1,explanation:"64-bit z/OS addressing supports up to 16 exabytes (2^64 bytes) of virtual storage per address space.",topic:"z/OS"},{q:"What is the '16 MB line' in z/OS?",options:["Maximum file size","24-bit addressing boundary","Network packet limit","Console buffer size"],answer:1,explanation:"The 16 MB line is the boundary of 24-bit addressing (2^24 = 16,777,216). Programs below use 24-bit addresses; above uses 31-bit.",topic:"z/OS"},{q:"What does IPL stand for in z/OS?",options:["Internal Program Load","Initial Program Load","Integrated Processing Layer","Input Program Launcher"],answer:1,explanation:"IPL = Initial Program Load. It's the mainframe equivalent of booting — loading the z/OS nucleus into memory.",topic:"z/OS"},{q:"Which z/OS component manages workload distribution?",options:["JES2","WLM","RACF","VTAM"],answer:1,explanation:"WLM (Workload Manager) distributes system resources based on business goals and service classes.",topic:"z/OS"},{q:"What does the z/OS Master Scheduler do?",options:["Schedules batch jobs","Controls system init and shutdown","Manages tape mounts","Handles network routing"],answer:1,explanation:"The Master Scheduler controls z/OS initialization, shutdown, and manages the operator console interface.",topic:"z/OS"},{q:"What is a z/OS LPAR?",options:["Logical Partition - a virtual mainframe","Load Program Archive","Library Partition","Linked Process Area"],answer:0,explanation:"LPAR (Logical Partition) divides a physical mainframe into independent virtual machines, each running its own z/OS.",topic:"z/OS"},{q:"What does S0C4 abend indicate?",options:["Data exception","Protection exception (invalid memory access)","Time exceeded","I/O error"],answer:1,explanation:"S0C4 is a protection exception — the program tried to access storage it doesn't own.",topic:"z/OS"},{q:"What is the '2 GB bar' in z/OS?",options:["Maximum dataset size","31-bit addressing limit","Network throughput cap","JES spool limit"],answer:1,explanation:"The 2 GB bar is the 31-bit addressing boundary (2^31). Storage above the bar requires AMODE 64 programs.",topic:"z/OS"},{q:"What does z/OS USS stand for?",options:["Universal Storage System","UNIX System Services","User Security Subsystem","Utility Sort Service"],answer:1,explanation:"USS = UNIX System Services. Provides a POSIX-compliant UNIX environment within z/OS.",topic:"z/OS"},{q:"Which utility creates a memory dump for debugging?",options:["IEBCOPY","AMATERSE","IEATDUMP","IDCAMS"],answer:2,explanation:"IEATDUMP creates SVC dumps for debugging. You can also use SNAP dumps or SYSMDUMP/SYSUDUMP DD statements.",topic:"z/OS"},{q:"What is a z/OS catalog?",options:["A list of all programs","An index mapping dataset names to physical locations","A security database","A job schedule"],answer:1,explanation:"The z/OS catalog maps dataset names to their physical locations on DASD volumes.",topic:"z/OS"},{q:"What is DASD in mainframe terminology?",options:["Direct Access Storage Device (disk)","Data Archive Storage Drive","Digital Analog Signal Device","Dynamic Allocation Storage"],answer:0,explanation:"DASD = Direct Access Storage Device, i.e., disk drives. Unlike tape, DASD supports random I/O access.",topic:"z/OS"},{q:"What does S878 abend code mean?",options:["Security violation","Virtual storage exhausted","Dataset not found","Program check"],answer:1,explanation:"S878 means the address space ran out of virtual storage. Increase REGION parameter or reduce memory usage.",topic:"z/OS"},{q:"Which JCL DISP value gives exclusive access to an existing dataset?",options:["SHR","NEW","MOD","OLD"],answer:3,explanation:"OLD gives exclusive access - no other job can access the dataset simultaneously.",topic:"JCL"},{q:"What does DISP=(NEW,CATLG,DELETE) mean?",options:["Create new, catalog if ok, delete if fail","New allocation, always catalog","Catalog then delete","Create and replace existing"],answer:0,explanation:"DISP=(status,normal,abnormal): NEW creates it, CATLG catalogs on success, DELETE removes on abnormal end.",topic:"JCL"},{q:"What does COND=(4,LT) on an EXEC statement mean?",options:["Skip if any prior RC < 4","Execute only if all RCs < 4","Skip if any prior RC > 4","Execute if RC = 4"],answer:0,explanation:"COND=(4,LT): skip if 4 is Less Than any prior return code. In other words, skip if any RC > 4.",topic:"JCL"},{q:"What is the purpose of the JCLLIB statement?",options:["Define job libraries","Specify PROC search order","Set JCL variables","Load program libraries"],answer:1,explanation:"JCLLIB ORDER specifies libraries JES searches to find PROCs and INCLUDEs.",topic:"JCL"},{q:"What does REGION=0M request?",options:["Zero memory","Maximum available region","Default region","Minimum region"],answer:1,explanation:"REGION=0M requests the maximum available private area below and above the 16 MB line.",topic:"JCL"},{q:"What is the maximum number of steps in a JCL job?",options:["99","255","999","Unlimited"],answer:1,explanation:"A JCL job can have a maximum of 255 steps.",topic:"JCL"},{q:"What DD parameter specifies record format?",options:["RECFM","FORMAT","RECORD","DCB"],answer:0,explanation:"RECFM specifies record format: F (fixed), V (variable), FB (fixed blocked), VB (variable blocked), U (undefined).",topic:"JCL"},{q:"What does MOD disposition do for sequential datasets?",options:["Modifies record format","Opens for append (adds to end)","Creates modified copy","Moves data"],answer:1,explanation:"MOD opens an existing sequential dataset for append — new records added after the last existing record.",topic:"JCL"},{q:"What is MSGLEVEL=(1,1) in JCL?",options:["Minimum messages","All JCL + all allocation messages","Errors only","No output"],answer:1,explanation:"MSGLEVEL=(1,1) shows all JCL statements (including PROCs) and all allocation messages — best for debugging.",topic:"JCL"},{q:"What does SPACE=(CYL,(10,5),RLSE) mean?",options:["10 cyl, 5 tracks, release","10 primary CYL, 5 secondary CYL, release unused","10 MB, 5 MB overflow","Cylinder 10 through 5"],answer:1,explanation:"Allocate 10 primary cylinders, up to 15 secondary extents of 5 cylinders each, release unused space at close.",topic:"JCL"},{q:"What is the purpose of STEPLIB DD?",options:["Step output library","Search library for load modules in this step","Step listing","Library for SYSIN data"],answer:1,explanation:"STEPLIB specifies private libraries to search for load modules before the system LNKLST. Applies to one step.",topic:"JCL"},{q:"What is a JCL PROC?",options:["A reusable set of JCL steps","A program call","A process ID","A procedure division"],answer:0,explanation:"A PROC is a pre-written set of JCL statements stored in a library. PROCs enable reuse and reduce errors.",topic:"JCL"},{q:"What does SET symbolics do in JCL?",options:["Set system time","Define symbolic parameter values","Set job priority","Configure output"],answer:1,explanation:"SET assigns values to JCL symbolic parameters which are substituted throughout the JCL before execution.",topic:"JCL"},{q:"What is the purpose of DD DUMMY?",options:["Creates empty dataset","Skips I/O — reads return EOF, writes discarded","Deletes dataset","Placeholder"],answer:1,explanation:"DD DUMMY causes reads to return EOF and writes to be discarded. Useful for testing without actual I/O.",topic:"JCL"},{q:"Which JCL parameter overrides a PROC step DD?",options:["OVERRIDE","step.DD","MODIFY","REPLACE"],answer:1,explanation:"Override PROC DDs using stepname.ddname syntax: //STEP1.SORTIN DD DSN=MY.FILE",topic:"JCL"},{q:"What does IEF212I message indicate?",options:["Job completed","Dataset not found during allocation","Security violation","JCL error"],answer:1,explanation:"IEF212I means a dataset specified in JCL was not found during allocation.",topic:"JCL"},{q:"In COBOL, what does COMP-3 (PACKED-DECIMAL) storage use?",options:["1 byte per digit","2 digits per byte plus sign nibble","4 bytes fixed","Platform-dependent"],answer:1,explanation:"COMP-3 stores 2 decimal digits per byte, with the last nibble for the sign.",topic:"COBOL"},{q:"What COBOL statement reads the next sequential record?",options:["GET NEXT","READ file NEXT","FETCH NEXT","INPUT RECORD"],answer:1,explanation:"READ filename NEXT RECORD reads the next sequential record.",topic:"COBOL"},{q:"What does INITIALIZE do in COBOL?",options:["Starts program","Sets fields to defaults (spaces/zeros)","Opens files","Allocates memory"],answer:1,explanation:"INITIALIZE sets alphanumeric fields to spaces and numeric fields to zeros.",topic:"COBOL"},{q:"What is the maximum length of a COBOL PIC X field?",options:["256","1024","32767","16777215"],answer:2,explanation:"PIC X fields can be up to 32,767 characters.",topic:"COBOL"},{q:"What does PERFORM VARYING do?",options:["Variable execution","Loop with counter incrementing","Dynamic call","Performance monitoring"],answer:1,explanation:"PERFORM VARYING creates a counted loop: PERFORM para VARYING idx FROM 1 BY 1 UNTIL idx > 100.",topic:"COBOL"},{q:"What is a COBOL COPYBOOK?",options:["A backup copy","Reusable code included at compile time","A print format","Documentation"],answer:1,explanation:"A COPYBOOK is a source member included via COPY statement at compile time. Used for shared data structures.",topic:"COBOL"},{q:"Which COBOL division contains file definitions?",options:["DATA DIVISION","ENVIRONMENT DIVISION","PROCEDURE DIVISION","IDENTIFICATION DIVISION"],answer:1,explanation:"FILE-CONTROL in ENVIRONMENT DIVISION maps logical names to physical files. FD entries in DATA DIVISION define layouts.",topic:"COBOL"},{q:"What does STRING ... DELIMITED BY do?",options:["Deletes strings","Concatenates strings with a delimiter","Splits strings","Searches strings"],answer:1,explanation:"STRING concatenates multiple source fields into one destination, using DELIMITED BY to control inclusion.",topic:"COBOL"},{q:"What is COMP (BINARY) storage format?",options:["Character","Binary integer (halfword/fullword)","Floating point","Packed decimal"],answer:1,explanation:"COMP/BINARY stores data as binary integers: PIC S9(4) COMP = 2 bytes, PIC S9(9) COMP = 4 bytes.",topic:"COBOL"},{q:"What does EVALUATE TRUE do in COBOL?",options:["Validates data","Acts as CASE/SWITCH statement","Checks boolean","Evaluates expressions"],answer:1,explanation:"EVALUATE TRUE works like a CASE statement — each WHEN tests a condition, executing the first match.",topic:"COBOL"},{q:"What is COBOL's LINKAGE SECTION for?",options:["Link to external files","Describes data passed from calling program","Define network links","Connect databases"],answer:1,explanation:"LINKAGE SECTION describes parameters passed via CALL...USING. The data exists in the caller's storage.",topic:"COBOL"},{q:"What does ON SIZE ERROR do?",options:["Checks field size","Handles arithmetic overflow","Validates screen size","Checks record length"],answer:1,explanation:"ON SIZE ERROR catches arithmetic overflow during COMPUTE/ADD/SUBTRACT/MULTIPLY/DIVIDE.",topic:"COBOL"},{q:"How do you call a subprogram dynamically?",options:["CALL literal","CALL identifier","PERFORM","INVOKE"],answer:1,explanation:"CALL identifier (variable) performs dynamic calling — program loaded at runtime. CALL literal is static.",topic:"COBOL"},{q:"What is COBOL REDEFINES used for?",options:["Redefining paragraphs","Mapping different layouts to same memory","Renaming variables","Overriding values"],answer:1,explanation:"REDEFINES allows two data descriptions to share the same physical storage — like a C union.",topic:"COBOL"},{q:"What does Enterprise COBOL V6 JSON GENERATE do?",options:["Creates JSON config","Converts COBOL data to JSON natively","Generates test data","Parses web input"],answer:1,explanation:"JSON GENERATE creates JSON from COBOL data structures. Combined with z/OS Connect, COBOL can produce API responses.",topic:"COBOL"},{q:"What is the COBOL INSPECT statement used for?",options:["Debug inspection","Counting and replacing characters in a field","File inspection","Security audit"],answer:1,explanation:"INSPECT TALLYING counts occurrences; INSPECT REPLACING substitutes characters.",topic:"COBOL"},{q:"What does GOBACK do in COBOL?",options:["Returns to previous paragraph","Returns control to caller or system","Goes to beginning","Backs up a record"],answer:1,explanation:"GOBACK returns control to the calling program or to z/OS if it's the main program. Preferred over STOP RUN.",topic:"COBOL"},{q:"What is FILE STATUS in COBOL?",options:["File open/close state","2-byte return code from file operations","File size","Disk status"],answer:1,explanation:"FILE STATUS is a 2-byte field: '00' = success, '10' = EOF, '23' = record not found, etc.",topic:"COBOL"},{q:"What does CORRESPONDING (CORR) do?",options:["Creates correspondence","Moves/adds fields with matching names between groups","Correlates files","Links records"],answer:1,explanation:"MOVE CORRESPONDING moves data between groups where subordinate fields have the same name.",topic:"COBOL"},{q:"What COBOL clause makes a program reentrant?",options:["REENTRANT","RECURSIVE","IS INITIAL","THREAD"],answer:2,explanation:"IS INITIAL reinitializes working storage each call. For true reentrancy, compile with RENT option.",topic:"COBOL"},{q:"Which VSAM type supports key-based random access?",options:["ESDS","RRDS","KSDS","LDS"],answer:2,explanation:"KSDS (Key-Sequenced Data Set) stores records sorted by key and supports random and sequential access.",topic:"VSAM"},{q:"What is a VSAM Control Interval (CI)?",options:["Time between operations","The basic unit of data transfer","A monitoring interval","Index level"],answer:1,explanation:"A CI is the smallest unit of data transfer between DASD and memory.",topic:"VSAM"},{q:"What does a CI split mean?",options:["CI corrupted","A full CI splits to fit a new record","CI backed up","CI formatting"],answer:1,explanation:"When a CI is full, VSAM splits it — moving half the records to a new CI. Frequent splits hurt performance.",topic:"VSAM"},{q:"What is FREESPACE(CI% CA%) in VSAM?",options:["Disk free space","Reserved space in CIs/CAs for inserts","Unused allocation","Memory buffer"],answer:1,explanation:"FREESPACE reserves empty space for future inserts. Reduces CI/CA splits for insert-heavy files.",topic:"VSAM"},{q:"What IDCAMS command creates a VSAM cluster?",options:["CREATE CLUSTER","DEFINE CLUSTER","ALLOCATE VSAM","BUILD CLUSTER"],answer:1,explanation:"DEFINE CLUSTER creates a new VSAM dataset with key position, record size, space, etc.",topic:"VSAM"},{q:"What is an Alternate Index (AIX)?",options:["Backup index","Secondary access path using non-primary key","Alternate file","Index copy"],answer:1,explanation:"An AIX provides access using a different key — e.g., employee file by name instead of ID.",topic:"VSAM"},{q:"What does SHAREOPTIONS(2,3) mean?",options:["2 readers, 3 writers","Cross-region(2) and cross-system(3) sharing levels","Buffer settings","2 indexes, 3 data"],answer:1,explanation:"Level 2 = multiple readers OR one writer within a system. Level 3 = multiple readers/writers across systems.",topic:"VSAM"},{q:"What is VSAM RLS?",options:["Record Level Sharing","Read Lock System","Remote Library","Record Length Spec"],answer:0,explanation:"RLS enables multiple CICS regions to access the same VSAM file with record-level locking via the coupling facility.",topic:"VSAM"},{q:"What does REPRO do in IDCAMS?",options:["Reproduce definition","Copy records between datasets","Repair files","Replace records"],answer:1,explanation:"REPRO copies records between datasets. Used for VSAM backup/restore and loading from sequential.",topic:"VSAM"},{q:"What is the max number of extents for VSAM?",options:["16","123","255","Unlimited"],answer:1,explanation:"A VSAM dataset can have up to 123 extents per volume and span up to 59 volumes.",topic:"VSAM"},{q:"What does VERIFY do in IDCAMS?",options:["Validates integrity","Corrects EOF marker after abnormal close","Verifies passwords","Checks catalog"],answer:1,explanation:"VERIFY corrects the VSAM catalog high-used RBA after an abnormal close.",topic:"VSAM"},{q:"What is a VSAM ESDS?",options:["Entry-Sequenced Data Set","Extended Sequential","Error-Safe Data Set","Enterprise Storage"],answer:0,explanation:"ESDS stores records in insertion order. No key, no delete, no variable-length rewrite. Like a log file.",topic:"VSAM"},{q:"What does LISTCAT show for VSAM?",options:["Catalog list","Detailed attributes: splits, extents, RBA","Listed categories","File contents"],answer:1,explanation:"LISTCAT ALL shows CI/CA splits, FREESPACE usage, extents, record counts — vital for VSAM health monitoring.",topic:"VSAM"},{q:"What is VSAM RRDS organization?",options:["Relative Record Data Set","Random Read Data Set","Relational Record","Recovery Record"],answer:0,explanation:"RRDS accesses records by relative record number (slot number). Fixed-length records in numbered slots.",topic:"VSAM"},{q:"In DB2, what does SQLCODE 100 mean?",options:["Successful","Row not found / End of cursor","Duplicate key","Auth error"],answer:1,explanation:"SQLCODE 100 = row not found for SELECT, or end of data for FETCH. Expected, not an error.",topic:"DB2"},{q:"What does SQLCODE -805 mean?",options:["Table not found","Package not found in plan","Column mismatch","Deadlock"],answer:1,explanation:"-805: DBRM not found in the plan/package. Usually means BIND needed after recompile.",topic:"DB2"},{q:"What is the purpose of RUNSTATS in DB2?",options:["Run statistics program","Update catalog stats for the optimizer","Monitor runtime","Calculate storage"],answer:1,explanation:"RUNSTATS collects statistics about data distribution. The optimizer uses these for access path selection.",topic:"DB2"},{q:"What does BIND do in DB2?",options:["Connects to database","Creates access plan from SQL","Binds variables","Links tables"],answer:1,explanation:"BIND compiles SQL from a DBRM into an optimized package, choosing indexes and join methods.",topic:"DB2"},{q:"What is a DB2 tablespace?",options:["Disk partition","Physical storage container for tables","Memory area","Schema definition"],answer:1,explanation:"A tablespace is the physical storage for tables. Types: simple, segmented, partitioned, universal.",topic:"DB2"},{q:"What does SQLCODE -911 mean?",options:["Syntax error","Timeout/deadlock — rollback occurred","Auth failure","Type mismatch"],answer:1,explanation:"-911: unit of work rolled back due to deadlock or timeout. Retry the transaction.",topic:"DB2"},{q:"What is DB2 EXPLAIN?",options:["Documentation","Shows optimizer's access path for SQL","Explains errors","Schema description"],answer:1,explanation:"EXPLAIN shows how DB2 will execute SQL — scans vs index, join methods, sorts. Essential for tuning.",topic:"DB2"},{q:"What does REORG do for DB2 tables?",options:["Reorganizes code","Physically reorganizes data for performance","Renames objects","Restructures SQL"],answer:1,explanation:"REORG reclaims space, restores clustering order, eliminates fragmentation.",topic:"DB2"},{q:"What is a DB2 cursor?",options:["Screen pointer","Processes multiple rows one at a time","Database pointer","Index entry"],answer:1,explanation:"Cursor processes multi-row results one at a time: DECLARE, OPEN, FETCH loop, CLOSE.",topic:"DB2"},{q:"What does WITH UR isolation do?",options:["Read committed only","Read uncommitted data (dirty read)","Update and read","Read with rollback"],answer:1,explanation:"WITH UR allows dirty reads. Highest concurrency, lowest consistency.",topic:"DB2"},{q:"What is SQLCODE -818?",options:["Plan mismatch","Timestamp mismatch precompile vs bind","Table dropped","Index error"],answer:1,explanation:"-818: DBRM timestamp doesn't match package. Recompile and rebind.",topic:"DB2"},{q:"What does DB2 QUIESCE do?",options:["Quiet mode","Establishes recovery point for tablespace","Stops queries","Reduces logging"],answer:1,explanation:"QUIESCE establishes a consistent recovery point useful for point-in-time recovery.",topic:"DB2"},{q:"What is a DB2 STOGROUP?",options:["Storage group for DASD volumes","Stored procedure group","Table group","Security group"],answer:0,explanation:"STOGROUP maps DB2 objects to physical DASD volumes for space allocation.",topic:"DB2"},{q:"What does SELECT ... FOR UPDATE OF do?",options:["Updates immediately","Locks rows for subsequent cursor UPDATE","Selects updates","Formats update"],answer:1,explanation:"FOR UPDATE OF acquires stronger locks to prevent others from changing the data you'll update.",topic:"DB2"},{q:"What is SQLCODE -803?",options:["Duplicate key on unique index","Constraint error","Data truncation","Null violation"],answer:0,explanation:"-803: INSERT/UPDATE would create a duplicate key in a unique index.",topic:"DB2"},{q:"What does DB2 RECOVER TABLESPACE do?",options:["Restores from image copy + applies log","Fixes corrupt data","Recovers dropped tables","Restores indexes"],answer:0,explanation:"RECOVER restores from image copy, then applies log to bring to current or specific point in time.",topic:"DB2"},{q:"What is a DB2 package vs plan?",options:["Same thing","Package = one program's SQL; Plan = collection of packages","Package is bigger","Plan is older"],answer:1,explanation:"Package contains access path for one DBRM. Plan binds packages together for execution.",topic:"DB2"},{q:"What does SQLCODE -904 mean?",options:["Resource unavailable","SQL syntax error","Auth failure","Connection lost"],answer:0,explanation:"-904: tablespace/index stopped, in COPY PENDING, or being recovered.",topic:"DB2"},{q:"Which CICS command reads the next record in a browse?",options:["READNEXT","GETNEXT","BROWSEFWD","READQ"],answer:0,explanation:"EXEC CICS READNEXT reads the next record in a browse started with STARTBR.",topic:"CICS"},{q:"What is the purpose of EXEC CICS SYNCPOINT?",options:["Synchronize screen","Commit current unit of work","Check system time","Synchronize files"],answer:1,explanation:"SYNCPOINT commits all updates, making DB2/VSAM changes permanent.",topic:"CICS"},{q:"What does CICS COMMAREA do?",options:["Communication area — passes data between programs","Command area","Comment storage","Commit area"],answer:0,explanation:"COMMAREA passes data between linked programs or pseudo-conversational iterations. Max 32 KB.",topic:"CICS"},{q:"What is a CICS BMS map?",options:["Basic Mapping Support — screen layouts","Business Map Service","Batch Map System","Binary Map Set"],answer:0,explanation:"BMS defines 3270 screen layouts. SEND MAP displays; RECEIVE MAP gets input.",topic:"CICS"},{q:"What does EXEC CICS LINK do?",options:["Links to website","Calls another program expecting return","Links datasets","Creates connection"],answer:1,explanation:"LINK invokes another program, passing COMMAREA. Control returns when linked program ends.",topic:"CICS"},{q:"What is pseudo-conversational programming?",options:["Fake conversation","Transaction ends between user interactions","Two-user chat","Simulated conversation"],answer:1,explanation:"Transaction ends after screen send, freeing resources. New transaction starts on Enter with COMMAREA.",topic:"CICS"},{q:"What does RESP/RESP2 do in CICS?",options:["Response time","Returns response code — replaces HANDLE CONDITION","Response text","Restart point"],answer:1,explanation:"RESP receives primary response (e.g., DFHRESP(NOTFND)). RESP2 gives detail. Modern error handling.",topic:"CICS"},{q:"What CICS abend is ASRA?",options:["Security violation","Program check (like S0C4/S0C7)","Storage violation","Timeout"],answer:1,explanation:"ASRA = program check within CICS. Same as S0Cx abends in batch.",topic:"CICS"},{q:"What is CICS CSD?",options:["System Definition — resource definitions","Central Storage Device","Customer Service DB","Control Directory"],answer:0,explanation:"CSD contains definitions for programs, transactions, files. Managed with CEDA/CEMT.",topic:"CICS"},{q:"What does EXEC CICS XCTL do?",options:["Transfer control — no return","Execute control","External call","Exit control"],answer:0,explanation:"XCTL transfers control without returning. Caller's storage freed. Unlike LINK which returns.",topic:"CICS"},{q:"What does CICS channel/container replace?",options:["BMS maps","COMMAREA — with no size limit","Files","Queues"],answer:1,explanation:"Channels/containers replace COMMAREA with no 32 KB limit. Supports structured data and microservices.",topic:"CICS"},{q:"What is CICS CEMT?",options:["Master terminal for managing resources","Error handler","Config editor","Memory tool"],answer:0,explanation:"CEMT is the operator transaction: CEMT I PROG(name), CEMT S FILE(name) OPEN, etc.",topic:"CICS"},{q:"What does ATSP abend mean?",options:["Auth failed","Transaction purged due to deadlock timeout","Storage protection","App error"],answer:1,explanation:"ATSP: transaction exceeded DTIMOUT (deadlock timeout). Usually DB2/VSAM lock contention.",topic:"CICS"},{q:"What is CICS Temporary Storage Queue?",options:["Temp disk","Named queue for data between transactions","Temp table","Sort workspace"],answer:1,explanation:"TS queues store data by name across transactions. Main (memory) or Auxiliary (disk).",topic:"CICS"},{q:"What does EXEC CICS RETURN TRANSID do?",options:["Returns error","Sets next transaction for pseudo-conversational","Returns to menu","Identifies transaction"],answer:1,explanation:"RETURN TRANSID('xxxx') COMMAREA(data) ends current transaction and sets next one for Enter key.",topic:"CICS"},{q:"What is DFHCOMMAREA?",options:["Default communication area passed to program","Configuration area","Common definition","Dynamic handler"],answer:0,explanation:"DFHCOMMAREA is the standard LINKAGE SECTION name for the communication area in CICS COBOL.",topic:"CICS"},{q:"What does CICS INQUIRE TRANSACTION do?",options:["Queries transaction definition and status","Ask user","Search logs","Check syntax"],answer:0,explanation:"Returns transaction info: status, program, priority. Used for monitoring and automation.",topic:"CICS"},{q:"What is the CICS EIB?",options:["Execute Interface Block — system info for programs","Error Info Base","External Index Block","Entry Buffer"],answer:0,explanation:"EIB contains EIBTRNID, EIBTRMID, EIBTIME, EIBDATE, response codes, etc.",topic:"CICS"},{q:"In IMS DL/I, what does GHU mean?",options:["Get Hold Unique","Get Next Unit","Get Hierarchical Update","Generic Hold Update"],answer:0,explanation:"GHU = Get Hold Unique. HOLD locks the segment for subsequent REPL or DLET.",topic:"IMS"},{q:"What is IMS PCB status code GE?",options:["Good execution","Segment not found","General error","Get error"],answer:1,explanation:"GE = segment not found. Check your SSA qualifications.",topic:"IMS"},{q:"What is a DL/I SSA?",options:["Segment Search Argument","System Security Area","Storage Segment Address","Sequential Search"],answer:0,explanation:"SSA specifies which segment to access: unqualified names the type; qualified adds WHERE (field=value).",topic:"IMS"},{q:"What does IMS Fast Path (DEDB) provide?",options:["Quick copy","Sub-millisecond access via memory-resident data","Fast backup","Accelerated batch"],answer:1,explanation:"Fast Path DEDBs keep data in memory for ultra-low latency — designed for ATM transactions.",topic:"IMS"},{q:"What does the IMS REPL call do?",options:["Replicates","Replaces (updates) a held segment","Replays","Reports"],answer:1,explanation:"REPL replaces a segment previously retrieved with a Hold call.",topic:"IMS"},{q:"What is an IMS PSB?",options:["Program Specification Block — database view for program","Physical Storage Base","Process Buffer","Primary Segment Block"],answer:0,explanation:"PSB defines which databases/segments a program can access and allowed operations.",topic:"IMS"},{q:"What IMS call inserts a new segment?",options:["ADD","ISRT","PUT","CREATE"],answer:1,explanation:"ISRT adds a new segment. The parent must exist before inserting a child.",topic:"IMS"},{q:"What does IMS status code II mean?",options:["Invalid input","Duplicate segment on insert","Info incomplete","Index invalid"],answer:1,explanation:"II = duplicate insert. Sequence field value already exists under same parent.",topic:"IMS"},{q:"What is IMS DBD?",options:["Database Description — physical definition","Data Block Def","Dynamic Buffer","Database Driver"],answer:0,explanation:"DBD defines physical structure: segment types, fields, relationships, access method, storage.",topic:"IMS"},{q:"What is IMS MFS?",options:["Message Format Service — screen layouts","Master File System","Message Filing","Mainframe Format"],answer:0,explanation:"MFS defines input/output message formats for IMS DC terminals, similar to CICS BMS.",topic:"IMS"},{q:"What does GNP call do in IMS?",options:["Get Next within Parent","General Next Process","Get Named Pointer","Go Next Position"],answer:0,explanation:"GNP retrieves the next segment under the current parent. Stops when no more children.",topic:"IMS"},{q:"What is an IMS HALDB?",options:["High Availability Large Database","Hardware Abstraction","Hierarchical Archive","Half-size DB"],answer:0,explanation:"HALDB partitions large IMS databases for better performance and availability.",topic:"IMS"},{q:"What does U0778 abend mean in IMS?",options:["DL/I status code not handled","Utility error","Unauthorized","Update failure"],answer:0,explanation:"U0778: program encountered unexpected DL/I status code and didn't handle it.",topic:"IMS"},{q:"What is IMS DB/DC?",options:["Database/Data Communications","Debug/Diagnostic","Direct/Batch Channel","Data Bridge"],answer:0,explanation:"IMS DB/DC combines database manager (DB) with transaction manager (DC/TM).",topic:"IMS"},{q:"What REXX function captures TSO command output?",options:["CAPTURE()","OUTTRAP()","TSO()","GETOUT()"],answer:1,explanation:"OUTTRAP(stem.) captures TSO command output into stem variables.",topic:"REXX"},{q:"What does PARSE ARG do in REXX?",options:["Parses arguments passed to program","Parses a file","Argues logic","Partial argument"],answer:0,explanation:"PARSE ARG retrieves and optionally parses arguments passed to the program.",topic:"REXX"},{q:"What is a REXX stem variable?",options:["Root variable","Array-like compound variable (stem.1, stem.2)","System variable","Template"],answer:1,explanation:"Stem variables act as arrays: mydata.0 = count, mydata.1 = first element.",topic:"REXX"},{q:"What does SYSDSN() return?",options:["Dataset size","'OK' if dataset exists, error if not","System DSN","Dataset name"],answer:1,explanation:`SYSDSN("'MY.DATASET'") returns 'OK' if it exists, or an error message.`,topic:"REXX"},{q:"How do you issue a TSO command from REXX?",options:["TSO 'command'","Put command in quotes","CALL TSO","EXECUTE command"],answer:1,explanation:`Enclose TSO commands in quotes: "ALLOC DA('MY.FILE') SHR". REXX passes quoted strings to TSO.`,topic:"REXX"},{q:"What does SIGNAL ON ERROR do?",options:["Sends signal","Jumps to ERROR: label on non-zero RC","Signal processing","Error logging"],answer:1,explanation:"SIGNAL ON ERROR causes REXX to jump to ERROR: label when a command returns non-zero RC.",topic:"REXX"},{q:"What is REXX INTERPRET?",options:["Translation","Dynamically executes a string as REXX code","Interprets data","Comment handler"],answer:1,explanation:"INTERPRET executes a string as code at runtime. Powerful but use sparingly.",topic:"REXX"},{q:"What does SUBSTR() do?",options:["Subtracts","Extracts a substring","Substitutes","Substructure"],answer:1,explanation:"SUBSTR(string, start, length) extracts a portion. SUBSTR('HELLO',2,3) = 'ELL'.",topic:"REXX"},{q:"How do you access ISPF from REXX?",options:["CALL ISPF","ADDRESS ISPEXEC","ISPF()","LINK ISPF"],answer:1,explanation:'ADDRESS ISPEXEC routes commands to ISPF: ADDRESS ISPEXEC "DISPLAY PANEL(MYPANEL)"',topic:"REXX"},{q:"What does QUEUED() return?",options:["Queue status","Lines on data stack","Queued jobs","Buffer count"],answer:1,explanation:"QUEUED() returns number of lines on the REXX data stack.",topic:"REXX"},{q:"What is EXECIO used for?",options:["Read/write datasets from REXX","Execute programs","I/O config","External execution"],answer:0,explanation:"EXECIO * DISKR ddname (STEM data. reads all records into stem. EXECIO 0 DISKW ddname (FINIS closes.",topic:"REXX"},{q:"What does PARSE UPPER VAR do?",options:["Parses and uppercases a variable","Parses upper memory","Gets uppercase input","Validates uppercase"],answer:0,explanation:"PARSE UPPER VAR myvar word1 word2 rest — parses contents into words while uppercasing.",topic:"REXX"},{q:"What is a REXX external function?",options:["Third-party lib","Separate program called as function","OS function","Network call"],answer:1,explanation:"External functions are separate REXX programs or compiled routines called as: result = MYFUNC(arg1).",topic:"REXX"},{q:"What does OVERLAY() do in REXX?",options:["Creates overlay","Overlays one string on another at position","Layer graphics","Overwrite file"],answer:1,explanation:"OVERLAY('XX','ABCDE',3) = 'ABXXE'. Overlays new onto target at position.",topic:"REXX"},{q:"What CA7 command satisfies a dependency manually?",options:["RELEASE","SATISFY","FORCE","OVERRIDE"],answer:1,explanation:"SATISFY manually fulfills a dependency without the predecessor completing.",topic:"CA7"},{q:"What does CA7 DEMAND command do?",options:["Demands resources","Submits a job on-demand outside schedule","Requires attention","Priority override"],answer:1,explanation:"DEMAND submits immediately, bypassing normal schedule. For reruns and ad-hoc.",topic:"CA7"},{q:"What is a CA7 SCHID?",options:["Schedule ID — identifies schedule instance","Schema ID","Scheduler","Screen ID"],answer:0,explanation:"SCHID distinguishes different schedule instances — e.g., daily vs weekly runs.",topic:"CA7"},{q:"What does CA7 LJOB do?",options:["List job definition and status","Load job","Launch job","Link job"],answer:0,explanation:"LJOB lists definition: schedule, predecessors, successors, triggers, current status.",topic:"CA7"},{q:"What is CA7 DBADD for?",options:["Add database","Add job dependencies","Add batch","Add dataset"],answer:1,explanation:"DBADD adds predecessors, dataset triggers, or resource requirements to a job.",topic:"CA7"},{q:"What does CA7 HOLD do?",options:["Pauses system","Prevents job from being submitted","Holds output","Freezes schedule"],answer:1,explanation:"HOLD prevents submission until RELEASE, even if all dependencies are met.",topic:"CA7"},{q:"What is CA7 LEADTIME?",options:["Processing delay","Time before deadline when CA7 starts tracking","Lead dev's time","Setup time"],answer:1,explanation:"LEADTIME tells CA7 when to start tracking relative to deadline. For SLA compliance.",topic:"CA7"},{q:"What does a CA7 TRIGGER do?",options:["Starts workflow","Auto-submits job when dataset created/updated","System alert","Manual kick-off"],answer:1,explanation:"Dataset trigger automatically submits a job when specified dataset is created/updated.",topic:"CA7"},{q:"What is the difference between CA7 and AutoSys?",options:["Same product","CA7 mainframe-focused; AutoSys cross-platform","CA7 newer","AutoSys batch only"],answer:1,explanation:"CA7 is mainframe-native. AutoSys is cross-platform. Many shops use both.",topic:"CA7"},{q:"What does CA7 RESTART do?",options:["Restarts CA7","Restarts failed job from specific step","Reboots mainframe","Resets schedule"],answer:1,explanation:"RESTART re-submits failed job, optionally from a specific step, preserving prior outputs.",topic:"CA7"},{q:"What is a CA7 virtual resource?",options:["Memory allocation","Logical resource controlling concurrency","Virtual machine","Cloud resource"],answer:1,explanation:"Virtual resources limit concurrent jobs — e.g., only 3 jobs using same database at once.",topic:"CA7"},{q:"What CA7 status means a job missed its deadline?",options:["FAILED","LATE","OVERDUE","MISSED"],answer:1,explanation:"LATE = job hasn't completed by deadline. CA7 triggers alerts and escalation.",topic:"CA7"},{q:"In RACF, what does UACC(NONE) mean?",options:["Universal access","No access unless explicitly permitted","Utility access","Update for owner"],answer:1,explanation:"UACC(NONE) = users without explicit PERMIT get no access. Most secure default.",topic:"RACF"},{q:"What RACF command grants READ access?",options:["GRANT READ","PERMIT dsn ID(user) ACCESS(READ)","ALLOW READ","AUTHORIZE"],answer:1,explanation:"PERMIT profile ID(userid) ACCESS(READ). Other levels: NONE, UPDATE, CONTROL, ALTER.",topic:"RACF"},{q:"What does RACF SPECIAL attribute give?",options:["Special login","Full RACF admin authority","Special output","Priority access"],answer:1,explanation:"SPECIAL gives complete RACF admin authority. Limit to very few security admins.",topic:"RACF"},{q:"What is a RACF generic profile?",options:["General purpose","Wildcard profile protecting multiple datasets","Generic user","Default profile"],answer:1,explanation:"Generic profiles use wildcards: SYS1.** protects all SYS1.* datasets.",topic:"RACF"},{q:"What does RACF OPERATIONS attribute allow?",options:["Console operation","Access to all datasets regardless of PERMIT","Operational monitoring","System operations"],answer:1,explanation:"OPERATIONS allows access to any dataset. Intended for storage admins, must be audited.",topic:"RACF"},{q:"What is a RACF PassTicket?",options:["Password replacement","One-time auth token for SSO","Entry pass","Ticket system"],answer:1,explanation:"PassTickets are one-time, time-limited tokens enabling SSO without transmitting passwords.",topic:"RACF"},{q:"What does SETROPTS RACLIST do?",options:["Lists options","Caches profiles in memory for performance","Sets router","Lists resources"],answer:1,explanation:"RACLIST caches general resource profiles in memory, improving access-check performance.",topic:"RACF"},{q:"What SMF record type logs RACF events?",options:["Type 30","Type 80","Type 110","Type 14"],answer:1,explanation:"SMF Type 80 captures RACF events: logins, violations, profile changes. Essential for auditing.",topic:"RACF"},{q:"What does AUDIT attribute on a profile do?",options:["Enables auditing","Logs all access attempts","Audits users","Financial audit"],answer:1,explanation:"AUDIT(ALL) logs every access attempt. AUDIT(FAILURES) logs denied access only. For compliance.",topic:"RACF"},{q:"What is RACF CONNECT used for?",options:["Network connection","Links user to group with authority","Connect systems","DB connection"],answer:1,explanation:"CONNECT userid GROUP(grp) AUTHORITY(level). Levels: USE, CREATE, CONNECT, JOIN.",topic:"RACF"},{q:"What does PROTECTALL do?",options:["Protect all files","Denies access to datasets without covering profile","Full protection","Enable all security"],answer:1,explanation:"PROTECTALL denies access to any dataset without a matching RACF profile.",topic:"RACF"},{q:"What is RACF FACILITY class?",options:["Building access","General resource class for subsystem auth","Network facility","Hardware"],answer:1,explanation:"FACILITY profiles control access to CICS transactions, DB2 resources, UNIX services, etc.",topic:"RACF"},{q:"What is RACF digital certificate support?",options:["Email encryption","X.509 certificate management for TLS/SSL","Doc signing","PDF certificates"],answer:1,explanation:"RACF manages X.509 certificates and key rings for TLS/SSL on z/OS.",topic:"RACF"},{q:"What does RACF REVOKE do?",options:["Permanently deletes","Disables ID — can be resumed later","Revokes permissions","Resets password"],answer:1,explanation:"REVOKE disables a user ID. Permissions remain intact. Use RESUME to reactivate.",topic:"RACF"},{q:"What does ISPF option 3.4 do?",options:["Edit member","Dataset list utility","Compile program","Submit job"],answer:1,explanation:"ISPF 3.4 lists datasets by pattern, letting you browse, edit, delete, rename, manage.",topic:"TSO/ISPF"},{q:"Where do you type ISPF line commands?",options:["Command line","In the line number area","Menu bar","Function key"],answer:1,explanation:"Line commands go in the line number area: D (delete), I (insert), C/M (copy/move), R (repeat).",topic:"TSO/ISPF"},{q:"What does ISPF CHANGE command do?",options:["Changes dataset","Find and replace: C 'old' 'new' ALL","Change permissions","Modify attributes"],answer:1,explanation:"C 'old' 'new' ALL replaces all occurrences. C ... FIRST for just the first.",topic:"TSO/ISPF"},{q:"What is SuperC (ISRSUPC)?",options:["Supercomputer","File comparison utility","Super copy","Compression"],answer:1,explanation:"SuperC compares two datasets and shows differences. Supports search and wildcards.",topic:"TSO/ISPF"},{q:"What does TSO ALLOC command do?",options:["Allocate memory","Connects dataset to DD name","Allocate users","Allocate CPU"],answer:1,explanation:"ALLOC associates dataset with DD name for TSO session. Like JCL DD statement.",topic:"TSO/ISPF"},{q:"What is SDSF?",options:["System Display and Search Facility","Structured Data Set Format","System Debug","Sequential Display"],answer:0,explanation:"SDSF shows job output, system logs, active jobs, resources. Essential for batch results.",topic:"TSO/ISPF"},{q:"What does ISPF 3.14 do?",options:["Web search","Searches for strings across PDS members","Searches catalogs","Find datasets"],answer:1,explanation:"ISPF 3.14 searches every member of a PDS for a specified string.",topic:"TSO/ISPF"},{q:"What is a TSO CLIST?",options:["Command List — TSO scripting","Close List","Clipboard","Client List"],answer:0,explanation:"CLIST is older TSO scripting language. Most shops now prefer REXX.",topic:"TSO/ISPF"},{q:"How do you filter lines in ISPF edit?",options:["SEL ALL","Use macros","X ALL then F 'string' ALL","FILTER command"],answer:2,explanation:"X ALL excludes all, F 'string' ALL reveals matching lines. Great for filtering.",topic:"TSO/ISPF"},{q:"What does TSO LISTDS show?",options:["Dataset attributes (RECFM, LRECL, etc.)","Contents","Directory listing","User datasets"],answer:0,explanation:"LISTDS 'dsname' STATUS shows DCB attributes, volume, space. MEMBERS lists PDS members.",topic:"TSO/ISPF"},{q:"What is ISPF option 2?",options:["Browse","Edit — full-screen editor","Utilities","Settings"],answer:1,explanation:"ISPF 2 is the Edit facility — full-screen editing with line commands and macros.",topic:"TSO/ISPF"},{q:"What does TSO PROFILE PREFIX do?",options:["Sets profile","Auto-prepends userid to unquoted dataset names","Creates profile","Prefix override"],answer:1,explanation:"PREFIX sets high-level qualifier for unquoted names. PREFIX(USER01): MY.FILE → USER01.MY.FILE.",topic:"TSO/ISPF"},{q:"What does DFSORT OPTION COPY do?",options:["Creates backup","Copies records without sorting","Copies control file","Duplicates all"],answer:1,explanation:"OPTION COPY processes through transforms without sorting — faster when sort isn't needed.",topic:"Utilities"},{q:"What does IEBCOPY do?",options:["Copies sequential","Copies/compresses/merges PDS members","Copies IEB data","Copies catalogs"],answer:1,explanation:"IEBCOPY copies, compresses, merges PDS members between libraries.",topic:"Utilities"},{q:"What does IEBGENER do?",options:["Generates programs","Copies sequential datasets","Generates reports","Creates test data"],answer:1,explanation:"IEBGENER copies sequential datasets. Simple but SORT COPY is often faster.",topic:"Utilities"},{q:"What is DFSORT JOINKEYS for?",options:["Joining tables","Matching/joining two files by key","Key generation","Index merge"],answer:1,explanation:"JOINKEYS performs inner, left, right, full outer joins between files.",topic:"Utilities"},{q:"What does INCLUDE/OMIT do in DFSORT?",options:["Include/exclude files","Filters records by condition (like WHERE)","Include headers","Omit duplicates"],answer:1,explanation:"INCLUDE COND=(1,5,CH,EQ,C'SALES') selects matching records. OMIT excludes them.",topic:"Utilities"},{q:"What is ICETOOL?",options:["Ice cream tool","Multi-function DFSORT utility","Index creation","Compression"],answer:1,explanation:"ICETOOL performs SPLICE, DISPLAY, SELECT, COUNT, STATS, UNIQUE in one step.",topic:"Utilities"},{q:"What does IDCAMS DELETE do?",options:["Deletes programs","Deletes datasets and catalog entries","Deletes users","Deletes jobs"],answer:1,explanation:"DELETE removes datasets + catalog entries. CLUSTER, NONVSAM keywords specify type.",topic:"Utilities"},{q:"What is DFSORT OUTREC for?",options:["Output recovery","Reformats output records","Record counting","Output recording"],answer:1,explanation:"OUTREC reformats records before writing: rearrange, add constants, convert formats.",topic:"Utilities"},{q:"What does ADRDSSU do?",options:["Dataset dump/restore/copy/move","Address resolution","DSS utilities","Compression"],answer:0,explanation:"ADRDSSU performs DUMP/RESTORE/COPY/MOVE at physical dataset/track level.",topic:"Utilities"},{q:"What does DFSORT INREC do?",options:["Input count","Reformats input before sort/copy","Internal recording","Initial record"],answer:1,explanation:"INREC reformats BEFORE sorting — create keys from transformed data or trim fields early.",topic:"Utilities"},{q:"What is IEFBR14?",options:["Does nothing — for dataset allocation/deletion","File browser","Batch runner","Error handler"],answer:0,explanation:"IEFBR14 is 'do nothing' — triggers JCL DD allocation/deallocation only.",topic:"Utilities"},{q:"What does ICETOOL SPLICE do?",options:["Joins cables","Merges records from two files by key","Splits files","Splices strings"],answer:1,explanation:"SPLICE merges fields from matching records. Simpler than JOINKEYS for basic merging.",topic:"Utilities"},{q:"What SMF type captures DB2 accounting data?",options:["Type 80","Type 100","Type 110","Type 30"],answer:2,explanation:"SMF 110 captures DB2 accounting — CPU, I/O, waits, SQL stats per thread.",topic:"SMF"},{q:"What does SMF Type 30 record?",options:["Security events","Job/step resource usage (CPU, memory, I/O)","Network traffic","Disk space"],answer:1,explanation:"Type 30: subtype 1=start, 2=interval, 3=step end, 4=job end. CPU, EXCP, elapsed time.",topic:"SMF"},{q:"What is RMF in z/OS?",options:["Resource Measurement Facility","Record Management File","Remote Monitor","Recovery Management"],answer:0,explanation:"RMF collects system-wide performance: CPU, paging, channel, I/O. For capacity planning.",topic:"SMF"},{q:"What does high paging rate indicate?",options:["Fast processing","Memory shortage","Good performance","Disk activity"],answer:1,explanation:"High paging = real storage constrained. Pages swapping to auxiliary storage. Add memory or reduce load.",topic:"SMF"},{q:"What does WLM service class period do?",options:["Billing period","Defines response goals and resource allocation","Service contract","Time limit"],answer:1,explanation:"Service class periods define performance goals. WLM adjusts priority to meet them.",topic:"SMF"},{q:"What is an EXCP?",options:["Exception","Execute Channel Program — one I/O operation","External Copy","Exit Point"],answer:1,explanation:"EXCP counts = individual I/O operations. High counts may mean inefficient I/O or small blocks.",topic:"SMF"},{q:"What does SMF Type 14/15 record?",options:["Dataset open/close events","Security events","Network data","Console messages"],answer:0,explanation:"Type 14 = dataset close for input; Type 15 = close for output. DSN, volume, EXCP count.",topic:"SMF"},{q:"What is GTF in z/OS?",options:["Generalized Trace Facility","Global Transfer","General Task File","Group Trace"],answer:0,explanation:"GTF captures detailed trace: I/O ops, SVC calls, program interrupts. High overhead.",topic:"SMF"},{q:"What does sustained high CPU busy % mean?",options:["Efficient","System at capacity — optimize or upgrade","Good health","Fast processing"],answer:1,explanation:"CPU > 85-90% sustained = capacity constraint. Optimize programs, WLM tune, or add capacity.",topic:"SMF"},{q:"What is zIIP?",options:["Zip compression","Specialty processor offloading eligible work from GP CPs","ZIP format","Zone processor"],answer:1,explanation:"zIIP offloads DB2, XML, Java, IP networking from expensive general-purpose processors.",topic:"SMF"},{q:"What does WLM velocity goal measure?",options:["Network speed","Percentage of time work is not delayed","Data rate","Processing speed"],answer:1,explanation:"Velocity = undelayed time / total time. Goal of 80 = work undelayed 80% of the time.",topic:"SMF"},{q:"What is SMF interval recording?",options:["Periodic collection","Type 30 subtype 2 at timed intervals","Interval timer","Schedule"],answer:1,explanation:"Interval recording produces Type 30 subtype 2 records at intervals for long-running address spaces.",topic:"SMF"},{q:"What Zowe CLI command submits JCL from a PDS?",options:["zowe jcl run","zowe jobs submit ds","zowe batch execute","zowe jcl submit"],answer:1,explanation:`'zowe jobs submit ds' submits from dataset: zowe jobs submit ds "USER.JCL(MYJOB)"`,topic:"Modernization"},{q:"What is z/OS Connect EE?",options:["Network connector","API gateway for CICS/IMS/batch as REST","DB connector","Email connector"],answer:1,explanation:"z/OS Connect maps RESTful APIs to CICS/IMS transactions and batch — zero code changes.",topic:"Modernization"},{q:"What is the Strangler Fig pattern?",options:["Removing old code","Gradually replacing monolith with new services","Code strangling","Legacy removal"],answer:1,explanation:"Route new features to modern services while legacy handles existing logic, eventually retiring it.",topic:"Modernization"},{q:"What does Zowe provide?",options:["New hardware","Open-source CLI, APIs, VS Code extension for z/OS","New OS","Replacement system"],answer:1,explanation:"Zowe: CLI scripting, REST APIs, VS Code extension, app framework for modern mainframe dev.",topic:"Modernization"},{q:"What is IBM Wazi?",options:["New language","Cloud-based mainframe dev/test environment","Monitoring","Database"],answer:1,explanation:"Wazi provides containerized z/OS dev/test on x86/cloud for modern DevOps workflows.",topic:"Modernization"},{q:"What is CPACF on IBM Z?",options:["Central Processing","Hardware crypto at no extra cost","Copy Facility","Cache Processor"],answer:1,explanation:"CPACF provides hardware-accelerated AES, SHA, etc. built into every Z processor for free.",topic:"Modernization"},{q:"How many Linux instances can a z16 run?",options:["50","200","Thousands","10"],answer:2,explanation:"A single z16 can run thousands of Linux instances with 10:1-20:1 consolidation ratios vs x86.",topic:"Modernization"},{q:"What is IFL in IBM Z?",options:["Integrated Facility for Linux","Internal File Layer","Index Facility","Interface Library"],answer:0,explanation:"IFL is a Z processor dedicated to Linux, not counting toward z/OS software licensing.",topic:"Modernization"},{q:"What language does Zowe CLI use for plugins?",options:["COBOL","Node.js/TypeScript","Java","Python"],answer:1,explanation:"Zowe CLI is built on Node.js. Plugins are TypeScript/JavaScript.",topic:"Modernization"},{q:"What is the main benefit of APIs over screen scraping?",options:["Prettier UI","Structured data, versioning, security, reliability","Faster screens","Less code"],answer:1,explanation:"APIs provide JSON, OAuth2, versioning, error handling — unlike fragile screen scraping.",topic:"Modernization"}],an=[{code:"S001",name:"I/O Error",category:"System",severity:"high",cause:"Record length mismatch between program and DD statement, or dataset corrupted. S001-0=wrong length, S001-4=block count.",fix:`1) Verify LRECL/BLKSIZE in JCL matches dataset.
 2) IDCAMS VERIFY for VSAM.
 3) Check if dataset was properly closed.`,tips:["LISTDS to compare DCB attributes","S001-0=wrong length vs S001-4=block count"]},{code:"S002",name:"I/O Error - Invalid Record",category:"System",severity:"high",cause:"Invalid record detected during I/O. Hardware error, corrupted data, or writing past end of block.",fix:`1) Rerun — may be transient hardware issue.
 2) IEBPTPCH to find bad records.
@@ -17262,7 +20986,7 @@ IBM's IMS Universal Drivers allow Java applications and SQL-like access to IMS d
 2) Check for infinite recursion.
 3) Move large locals to WORKING-STORAGE.`,tips:["CEEOPTS='STACK(128K,,,,)'","Deep PERFORM nesting exhausts stack"]},{code:"U4093",name:"LE - Math Error",category:"User",severity:"medium",cause:"Division by zero, overflow, or invalid math argument.",fix:`1) Check for zero divisors.
 2) Validate arguments.
-3) ON SIZE ERROR clause.`,tips:["CEEOPTS='TRAP(ON)'"]}],Xo=["All","System","CICS","DB2","IMS","JCL","User"],pt={critical:"#dc2626",high:"#ea580c",medium:"#d97706",low:"#16a34a"},Vo={critical:"🔴 Critical",high:"🟠 High",medium:"🟡 Medium",low:"🟢 Low"},oa=[{level:1,title:"Trainee",subtitle:"Getting Started",icon:"🌱",color:"#22c55e",duration:"0–3 months",skills:[{name:"TSO/ISPF Navigation",topic:"tso"},{name:"z/OS Basics & MVS Concepts",topic:"zos"},{name:"JCL Fundamentals",topic:"jcl"},{name:"Basic COBOL Syntax",topic:"cobol"},{name:"Sequential File Processing",topic:"vsam"}],milestone:"Can navigate TSO, write simple JCL, and compile a COBOL program"},{level:2,title:"Junior Developer",subtitle:"Building Foundations",icon:"🔧",color:"#3b82f6",duration:"3–9 months",skills:[{name:"COBOL File Handling & Reports",topic:"cobol"},{name:"JCL PROCs & Symbolic Parameters",topic:"jcl"},{name:"VSAM (KSDS, ESDS, RRDS)",topic:"vsam"},{name:"SORT/MERGE Utilities",topic:"utilities"},{name:"Basic DB2 SQL",topic:"db2"},{name:"Abend Debugging (S0C7, S0C4)",topic:"zos"}],milestone:"Can independently develop, test, and debug batch COBOL programs"},{level:3,title:"Developer",subtitle:"Production Ready",icon:"⚡",color:"#8b5cf6",duration:"9–18 months",skills:[{name:"CICS Application Programming",topic:"cics"},{name:"BMS Maps & Screen Design",topic:"cics"},{name:"DB2 Embedded SQL & Cursors",topic:"db2"},{name:"REXX Scripting",topic:"rexx"},{name:"File Status Codes & Error Handling",topic:"cobol"},{name:"IMS/DB Basics",topic:"ims"},{name:"IDCAMS & VSAM Utilities",topic:"vsam"}],milestone:"Can build end-to-end CICS transactions with DB2 backend"},{level:4,title:"Senior Developer",subtitle:"System Expertise",icon:"🎯",color:"#ec4899",duration:"18–36 months",skills:[{name:"Performance Tuning (DB2, COBOL)",topic:"db2"},{name:"RACF Security Administration",topic:"racf"},{name:"CA7/TWS Job Scheduling",topic:"ca7"},{name:"Complex DFSORT/ICETOOL",topic:"utilities"},{name:"SMF Records & Monitoring",topic:"smf"},{name:"Production Support & Incident Mgmt",topic:"zos"},{name:"CICS Tuning & Administration",topic:"cics"}],milestone:"Can handle production incidents, tune performance, and mentor juniors"},{level:5,title:"Lead / Specialist",subtitle:"Domain Authority",icon:"🏆",color:"#f59e0b",duration:"3–6 years",skills:[{name:"Systems Programming Concepts",topic:"zos"},{name:"Capacity Planning & WLM",topic:"smf"},{name:"Disaster Recovery Procedures",topic:"zos"},{name:"z/OS Connect & API Economy",topic:"modernization"},{name:"DevOps for Mainframe (Zowe CLI)",topic:"modernization"},{name:"Cross-Platform Integration",topic:"modernization"}],milestone:"Can design systems, lead teams, and drive modernization initiatives"},{level:6,title:"Architect",subtitle:"Strategic Vision",icon:"👑",color:"#ef4444",duration:"6+ years",skills:[{name:"Enterprise Architecture (Mainframe + Cloud)",topic:"modernization"},{name:"Strangler Fig & Modernization Patterns",topic:"modernization"},{name:"Hybrid Cloud with IBM Z",topic:"modernization"},{name:"Cost Optimization & TCO Analysis",topic:"zos"},{name:"Vendor Management & IBM Strategy",topic:"zos"},{name:"Team Building & Knowledge Transfer",topic:"zos"}],milestone:"Can define enterprise mainframe strategy and drive organizational transformation"}],jo=l.lazy(()=>Do(()=>import("./Hero3D-Da0O8-uU.js"),__vite__mapDeps([0,1,2]))),$t=[{name:"Harikrishnan",role:"Admin • Founder",color:"#00b365",status:"online",emoji:"👑"},{name:"Ravi Kumar",role:"Senior COBOL Dev",color:"#0071e3",status:"online",emoji:"💻"},{name:"Priya Sharma",role:"COBOL Expert",color:"#9b59b6",status:"online",emoji:"📘"},{name:"Arun Patel",role:"DB2 Specialist",color:"#e67e22",status:"away",emoji:"🗄️"},{name:"Meera Nair",role:"JCL Developer",color:"#e74c3c",status:"offline",emoji:"⚙️"},{name:"Suresh Reddy",role:"CICS Analyst",color:"#d4a017",status:"online",emoji:"🔧"},{name:"Anitha Das",role:"Trainee",color:"#27ae60",status:"online",emoji:"🌱"},{name:"Vikram Singh",role:"IMS Developer",color:"#8e44ad",status:"away",emoji:"📊"}],G={TEXT:"text",JOB:"job",DOUBT:"doubt",THOUGHT:"thought",SYS:"system",POLL:"poll"},zo=["👍","❤️","😂","🔥","💡","🎯"];function sa(p,T=.35){const u=parseInt(p.slice(1,3),16),I=parseInt(p.slice(3,5),16),r=parseInt(p.slice(5,7),16);return`#${Math.round(u*(1-T)).toString(16).padStart(2,"0")}${Math.round(I*(1-T)).toString(16).padStart(2,"0")}${Math.round(r*(1-T)).toString(16).padStart(2,"0")}`}const ia=[["#FF6B6B","#EE5A24"],["#0071e3","#7c3aed"],["#00b894","#00cec9"],["#e17055","#fdcb6e"],["#6c5ce7","#a29bfe"],["#fd79a8","#e84393"],["#00b365","#20bf6b"],["#f78fb3","#cf6a87"],["#3dc1d3","#0984e3"],["#e77f67","#f5cd79"],["#546de5","#574b90"],["#e15f41","#c44569"],["#00d2d3","#01a3a4"],["#ff9ff3","#f368e0"],["#feca57","#ff6348"],["#1dd1a1","#10ac84"],["#54a0ff","#2e86de"],["#5f27cd","#341f97"]],ra=["🚀","⚡","🔥","💎","🌟","🎯","💻","🧠","🦊","🐉","🎮","🌈","🎸","🏆","🛡️","🔮","👾","🤖"],la=["dots","rings","waves","grid","diamond"];function Jo(p){let T=0;for(let u=0;u<(p||"").length;u++)T=(T<<5)-T+(p||"U").charCodeAt(u),T|=0;return Math.abs(T)}function We({name:p,size:T=36,showRing:u=!1,onClick:I,style:r}){const h=Jo(p),R=ia[h%ia.length],U=ra[h%ra.length],y=la[h%la.length],W=(p||"U").charAt(0).toUpperCase(),K=h%3===0,[m,d]=l.useState(!1);var M="";y==="dots"?M="<circle cx='4' cy='4' r='1.5' fill='rgba(255,255,255,0.15)'/><circle cx='12' cy='12' r='1.5' fill='rgba(255,255,255,0.15)'/>":y==="rings"?M="<circle cx='8' cy='8' r='6' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1.5'/>":y==="waves"?M="<path d='M0 8 Q4 4 8 8 T16 8' fill='none' stroke='rgba(255,255,255,0.12)' stroke-width='1.5'/>":y==="grid"?M="<line x1='0' y1='8' x2='16' y2='8' stroke='rgba(255,255,255,0.08)' stroke-width='1'/><line x1='8' y1='0' x2='8' y2='16' stroke='rgba(255,255,255,0.08)' stroke-width='1'/>":y==="diamond"&&(M="<polygon points='8,2 14,8 8,14 2,8' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>");const z=`url("data:image/svg+xml,%3Csvg width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3E${encodeURIComponent(M)}%3C/svg%3E")`;return e.jsxs("div",{onClick:I,onMouseEnter:()=>d(!0),onMouseLeave:()=>d(!1),style:{position:"relative",width:T,height:T,flexShrink:0,cursor:I?"pointer":"default",perspective:"200px",transformStyle:"preserve-3d",...r},children:[u&&e.jsx("div",{style:{position:"absolute",inset:-3,borderRadius:"50%",background:`conic-gradient(${R[0]}, ${R[1]}, transparent, ${R[0]})`,animation:"spin 3s linear infinite",opacity:m?1:.7,transition:"opacity 0.3s"}}),u&&e.jsx("div",{style:{position:"absolute",inset:-6,borderRadius:"50%",background:`radial-gradient(circle, ${R[0]}40, transparent 70%)`,animation:"avatarPulse 2s ease-in-out infinite",zIndex:0}}),e.jsxs("div",{className:"avatar-3d",style:{width:T,height:T,borderRadius:"50%",background:`linear-gradient(135deg, ${R[0]}, ${R[1]})`,backgroundImage:`${z}, linear-gradient(135deg, ${R[0]}, ${R[1]})`,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:K?T*.5:T*.42,fontWeight:800,fontFamily:"-apple-system,sans-serif",boxShadow:m?`0 8px 25px ${R[0]}60, 0 0 15px ${R[1]}30, inset 0 -2px 6px rgba(0,0,0,0.15)`:u?`0 4px 16px ${R[0]}40, inset 0 -2px 4px rgba(0,0,0,0.1)`:`0 2px 8px ${R[0]}30, inset 0 -1px 3px rgba(0,0,0,0.1)`,border:u?"2.5px solid rgba(255,255,255,0.9)":"none",position:"relative",zIndex:1,letterSpacing:"-0.5px",textShadow:"0 1px 3px rgba(0,0,0,0.25)",transform:m?"rotateY(15deg) rotateX(-10deg) scale(1.1)":"rotateY(0) rotateX(0) scale(1)",transition:"transform 0.3s ease, box-shadow 0.3s ease",backfaceVisibility:"hidden"},children:[e.jsx("div",{style:{position:"absolute",top:"8%",left:"15%",width:"35%",height:"25%",borderRadius:"50%",background:"rgba(255,255,255,0.25)",filter:"blur(3px)",pointerEvents:"none"}}),K?U:W]})]})}function He({style:p}){const T=l.useRef(null),u=l.useRef(null);return l.useEffect(()=>{const I=T.current;if(!I)return;const r=I.getContext("2d"),h=()=>{I.width=I.offsetWidth*2,I.height=I.offsetHeight*2,r.scale(2,2)};h(),window.addEventListener("resize",h);const R=Array.from({length:7},(K,m)=>({x:Math.random()*I.offsetWidth,y:Math.random()*I.offsetHeight,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:14+Math.random()*10,col:$t[m%8].color,em:$t[m%8].emoji,ph:Math.random()*Math.PI*2})),U=Array.from({length:35},()=>({x:Math.random()*I.offsetWidth,y:Math.random()*I.offsetHeight,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:1+Math.random()*2,a:.2+Math.random()*.4}));let y=0;const W=()=>{y+=.016;const K=I.offsetWidth,m=I.offsetHeight;r.clearRect(0,0,K,m);for(let d=0;d<R.length;d++)for(let M=d+1;M<R.length;M++){const z=R[d],te=R[M],Z=Math.hypot(z.x-te.x,z.y-te.y);Z<180&&(r.beginPath(),r.moveTo(z.x,z.y),r.lineTo(te.x,te.y),r.strokeStyle=`rgba(0,113,227,${(1-Z/180)*.12})`,r.lineWidth=1,r.stroke())}U.forEach(d=>{d.x+=d.vx,d.y+=d.vy,(d.x<0||d.x>K)&&(d.vx*=-1),(d.y<0||d.y>m)&&(d.vy*=-1),r.beginPath(),r.arc(d.x,d.y,d.r,0,Math.PI*2),r.fillStyle=`rgba(0,113,227,${d.a*.4})`,r.fill()}),R.forEach(d=>{d.x+=d.vx+Math.sin(y+d.ph)*.3,d.y+=d.vy+Math.cos(y*.7+d.ph)*.3,(d.x<d.r||d.x>K-d.r)&&(d.vx*=-1),(d.y<d.r||d.y>m-d.r)&&(d.vy*=-1);const M=r.createRadialGradient(d.x,d.y,0,d.x,d.y,d.r*2.2);M.addColorStop(0,d.col+"25"),M.addColorStop(1,"transparent"),r.beginPath(),r.arc(d.x,d.y,d.r*2.2,0,Math.PI*2),r.fillStyle=M,r.fill(),r.beginPath(),r.arc(d.x,d.y,d.r,0,Math.PI*2),r.fillStyle=d.col+"18",r.strokeStyle=d.col+"40",r.lineWidth=1.5,r.fill(),r.stroke(),r.font=`${d.r*.85}px sans-serif`,r.textAlign="center",r.textBaseline="middle",r.fillText(d.em,d.x,d.y+1)}),u.current=requestAnimationFrame(W)};return u.current=requestAnimationFrame(W),()=>{cancelAnimationFrame(u.current),window.removeEventListener("resize",h)}},[]),e.jsx("canvas",{ref:T,style:{position:"absolute",inset:0,width:"100%",height:"100%",...p}})}function Ea({m:p,sz:T=34}){return e.jsxs("div",{style:{width:T,height:T,borderRadius:"50%",background:`linear-gradient(135deg,${p.color}20,${p.color}08)`,border:`2px solid ${p.color}40`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:T*.45,flexShrink:0,position:"relative"},children:[p.emoji,p.status==="online"&&e.jsx("div",{style:{position:"absolute",bottom:0,right:0,width:9,height:9,borderRadius:"50%",background:"#00b365",border:"2px solid #fff"}})]})}function Ko({msg:p,members:T,self:u,onReact:I,onReply:r,onDel:h,onStar:R,starred:U}){const[y,W]=l.useState(!1),[K,m]=l.useState(!1),d=p._isSelf||!1,M=p.type===G.SYS,z=M?null:{name:p._name||"User",role:p._role||"",color:p._color||"#0071e3",emoji:p._emoji||"🧑‍💻",status:"online"},te=(p.replyTo!=null,null);if(p.del)return e.jsx("div",{style:{display:"flex",justifyContent:d?"flex-end":"flex-start",padding:"2px 16px",opacity:.4},children:e.jsx("div",{style:{padding:"6px 14px",borderRadius:12,background:"#1e293b",fontStyle:"italic",fontSize:13,color:"#94a3b8"},children:"🚫 Deleted"})});if(M)return e.jsx("div",{style:{display:"flex",justifyContent:"center",padding:"8px 16px"},children:e.jsx("div",{style:{padding:"4px 16px",borderRadius:20,background:"rgba(0,113,227,0.12)",border:"1px solid rgba(0,113,227,0.2)",fontSize:12,color:"#94a3b8"},children:p.text})});const Z={[G.JOB]:{bg:"rgba(124,58,237,0.15)",bd:"rgba(124,58,237,0.3)",ic:"💼",lb:"Job"},[G.DOUBT]:{bg:"rgba(251,191,36,0.12)",bd:"rgba(251,191,36,0.25)",ic:"❓",lb:"Doubt"},[G.THOUGHT]:{bg:"rgba(0,113,227,0.12)",bd:"rgba(0,113,227,0.25)",ic:"💭",lb:"Thought"},[G.POLL]:{bg:"rgba(168,85,247,0.12)",bd:"rgba(168,85,247,0.25)",ic:"📊",lb:"Poll"}}[p.type];return e.jsxs("div",{style:{display:"flex",justifyContent:d?"flex-end":"flex-start",padding:"3px 16px",alignItems:"flex-end",gap:8},onMouseEnter:()=>m(!0),onMouseLeave:()=>{m(!1),W(!1)},children:[!d&&z&&e.jsx(Ea,{m:z,sz:28}),e.jsxs("div",{style:{maxWidth:"75%",minWidth:100,position:"relative"},children:[K&&e.jsxs("div",{style:{position:"absolute",top:-8,[d?"left":"right"]:0,display:"flex",gap:2,background:"#111827",border:"1px solid rgba(255,255,255,0.08)",borderRadius:8,padding:"2px 4px",zIndex:5,boxShadow:"0 2px 8px rgba(0,0,0,0.08)"},children:[e.jsx("button",{onClick:()=>W(!y),style:Ct,"aria-label":"React",children:"😊"}),e.jsx("button",{onClick:()=>r(p),style:Ct,"aria-label":"Reply",children:"↩️"}),e.jsx("button",{onClick:()=>R(p.id),style:Ct,"aria-label":"Bookmark",children:U?"⭐":"☆"}),d&&e.jsx("button",{onClick:()=>h(p.id),style:Ct,"aria-label":"Delete",children:"🗑️"})]}),y&&e.jsx("div",{style:{position:"absolute",top:-40,[d?"left":"right"]:0,display:"flex",gap:2,background:"#111827",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"4px 6px",zIndex:10,boxShadow:"0 4px 16px rgba(0,0,0,0.1)"},children:zo.map(A=>e.jsx("button",{onClick:()=>{I(p.id,A),W(!1)},style:{background:"none",border:"none",cursor:"pointer",fontSize:18,padding:"2px 4px",borderRadius:6},"aria-label":"React with "+A,children:A},A))}),e.jsxs("div",{style:{background:d?"linear-gradient(135deg,#0071e3,#0055b0)":Z?Z.bg:"#1e293b",border:`1px solid ${d?"#0060c0":Z?Z.bd:"rgba(255,255,255,0.1)"}`,borderRadius:d?"16px 16px 4px 16px":"16px 16px 16px 4px",padding:"8px 12px"},children:[Z&&e.jsxs("div",{style:{fontSize:10,fontWeight:700,color:"#94a3b8",marginBottom:4,textTransform:"uppercase",letterSpacing:"0.5px"},children:[Z.ic," ",Z.lb]}),!d&&z&&e.jsxs("div",{style:{fontSize:12,fontWeight:700,color:z.color,marginBottom:3},children:[z.name," ",z.emoji]}),te,p.type===G.POLL&&p.pollOpts?e.jsxs("div",{children:[e.jsx("div",{style:{fontSize:14,color:d?"#fff":"#e2e8f0",marginBottom:8,fontWeight:600},children:p.text}),p.pollOpts.map((A,Q)=>{const ne=p.pollOpts.reduce((S,q)=>S+q.votes.length,0),Xe=ne>0?A.votes.length/ne*100:0;return e.jsxs("div",{style:{marginBottom:6,position:"relative",borderRadius:8,overflow:"hidden",background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.06)"},children:[e.jsx("div",{style:{position:"absolute",top:0,left:0,height:"100%",width:`${Xe}%`,background:"rgba(0,113,227,0.1)"}}),e.jsxs("div",{style:{position:"relative",padding:"6px 10px",display:"flex",justifyContent:"space-between",fontSize:13,color:"#f1f5f9"},children:[e.jsx("span",{children:A.text}),e.jsxs("span",{style:{color:"#0071e3",fontWeight:600},children:[A.votes.length," (",Math.round(Xe),"%)"]})]})]},Q)})]}):e.jsx("div",{style:{fontSize:14,color:d?"#fff":"#e2e8f0",whiteSpace:"pre-wrap",lineHeight:1.45},children:p.text}),e.jsxs("div",{style:{fontSize:10,color:d?"rgba(255,255,255,0.6)":"#64748b",marginTop:4,textAlign:"right"},children:[p.time,d&&" ✓✓"]})]}),Object.keys(p.reactions).length>0&&e.jsx("div",{style:{display:"flex",gap:4,marginTop:2,flexWrap:"wrap",justifyContent:d?"flex-end":"flex-start"},children:Object.entries(p.reactions).map(([A,Q])=>e.jsxs("span",{onClick:()=>I(p.id,A),style:{background:Q.includes(u)?"rgba(0,113,227,0.2)":"rgba(30,41,59,0.6)",border:`1px solid ${Q.includes(u)?"rgba(0,113,227,0.35)":"rgba(255,255,255,0.1)"}`,borderRadius:12,padding:"1px 6px",fontSize:12,cursor:"pointer",display:"flex",alignItems:"center",gap:3},children:[A,e.jsx("span",{style:{fontSize:10,color:"#94a3b8"},children:Q.length})]},A))})]})]})}const Ct={background:"none",border:"none",cursor:"pointer",fontSize:14,padding:"2px 4px",borderRadius:4},E="-apple-system,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif",ut="'SF Mono','Fira Code','Cascadia Code',monospace",ca={zos:{tip:{title:"Understanding z/OS Address Space Limits",content:`Every z/OS address space has storage limits that directly impact application behavior. The 16MB 'line' and 2GB 'bar' are architectural boundaries from 24-bit and 31-bit addressing eras. Modern applications should use 64-bit (above the bar) storage for large data buffers.
+3) ON SIZE ERROR clause.`,tips:["CEEOPTS='TRAP(ON)'"]}],Xo=["All","System","CICS","DB2","IMS","JCL","User"],Ct={critical:"#dc2626",high:"#ea580c",medium:"#d97706",low:"#16a34a"},Vo={critical:"🔴 Critical",high:"🟠 High",medium:"🟡 Medium",low:"🟢 Low"},nn=[{level:1,title:"Trainee",subtitle:"Getting Started",icon:"🌱",color:"#22c55e",duration:"0–3 months",skills:[{name:"TSO/ISPF Navigation",topic:"tso"},{name:"z/OS Basics & MVS Concepts",topic:"zos"},{name:"JCL Fundamentals",topic:"jcl"},{name:"Basic COBOL Syntax",topic:"cobol"},{name:"Sequential File Processing",topic:"vsam"}],milestone:"Can navigate TSO, write simple JCL, and compile a COBOL program"},{level:2,title:"Junior Developer",subtitle:"Building Foundations",icon:"🔧",color:"#3b82f6",duration:"3–9 months",skills:[{name:"COBOL File Handling & Reports",topic:"cobol"},{name:"JCL PROCs & Symbolic Parameters",topic:"jcl"},{name:"VSAM (KSDS, ESDS, RRDS)",topic:"vsam"},{name:"SORT/MERGE Utilities",topic:"utilities"},{name:"Basic DB2 SQL",topic:"db2"},{name:"Abend Debugging (S0C7, S0C4)",topic:"zos"}],milestone:"Can independently develop, test, and debug batch COBOL programs"},{level:3,title:"Developer",subtitle:"Production Ready",icon:"⚡",color:"#8b5cf6",duration:"9–18 months",skills:[{name:"CICS Application Programming",topic:"cics"},{name:"BMS Maps & Screen Design",topic:"cics"},{name:"DB2 Embedded SQL & Cursors",topic:"db2"},{name:"REXX Scripting",topic:"rexx"},{name:"File Status Codes & Error Handling",topic:"cobol"},{name:"IMS/DB Basics",topic:"ims"},{name:"IDCAMS & VSAM Utilities",topic:"vsam"}],milestone:"Can build end-to-end CICS transactions with DB2 backend"},{level:4,title:"Senior Developer",subtitle:"System Expertise",icon:"🎯",color:"#ec4899",duration:"18–36 months",skills:[{name:"Performance Tuning (DB2, COBOL)",topic:"db2"},{name:"RACF Security Administration",topic:"racf"},{name:"CA7/TWS Job Scheduling",topic:"ca7"},{name:"Complex DFSORT/ICETOOL",topic:"utilities"},{name:"SMF Records & Monitoring",topic:"smf"},{name:"Production Support & Incident Mgmt",topic:"zos"},{name:"CICS Tuning & Administration",topic:"cics"}],milestone:"Can handle production incidents, tune performance, and mentor juniors"},{level:5,title:"Lead / Specialist",subtitle:"Domain Authority",icon:"🏆",color:"#f59e0b",duration:"3–6 years",skills:[{name:"Systems Programming Concepts",topic:"zos"},{name:"Capacity Planning & WLM",topic:"smf"},{name:"Disaster Recovery Procedures",topic:"zos"},{name:"z/OS Connect & API Economy",topic:"modernization"},{name:"DevOps for Mainframe (Zowe CLI)",topic:"modernization"},{name:"Cross-Platform Integration",topic:"modernization"}],milestone:"Can design systems, lead teams, and drive modernization initiatives"},{level:6,title:"Architect",subtitle:"Strategic Vision",icon:"👑",color:"#ef4444",duration:"6+ years",skills:[{name:"Enterprise Architecture (Mainframe + Cloud)",topic:"modernization"},{name:"Strangler Fig & Modernization Patterns",topic:"modernization"},{name:"Hybrid Cloud with IBM Z",topic:"modernization"},{name:"Cost Optimization & TCO Analysis",topic:"zos"},{name:"Vendor Management & IBM Strategy",topic:"zos"},{name:"Team Building & Knowledge Transfer",topic:"zos"}],milestone:"Can define enterprise mainframe strategy and drive organizational transformation"}],jo=l.lazy(()=>Do(()=>import("./Hero3D-B7TWN8mW.js"),__vite__mapDeps([0,1,2]))),$t=[{name:"Harikrishnan",role:"Admin • Founder",color:"#00b365",status:"online",emoji:"👑"},{name:"Ravi Kumar",role:"Senior COBOL Dev",color:"#0071e3",status:"online",emoji:"💻"},{name:"Priya Sharma",role:"COBOL Expert",color:"#9b59b6",status:"online",emoji:"📘"},{name:"Arun Patel",role:"DB2 Specialist",color:"#e67e22",status:"away",emoji:"🗄️"},{name:"Meera Nair",role:"JCL Developer",color:"#e74c3c",status:"offline",emoji:"⚙️"},{name:"Suresh Reddy",role:"CICS Analyst",color:"#d4a017",status:"online",emoji:"🔧"},{name:"Anitha Das",role:"Trainee",color:"#27ae60",status:"online",emoji:"🌱"},{name:"Vikram Singh",role:"IMS Developer",color:"#8e44ad",status:"away",emoji:"📊"}],W={TEXT:"text",JOB:"job",DOUBT:"doubt",THOUGHT:"thought",SYS:"system",POLL:"poll"},zo=["👍","❤️","😂","🔥","💡","🎯"];function on(C,m=.35){const u=parseInt(C.slice(1,3),16),A=parseInt(C.slice(3,5),16),i=parseInt(C.slice(5,7),16);return`#${Math.round(u*(1-m)).toString(16).padStart(2,"0")}${Math.round(A*(1-m)).toString(16).padStart(2,"0")}${Math.round(i*(1-m)).toString(16).padStart(2,"0")}`}const sn=[["#FF6B6B","#EE5A24"],["#0071e3","#7c3aed"],["#00b894","#00cec9"],["#e17055","#fdcb6e"],["#6c5ce7","#a29bfe"],["#fd79a8","#e84393"],["#00b365","#20bf6b"],["#f78fb3","#cf6a87"],["#3dc1d3","#0984e3"],["#e77f67","#f5cd79"],["#546de5","#574b90"],["#e15f41","#c44569"],["#00d2d3","#01a3a4"],["#ff9ff3","#f368e0"],["#feca57","#ff6348"],["#1dd1a1","#10ac84"],["#54a0ff","#2e86de"],["#5f27cd","#341f97"]],rn=["🚀","⚡","🔥","💎","🌟","🎯","💻","🧠","🦊","🐉","🎮","🌈","🎸","🏆","🛡️","🔮","👾","🤖"],ln=["dots","rings","waves","grid","diamond"];function Jo(C){let m=0;for(let u=0;u<(C||"").length;u++)m=(m<<5)-m+(C||"U").charCodeAt(u),m|=0;return Math.abs(m)}function Ge({name:C,size:m=36,showRing:u=!1,onClick:A,style:i}){const h=Jo(C),R=sn[h%sn.length],U=rn[h%rn.length],M=ln[h%ln.length],G=(C||"U").charAt(0).toUpperCase(),K=h%3===0,[p,S]=l.useState(!1);var y="";M==="dots"?y="<circle cx='4' cy='4' r='1.5' fill='rgba(255,255,255,0.15)'/><circle cx='12' cy='12' r='1.5' fill='rgba(255,255,255,0.15)'/>":M==="rings"?y="<circle cx='8' cy='8' r='6' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1.5'/>":M==="waves"?y="<path d='M0 8 Q4 4 8 8 T16 8' fill='none' stroke='rgba(255,255,255,0.12)' stroke-width='1.5'/>":M==="grid"?y="<line x1='0' y1='8' x2='16' y2='8' stroke='rgba(255,255,255,0.08)' stroke-width='1'/><line x1='8' y1='0' x2='8' y2='16' stroke='rgba(255,255,255,0.08)' stroke-width='1'/>":M==="diamond"&&(y="<polygon points='8,2 14,8 8,14 2,8' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>");const z=`url("data:image/svg+xml,%3Csvg width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3E${encodeURIComponent(y)}%3C/svg%3E")`;return e.jsxs("div",{onClick:A,onMouseEnter:()=>S(!0),onMouseLeave:()=>S(!1),style:{position:"relative",width:m,height:m,flexShrink:0,cursor:A?"pointer":"default",perspective:"200px",transformStyle:"preserve-3d",...i},children:[u&&e.jsx("div",{style:{position:"absolute",inset:-3,borderRadius:"50%",background:`conic-gradient(${R[0]}, ${R[1]}, transparent, ${R[0]})`,animation:"spin 3s linear infinite",opacity:p?1:.7,transition:"opacity 0.3s"}}),u&&e.jsx("div",{style:{position:"absolute",inset:-6,borderRadius:"50%",background:`radial-gradient(circle, ${R[0]}40, transparent 70%)`,animation:"avatarPulse 2s ease-in-out infinite",zIndex:0}}),e.jsxs("div",{className:"avatar-3d",style:{width:m,height:m,borderRadius:"50%",background:`linear-gradient(135deg, ${R[0]}, ${R[1]})`,backgroundImage:`${z}, linear-gradient(135deg, ${R[0]}, ${R[1]})`,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:K?m*.5:m*.42,fontWeight:800,fontFamily:"-apple-system,sans-serif",boxShadow:p?`0 8px 25px ${R[0]}60, 0 0 15px ${R[1]}30, inset 0 -2px 6px rgba(0,0,0,0.15)`:u?`0 4px 16px ${R[0]}40, inset 0 -2px 4px rgba(0,0,0,0.1)`:`0 2px 8px ${R[0]}30, inset 0 -1px 3px rgba(0,0,0,0.1)`,border:u?"2.5px solid rgba(255,255,255,0.9)":"none",position:"relative",zIndex:1,letterSpacing:"-0.5px",textShadow:"0 1px 3px rgba(0,0,0,0.25)",transform:p?"rotateY(15deg) rotateX(-10deg) scale(1.1)":"rotateY(0) rotateX(0) scale(1)",transition:"transform 0.3s ease, box-shadow 0.3s ease",backfaceVisibility:"hidden"},children:[e.jsx("div",{style:{position:"absolute",top:"8%",left:"15%",width:"35%",height:"25%",borderRadius:"50%",background:"rgba(255,255,255,0.25)",filter:"blur(3px)",pointerEvents:"none"}}),K?U:G]})]})}function He({style:C}){const m=l.useRef(null),u=l.useRef(null);return l.useEffect(()=>{const A=m.current;if(!A)return;const i=A.getContext("2d"),h=()=>{A.width=A.offsetWidth*2,A.height=A.offsetHeight*2,i.scale(2,2)};h(),window.addEventListener("resize",h);const R=Array.from({length:7},(K,p)=>({x:Math.random()*A.offsetWidth,y:Math.random()*A.offsetHeight,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:14+Math.random()*10,col:$t[p%8].color,em:$t[p%8].emoji,ph:Math.random()*Math.PI*2})),U=Array.from({length:35},()=>({x:Math.random()*A.offsetWidth,y:Math.random()*A.offsetHeight,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:1+Math.random()*2,a:.2+Math.random()*.4}));let M=0;const G=()=>{M+=.016;const K=A.offsetWidth,p=A.offsetHeight;i.clearRect(0,0,K,p);for(let S=0;S<R.length;S++)for(let y=S+1;y<R.length;y++){const z=R[S],te=R[y],_=Math.hypot(z.x-te.x,z.y-te.y);_<180&&(i.beginPath(),i.moveTo(z.x,z.y),i.lineTo(te.x,te.y),i.strokeStyle=`rgba(0,113,227,${(1-_/180)*.12})`,i.lineWidth=1,i.stroke())}U.forEach(S=>{S.x+=S.vx,S.y+=S.vy,(S.x<0||S.x>K)&&(S.vx*=-1),(S.y<0||S.y>p)&&(S.vy*=-1),i.beginPath(),i.arc(S.x,S.y,S.r,0,Math.PI*2),i.fillStyle=`rgba(0,113,227,${S.a*.4})`,i.fill()}),R.forEach(S=>{S.x+=S.vx+Math.sin(M+S.ph)*.3,S.y+=S.vy+Math.cos(M*.7+S.ph)*.3,(S.x<S.r||S.x>K-S.r)&&(S.vx*=-1),(S.y<S.r||S.y>p-S.r)&&(S.vy*=-1);const y=i.createRadialGradient(S.x,S.y,0,S.x,S.y,S.r*2.2);y.addColorStop(0,S.col+"25"),y.addColorStop(1,"transparent"),i.beginPath(),i.arc(S.x,S.y,S.r*2.2,0,Math.PI*2),i.fillStyle=y,i.fill(),i.beginPath(),i.arc(S.x,S.y,S.r,0,Math.PI*2),i.fillStyle=S.col+"18",i.strokeStyle=S.col+"40",i.lineWidth=1.5,i.fill(),i.stroke(),i.font=`${S.r*.85}px sans-serif`,i.textAlign="center",i.textBaseline="middle",i.fillText(S.em,S.x,S.y+1)}),u.current=requestAnimationFrame(G)};return u.current=requestAnimationFrame(G),()=>{cancelAnimationFrame(u.current),window.removeEventListener("resize",h)}},[]),e.jsx("canvas",{ref:m,style:{position:"absolute",inset:0,width:"100%",height:"100%",...C}})}function dn({m:C,sz:m=34}){return e.jsxs("div",{style:{width:m,height:m,borderRadius:"50%",background:`linear-gradient(135deg,${C.color}20,${C.color}08)`,border:`2px solid ${C.color}40`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:m*.45,flexShrink:0,position:"relative"},children:[C.emoji,C.status==="online"&&e.jsx("div",{style:{position:"absolute",bottom:0,right:0,width:9,height:9,borderRadius:"50%",background:"#00b365",border:"2px solid #fff"}})]})}function Ko({msg:C,members:m,self:u,onReact:A,onReply:i,onDel:h,onStar:R,starred:U}){const[M,G]=l.useState(!1),[K,p]=l.useState(!1),S=C._isSelf||!1,y=C.type===W.SYS,z=y?null:{name:C._name||"User",role:C._role||"",color:C._color||"#0071e3",emoji:C._emoji||"🧑‍💻",status:"online"},te=(C.replyTo!=null,null);if(C.del)return e.jsx("div",{style:{display:"flex",justifyContent:S?"flex-end":"flex-start",padding:"2px 16px",opacity:.4},children:e.jsx("div",{style:{padding:"6px 14px",borderRadius:12,background:"#1e293b",fontStyle:"italic",fontSize:13,color:"#94a3b8"},children:"🚫 Deleted"})});if(y)return e.jsx("div",{style:{display:"flex",justifyContent:"center",padding:"8px 16px"},children:e.jsx("div",{style:{padding:"4px 16px",borderRadius:20,background:"rgba(0,113,227,0.12)",border:"1px solid rgba(0,113,227,0.2)",fontSize:12,color:"#94a3b8"},children:C.text})});const _={[W.JOB]:{bg:"rgba(124,58,237,0.15)",bd:"rgba(124,58,237,0.3)",ic:"💼",lb:"Job"},[W.DOUBT]:{bg:"rgba(251,191,36,0.12)",bd:"rgba(251,191,36,0.25)",ic:"❓",lb:"Doubt"},[W.THOUGHT]:{bg:"rgba(0,113,227,0.12)",bd:"rgba(0,113,227,0.25)",ic:"💭",lb:"Thought"},[W.POLL]:{bg:"rgba(168,85,247,0.12)",bd:"rgba(168,85,247,0.25)",ic:"📊",lb:"Poll"}}[C.type];return e.jsxs("div",{style:{display:"flex",justifyContent:S?"flex-end":"flex-start",padding:"3px 16px",alignItems:"flex-end",gap:8},onMouseEnter:()=>p(!0),onMouseLeave:()=>{p(!1),G(!1)},children:[!S&&z&&e.jsx(dn,{m:z,sz:28}),e.jsxs("div",{style:{maxWidth:"75%",minWidth:100,position:"relative"},children:[K&&e.jsxs("div",{style:{position:"absolute",top:-8,[S?"left":"right"]:0,display:"flex",gap:2,background:"#111827",border:"1px solid rgba(255,255,255,0.08)",borderRadius:8,padding:"2px 4px",zIndex:5,boxShadow:"0 2px 8px rgba(0,0,0,0.08)"},children:[e.jsx("button",{onClick:()=>G(!M),style:Tt,"aria-label":"React",children:"😊"}),e.jsx("button",{onClick:()=>i(C),style:Tt,"aria-label":"Reply",children:"↩️"}),e.jsx("button",{onClick:()=>R(C.id),style:Tt,"aria-label":"Bookmark",children:U?"⭐":"☆"}),S&&e.jsx("button",{onClick:()=>h(C.id),style:Tt,"aria-label":"Delete",children:"🗑️"})]}),M&&e.jsx("div",{style:{position:"absolute",top:-40,[S?"left":"right"]:0,display:"flex",gap:2,background:"#111827",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"4px 6px",zIndex:10,boxShadow:"0 4px 16px rgba(0,0,0,0.1)"},children:zo.map(I=>e.jsx("button",{onClick:()=>{A(C.id,I),G(!1)},style:{background:"none",border:"none",cursor:"pointer",fontSize:18,padding:"2px 4px",borderRadius:6},"aria-label":"React with "+I,children:I},I))}),e.jsxs("div",{style:{background:S?"linear-gradient(135deg,#0071e3,#0055b0)":_?_.bg:"#1e293b",border:`1px solid ${S?"#0060c0":_?_.bd:"rgba(255,255,255,0.1)"}`,borderRadius:S?"16px 16px 4px 16px":"16px 16px 16px 4px",padding:"8px 12px"},children:[_&&e.jsxs("div",{style:{fontSize:10,fontWeight:700,color:"#94a3b8",marginBottom:4,textTransform:"uppercase",letterSpacing:"0.5px"},children:[_.ic," ",_.lb]}),!S&&z&&e.jsxs("div",{style:{fontSize:12,fontWeight:700,color:z.color,marginBottom:3},children:[z.name," ",z.emoji]}),te,C.type===W.POLL&&C.pollOpts?e.jsxs("div",{children:[e.jsx("div",{style:{fontSize:14,color:S?"#fff":"#e2e8f0",marginBottom:8,fontWeight:600},children:C.text}),C.pollOpts.map((I,Q)=>{const ae=C.pollOpts.reduce((c,q)=>c+q.votes.length,0),Xe=ae>0?I.votes.length/ae*100:0;return e.jsxs("div",{style:{marginBottom:6,position:"relative",borderRadius:8,overflow:"hidden",background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.06)"},children:[e.jsx("div",{style:{position:"absolute",top:0,left:0,height:"100%",width:`${Xe}%`,background:"rgba(0,113,227,0.1)"}}),e.jsxs("div",{style:{position:"relative",padding:"6px 10px",display:"flex",justifyContent:"space-between",fontSize:13,color:"#f1f5f9"},children:[e.jsx("span",{children:I.text}),e.jsxs("span",{style:{color:"#0071e3",fontWeight:600},children:[I.votes.length," (",Math.round(Xe),"%)"]})]})]},Q)})]}):e.jsx("div",{style:{fontSize:14,color:S?"#fff":"#e2e8f0",whiteSpace:"pre-wrap",lineHeight:1.45},children:C.text}),e.jsxs("div",{style:{fontSize:10,color:S?"rgba(255,255,255,0.6)":"#64748b",marginTop:4,textAlign:"right"},children:[C.time,S&&" ✓✓"]})]}),Object.keys(C.reactions).length>0&&e.jsx("div",{style:{display:"flex",gap:4,marginTop:2,flexWrap:"wrap",justifyContent:S?"flex-end":"flex-start"},children:Object.entries(C.reactions).map(([I,Q])=>e.jsxs("span",{onClick:()=>A(C.id,I),style:{background:Q.includes(u)?"rgba(0,113,227,0.2)":"rgba(30,41,59,0.6)",border:`1px solid ${Q.includes(u)?"rgba(0,113,227,0.35)":"rgba(255,255,255,0.1)"}`,borderRadius:12,padding:"1px 6px",fontSize:12,cursor:"pointer",display:"flex",alignItems:"center",gap:3},children:[I,e.jsx("span",{style:{fontSize:10,color:"#94a3b8"},children:Q.length})]},I))})]})]})}const Tt={background:"none",border:"none",cursor:"pointer",fontSize:14,padding:"2px 4px",borderRadius:4},d="-apple-system,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif",ut="'SF Mono','Fira Code','Cascadia Code',monospace",En={zos:{tip:{title:"Understanding z/OS Address Space Limits",content:`Every z/OS address space has storage limits that directly impact application behavior. The 16MB 'line' and 2GB 'bar' are architectural boundaries from 24-bit and 31-bit addressing eras. Modern applications should use 64-bit (above the bar) storage for large data buffers.
 
 When you encounter S878 or S80A abends, the first diagnostic step is checking REGION allocation vs actual usage via SMF Type 30 records. Use IEFUSI exit to enforce region limits per job class rather than relying on JCL REGION parameters.`},scenario:{question:"A production CICS region is experiencing intermittent S80A abends during peak hours. The DSA is configured at 256MB. What's your approach?",answer:"First, check CICS statistics for DSA usage trends (EXEC CICS INQUIRE SYSTEM). Review EDSA vs DSA allocation — if EDSA is exhausted but DSA has room, programs may not be compiled with RENT/RMODE(ANY). Check for storage leaks using CICS auxiliary trace. Increase EDSALIM to 512MB as immediate relief while investigating the root cause program."},code:{title:"Check z/OS Storage Usage via REXX",snippet:`/* REXX - Display address space storage */
 ARG JOBNAME
@@ -17482,11 +21206,11 @@ openssl engine -t
 # Enable hardware crypto if not active
 modprobe aes_s390
 modprobe sha256_s390
-modprobe des_s390`,explanation:"Verify hardware crypto is active. If ibmca engine is loaded, all TLS/encryption operations use zero-overhead hardware acceleration."},facts:["A single IBM z16 can run up to 2 million Linux Docker containers","Linux on Z with z/VM can achieve 10:1 to 20:1 consolidation ratios vs x86","IBM LinuxONE Emperor 4 holds the record for most Linux guests on a single system"],generatedDate:new Date().toLocaleDateString()}};async function Qo(p){return ca[p.id]?ca[p.id]:{tip:{title:`${p.title} — Pro Tip of the Week`,content:`Explore the ${p.title} sections on this site for in-depth coverage. Each section includes practical examples, code samples, and interview questions to help you master ${p.title} from beginner to professional level.
+modprobe des_s390`,explanation:"Verify hardware crypto is active. If ibmca engine is loaded, all TLS/encryption operations use zero-overhead hardware acceleration."},facts:["A single IBM z16 can run up to 2 million Linux Docker containers","Linux on Z with z/VM can achieve 10:1 to 20:1 consolidation ratios vs x86","IBM LinuxONE Emperor 4 holds the record for most Linux guests on a single system"],generatedDate:new Date().toLocaleDateString()}};async function Qo(C){return En[C.id]?En[C.id]:{tip:{title:`${C.title} — Pro Tip of the Week`,content:`Explore the ${C.title} sections on this site for in-depth coverage. Each section includes practical examples, code samples, and interview questions to help you master ${C.title} from beginner to professional level.
 
-Stay tuned — new tips and scenarios are added regularly to keep your mainframe skills sharp.`},scenario:{question:`What is the most common performance issue with ${p.title} and how do you diagnose it?`,answer:`Performance issues in ${p.title} typically relate to resource contention, suboptimal configuration, or inefficient code patterns. Use SMF records, RMF reports, and system traces to identify bottlenecks. Check the ${p.title} sections on this site for detailed troubleshooting guides.`},code:{title:`${p.title} Quick Reference`,snippet:`//* See the ${p.title} topic sections
+Stay tuned — new tips and scenarios are added regularly to keep your mainframe skills sharp.`},scenario:{question:`What is the most common performance issue with ${C.title} and how do you diagnose it?`,answer:`Performance issues in ${C.title} typically relate to resource contention, suboptimal configuration, or inefficient code patterns. Use SMF records, RMF reports, and system traces to identify bottlenecks. Check the ${C.title} sections on this site for detailed troubleshooting guides.`},code:{title:`${C.title} Quick Reference`,snippet:`//* See the ${C.title} topic sections
 //* for comprehensive code examples
-//* covering beginner to expert level`,explanation:`Visit the ${p.title} topic for detailed code examples with explanations.`},facts:[`${p.title} is a critical component of IBM Z enterprise computing`,`Mastering ${p.title} is essential for mainframe professionals`,`This site covers ${p.sections?.length||10}+ sections on ${p.title}`],generatedDate:new Date().toLocaleDateString()}}async function qo(p,T){try{localStorage.setItem("weekly_"+p,JSON.stringify(T)),localStorage.setItem("lastUpdate",new Date().toISOString())}catch{}}async function Zo(p){try{const T=localStorage.getItem("weekly_"+p);return T?JSON.parse(T):null}catch{return null}}async function _o(){try{return localStorage.getItem("lastUpdate")}catch{return null}}function $o(){const p=["home","topics","scenarios","blog","quiz","playground","community","abends","roadmap","weekly","about"],T=["jcl","cobol","cics","db2","vsam","rexx","imsdb","zos","security","tso","smf","ca7","linuxonz","modernization","procs"],[u,I]=l.useState("home"),[r,h]=l.useState(null),R={jcl:{title:"JCL Tutorial — 86 Lessons | Job Control Language | MainframeStudyHub",desc:"Complete JCL tutorial with 86 lessons. JOB, EXEC, DD statements, procedures, conditional processing, DFSORT utilities, interview Q&A, and cheat sheet. Free."},cobol:{title:"COBOL Tutorial — 60 Lessons | Learn COBOL Programming | MainframeStudyHub",desc:"Learn COBOL programming with 60 lessons. All four divisions, file handling, DB2 integration, CICS, tables, string operations, interview Q&A. Free."},db2:{title:"DB2 Tutorial — SQL, Cursors, Performance | MainframeStudyHub",desc:"DB2 for z/OS tutorial. SQL, cursors, SQLCA, isolation levels, EXPLAIN, RUNSTATS, stored procedures, interview Q&A, and cheat sheet. Free."},cics:{title:"CICS Tutorial — Online Transaction Processing | MainframeStudyHub",desc:"CICS tutorial. Pseudo-conversational programming, BMS maps, file control, TS/TD queues, web services, interview Q&A. Free."},vsam:{title:"VSAM Tutorial — KSDS, ESDS, RRDS, IDCAMS | MainframeStudyHub",desc:"VSAM tutorial. KSDS, ESDS, RRDS, IDCAMS commands, alternate indexes, CI splits, performance tuning, interview Q&A. Free."},rexx:{title:"REXX Tutorial — z/OS Scripting & Automation | MainframeStudyHub",desc:"REXX tutorial for z/OS. EXECIO, OUTTRAP, stem variables, PARSE, TSO interaction, interview Q&A, and cheat sheet. Free."},imsdb:{title:"IMS DB/DC Tutorial — Hierarchical Database | MainframeStudyHub",desc:"IMS tutorial. DL/I calls, PCB/PSB, segments, SSA, status codes, batch and online processing, interview Q&A. Free."},zos:{title:"z/OS Fundamentals Tutorial — IBM Z Operating System | MainframeStudyHub",desc:"z/OS fundamentals. LPAR, TSO/ISPF, JES, catalogs, SMS, WLM, system libraries, interview Q&A, and cheat sheet. Free."},security:{title:"RACF Tutorial — Mainframe Security | MainframeStudyHub",desc:"RACF security tutorial. Users, groups, profiles, access levels, PERMIT, LISTDSD, interview Q&A, and cheat sheet. Free."},tso:{title:"TSO/ISPF Tutorial — Interactive z/OS Access | MainframeStudyHub",desc:"TSO/ISPF tutorial. ISPF options, edit commands, SDSF, dataset management, job submission, interview Q&A. Free."},smf:{title:"SMF & Performance Tutorial — System Metrics | MainframeStudyHub",desc:"SMF and performance tutorial. SMF record types, RMF monitors, WLM, performance tuning, interview Q&A. Free."},ca7:{title:"CA-7 Tutorial — Job Scheduling | MainframeStudyHub",desc:"CA-7 job scheduling tutorial. Predecessors, successors, schedule IDs, job streams, restart procedures. Free."},linuxonz:{title:"Linux on Z Tutorial — IBM Z Linux | MainframeStudyHub",desc:"Linux on Z tutorial. z/VM, LPAR, consolidation, KVM on Z, hybrid architecture, interview Q&A. Free."},modernization:{title:"Mainframe Modernization Tutorial — Zowe, APIs, DevOps | MainframeStudyHub",desc:"Mainframe modernization. Zowe, z/OS Connect, API Mediation Layer, IBM DBB, CI/CD pipelines, interview Q&A. Free."},procs:{title:"DFSORT Tutorial — Sort, ICETOOL, Utilities | MainframeStudyHub",desc:"DFSORT and utilities tutorial. SORT FIELDS, INCLUDE/OMIT, OUTREC, JOINKEYS, ICETOOL, interview Q&A. Free."}},U={home:"MainframeStudyHub — IBM Z Mainframe Learning Platform",topics:"305+ Mainframe Tutorials — JCL, COBOL, DB2, CICS, VSAM | MainframeStudyHub",quiz:"200+ Mainframe Quiz Questions — Daily Challenges | MainframeStudyHub",scenarios:"52 Real-World Mainframe Scenarios | MainframeStudyHub",community:"Mainframe Developer Community — Chat & Q&A | MainframeStudyHub",blog:"Mainframe Expert Blog — Articles & Insights | MainframeStudyHub",abends:"87 IBM Abend Codes — Instant Lookup & Fixes | MainframeStudyHub",roadmap:"Mainframe Career Roadmap — Trainee to Architect | MainframeStudyHub",weekly:"Weekly Mainframe Updates | MainframeStudyHub",playground:"AI Code Lab — JCL/COBOL Explainer & Simulator | MainframeStudyHub",about:"About MainframeStudyHub — Built by Harikrishnan K"},y={home:"MainframeStudyHub — Free IBM Z mainframe learning platform. 305+ lessons across 15 topics. AI Code Lab, 200+ quizzes, interview Q&A, cheat sheets.",topics:"305+ mainframe tutorials: JCL (86 lessons), COBOL (60 lessons), DB2, CICS, VSAM, REXX, IMS, z/OS, RACF, TSO, SMF, DFSORT. Beginner to Expert. Free.",quiz:"200+ mainframe quiz questions with daily challenges, streak tracking, and topic filtering. Test your JCL, COBOL, DB2, CICS knowledge.",scenarios:"52 real-world mainframe scenarios across 13 categories and 4 difficulty levels. Practice production problem solving.",abends:"87 IBM abend codes with instant lookup, severity levels, root causes, and fix guides. S0C7, S806, SB37, and more.",playground:"AI-powered Code Lab — explain, debug, and simulate JCL, COBOL, REXX, and SQL code. Powered by Claude AI.",community:"Join the mainframe developer community. Live WhatsApp-style chat and Stack Overflow-style Q&A forum.",blog:"Expert mainframe blog with articles and insights from mainframe professionals worldwide.",roadmap:"6-level mainframe career roadmap from Trainee to Architect. Skills, certifications, and timeline guidance.",weekly:"Weekly mainframe content updates across all 15 topics. Stay current with the latest tutorials and tips.",about:"MainframeStudyHub — Built by Harikrishnan K, Mainframe Developer. Free platform for the mainframe community."};l.useEffect(()=>{const t=window.location.hash||"";if(t.includes("access_token")||t.includes("type=signup")||t.includes("type=recovery"))return;let n;u==="topics"&&r?n="/topics/"+r.id:u==="home"?n="/":n="/"+u,window.location.pathname!==n&&window.history.pushState(null,"",n),u==="topics"&&r&&R[r.id]?document.title=R[r.id].title:document.title=U[u]||U.home;const s=document.querySelector('link[rel="canonical"]');s&&(s.href="https://mainframestudyhub.com"+n);const o=document.querySelector('meta[name="description"]');o&&(u==="topics"&&r&&R[r.id]?o.content=R[r.id].desc:o.content=y[u]||y.home)},[u,r]),l.useEffect(()=>{const t=()=>{const n=window.location.hash;if(n&&(n.includes("access_token")||n.includes("type=signup")||n.includes("type=recovery")))return;const s=window.location.pathname.split("/").filter(Boolean),o=s[0]||"home",a=s[0]==="topics"?s[1]:null,c=p.includes(o)?o:"home";if(c!==u&&I(c),c==="topics"&&a&&T.includes(a)){const C=P.find(O=>O.id===a);C&&(h(C),d(0))}else c==="topics"&&h(null)};return window.addEventListener("popstate",t),()=>window.removeEventListener("popstate",t)},[u]);const[W,K]=l.useState(!1);l.useEffect(()=>{if(typeof window>"u"||window.innerWidth<=768)return;let t=!1;const n=()=>{t||(t=!0,K(!0))},s=setTimeout(n,6e3),o=()=>{n(),window.removeEventListener("scroll",o)};return window.addEventListener("scroll",o,{passive:!0}),()=>{clearTimeout(s),window.removeEventListener("scroll",o)}},[]),l.useEffect(()=>{const t=()=>ha(window.innerWidth<900);return window.addEventListener("resize",t),()=>window.removeEventListener("resize",t)},[]),l.useEffect(()=>{const t=window.location.hash||"";if(t.includes("access_token")||t.includes("type=signup")||t.includes("type=recovery"))return;const s=window.location.pathname.split("/").filter(Boolean),o=s[0]||"";if(p.indexOf(o)>=0&&o!==u)I(o);else if(!o){const a=t.replace("#","");p.indexOf(a)>=0&&I(a)}if(s[0]==="topics"&&s[1]&&T.indexOf(s[1])>=0){const a=P.find(c=>c.id===s[1]);a&&(h(a),d(0),I("topics"))}},[]);const[m,d]=l.useState(0),[M,z]=l.useState(!1),[te,Z]=l.useState({}),[A,Q]=l.useState({index:0,score:0,selected:null,done:!1,showExp:!1}),[ne,Xe]=l.useState("All"),[S,q]=l.useState(null),en=ne==="All"?Te:Te.filter(t=>t.topic===ne),pa=["All",...Array.from(new Set(Te.map(t=>t.topic)))],[_,Tt]=l.useState(!1),[Ve,tn]=l.useState(0),Dt=l.useRef(null),Ca=()=>{const t=new Date().toISOString().slice(0,10);let n=0;for(let o=0;o<t.length;o++)n=(n<<5)-n+t.charCodeAt(o),n=n&n;const s=[...Te];for(let o=s.length-1;o>0;o--){n=n*1664525+1013904223&2147483647;const a=n%(o+1);[s[o],s[a]]=[s[a],s[o]]}return s.slice(0,5)},[nn]=l.useState(Ca),je="mfsh_daily_"+new Date().toISOString().slice(0,10),[se,It]=l.useState(null);l.useEffect(()=>{(async()=>{try{if(S){const{data:n}=await f.from("user_data").select("value").eq("user_id",S.id).eq("key",je).maybeSingle();if(n?.value){It(n.value);return}}}catch{}try{const n=localStorage.getItem(je);n&&It(JSON.parse(n))}catch{}})()},[S]);const ua=()=>{Tt(!0),Q({index:0,score:0,selected:null,done:!1,showExp:!1}),tn(0),Dt.current=setInterval(()=>tn(t=>t+1),1e3)},ma=async t=>{clearInterval(Dt.current);const n={score:t,total:5,time:Ve,date:new Date().toISOString().slice(0,10)};It(n);try{localStorage.setItem(je,JSON.stringify(n))}catch{}const s=new Date(Date.now()-864e5).toISOString().slice(0,10);let o={count:0,lastDate:""};if(S)try{const{data:C}=await f.from("user_data").select("value").eq("user_id",S.id).eq("key","streak").maybeSingle();C?.value&&(o=C.value)}catch{}else try{o=JSON.parse(localStorage.getItem("mfsh_streak")||'{"count":0,"lastDate":""}')}catch{}const c={count:o.lastDate===s?o.count+1:1,lastDate:n.date};try{localStorage.setItem("mfsh_streak",JSON.stringify(c))}catch{}S&&(await f.from("user_data").upsert({user_id:S.id,key:je,value:n},{onConflict:"user_id,key"}).catch(()=>{}),await f.from("user_data").upsert({user_id:S.id,key:"streak",value:c},{onConflict:"user_id,key"}).catch(()=>{}))},ze=()=>{try{const t=JSON.parse(localStorage.getItem("mfsh_streak")||'{"count":0}'),n=new Date().toISOString().slice(0,10);return t.lastDate===n?t.count:0}catch{return 0}},[Je,Ta]=l.useState(""),[ye,Da]=l.useState("All"),[Ke,At]=l.useState(null),Rt=aa.filter(t=>{const n=ye==="All"||t.category===ye,s=!Je||t.code.toLowerCase().includes(Je.toLowerCase())||t.name.toLowerCase().includes(Je.toLowerCase());return n&&s}),[Ie,Ia]=l.useState(null),[Ot,Aa]=l.useState(""),[Qe,Ra]=l.useState("all"),[Me,Ae]=l.useState(!1),[an,Oa]=l.useState(!1),[ts,ha]=l.useState(typeof window<"u"?window.innerWidth<900:!1),[qe,ga]=l.useState("All"),[Ze,fa]=l.useState("All"),[ht,on]=l.useState(null),[sn,gt]=l.useState(null),[ft,Lt]=l.useState(!1),[w,Pt]=l.useState(null),[ie,La]=l.useState(null),[Nt,yt]=l.useState(null),[rn,ln]=l.useState(null),[Re,cn]=l.useState("tip"),[v,L]=l.useState(null),[g,b]=l.useState({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}),[Sn,D]=l.useState(""),[H,x]=l.useState(!1),be=async t=>{try{const{data:n,error:s}=await f.from("profiles").select("*").eq("id",t).single();return s||!n?null:{id:n.id,name:n.name||"User",email:n.email||"",role:n.role||"Mainframe Professional",itYears:String(n.it_years||0),mfYears:String(n.mf_years||0),joinDate:n.join_date||new Date().toISOString().slice(0,10),avatar:(n.avatar||n.name?.charAt(0)||"U").toUpperCase()}}catch{return null}},Oe=t=>{const n=t.user_metadata||{},s=n.name||t.email?.split("@")[0]||"User";return{id:t.id,name:s,email:t.email,role:n.role||"Mainframe Professional",itYears:String(n.it_years||0),mfYears:String(n.mf_years||0),joinDate:new Date().toISOString().slice(0,10),avatar:s.charAt(0).toUpperCase()}};l.useEffect(()=>{const t=window.location.hash;t&&(t.includes("access_token")||t.includes("type=signup")||t.includes("type=recovery"))?(async()=>{await new Promise(a=>setTimeout(a,600));try{const{data:{session:a}}=await f.auth.getSession();if(a?.user)try{const c=await be(a.user.id);q(c||Oe(a.user))}catch{q(Oe(a.user))}}catch{}window.history.replaceState&&window.history.replaceState(null,"",window.location.pathname)})():f.auth.getSession().then(async({data:{session:o}})=>{if(o?.user)try{const a=await be(o.user.id);q(a||Oe(o.user))}catch{q(Oe(o.user))}}).catch(()=>{});const{data:{subscription:s}}=f.auth.onAuthStateChange(async(o,a)=>{if((o==="SIGNED_IN"||o==="TOKEN_REFRESHED")&&a?.user)try{const c=await be(a.user.id);q(c||Oe(a.user))}catch{q(Oe(a.user))}else o==="SIGNED_OUT"&&q(null)});return()=>s.unsubscribe()},[]);const dn=async()=>{if(D(""),!g.name.trim()||!g.email.trim()||!g.password.trim()){D("Name, email, and password are required.");return}if(g.password.length<6){D("Password must be at least 6 characters.");return}x(!0);const t=setTimeout(()=>{x(!1),D("Request timed out. Please check your internet and try again.")},3e4);try{const{data:n,error:s}=await f.auth.signUp({email:g.email.trim().toLowerCase(),password:g.password,options:{data:{name:g.name.trim(),role:g.role.trim()||"Mainframe Professional",it_years:parseInt(g.itYears)||0,mf_years:parseInt(g.mfYears)||0,avatar:g.name.trim().charAt(0).toUpperCase()},emailRedirectTo:(window.location.hostname==="localhost"?window.location.origin:"https://mainframestudyhub.com")+"/confirm.html"}});if(s){clearTimeout(t);const o=s.message||"";o.includes("already registered")||o.includes("already exists")?D("This email is already registered. Try signing in instead."):o.includes("rate limit")?D("Too many attempts. Please wait a minute and try again."):o.includes("password")?D("Password must be at least 6 characters."):D(o),x(!1);return}if(n.user&&!n.session&&!n.user.identities?.length){D("This email is already registered. Try signing in instead."),x(!1);return}if(n.user)if(n.session){const o=g.name.trim(),a={id:n.user.id,name:o,email:n.user.email,role:g.role.trim()||"Mainframe Professional",itYears:g.itYears||"0",mfYears:g.mfYears||"0",joinDate:new Date().toISOString().slice(0,10),avatar:o.charAt(0).toUpperCase()};setTimeout(async()=>{try{await f.from("profiles").upsert({id:n.user.id,name:a.name,email:a.email,role:a.role,it_years:parseInt(g.itYears)||0,mf_years:parseInt(g.mfYears)||0,avatar:a.avatar},{onConflict:"id"})}catch{}},500),q(a),L(null),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})}else D(""),L(null),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}),alert("Account created! Please check your email to confirm your account, then sign in.")}catch(n){clearTimeout(t),D(n.message||"Something went wrong.")}clearTimeout(t),x(!1)},En=async()=>{if(D(""),!g.email.trim()||!g.password.trim()){D("Email and password are required.");return}x(!0);const t=setTimeout(()=>{x(!1),D("Request timed out. Please check your internet and try again.")},3e4);try{const{data:n,error:s}=await f.auth.signInWithPassword({email:g.email.trim().toLowerCase(),password:g.password});if(clearTimeout(t),s){const o=s.message||"";o.includes("Email not confirmed")?D("Please check your email inbox (and spam) for the confirmation link. Click it first, then sign in."):o.includes("Invalid login")?D("Invalid email or password. Please try again or sign up for a new account."):o.includes("rate limit")||o.includes("too many")?D("Too many attempts. Please wait a minute and try again."):D(o||"Sign in failed. Please try again."),x(!1);return}if(n.user){let o=null;try{o=await be(n.user.id)}catch{}if(!o){const a=n.user.user_metadata||{},c=a.name||n.user.email?.split("@")[0]||"User";o={id:n.user.id,name:c,email:n.user.email,role:a.role||"Mainframe Professional",itYears:String(a.it_years||0),mfYears:String(a.mf_years||0),joinDate:new Date().toISOString().slice(0,10),avatar:c.charAt(0).toUpperCase()},f.from("profiles").upsert({id:n.user.id,name:o.name,email:o.email,role:o.role,it_years:0,mf_years:0,avatar:o.avatar},{onConflict:"id"}).catch(()=>{})}q(o),L(null),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})}}catch(n){clearTimeout(t),D(n.message||"Connection error. Please check your internet and try again.")}x(!1)},pn=async()=>{await f.auth.signOut(),q(null)},Pa=async()=>{D(""),x(!0);try{const{error:t}=await f.auth.signInWithOAuth({provider:"google",options:{redirectTo:window.location.hostname==="localhost"?window.location.origin:"https://mainframestudyhub.com"}});t&&(D(t.message||"Google sign-in failed. Please try again."),x(!1))}catch(t){D(t.message||"Google sign-in failed. Please check your connection."),x(!1)}},Na=async()=>{if(D(""),!g.email.trim()){D("Please enter your email address first.");return}x(!0);try{const{error:t}=await f.auth.resetPasswordForEmail(g.email.trim().toLowerCase(),{redirectTo:(window.location.hostname==="localhost"?window.location.origin:"https://mainframestudyhub.com")+"/reset-password.html"});t?D(t.message):(D(""),L("forgot-sent"))}catch(t){D(t.message||"Something went wrong.")}x(!1)},[ya,_e]=l.useState(!1),[X,Ue]=l.useState({name:"",role:"",itYears:"",mfYears:""}),Ma=()=>{S&&(Ue({name:S.name||"",role:S.role||"",itYears:S.itYears||"0",mfYears:S.mfYears||"0"}),_e(!0),L(null))},ba=async()=>{if(!(!S||!X.name.trim())){x(!0);try{const{error:t}=await f.from("profiles").update({name:X.name.trim(),role:X.role.trim()||"Mainframe Professional",it_years:parseInt(X.itYears)||0,mf_years:parseInt(X.mfYears)||0,avatar:X.name.trim().charAt(0).toUpperCase()}).eq("id",S.id);if(t)D(t.message);else{const n=await be(S.id);q(n),_e(!1)}}catch(t){D(t.message)}x(!1)}},[Ua,$e]=l.useState(!1),[Mt,bt]=l.useState(""),[et,le]=l.useState(""),Cn=async()=>{if(le(""),Mt.length<6){le("Password must be at least 6 characters.");return}x(!0);try{const{error:t}=await f.auth.updateUser({password:Mt});t?le(t.message):(le("✅ Password updated successfully!"),bt(""),setTimeout(()=>{$e(!1),le("")},1500))}catch(t){le(t.message)}x(!1)},un=["Mainframe Developer","Systems Programmer","DB2 DBA","CICS Administrator","Storage Admin","Security Admin","Network Engineer","Operations/Batch","DevOps Engineer","Manager/Lead","Student/Intern","Career Changer","Other"],[mn,Tn]=l.useState(!1),[Y,Dn]=l.useState(!1),[xe,tt]=l.useState([{role:"assistant",content:`Hey! 👋 I'm the **MainframeStudyHub AI** — think of me as your personal mainframe expert, always here to help.
+//* covering beginner to expert level`,explanation:`Visit the ${C.title} topic for detailed code examples with explanations.`},facts:[`${C.title} is a critical component of IBM Z enterprise computing`,`Mastering ${C.title} is essential for mainframe professionals`,`This site covers ${C.sections?.length||10}+ sections on ${C.title}`],generatedDate:new Date().toLocaleDateString()}}async function qo(C,m){try{localStorage.setItem("weekly_"+C,JSON.stringify(m)),localStorage.setItem("lastUpdate",new Date().toISOString())}catch{}}async function _o(C){try{const m=localStorage.getItem("weekly_"+C);return m?JSON.parse(m):null}catch{return null}}async function Zo(){try{return localStorage.getItem("lastUpdate")}catch{return null}}function $o(){const C=["home","topics","scenarios","blog","quiz","playground","community","abends","roadmap","weekly","about"],m=["jcl","cobol","cics","db2","vsam","rexx","imsdb","zos","security","tso","smf","ca7","linuxonz","modernization","procs"],[u,A]=l.useState("home"),[i,h]=l.useState(null),R={jcl:{title:"JCL Tutorial — 86 Lessons | Job Control Language | MainframeStudyHub",desc:"Complete JCL tutorial with 86 lessons. JOB, EXEC, DD statements, procedures, conditional processing, DFSORT utilities, interview Q&A, and cheat sheet. Free."},cobol:{title:"COBOL Tutorial — 60 Lessons | Learn COBOL Programming | MainframeStudyHub",desc:"Learn COBOL programming with 60 lessons. All four divisions, file handling, DB2 integration, CICS, tables, string operations, interview Q&A. Free."},db2:{title:"DB2 Tutorial — SQL, Cursors, Performance | MainframeStudyHub",desc:"DB2 for z/OS tutorial. SQL, cursors, SQLCA, isolation levels, EXPLAIN, RUNSTATS, stored procedures, interview Q&A, and cheat sheet. Free."},cics:{title:"CICS Tutorial — Online Transaction Processing | MainframeStudyHub",desc:"CICS tutorial. Pseudo-conversational programming, BMS maps, file control, TS/TD queues, web services, interview Q&A. Free."},vsam:{title:"VSAM Tutorial — KSDS, ESDS, RRDS, IDCAMS | MainframeStudyHub",desc:"VSAM tutorial. KSDS, ESDS, RRDS, IDCAMS commands, alternate indexes, CI splits, performance tuning, interview Q&A. Free."},rexx:{title:"REXX Tutorial — z/OS Scripting & Automation | MainframeStudyHub",desc:"REXX tutorial for z/OS. EXECIO, OUTTRAP, stem variables, PARSE, TSO interaction, interview Q&A, and cheat sheet. Free."},imsdb:{title:"IMS DB/DC Tutorial — Hierarchical Database | MainframeStudyHub",desc:"IMS tutorial. DL/I calls, PCB/PSB, segments, SSA, status codes, batch and online processing, interview Q&A. Free."},zos:{title:"z/OS Fundamentals Tutorial — IBM Z Operating System | MainframeStudyHub",desc:"z/OS fundamentals. LPAR, TSO/ISPF, JES, catalogs, SMS, WLM, system libraries, interview Q&A, and cheat sheet. Free."},security:{title:"RACF Tutorial — Mainframe Security | MainframeStudyHub",desc:"RACF security tutorial. Users, groups, profiles, access levels, PERMIT, LISTDSD, interview Q&A, and cheat sheet. Free."},tso:{title:"TSO/ISPF Tutorial — Interactive z/OS Access | MainframeStudyHub",desc:"TSO/ISPF tutorial. ISPF options, edit commands, SDSF, dataset management, job submission, interview Q&A. Free."},smf:{title:"SMF & Performance Tutorial — System Metrics | MainframeStudyHub",desc:"SMF and performance tutorial. SMF record types, RMF monitors, WLM, performance tuning, interview Q&A. Free."},ca7:{title:"CA-7 Tutorial — Job Scheduling | MainframeStudyHub",desc:"CA-7 job scheduling tutorial. Predecessors, successors, schedule IDs, job streams, restart procedures. Free."},linuxonz:{title:"Linux on Z Tutorial — IBM Z Linux | MainframeStudyHub",desc:"Linux on Z tutorial. z/VM, LPAR, consolidation, KVM on Z, hybrid architecture, interview Q&A. Free."},modernization:{title:"Mainframe Modernization Tutorial — Zowe, APIs, DevOps | MainframeStudyHub",desc:"Mainframe modernization. Zowe, z/OS Connect, API Mediation Layer, IBM DBB, CI/CD pipelines, interview Q&A. Free."},procs:{title:"DFSORT Tutorial — Sort, ICETOOL, Utilities | MainframeStudyHub",desc:"DFSORT and utilities tutorial. SORT FIELDS, INCLUDE/OMIT, OUTREC, JOINKEYS, ICETOOL, interview Q&A. Free."}},U={home:"MainframeStudyHub — IBM Z Mainframe Learning Platform",topics:"305+ Mainframe Tutorials — JCL, COBOL, DB2, CICS, VSAM | MainframeStudyHub",quiz:"200+ Mainframe Quiz Questions — Daily Challenges | MainframeStudyHub",scenarios:"52 Real-World Mainframe Scenarios | MainframeStudyHub",community:"Mainframe Developer Community — Chat & Q&A | MainframeStudyHub",blog:"Mainframe Expert Blog — Articles & Insights | MainframeStudyHub",abends:"87 IBM Abend Codes — Instant Lookup & Fixes | MainframeStudyHub",roadmap:"Mainframe Career Roadmap — Trainee to Architect | MainframeStudyHub",weekly:"Weekly Mainframe Updates | MainframeStudyHub",playground:"AI Code Lab — JCL/COBOL Explainer & Simulator | MainframeStudyHub",about:"About MainframeStudyHub — Built by Harikrishnan K"},M={home:"MainframeStudyHub — Free IBM Z mainframe learning platform. 305+ lessons across 15 topics. AI Code Lab, 200+ quizzes, interview Q&A, cheat sheets.",topics:"305+ mainframe tutorials: JCL (86 lessons), COBOL (60 lessons), DB2, CICS, VSAM, REXX, IMS, z/OS, RACF, TSO, SMF, DFSORT. Beginner to Expert. Free.",quiz:"200+ mainframe quiz questions with daily challenges, streak tracking, and topic filtering. Test your JCL, COBOL, DB2, CICS knowledge.",scenarios:"52 real-world mainframe scenarios across 13 categories and 4 difficulty levels. Practice production problem solving.",abends:"87 IBM abend codes with instant lookup, severity levels, root causes, and fix guides. S0C7, S806, SB37, and more.",playground:"AI-powered Code Lab — explain, debug, and simulate JCL, COBOL, REXX, and SQL code. Powered by Claude AI.",community:"Join the mainframe developer community. Live WhatsApp-style chat and Stack Overflow-style Q&A forum.",blog:"Expert mainframe blog with articles and insights from mainframe professionals worldwide.",roadmap:"6-level mainframe career roadmap from Trainee to Architect. Skills, certifications, and timeline guidance.",weekly:"Weekly mainframe content updates across all 15 topics. Stay current with the latest tutorials and tips.",about:"MainframeStudyHub — Built by Harikrishnan K, Mainframe Developer. Free platform for the mainframe community."};l.useEffect(()=>{const t=window.location.hash||"";if(t.includes("access_token")||t.includes("type=signup")||t.includes("type=recovery"))return;let a;u==="topics"&&i?a="/topics/"+i.id:u==="home"?a="/":a="/"+u,window.location.pathname!==a&&window.history.pushState(null,"",a),u==="topics"&&i&&R[i.id]?document.title=R[i.id].title:document.title=U[u]||U.home;const s=document.querySelector('link[rel="canonical"]');s&&(s.href="https://mainframestudyhub.com"+a);const o=document.querySelector('meta[name="description"]');o&&(u==="topics"&&i&&R[i.id]?o.content=R[i.id].desc:o.content=M[u]||M.home)},[u,i]),l.useEffect(()=>{const t=()=>{const a=window.location.hash;if(a&&(a.includes("access_token")||a.includes("type=signup")||a.includes("type=recovery")))return;const s=window.location.pathname.split("/").filter(Boolean),o=s[0]||"home",n=s[0]==="topics"?s[1]:null,E=C.includes(o)?o:"home";if(E!==u&&A(E),E==="topics"&&n&&m.includes(n)){const T=N.find(O=>O.id===n);T&&(h(T),S(0))}else E==="topics"&&h(null)};return window.addEventListener("popstate",t),()=>window.removeEventListener("popstate",t)},[u]);const[G,K]=l.useState(!1);l.useEffect(()=>{if(typeof window>"u"||window.innerWidth<=768)return;let t=!1;const a=()=>{t||(t=!0,K(!0))},s=setTimeout(a,6e3),o=()=>{a(),window.removeEventListener("scroll",o)};return window.addEventListener("scroll",o,{passive:!0}),()=>{clearTimeout(s),window.removeEventListener("scroll",o)}},[]),l.useEffect(()=>{const t=()=>hn(window.innerWidth<900);return window.addEventListener("resize",t),()=>window.removeEventListener("resize",t)},[]),l.useEffect(()=>{const t=window.location.hash||"";if(t.includes("access_token")||t.includes("type=signup")||t.includes("type=recovery"))return;const s=window.location.pathname.split("/").filter(Boolean),o=s[0]||"";if(C.indexOf(o)>=0&&o!==u)A(o);else if(!o){const n=t.replace("#","");C.indexOf(n)>=0&&A(n)}if(s[0]==="topics"&&s[1]&&m.indexOf(s[1])>=0){const n=N.find(E=>E.id===s[1]);n&&(h(n),S(0),A("topics"))}},[]);const[p,S]=l.useState(0),[y,z]=l.useState(!1),[te,_]=l.useState({}),[I,Q]=l.useState({index:0,score:0,selected:null,done:!1,showExp:!1}),[ae,Xe]=l.useState("All"),[c,q]=l.useState(null),ea=ae==="All"?me:me.filter(t=>t.topic===ae),Cn=["All",...Array.from(new Set(me.map(t=>t.topic)))],[Z,mt]=l.useState(!1),[Ve,ta]=l.useState(0),Dt=l.useRef(null),Tn=()=>{const t=new Date().toISOString().slice(0,10);let a=0;for(let o=0;o<t.length;o++)a=(a<<5)-a+t.charCodeAt(o),a=a&a;const s=[...me];for(let o=s.length-1;o>0;o--){a=a*1664525+1013904223&2147483647;const n=a%(o+1);[s[o],s[n]]=[s[n],s[o]]}return s.slice(0,5)},[aa]=l.useState(Tn),je="mfsh_daily_"+new Date().toISOString().slice(0,10),[se,At]=l.useState(null);l.useEffect(()=>{(async()=>{try{if(c){const{data:a}=await g.from("user_data").select("value").eq("user_id",c.id).eq("key",je).maybeSingle();if(a?.value){At(a.value);return}}}catch{}try{const a=localStorage.getItem(je);a&&At(JSON.parse(a))}catch{}})()},[c]);const un=()=>{mt(!0),Q({index:0,score:0,selected:null,done:!1,showExp:!1}),ta(0),Dt.current=setInterval(()=>ta(t=>t+1),1e3)},pn=async t=>{clearInterval(Dt.current);const a={score:t,total:5,time:Ve,date:new Date().toISOString().slice(0,10)};At(a);try{localStorage.setItem(je,JSON.stringify(a))}catch{}const s=new Date(Date.now()-864e5).toISOString().slice(0,10);let o={count:0,lastDate:""};if(c)try{const{data:T}=await g.from("user_data").select("value").eq("user_id",c.id).eq("key","streak").maybeSingle();T?.value&&(o=T.value)}catch{}else try{o=JSON.parse(localStorage.getItem("mfsh_streak")||'{"count":0,"lastDate":""}')}catch{}const E={count:o.lastDate===s?o.count+1:1,lastDate:a.date};try{localStorage.setItem("mfsh_streak",JSON.stringify(E))}catch{}c&&(await g.from("user_data").upsert({user_id:c.id,key:je,value:a},{onConflict:"user_id,key"}).catch(()=>{}),await g.from("user_data").upsert({user_id:c.id,key:"streak",value:E},{onConflict:"user_id,key"}).catch(()=>{}))},ze=()=>{try{const t=JSON.parse(localStorage.getItem("mfsh_streak")||'{"count":0}'),a=new Date().toISOString().slice(0,10);return t.lastDate===a?t.count:0}catch{return 0}},[Je,mn]=l.useState(""),[Me,Dn]=l.useState("All"),[Ke,It]=l.useState(null),Rt=an.filter(t=>{const a=Me==="All"||t.category===Me,s=!Je||t.code.toLowerCase().includes(Je.toLowerCase())||t.name.toLowerCase().includes(Je.toLowerCase());return a&&s}),[Ae,An]=l.useState(null),[Ot,In]=l.useState(""),[Qe,Rn]=l.useState("all"),[ye,Ie]=l.useState(!1),[na,On]=l.useState(!1),[ts,hn]=l.useState(typeof window<"u"?window.innerWidth<900:!1),[qe,Ln]=l.useState("All"),[_e,gn]=l.useState("All"),[ht,oa]=l.useState(null),[sa,Lt]=l.useState(null),[gt,ft]=l.useState(!1),[w,Nt]=l.useState(null),[re,fn]=l.useState(null),[Pt,Mt]=l.useState(null),[ra,ia]=l.useState(null),[Re,la]=l.useState("tip"),[B,f]=l.useState(null),[L,b]=l.useState({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}),[Ea,D]=l.useState(""),[H,F]=l.useState(!1),be=async t=>{try{const{data:a,error:s}=await g.from("profiles").select("*").eq("id",t).single();return s||!a?null:{id:a.id,name:a.name||"User",email:a.email||"",role:a.role||"Mainframe Professional",itYears:String(a.it_years||0),mfYears:String(a.mf_years||0),joinDate:a.join_date||new Date().toISOString().slice(0,10),avatar:(a.avatar||a.name?.charAt(0)||"U").toUpperCase()}}catch{return null}},Oe=t=>{const a=t.user_metadata||{},s=a.name||t.email?.split("@")[0]||"User";return{id:t.id,name:s,email:t.email,role:a.role||"Mainframe Professional",itYears:String(a.it_years||0),mfYears:String(a.mf_years||0),joinDate:new Date().toISOString().slice(0,10),avatar:s.charAt(0).toUpperCase()}};l.useEffect(()=>{const t=window.location.hash;t&&(t.includes("access_token")||t.includes("type=signup")||t.includes("type=recovery"))?(async()=>{await new Promise(n=>setTimeout(n,600));try{const{data:{session:n}}=await g.auth.getSession();if(n?.user)try{const E=await be(n.user.id);q(E||Oe(n.user))}catch{q(Oe(n.user))}}catch{}window.history.replaceState&&window.history.replaceState(null,"",window.location.pathname)})():g.auth.getSession().then(async({data:{session:o}})=>{if(o?.user)try{const n=await be(o.user.id);q(n||Oe(o.user))}catch{q(Oe(o.user))}}).catch(()=>{});const{data:{subscription:s}}=g.auth.onAuthStateChange(async(o,n)=>{if((o==="SIGNED_IN"||o==="TOKEN_REFRESHED")&&n?.user)try{const E=await be(n.user.id);q(E||Oe(n.user))}catch{q(Oe(n.user))}else o==="SIGNED_OUT"&&q(null)});return()=>s.unsubscribe()},[]);const ca=async()=>{if(D(""),!L.name.trim()||!L.email.trim()||!L.password.trim()){D("Name, email, and password are required.");return}if(L.password.length<6){D("Password must be at least 6 characters.");return}F(!0);const t=setTimeout(()=>{F(!1),D("Request timed out. Please check your internet and try again.")},3e4);try{const{data:a,error:s}=await g.auth.signUp({email:L.email.trim().toLowerCase(),password:L.password,options:{data:{name:L.name.trim(),role:L.role.trim()||"Mainframe Professional",it_years:parseInt(L.itYears)||0,mf_years:parseInt(L.mfYears)||0,avatar:L.name.trim().charAt(0).toUpperCase()},emailRedirectTo:(window.location.hostname==="localhost"?window.location.origin:"https://mainframestudyhub.com")+"/confirm.html"}});if(s){clearTimeout(t);const o=s.message||"";o.includes("already registered")||o.includes("already exists")?D("This email is already registered. Try signing in instead."):o.includes("rate limit")?D("Too many attempts. Please wait a minute and try again."):o.includes("password")?D("Password must be at least 6 characters."):D(o),F(!1);return}if(a.user&&!a.session&&!a.user.identities?.length){D("This email is already registered. Try signing in instead."),F(!1);return}if(a.user)if(a.session){const o=L.name.trim(),n={id:a.user.id,name:o,email:a.user.email,role:L.role.trim()||"Mainframe Professional",itYears:L.itYears||"0",mfYears:L.mfYears||"0",joinDate:new Date().toISOString().slice(0,10),avatar:o.charAt(0).toUpperCase()};setTimeout(async()=>{try{await g.from("profiles").upsert({id:a.user.id,name:n.name,email:n.email,role:n.role,it_years:parseInt(L.itYears)||0,mf_years:parseInt(L.mfYears)||0,avatar:n.avatar},{onConflict:"id"})}catch{}},500),q(n),f(null),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})}else D(""),f(null),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}),alert("Account created! Please check your email to confirm your account, then sign in.")}catch(a){clearTimeout(t),D(a.message||"Something went wrong.")}clearTimeout(t),F(!1)},Sa=async()=>{if(D(""),!L.email.trim()||!L.password.trim()){D("Email and password are required.");return}F(!0);const t=setTimeout(()=>{F(!1),D("Request timed out. Please check your internet and try again.")},3e4);try{const{data:a,error:s}=await g.auth.signInWithPassword({email:L.email.trim().toLowerCase(),password:L.password});if(clearTimeout(t),s){const o=s.message||"";o.includes("Email not confirmed")?D("Please check your email inbox (and spam) for the confirmation link. Click it first, then sign in."):o.includes("Invalid login")?D("Invalid email or password. Please try again or sign up for a new account."):o.includes("rate limit")||o.includes("too many")?D("Too many attempts. Please wait a minute and try again."):D(o||"Sign in failed. Please try again."),F(!1);return}if(a.user){let o=null;try{o=await be(a.user.id)}catch{}if(!o){const n=a.user.user_metadata||{},E=n.name||a.user.email?.split("@")[0]||"User";o={id:a.user.id,name:E,email:a.user.email,role:n.role||"Mainframe Professional",itYears:String(n.it_years||0),mfYears:String(n.mf_years||0),joinDate:new Date().toISOString().slice(0,10),avatar:E.charAt(0).toUpperCase()},g.from("profiles").upsert({id:a.user.id,name:o.name,email:o.email,role:o.role,it_years:0,mf_years:0,avatar:o.avatar},{onConflict:"id"}).catch(()=>{})}q(o),f(null),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})}}catch(a){clearTimeout(t),D(a.message||"Connection error. Please check your internet and try again.")}F(!1)},da=async()=>{await g.auth.signOut(),q(null)},Nn=async()=>{D(""),F(!0);try{const{error:t}=await g.auth.signInWithOAuth({provider:"google",options:{redirectTo:window.location.hostname==="localhost"?window.location.origin:"https://mainframestudyhub.com"}});t&&(D(t.message||"Google sign-in failed. Please try again."),F(!1))}catch(t){D(t.message||"Google sign-in failed. Please check your connection."),F(!1)}},Pn=async()=>{if(D(""),!L.email.trim()){D("Please enter your email address first.");return}F(!0);try{const{error:t}=await g.auth.resetPasswordForEmail(L.email.trim().toLowerCase(),{redirectTo:(window.location.hostname==="localhost"?window.location.origin:"https://mainframestudyhub.com")+"/reset-password.html"});t?D(t.message):(D(""),f("forgot-sent"))}catch(t){D(t.message||"Something went wrong.")}F(!1)},[Mn,Ze]=l.useState(!1),[X,Ue]=l.useState({name:"",role:"",itYears:"",mfYears:""}),yn=()=>{c&&(Ue({name:c.name||"",role:c.role||"",itYears:c.itYears||"0",mfYears:c.mfYears||"0"}),Ze(!0),f(null))},bn=async()=>{if(!(!c||!X.name.trim())){F(!0);try{const{error:t}=await g.from("profiles").update({name:X.name.trim(),role:X.role.trim()||"Mainframe Professional",it_years:parseInt(X.itYears)||0,mf_years:parseInt(X.mfYears)||0,avatar:X.name.trim().charAt(0).toUpperCase()}).eq("id",c.id);if(t)D(t.message);else{const a=await be(c.id);q(a),Ze(!1)}}catch(t){D(t.message)}F(!1)}},[Un,$e]=l.useState(!1),[yt,bt]=l.useState(""),[et,le]=l.useState(""),Ca=async()=>{if(le(""),yt.length<6){le("Password must be at least 6 characters.");return}F(!0);try{const{error:t}=await g.auth.updateUser({password:yt});t?le(t.message):(le("✅ Password updated successfully!"),bt(""),setTimeout(()=>{$e(!1),le("")},1500))}catch(t){le(t.message)}F(!1)},Ta=["Mainframe Developer","Systems Programmer","DB2 DBA","CICS Administrator","Storage Admin","Security Admin","Network Engineer","Operations/Batch","DevOps Engineer","Manager/Lead","Student/Intern","Career Changer","Other"],[ua,pa]=l.useState(!1),[Y,ma]=l.useState(!1),[Fe,tt]=l.useState([{role:"assistant",content:`Hey! 👋 I'm the **MainframeStudyHub AI** — think of me as your personal mainframe expert, always here to help.
 
 I can help with:
 • **Coding** — JCL, COBOL, REXX, DB2 SQL, CICS commands
@@ -17495,7 +21219,7 @@ I can help with:
 • **Career** — Interview prep, salary info, learning paths
 • **Modernization** — Zowe, APIs, DevOps on mainframe
 
-Just ask me anything — I'll give you real answers with code examples, not generic fluff. Try something like *"How do I fix an S0C7?"* or *"Write JCL to sort a file"*`}]),[ce,Ut]=l.useState(""),[xt,In]=l.useState(!1),An=l.useRef(null);l.useEffect(()=>{An.current?.scrollIntoView({behavior:"smooth"})},[xe]);const xa=`You are MainframeStudyHub AI — a world-class IBM Z mainframe engineer and educator, similar to how ChatGPT or Claude works but specialized in mainframes. You have deep expertise across the entire IBM Z ecosystem:
+Just ask me anything — I'll give you real answers with code examples, not generic fluff. Try something like *"How do I fix an S0C7?"* or *"Write JCL to sort a file"*`}]),[Ee,Ut]=l.useState(""),[Ft,Da]=l.useState(!1),Aa=l.useRef(null);l.useEffect(()=>{Aa.current?.scrollIntoView({behavior:"smooth"})},[Fe]);const Fn=`You are MainframeStudyHub AI — a world-class IBM Z mainframe engineer and educator, similar to how ChatGPT or Claude works but specialized in mainframes. You have deep expertise across the entire IBM Z ecosystem:
 
 Core: JCL, COBOL, REXX, Assembler, CLIST, PL/I
 Data: VSAM, DB2 for z/OS, IMS DB/DC, QSAM, BSAM
@@ -17519,16 +21243,16 @@ Behavior guidelines:
 - Remember the full conversation context and refer back to earlier messages naturally
 - If you're unsure about something, say so honestly rather than making things up
 - For interview questions, give thorough real-world answers
-- Vary your response length — short for simple questions, detailed for complex ones`,ve=l.useRef(null),va=async t=>{const n=await fetch("/.netlify/functions/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({system:xa,messages:t.slice(-20)})});if(!n.ok)throw new Error("API error "+n.status);const s=await n.json();if(s.error)throw new Error(s.error);if(s.content?.[0]?.text)return s.content[0].text;throw new Error("No response")},Rn=async()=>{if(!ce.trim()||xt)return;const t=ce.trim();Ut("");const n=[...xe,{role:"user",content:t}];tt(n),In(!0);let s="";try{const O=n.filter((N,Pe)=>Pe>0).map(N=>({role:N.role,content:N.content}));s=await va(O)}catch{s=Ba(t)}In(!1),tt(O=>[...O,{role:"assistant",content:""}]);const o=s.split(/(\s+)/);let a="",c=0;const C=Math.max(8,Math.min(25,3e3/o.length));ve.current&&clearInterval(ve.current),ve.current=setInterval(()=>{if(c>=o.length){clearInterval(ve.current),ve.current=null;return}a+=o[c],c++,tt(O=>{const N=[...O];return N[N.length-1]={role:"assistant",content:a},N})},C)},Ba=t=>{const n=t.toLowerCase().trim(),s=n.match(/s0c[0-9a-f]|s[0-9]{3}|sb37|sd37|se37|s[0-9a-f]{3}|asra|asrb|aey[0-9a-z]|aei[a-z]|aeq|aexl|atsp|aall|abmb|akcs|00c9|04[ef]|047|071|u[0-9]{4}|jcl\s*err/i);if(s){const c=s[0].toUpperCase().replace(/\s/g,""),C=aa.find(O=>O.code.toUpperCase()===c||O.code.toUpperCase().replace("-","")===c);if(C)return`**${C.code} — ${C.name}** (${C.category} | Severity: ${C.severity})
+- Vary your response length — short for simple questions, detailed for complex ones`,Be=l.useRef(null),Bn=async t=>{const a=await fetch("/.netlify/functions/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({system:Fn,messages:t.slice(-20)})});if(!a.ok)throw new Error("API error "+a.status);const s=await a.json();if(s.error)throw new Error(s.error);if(s.content?.[0]?.text)return s.content[0].text;throw new Error("No response")},Ia=async()=>{if(!Ee.trim()||Ft)return;const t=Ee.trim();Ut("");const a=[...Fe,{role:"user",content:t}];tt(a),Da(!0);let s="";try{const O=a.filter((P,Ne)=>Ne>0).map(P=>({role:P.role,content:P.content}));s=await Bn(O)}catch{s=vn(t)}Da(!1),tt(O=>[...O,{role:"assistant",content:""}]);const o=s.split(/(\s+)/);let n="",E=0;const T=Math.max(8,Math.min(25,3e3/o.length));Be.current&&clearInterval(Be.current),Be.current=setInterval(()=>{if(E>=o.length){clearInterval(Be.current),Be.current=null;return}n+=o[E],E++,tt(O=>{const P=[...O];return P[P.length-1]={role:"assistant",content:n},P})},T)},vn=t=>{const a=t.toLowerCase().trim(),s=a.match(/s0c[0-9a-f]|s[0-9]{3}|sb37|sd37|se37|s[0-9a-f]{3}|asra|asrb|aey[0-9a-z]|aei[a-z]|aeq|aexl|atsp|aall|abmb|akcs|00c9|04[ef]|047|071|u[0-9]{4}|jcl\s*err/i);if(s){const E=s[0].toUpperCase().replace(/\s/g,""),T=an.find(O=>O.code.toUpperCase()===E||O.code.toUpperCase().replace("-","")===E);if(T)return`**${T.code} — ${T.name}** (${T.category} | Severity: ${T.severity})
 
 **⚠️ Cause:**
-${C.cause}
+${T.cause}
 
 **✅ Fix:**
-${C.fix}
+${T.fix}
 
-${C.tips?.length?`**💡 Tips:**
-`+C.tips.map(O=>"• "+O).join(`
+${T.tips?.length?`**💡 Tips:**
+`+T.tips.map(O=>"• "+O).join(`
 `):""}`}const o=[{keys:["deadlock","dead lock","lock contention","lock timeout","sqlcode -911","sqlcode -913","00c9"],answer:`**How to Clear/Resolve Deadlocks in Mainframe:**
 
 A deadlock occurs when two or more tasks each hold a lock that the other needs.
@@ -17763,13 +21487,13 @@ Check our **Learning Roadmap** page for a detailed skill path!`},{keys:["ispf","
 4. Use \`IF field IS NUMERIC\` before arithmetic
 5. Compile with \`LIST\` option — the offset in the dump maps to a line in the listing
 
-**Pro tip:** Hex \`F0-F9\` = valid zoned decimal. Hex \`0C, 1C...9C\` = valid positive packed. \`X'40'\` = space = S0C7 guaranteed.`}];for(const c of o)if(c.keys.filter(O=>n.includes(O)).length>0)return c.answer;const a=[];if(P.forEach(c=>{c.sections?.forEach(C=>{const O=((C.content||"")+" "+(C.code||"")).toLowerCase(),N=(C.title||"").toLowerCase(),Pe=n.split(/\s+/).filter(me=>me.length>2),Ne=Pe.filter(me=>N.includes(me)).length*3,Et=Pe.filter(me=>O.includes(me)).length,Ge=Ne+Et;Ge>=2&&a.push({topic:c.title,section:C.title,content:C.content||C.code||"",score:Ge})})}),a.sort((c,C)=>C.score-c.score),a.length>0){const c=a[0],C=c.content.split(`
+**Pro tip:** Hex \`F0-F9\` = valid zoned decimal. Hex \`0C, 1C...9C\` = valid positive packed. \`X'40'\` = space = S0C7 guaranteed.`}];for(const E of o)if(E.keys.filter(O=>a.includes(O)).length>0)return E.answer;const n=[];if(N.forEach(E=>{E.sections?.forEach(T=>{const O=((T.content||"")+" "+(T.code||"")).toLowerCase(),P=(T.title||"").toLowerCase(),Ne=a.split(/\s+/).filter(pe=>pe.length>2),Pe=Ne.filter(pe=>P.includes(pe)).length*3,dt=Ne.filter(pe=>O.includes(pe)).length,We=Pe+dt;We>=2&&n.push({topic:E.title,section:T.title,content:T.content||T.code||"",score:We})})}),n.sort((E,T)=>T.score-E.score),n.length>0){const E=n[0],T=E.content.split(`
 
-`),O=n.split(/\s+/).filter(Ne=>Ne.length>2),Pe=C.reduce((Ne,Et)=>{const Ge=O.filter(me=>Et.toLowerCase().includes(me)).length;return Ge>Ne.score?{text:Et,score:Ge}:Ne},{text:C[0],score:0}).text.substring(0,500).trim();return`**${c.topic} → ${c.section}:**
+`),O=a.split(/\s+/).filter(Pe=>Pe.length>2),Ne=T.reduce((Pe,dt)=>{const We=O.filter(pe=>dt.toLowerCase().includes(pe)).length;return We>Pe.score?{text:dt,score:We}:Pe},{text:T[0],score:0}).text.substring(0,500).trim();return`**${E.topic} → ${E.section}:**
 
-${Pe}
+${Ne}
 
-💡 *Visit the **${c.topic}** topic for complete details and code examples.*`}return`Great question! I can help with IBM mainframe topics including:
+💡 *Visit the **${E.topic}** topic for complete details and code examples.*`}return`Great question! I can help with IBM mainframe topics including:
 
 • **JCL, COBOL, REXX** — syntax, debugging, best practices
 • **DB2, CICS, IMS** — SQL, transactions, database programming
@@ -17782,18 +21506,18 @@ Try asking:
 • "What is S0C7 and how to fix it?"
 • "Explain CICS pseudo-conversational"
 • "DFSORT INCLUDE example"
-• "Mainframe career path"`},vt=t=>{if(!t)return"";let n=t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");const s=[],o=(a,c,C)=>{const O=s.length;return s.push(`<span style="color:${c}${C?";font-weight:700":""}">${a}</span>`),`«${O}»`};n=n.replace(/(\/\/\*.*)/g,a=>o(a,"#94a3b8")),n=n.replace(/(\/\*[\s\S]*?\*\/)/g,a=>o(a,"#94a3b8")),n=n.replace(/'([^']*?)'/g,a=>o(a,"#fbbf24")),n=n.replace(/"([^"]*?)"/g,a=>o(a,"#fbbf24")),n=n.replace(/^(\/\/\w+)/gm,a=>o(a,"#22d3ee",1)),n=n.replace(/^(\/\/)/gm,a=>o(a,"#22d3ee")),n=n.replace(/\b(PROCEDURE DIVISION|DATA DIVISION|WORKING-STORAGE SECTION|LINKAGE SECTION|FILE SECTION|IDENTIFICATION DIVISION|ENVIRONMENT DIVISION)\b/g,a=>o(a,"#c084fc",1)),n=n.replace(/\b(EXEC PGM|EXEC CICS|END-EXEC|EXEC)\b/g,a=>o(a,"#f472b6",1)),n=n.replace(/\b(JOB|DD|DSN|DISP|SPACE|REGION|CLASS|COND|NOTIFY|SYSOUT|PGM|PROC|SET|INCLUDE|OUTFIL|SORT|MERGE|PARM|DCB|VOL|SER|UNIT|LABEL|OUTPUT|LRECL|BLKSIZE|RECFM|MSGCLASS|MSGLEVEL|TYPRUN|RESTART|PRTY|TIME)\b/g,a=>o(a,"#f472b6")),n=n.replace(/\b(MOVE|PERFORM|DISPLAY|COMPUTE|ADD|SUBTRACT|MULTIPLY|DIVIDE|INITIALIZE|STRING|UNSTRING|INSPECT|READ|WRITE|REWRITE|STOP RUN|GOBACK|EVALUATE|WHEN|OTHER|END-EVALUATE|END-IF|END-PERFORM|END-READ|END-WRITE|END-COMPUTE|END-STRING|END-CALL|JSON GENERATE|END-JSON|ACCEPT|SEARCH|GO TO)\b/g,a=>o(a,"#60a5fa")),n=n.replace(/\b(IF|ELSE|CALL|RETURN|OPEN|CLOSE|EXIT|NOT|AND|OR|UNTIL|VARYING|THRU|THROUGH|FROM|TO|BY|GIVING|INTO|ON|SIZE|ERROR|OVERFLOW|AT|END|DELETE|START)\b/g,a=>o(a,"#60a5fa")),n=n.replace(/\b(PIC|PICTURE|COMP|COMP-3|COMP-1|COMP-2|BINARY|PACKED-DECIMAL|VALUE|REDEFINES|OCCURS|INDEXED|DEPENDING|FILLER|COPY|REPLACING)\b/g,a=>o(a,"#34d399")),n=n.replace(/\b(SELECT|FROM|WHERE|INSERT|UPDATE|ORDER|GROUP|HAVING|JOIN|LEFT|RIGHT|INNER|OUTER|CREATE|ALTER|DROP|GRANT|REVOKE|FETCH|FIRST|ROWS|ONLY|COMMIT|ROLLBACK|DECLARE|CURSOR|DECIMAL|SUBSTR|COUNT|SUM|AVG|MAX|MIN|BETWEEN|LIKE|EXISTS|DISTINCT|UNION|TABLE|INDEX|VIEW|RUNSTATS|BIND|PLAN|PACKAGE)\b/g,a=>o(a,"#fbbf24")),n=n.replace(/\b(SEND|RECEIVE|LINK|XCTL|READNEXT|STARTBR|ENDBR|PUT|GET|CONTAINER|CHANNEL|PROGRAM|MAP|MAPSET|COMMAREA|RESP|RESP2|SYNCPOINT|HANDLE|CONDITION|ABEND|TRANSID|FLENGTH|FREEMAIN|GETMAIN|DEFINE|CLUSTER|REPRO|VERIFY|LISTCAT|ENTRIES|PRINT|INFILE|EXPORT|IMPORT)\b/g,a=>o(a,"#fb923c")),n=n.replace(/\b(PARSE|ARG|SAY|DO|THEN|SIGNAL|ADDRESS|PULL|PUSH|QUEUE|TRACE|INTERPRET|OTHERWISE|LEAVE|ITERATE|NOP|OUTTRAP|SYSDSN|ALLOC|EXECIO|NUMERIC|UPPER|LOWER|STRIP|COPIES|CENTER|OVERLAY|WORD|WORDS|QUEUED)\b/g,a=>o(a,"#a78bfa"));for(let a=s.length-1;a>=0;a--)n=n.split("«"+a+"»").join(s[a]);return n},On=t=>{if(!t)return null;const n=t.split(`
-`),s=[];let o=0;for(;o<n.length;){const a=n[o].trim();if(!a){o++;continue}if(a.endsWith(":")&&a.length<120&&!a.match(/^\d+\./)){s.push(e.jsxs("div",{style:{marginTop:s.length?28:0,marginBottom:14,display:"flex",alignItems:"center",gap:10},children:[e.jsx("div",{style:{width:4,height:24,borderRadius:4,background:`linear-gradient(to bottom,${r?.color||"#0071e3"},${r?.color||"#7c3aed"})`,flexShrink:0}}),e.jsx("h3",{style:{fontSize:18,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.3px",lineHeight:1.4},children:a})]},o)),o++;continue}if(a.match(/^\d+[\.\)]/)){const c=[];for(;o<n.length&&n[o].trim().match(/^\d+[\.\)]/);){const C=n[o].trim().replace(/^\d+[\.\)]\s*/,"");c.push(C),o++}s.push(e.jsx("div",{style:{margin:"12px 0",display:"flex",flexDirection:"column",gap:8},children:c.map((C,O)=>e.jsxs("div",{style:{display:"flex",gap:12,alignItems:"flex-start"},children:[e.jsx("div",{style:{width:28,height:28,borderRadius:8,background:`${r?.color||"#0071e3"}12`,color:r?.color||"#0071e3",fontSize:13,fontWeight:800,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1},children:O+1}),e.jsx("p",{style:{fontSize:15,color:"#cbd5e1",lineHeight:1.85,flex:1},children:C})]},O))},`list-${o}`));continue}if(a.match(/^[•\-·]\s/)){const c=[];for(;o<n.length&&n[o].trim().match(/^[•\-·]\s/);)c.push(n[o].trim().replace(/^[•\-·]\s*/,"")),o++;s.push(e.jsx("div",{style:{margin:"12px 0 12px 4px",display:"flex",flexDirection:"column",gap:6},children:c.map((C,O)=>e.jsxs("div",{style:{display:"flex",gap:10,alignItems:"flex-start"},children:[e.jsx("div",{style:{width:6,height:6,borderRadius:"50%",background:r?.color||"#0071e3",flexShrink:0,marginTop:9}}),e.jsx("p",{style:{fontSize:15,color:"#cbd5e1",lineHeight:1.85},children:C})]},O))},`bul-${o}`));continue}if(a.match(/^[A-Z][A-Z0-9\/\-_]{1,20}\s*(—|–|-|=|:)\s/)&&a.length<200){const c=a.match(/^([A-Z][A-Z0-9\/\-_]{1,20})\s*(—|–|-|=|:)\s*(.*)/);if(c){s.push(e.jsxs("div",{style:{margin:"6px 0",padding:"10px 16px",background:"rgba(30,41,59,0.6)",borderRadius:10,borderLeft:`3px solid ${r?.color||"#0071e3"}`},children:[e.jsx("span",{style:{fontWeight:700,color:"#f1f5f9",fontFamily:"'SF Mono',Menlo,Consolas,monospace",fontSize:14},children:c[1]}),e.jsxs("span",{style:{color:"#94a3b8"},children:[" ",c[2]," "]}),e.jsx("span",{style:{color:"#cbd5e1",fontSize:14.5},children:c[3]})]},o)),o++;continue}}s.push(e.jsx("p",{style:{fontSize:15.5,color:"#cbd5e1",lineHeight:2,margin:"8px 0",fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif"},children:a},o)),o++}return e.jsx("div",{children:s})},Fa=t=>t?t.split(/(```[\s\S]*?```)/g).map((s,o)=>{if(s.startsWith("```")){const a=s.slice(3,-3).split(`
-`),c=a[0].trim(),C=(c&&!c.includes(" ")?a.slice(1):a).join(`
-`);return e.jsxs("div",{style:{margin:"8px 0",borderRadius:10,overflow:"hidden",border:"1px solid rgba(255,255,255,0.08)"},children:[c&&!c.includes(" ")&&e.jsx("div",{style:{background:"#0f172a",padding:"6px 12px",fontSize:11,color:"#94a3b8",fontWeight:600,textTransform:"uppercase",borderBottom:"1px solid rgba(255,255,255,0.06)"},children:c}),e.jsx("pre",{style:{margin:0,padding:"14px 16px",background:"#0f172a",color:"#f1f5f9",fontSize:13,lineHeight:1.8,overflowX:"auto",fontFamily:ut},dangerouslySetInnerHTML:{__html:vt(C)}})]},o)}return s.split(`
-`).map((a,c)=>{let C=a.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/`(.+?)`/g,'<code style="background:rgba(0,113,227,0.2);padding:2px 7px;border-radius:4px;font-size:12px;font-family:monospace;color:#60a5fa">$1</code>').replace(/\*(.+?)\*/g,"<em>$1</em>");if(/^#{1,3}\s/.test(a)){const O=a.match(/^(#+)/)[1].length,N=a.replace(/^#+\s*/,"");C=`<strong style="font-size:${18-O*2}px;display:block;margin:8px 0 4px">${N}</strong>`}return(a.startsWith("• ")||a.startsWith("- ")||/^\d+[\.\)]\s/.test(a))&&(C='<span style="display:inline-block;width:16px;flex-shrink:0"></span>'+C),e.jsx("div",{dangerouslySetInnerHTML:{__html:C||"&nbsp;"}},`${o}-${c}`)})}):null,[wa,Bt]=l.useState([]),[hn,Ft]=l.useState(!1),[V,nt]=l.useState({title:"",content:"",category:"General"}),Ya=["JCL","COBOL","REXX","VSAM","DB2","CICS","IMS","RACF","z/OS","Modernization","Linux on Z","Career","General"],wt=S&&(parseInt(S.mfYears||0)>=5||parseInt(S.itYears||0)>=5);l.useEffect(()=>{(async()=>{try{const{data:n}=await f.from("user_blogs").select("*").order("created_at",{ascending:!1});n&&Bt(n.map(s=>({id:s.id,title:s.title,content:s.content,category:s.category,date:(s.created_at||"").slice(0,10),readTime:Math.max(1,Math.round((s.content||"").split(/\s+/).length/200))+" min read",author:s.author,authorRole:s.author_role,isUserBlog:!0,likes:0})))}catch{}})()},[]);const ka=async()=>{if(!V.title.trim()||!V.content.trim()||!S)return;await f.from("user_blogs").insert({user_id:S.id,title:V.title.trim(),content:V.content.trim(),category:V.category,author:S.name,author_role:S.role});const{data:t}=await f.from("user_blogs").select("*").order("created_at",{ascending:!1});t&&Bt(t.map(n=>({id:n.id,title:n.title,content:n.content,category:n.category,date:(n.created_at||"").slice(0,10),readTime:Math.max(1,Math.round((n.content||"").split(/\s+/).length/200))+" min read",author:n.author,authorRole:n.author_role,isUserBlog:!0,likes:0}))),nt({title:"",content:"",category:"General"}),Ft(!1)},Ga=t=>{if(!S){L("signin"),D("");return}Bt(n=>n.map(s=>s.id===t?{...s,likes:(s.likes||0)+1}:s))},gn=[...wa,...Ho],[Yt,kt]=l.useState([]),[Be,Wa]=l.useState("hot"),[Gt,Ha]=l.useState("All"),[at,Xa]=l.useState(""),[k,Se]=l.useState(null),[fn,Wt]=l.useState(!1),[de,ot]=l.useState({title:"",body:"",topic:"General",author:""}),[Ht,Ln]=l.useState(""),Pn=l.useRef(!1);l.useEffect(()=>{const t=async()=>{try{const{data:n}=await f.from("qa_posts").select("*").order("created_at",{ascending:!1}),{data:s}=await f.from("qa_answers").select("*").order("created_at",{ascending:!0});if(n){const o=n.map(a=>({id:a.id,title:a.title,body:a.body,topic:a.topic,author:a.author,authorRole:a.author_role,date:(a.created_at||"").slice(0,10),votes:a.votes||1,answers:(s||[]).filter(c=>c.post_id===a.id).map(c=>({id:c.id,body:c.body,author:c.author,authorRole:c.author_role,date:(c.created_at||"").slice(0,10),votes:c.votes||1}))}));kt(o)}}catch{}};if(u==="community"&&!Pn.current&&(Pn.current=!0,t()),u==="community")try{const n=f.channel("qa").on("postgres_changes",{event:"*",schema:"public",table:"qa_posts"},()=>t()).on("postgres_changes",{event:"*",schema:"public",table:"qa_answers"},()=>t()).subscribe();return()=>f.removeChannel(n)}catch{}},[u]);const st=async(t,n)=>{if(!S){L("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});return}Yt.find(o=>o.id===t)&&(await f.rpc("vote_post",{post_id:t,vote_dir:n}),kt(o=>o.map(a=>a.id===t?{...a,votes:a.votes+n}:a)))},Nn=async(t,n,s)=>{if(!S){L("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});return}await f.rpc("vote_answer",{answer_id:n,vote_dir:s}),kt(o=>o.map(a=>a.id===t?{...a,answers:a.answers.map(c=>c.id===n?{...c,votes:c.votes+s}:c)}:a))},Va=async()=>{if(!S){L("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});return}de.title.trim()&&(await f.from("qa_posts").insert({user_id:S.id,author:S.name,author_role:S.role,title:de.title,body:de.body,topic:de.topic}),ot({title:"",body:"",topic:"General",author:""}),Wt(!1))},ja=async t=>{if(!S){L("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});return}Ht.trim()&&(await f.from("qa_answers").insert({post_id:t,user_id:S.id,author:S.name,author_role:S.role,body:Ht}),Ln(""))},yn=[...Yt].filter(t=>Gt==="All"||t.topic===Gt).filter(t=>!at||t.title.toLowerCase().includes(at.toLowerCase())||t.body.toLowerCase().includes(at.toLowerCase())).sort((t,n)=>Be==="new"?n.date.localeCompare(t.date):Be==="top"?n.votes-t.votes:n.votes+n.answers.length*2-(t.votes+t.answers.length*2)),[Xt,it]=l.useState([]),[Ee,Mn]=l.useState(""),[Fe,bn]=l.useState(!1),[Vt,Un]=l.useState(!1),[pe,xn]=l.useState(G.TEXT),[he,jt]=l.useState(null),[zt,vn]=l.useState(""),[rt,za]=l.useState(!1),[Jt,Ja]=l.useState(new Set),[Ce,Bn]=l.useState(!1),[Kt,ae]=l.useState(!1),[oe,re]=l.useState(0),[Qt,Ka]=l.useState([]),Fn=l.useRef(null),wn=l.useRef(null),qt=t=>({id:t.id,type:t.msg_type||"text",text:t.content,del:t.deleted||!1,reactions:t.reactions||{},replyTo:t.reply_to,time:new Date(t.created_at).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),_name:t.sender_name,_role:t.sender_role,_color:t.sender_color||"#0071e3",_emoji:t.sender_emoji||"🧑‍💻",_userId:t.user_id,_isSelf:t.user_id===S?.id}),Yn=l.useRef(!1);l.useEffect(()=>{if(u!=="community"&&!Yn.current)return;Yn.current=!0,(async()=>{try{const{data:n}=await f.from("chat_messages").select("*").order("created_at",{ascending:!0}).limit(200);n&&it(n.map(qt))}catch{}})();try{const n=f.channel("chat").on("postgres_changes",{event:"INSERT",schema:"public",table:"chat_messages"},s=>{it(o=>[...o,qt(s.new)])}).on("postgres_changes",{event:"UPDATE",schema:"public",table:"chat_messages"},s=>{it(o=>o.map(a=>a.id===s.new.id?qt(s.new):a))}).subscribe();return()=>{f.removeChannel(n)}}catch{}},[S,u]),l.useEffect(()=>{if(u!=="community")return;const t=async()=>{try{const{data:s}=await f.from("user_presence").select("*").gte("last_seen",new Date(Date.now()-3e5).toISOString());s&&Ka(s)}catch{}};t();const n=setInterval(t,3e4);return()=>clearInterval(n)},[u]),l.useEffect(()=>{if(!S)return;const t=async()=>{try{await f.from("user_presence").upsert({user_id:S.id,name:S.name,role:S.role,emoji:"🧑‍💻",color:"#0071e3",last_seen:new Date().toISOString()})}catch{}};t();const n=setInterval(t,6e4);return()=>clearInterval(n)},[S]),l.useEffect(()=>{if(!Kt)return;re(0);const t=setTimeout(()=>re(1),100),n=setTimeout(()=>re(2),500),s=setTimeout(()=>re(3),900);return()=>{clearTimeout(t),clearTimeout(n),clearTimeout(s)}},[Kt]),l.useEffect(()=>{u==="community"&&(Fe||S)&&setTimeout(()=>Fn.current?.scrollIntoView({behavior:"smooth"}),50)},[Xt,u,Fe,S]),l.useEffect(()=>{S&&bn(!0)},[S]);const kn=async()=>{!Ee.trim()||!S||(await f.from("chat_messages").insert({user_id:S.id,sender_name:S.name,sender_role:S.role||"Member",sender_color:"#0071e3",sender_emoji:"🧑‍💻",msg_type:pe,content:Ee.trim(),reply_to:he?.id||null}),Mn(""),xn(G.TEXT),jt(null),wn.current?.focus())},Qa=async(t,n)=>{const s=Xt.find(a=>a.id===t);if(!s||!S)return;const o={...s.reactions||{}};o[n]||(o[n]=[]),o[n].includes(S.id)?(o[n]=o[n].filter(a=>a!==S.id),o[n].length||delete o[n]):o[n]=[...o[n],S.id],await f.rpc("react_message",{msg_id:t,new_reactions:o})},qa=async t=>{await f.rpc("delete_message",{msg_id:t})},Za=t=>Ja(n=>{const s=new Set(n);return s.has(t)?s.delete(t):s.add(t),s}),Gn=(()=>{let t=Xt;return Ce&&(t=t.filter(n=>Jt.has(n.id))),zt.trim()&&(t=t.filter(n=>n.text.toLowerCase().includes(zt.toLowerCase()))),t})(),we=Qt.length||0,B=Qt.length>0?Qt.map(t=>({name:t.name,role:t.role,color:t.color||"#0071e3",status:"online",emoji:t.emoji||"🧑‍💻"})):$t,Zt=S?0:null,_a=!1,$a=()=>{},eo={current:999},Wn=()=>{S?(bn(!0),I("community"),Se("chat"),ae(!1)):(ae(!1),ee(0),L("signup"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}))},[to,Hn]=l.useState(!0),[Ye,lt]=l.useState(`//MYJOB   JOB ,'MY JOB',CLASS=A,NOTIFY=&SYSUID
+• "Mainframe career path"`},Bt=t=>{if(!t)return"";let a=t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");const s=[],o=(n,E,T)=>{const O=s.length;return s.push(`<span style="color:${E}${T?";font-weight:700":""}">${n}</span>`),`«${O}»`};a=a.replace(/(\/\/\*.*)/g,n=>o(n,"#94a3b8")),a=a.replace(/(\/\*[\s\S]*?\*\/)/g,n=>o(n,"#94a3b8")),a=a.replace(/'([^']*?)'/g,n=>o(n,"#fbbf24")),a=a.replace(/"([^"]*?)"/g,n=>o(n,"#fbbf24")),a=a.replace(/^(\/\/\w+)/gm,n=>o(n,"#22d3ee",1)),a=a.replace(/^(\/\/)/gm,n=>o(n,"#22d3ee")),a=a.replace(/\b(PROCEDURE DIVISION|DATA DIVISION|WORKING-STORAGE SECTION|LINKAGE SECTION|FILE SECTION|IDENTIFICATION DIVISION|ENVIRONMENT DIVISION)\b/g,n=>o(n,"#c084fc",1)),a=a.replace(/\b(EXEC PGM|EXEC CICS|END-EXEC|EXEC)\b/g,n=>o(n,"#f472b6",1)),a=a.replace(/\b(JOB|DD|DSN|DISP|SPACE|REGION|CLASS|COND|NOTIFY|SYSOUT|PGM|PROC|SET|INCLUDE|OUTFIL|SORT|MERGE|PARM|DCB|VOL|SER|UNIT|LABEL|OUTPUT|LRECL|BLKSIZE|RECFM|MSGCLASS|MSGLEVEL|TYPRUN|RESTART|PRTY|TIME)\b/g,n=>o(n,"#f472b6")),a=a.replace(/\b(MOVE|PERFORM|DISPLAY|COMPUTE|ADD|SUBTRACT|MULTIPLY|DIVIDE|INITIALIZE|STRING|UNSTRING|INSPECT|READ|WRITE|REWRITE|STOP RUN|GOBACK|EVALUATE|WHEN|OTHER|END-EVALUATE|END-IF|END-PERFORM|END-READ|END-WRITE|END-COMPUTE|END-STRING|END-CALL|JSON GENERATE|END-JSON|ACCEPT|SEARCH|GO TO)\b/g,n=>o(n,"#60a5fa")),a=a.replace(/\b(IF|ELSE|CALL|RETURN|OPEN|CLOSE|EXIT|NOT|AND|OR|UNTIL|VARYING|THRU|THROUGH|FROM|TO|BY|GIVING|INTO|ON|SIZE|ERROR|OVERFLOW|AT|END|DELETE|START)\b/g,n=>o(n,"#60a5fa")),a=a.replace(/\b(PIC|PICTURE|COMP|COMP-3|COMP-1|COMP-2|BINARY|PACKED-DECIMAL|VALUE|REDEFINES|OCCURS|INDEXED|DEPENDING|FILLER|COPY|REPLACING)\b/g,n=>o(n,"#34d399")),a=a.replace(/\b(SELECT|FROM|WHERE|INSERT|UPDATE|ORDER|GROUP|HAVING|JOIN|LEFT|RIGHT|INNER|OUTER|CREATE|ALTER|DROP|GRANT|REVOKE|FETCH|FIRST|ROWS|ONLY|COMMIT|ROLLBACK|DECLARE|CURSOR|DECIMAL|SUBSTR|COUNT|SUM|AVG|MAX|MIN|BETWEEN|LIKE|EXISTS|DISTINCT|UNION|TABLE|INDEX|VIEW|RUNSTATS|BIND|PLAN|PACKAGE)\b/g,n=>o(n,"#fbbf24")),a=a.replace(/\b(SEND|RECEIVE|LINK|XCTL|READNEXT|STARTBR|ENDBR|PUT|GET|CONTAINER|CHANNEL|PROGRAM|MAP|MAPSET|COMMAREA|RESP|RESP2|SYNCPOINT|HANDLE|CONDITION|ABEND|TRANSID|FLENGTH|FREEMAIN|GETMAIN|DEFINE|CLUSTER|REPRO|VERIFY|LISTCAT|ENTRIES|PRINT|INFILE|EXPORT|IMPORT)\b/g,n=>o(n,"#fb923c")),a=a.replace(/\b(PARSE|ARG|SAY|DO|THEN|SIGNAL|ADDRESS|PULL|PUSH|QUEUE|TRACE|INTERPRET|OTHERWISE|LEAVE|ITERATE|NOP|OUTTRAP|SYSDSN|ALLOC|EXECIO|NUMERIC|UPPER|LOWER|STRIP|COPIES|CENTER|OVERLAY|WORD|WORDS|QUEUED)\b/g,n=>o(n,"#a78bfa"));for(let n=s.length-1;n>=0;n--)a=a.split("«"+n+"»").join(s[n]);return a},Ra=t=>{if(!t)return null;const a=t.split(`
+`),s=[];let o=0;for(;o<a.length;){const n=a[o].trim();if(!n){o++;continue}if(n.endsWith(":")&&n.length<120&&!n.match(/^\d+\./)){s.push(e.jsxs("div",{style:{marginTop:s.length?28:0,marginBottom:14,display:"flex",alignItems:"center",gap:10},children:[e.jsx("div",{style:{width:4,height:24,borderRadius:4,background:`linear-gradient(to bottom,${i?.color||"#0071e3"},${i?.color||"#7c3aed"})`,flexShrink:0}}),e.jsx("h3",{style:{fontSize:18,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.3px",lineHeight:1.4},children:n})]},o)),o++;continue}if(n.match(/^\d+[\.\)]/)){const E=[];for(;o<a.length&&a[o].trim().match(/^\d+[\.\)]/);){const T=a[o].trim().replace(/^\d+[\.\)]\s*/,"");E.push(T),o++}s.push(e.jsx("div",{style:{margin:"12px 0",display:"flex",flexDirection:"column",gap:8},children:E.map((T,O)=>e.jsxs("div",{style:{display:"flex",gap:12,alignItems:"flex-start"},children:[e.jsx("div",{style:{width:28,height:28,borderRadius:8,background:`${i?.color||"#0071e3"}12`,color:i?.color||"#0071e3",fontSize:13,fontWeight:800,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1},children:O+1}),e.jsx("p",{style:{fontSize:15,color:"#cbd5e1",lineHeight:1.85,flex:1},children:T})]},O))},`list-${o}`));continue}if(n.match(/^[•\-·]\s/)){const E=[];for(;o<a.length&&a[o].trim().match(/^[•\-·]\s/);)E.push(a[o].trim().replace(/^[•\-·]\s*/,"")),o++;s.push(e.jsx("div",{style:{margin:"12px 0 12px 4px",display:"flex",flexDirection:"column",gap:6},children:E.map((T,O)=>e.jsxs("div",{style:{display:"flex",gap:10,alignItems:"flex-start"},children:[e.jsx("div",{style:{width:6,height:6,borderRadius:"50%",background:i?.color||"#0071e3",flexShrink:0,marginTop:9}}),e.jsx("p",{style:{fontSize:15,color:"#cbd5e1",lineHeight:1.85},children:T})]},O))},`bul-${o}`));continue}if(n.match(/^[A-Z][A-Z0-9\/\-_]{1,20}\s*(—|–|-|=|:)\s/)&&n.length<200){const E=n.match(/^([A-Z][A-Z0-9\/\-_]{1,20})\s*(—|–|-|=|:)\s*(.*)/);if(E){s.push(e.jsxs("div",{style:{margin:"6px 0",padding:"10px 16px",background:"rgba(30,41,59,0.6)",borderRadius:10,borderLeft:`3px solid ${i?.color||"#0071e3"}`},children:[e.jsx("span",{style:{fontWeight:700,color:"#f1f5f9",fontFamily:"'SF Mono',Menlo,Consolas,monospace",fontSize:14},children:E[1]}),e.jsxs("span",{style:{color:"#94a3b8"},children:[" ",E[2]," "]}),e.jsx("span",{style:{color:"#cbd5e1",fontSize:14.5},children:E[3]})]},o)),o++;continue}}s.push(e.jsx("p",{style:{fontSize:15.5,color:"#cbd5e1",lineHeight:2,margin:"8px 0",fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif"},children:n},o)),o++}return e.jsx("div",{children:s})},xn=t=>t?t.split(/(```[\s\S]*?```)/g).map((s,o)=>{if(s.startsWith("```")){const n=s.slice(3,-3).split(`
+`),E=n[0].trim(),T=(E&&!E.includes(" ")?n.slice(1):n).join(`
+`);return e.jsxs("div",{style:{margin:"8px 0",borderRadius:10,overflow:"hidden",border:"1px solid rgba(255,255,255,0.08)"},children:[E&&!E.includes(" ")&&e.jsx("div",{style:{background:"#0f172a",padding:"6px 12px",fontSize:11,color:"#94a3b8",fontWeight:600,textTransform:"uppercase",borderBottom:"1px solid rgba(255,255,255,0.06)"},children:E}),e.jsx("pre",{style:{margin:0,padding:"14px 16px",background:"#0f172a",color:"#f1f5f9",fontSize:13,lineHeight:1.8,overflowX:"auto",fontFamily:ut},dangerouslySetInnerHTML:{__html:Bt(T)}})]},o)}return s.split(`
+`).map((n,E)=>{let T=n.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/`(.+?)`/g,'<code style="background:rgba(0,113,227,0.2);padding:2px 7px;border-radius:4px;font-size:12px;font-family:monospace;color:#60a5fa">$1</code>').replace(/\*(.+?)\*/g,"<em>$1</em>");if(/^#{1,3}\s/.test(n)){const O=n.match(/^(#+)/)[1].length,P=n.replace(/^#+\s*/,"");T=`<strong style="font-size:${18-O*2}px;display:block;margin:8px 0 4px">${P}</strong>`}return(n.startsWith("• ")||n.startsWith("- ")||/^\d+[\.\)]\s/.test(n))&&(T='<span style="display:inline-block;width:16px;flex-shrink:0"></span>'+T),e.jsx("div",{dangerouslySetInnerHTML:{__html:T||"&nbsp;"}},`${o}-${E}`)})}):null,[wn,vt]=l.useState([]),[Oa,xt]=l.useState(!1),[V,at]=l.useState({title:"",content:"",category:"General"}),Yn=["JCL","COBOL","REXX","VSAM","DB2","CICS","IMS","RACF","z/OS","Modernization","Linux on Z","Career","General"],wt=c&&(parseInt(c.mfYears||0)>=5||parseInt(c.itYears||0)>=5);l.useEffect(()=>{(async()=>{try{const{data:a}=await g.from("user_blogs").select("*").order("created_at",{ascending:!1});a&&vt(a.map(s=>({id:s.id,title:s.title,content:s.content,category:s.category,date:(s.created_at||"").slice(0,10),readTime:Math.max(1,Math.round((s.content||"").split(/\s+/).length/200))+" min read",author:s.author,authorRole:s.author_role,isUserBlog:!0,likes:0})))}catch{}})()},[]);const kn=async()=>{if(!V.title.trim()||!V.content.trim()||!c)return;await g.from("user_blogs").insert({user_id:c.id,title:V.title.trim(),content:V.content.trim(),category:V.category,author:c.name,author_role:c.role});const{data:t}=await g.from("user_blogs").select("*").order("created_at",{ascending:!1});t&&vt(t.map(a=>({id:a.id,title:a.title,content:a.content,category:a.category,date:(a.created_at||"").slice(0,10),readTime:Math.max(1,Math.round((a.content||"").split(/\s+/).length/200))+" min read",author:a.author,authorRole:a.author_role,isUserBlog:!0,likes:0}))),at({title:"",content:"",category:"General"}),xt(!1)},Wn=t=>{if(!c){f("signin"),D("");return}vt(a=>a.map(s=>s.id===t?{...s,likes:(s.likes||0)+1}:s))},ha=[...wn,...Ho],[Yt,kt]=l.useState([]),[ve,Gn]=l.useState("hot"),[Wt,Hn]=l.useState("All"),[nt,Xn]=l.useState(""),[k,ce]=l.useState(null),[La,Gt]=l.useState(!1),[Se,ot]=l.useState({title:"",body:"",topic:"General",author:""}),[Ht,ga]=l.useState(""),fa=l.useRef(!1);l.useEffect(()=>{const t=async()=>{try{const{data:a}=await g.from("qa_posts").select("*").order("created_at",{ascending:!1}),{data:s}=await g.from("qa_answers").select("*").order("created_at",{ascending:!0});if(a){const o=a.map(n=>({id:n.id,title:n.title,body:n.body,topic:n.topic,author:n.author,authorRole:n.author_role,date:(n.created_at||"").slice(0,10),votes:n.votes||1,answers:(s||[]).filter(E=>E.post_id===n.id).map(E=>({id:E.id,body:E.body,author:E.author,authorRole:E.author_role,date:(E.created_at||"").slice(0,10),votes:E.votes||1}))}));kt(o)}}catch{}};if(u==="community"&&!fa.current&&(fa.current=!0,t()),u==="community")try{const a=g.channel("qa").on("postgres_changes",{event:"*",schema:"public",table:"qa_posts"},()=>t()).on("postgres_changes",{event:"*",schema:"public",table:"qa_answers"},()=>t()).subscribe();return()=>g.removeChannel(a)}catch{}},[u]);const st=async(t,a)=>{if(!c){f("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});return}Yt.find(o=>o.id===t)&&(await g.rpc("vote_post",{post_id:t,vote_dir:a}),kt(o=>o.map(n=>n.id===t?{...n,votes:n.votes+a}:n)))},Na=async(t,a,s)=>{if(!c){f("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});return}await g.rpc("vote_answer",{answer_id:a,vote_dir:s}),kt(o=>o.map(n=>n.id===t?{...n,answers:n.answers.map(E=>E.id===a?{...E,votes:E.votes+s}:E)}:n))},Vn=async()=>{if(!c){f("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});return}Se.title.trim()&&(await g.from("qa_posts").insert({user_id:c.id,author:c.name,author_role:c.role,title:Se.title,body:Se.body,topic:Se.topic}),ot({title:"",body:"",topic:"General",author:""}),Gt(!1))},jn=async t=>{if(!c){f("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""});return}Ht.trim()&&(await g.from("qa_answers").insert({post_id:t,user_id:c.id,author:c.name,author_role:c.role,body:Ht}),ga(""))},Pa=[...Yt].filter(t=>Wt==="All"||t.topic===Wt).filter(t=>!nt||t.title.toLowerCase().includes(nt.toLowerCase())||t.body.toLowerCase().includes(nt.toLowerCase())).sort((t,a)=>ve==="new"?a.date.localeCompare(t.date):ve==="top"?a.votes-t.votes:a.votes+a.answers.length*2-(t.votes+t.answers.length*2)),[Xt,rt]=l.useState([]),[de,Ma]=l.useState(""),[xe,ya]=l.useState(!1),[Vt,ba]=l.useState(!1),[Ce,Ua]=l.useState(W.TEXT),[he,jt]=l.useState(null),[zt,Fa]=l.useState(""),[it,zn]=l.useState(!1),[Jt,Jn]=l.useState(new Set),[Te,Ba]=l.useState(!1),[Kt,ne]=l.useState(!1),[oe,ie]=l.useState(0),[Qt,Kn]=l.useState([]),va=l.useRef(null),xa=l.useRef(null),qt=t=>({id:t.id,type:t.msg_type||"text",text:t.content,del:t.deleted||!1,reactions:t.reactions||{},replyTo:t.reply_to,time:new Date(t.created_at).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),_name:t.sender_name,_role:t.sender_role,_color:t.sender_color||"#0071e3",_emoji:t.sender_emoji||"🧑‍💻",_userId:t.user_id,_isSelf:t.user_id===c?.id}),wa=l.useRef(!1);l.useEffect(()=>{if(u!=="community"&&!wa.current)return;wa.current=!0,(async()=>{try{const{data:a}=await g.from("chat_messages").select("*").order("created_at",{ascending:!0}).limit(200);a&&rt(a.map(qt))}catch{}})();try{const a=g.channel("chat").on("postgres_changes",{event:"INSERT",schema:"public",table:"chat_messages"},s=>{rt(o=>[...o,qt(s.new)])}).on("postgres_changes",{event:"UPDATE",schema:"public",table:"chat_messages"},s=>{rt(o=>o.map(n=>n.id===s.new.id?qt(s.new):n))}).subscribe();return()=>{g.removeChannel(a)}}catch{}},[c,u]),l.useEffect(()=>{if(u!=="community")return;const t=async()=>{try{const{data:s}=await g.from("user_presence").select("*").gte("last_seen",new Date(Date.now()-3e5).toISOString());s&&Kn(s)}catch{}};t();const a=setInterval(t,3e4);return()=>clearInterval(a)},[u]),l.useEffect(()=>{if(!c)return;const t=async()=>{try{await g.from("user_presence").upsert({user_id:c.id,name:c.name,role:c.role,emoji:"🧑‍💻",color:"#0071e3",last_seen:new Date().toISOString()})}catch{}};t();const a=setInterval(t,6e4);return()=>clearInterval(a)},[c]),l.useEffect(()=>{if(!Kt)return;ie(0);const t=setTimeout(()=>ie(1),100),a=setTimeout(()=>ie(2),500),s=setTimeout(()=>ie(3),900);return()=>{clearTimeout(t),clearTimeout(a),clearTimeout(s)}},[Kt]),l.useEffect(()=>{u==="community"&&(xe||c)&&setTimeout(()=>va.current?.scrollIntoView({behavior:"smooth"}),50)},[Xt,u,xe,c]),l.useEffect(()=>{c&&ya(!0)},[c]);const Ya=async()=>{!de.trim()||!c||(await g.from("chat_messages").insert({user_id:c.id,sender_name:c.name,sender_role:c.role||"Member",sender_color:"#0071e3",sender_emoji:"🧑‍💻",msg_type:Ce,content:de.trim(),reply_to:he?.id||null}),Ma(""),Ua(W.TEXT),jt(null),xa.current?.focus())},Qn=async(t,a)=>{const s=Xt.find(n=>n.id===t);if(!s||!c)return;const o={...s.reactions||{}};o[a]||(o[a]=[]),o[a].includes(c.id)?(o[a]=o[a].filter(n=>n!==c.id),o[a].length||delete o[a]):o[a]=[...o[a],c.id],await g.rpc("react_message",{msg_id:t,new_reactions:o})},qn=async t=>{await g.rpc("delete_message",{msg_id:t})},_n=t=>Jn(a=>{const s=new Set(a);return s.has(t)?s.delete(t):s.add(t),s}),ka=(()=>{let t=Xt;return Te&&(t=t.filter(a=>Jt.has(a.id))),zt.trim()&&(t=t.filter(a=>a.text.toLowerCase().includes(zt.toLowerCase()))),t})(),we=Qt.length||0,v=Qt.length>0?Qt.map(t=>({name:t.name,role:t.role,color:t.color||"#0071e3",status:"online",emoji:t.emoji||"🧑‍💻"})):$t,_t=c?0:null,Zn=!1,$n=()=>{},eo={current:999},Wa=()=>{c?(ya(!0),A("community"),ce("chat"),ne(!1)):(ne(!1),ee(0),f("signup"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""}))},[to,Ga]=l.useState(!0),[Ye,lt]=l.useState(`//MYJOB   JOB ,'MY JOB',CLASS=A,NOTIFY=&SYSUID
 //STEP1   EXEC PGM=IEBGENER
 //SYSUT1  DD DSN=INPUT.FILE,DISP=SHR
 //SYSUT2  DD DSN=OUTPUT.FILE,
 //           DISP=(NEW,CATLG,DELETE),
 //           SPACE=(TRK,(10,5),RLSE)
 //SYSPRINT DD SYSOUT=*
-//SYSIN   DD DUMMY`),[ue,Xn]=l.useState("JCL"),[$,no]=l.useState("explain"),[Vn,ge]=l.useState(null),[ke,jn]=l.useState(!1),ao={JCL:`//MYJOB   JOB ,'MY JOB',CLASS=A,NOTIFY=&SYSUID
+//SYSIN   DD DUMMY`),[ue,Ha]=l.useState("JCL"),[$,ao]=l.useState("explain"),[Xa,Le]=l.useState(null),[ke,Va]=l.useState(!1),no={JCL:`//MYJOB   JOB ,'MY JOB',CLASS=A,NOTIFY=&SYSUID
 //STEP1   EXEC PGM=IEBGENER
 //SYSUT1  DD DSN=INPUT.FILE,DISP=SHR
 //SYSUT2  DD DSN=OUTPUT.FILE,
@@ -17827,7 +21551,7 @@ FROM EMPLOYEE E
 JOIN DEPARTMENT D ON E.WORKDEPT = D.DEPTNO
 WHERE E.SALARY > 50000
 ORDER BY E.SALARY DESC
-FETCH FIRST 20 ROWS ONLY;`},oo=async()=>{if(!Ye.trim())return;jn(!0),ge(null);const t={explain:`You are an expert IBM z/OS mainframe instructor. Analyze this ${ue} code line by line. For EACH statement/line, explain: what it does, why it matters, and any important parameters. Use clear formatting with line references. End with a "Key Takeaways" summary.`,errors:`You are an expert IBM z/OS mainframe debugger. Analyze this ${ue} code for errors, potential issues, and bad practices. For each issue found: describe the problem, explain why it's wrong, and provide the corrected code. If the code is correct, say so and suggest optimizations. Be specific with line numbers.`,simulate:`You are an IBM z/OS mainframe simulator. Given this ${ue} code, explain step by step what would happen if this ran on z/OS. Include: what z/OS does at each step, what datasets are allocated/accessed, what output is generated, and what the expected return code would be. Make it feel like watching the job run in real-time.`};try{const s=await(await fetch("/.netlify/functions/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({system:t[$],messages:[{role:"user",content:Ye}]})})).json();s.content?.[0]?.text?ge(s.content[0].text):ge("Error: "+(s.error||"No response"))}catch{ge("Connection error. Please try again.")}jn(!1)},[so,ct]=l.useState(!1),[io,zn]=l.useState(!1),[F,St]=l.useState({rating:0,message:"",name:"",email:""}),[Jn,Kn]=l.useState(!1),Qn=l.useRef(!1);l.useEffect(()=>{if(localStorage.getItem("mfsh_feedback_done"))return;const n=setTimeout(()=>{Qn.current||(Qn.current=!0,ct(!0))},5*60*1e3);return()=>clearTimeout(n)},[]);const ro=async()=>{if(F.message.trim()){Kn(!0);try{await f.from("feedback").insert({user_id:S?.id||null,name:F.name.trim()||S?.name||"Anonymous",email:F.email.trim()||S?.email||null,rating:F.rating||null,message:F.message.trim(),page:u})}catch{}localStorage.setItem("mfsh_feedback_done","1"),Kn(!1),zn(!0),setTimeout(()=>{ct(!1),zn(!1)},2500)}},[dt,ee]=l.useState(0),fe=l.useRef({welcome:!1,signin:!1,community:!1});l.useEffect(()=>{const t=()=>{fe.current.welcome||setTimeout(()=>{ee(1),fe.current.welcome=!0},1500),window.removeEventListener("scroll",t)};window.addEventListener("scroll",t,{passive:!0});const n=setTimeout(()=>{!S&&!fe.current.signin&&(ee(2),fe.current.signin=!0)},6e4),s=setTimeout(()=>{!Fe&&!fe.current.community&&(ee(3),fe.current.community=!0)},12e4);return()=>{window.removeEventListener("scroll",t),clearTimeout(n),clearTimeout(s)}},[S,Fe]);const qn=[{id:"all",label:"All"},{id:"languages",label:"Languages",ids:["jcl","cobol","rexx","procs"]},{id:"databases",label:"Databases",ids:["db2","imsdb","vsam"]},{id:"middleware",label:"Middleware",ids:["cics","tso"]},{id:"operations",label:"Operations",ids:["ca7","smf","security"]},{id:"modern",label:"Modern Z",ids:["modernization","linuxonz","zowe"]}];l.useEffect(()=>{const t=()=>Oa(window.scrollY>20);return window.addEventListener("scroll",t),_o().then(n=>ln(n)),()=>window.removeEventListener("scroll",t)},[]),l.useEffect(()=>{window.scrollTo(0,0)},[u,r]);const Zn=P.filter(t=>{const n=Ot.toLowerCase(),s=t.title.toLowerCase().includes(n)||t.subtitle.toLowerCase().includes(n)||t.description.toLowerCase().includes(n),o=Qe==="all"||(qn.find(a=>a.id===Qe)?.ids||[]).includes(t.id);return s&&o}),Le=t=>{h(t),d(0),I("topics"),Ae(!1),window.scrollTo(0,0)},j=(t,n)=>{I(t),h(null),Ae(!1),on(null),gt(null),Se(t==="community"?"chat":null)},lo=t=>{if(A.selected!==null)return;const n=_?nn:en,s=t===n[A.index].answer;Q(o=>({...o,selected:t,score:s?o.score+1:o.score,showExp:!0})),setTimeout(()=>{A.index+1<n.length?Q(o=>({...o,index:o.index+1,selected:null,showExp:!1})):(Q(o=>({...o,done:!0})),_&&ma(s?A.score+1:A.score))},2200)},_n=()=>Q({index:0,score:0,selected:null,done:!1,showExp:!1}),$n=async t=>{Lt(!0),yt(null),La(t),Pt(null),cn("tip");const n=await Zo(t.id);if(n){Pt(n),Lt(!1);return}try{const s=await Qo(t);s?(s.topicId=t.id,s.generatedDate=new Date().toLocaleString(),await qo(t.id,s),Pt(s),ln(new Date().toISOString())):yt("Could not parse update. Try again.")}catch(s){yt("Failed to fetch update: "+s.message)}finally{Lt(!1)}},co=async()=>{if(ie){try{localStorage.removeItem("weekly_"+ie.id)}catch{}$n(ie)}},So=na.filter(t=>(qe==="All"||t.category===qe)&&(Ze==="All"||t.difficulty===Ze)),Eo=["All",...new Set(na.map(t=>t.category))],po=["All","Beginner","Intermediate","Advanced"];return e.jsxs("div",{style:i.root,children:[e.jsxs("div",{className:"mesh-bg",children:[e.jsx("div",{className:"mesh-orb",style:{width:600,height:600,top:"-10%",right:"-5%",background:"radial-gradient(circle,#7c3aed,transparent 70%)",animationDelay:"0s"}}),e.jsx("div",{className:"mesh-orb",style:{width:500,height:500,bottom:"10%",left:"-8%",background:"radial-gradient(circle,#0071e3,transparent 70%)",animationDelay:"4s"}}),e.jsx("div",{className:"mesh-orb",style:{width:400,height:400,top:"40%",right:"20%",background:"radial-gradient(circle,#06b6d4,transparent 70%)",animationDelay:"8s",opacity:.1}})]}),e.jsx("style",{children:`
+FETCH FIRST 20 ROWS ONLY;`},oo=async()=>{if(!Ye.trim())return;Va(!0),Le(null);const t={explain:`You are an expert IBM z/OS mainframe instructor. Analyze this ${ue} code line by line. For EACH statement/line, explain: what it does, why it matters, and any important parameters. Use clear formatting with line references. End with a "Key Takeaways" summary.`,errors:`You are an expert IBM z/OS mainframe debugger. Analyze this ${ue} code for errors, potential issues, and bad practices. For each issue found: describe the problem, explain why it's wrong, and provide the corrected code. If the code is correct, say so and suggest optimizations. Be specific with line numbers.`,simulate:`You are an IBM z/OS mainframe simulator. Given this ${ue} code, explain step by step what would happen if this ran on z/OS. Include: what z/OS does at each step, what datasets are allocated/accessed, what output is generated, and what the expected return code would be. Make it feel like watching the job run in real-time.`};try{const s=await(await fetch("/.netlify/functions/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({system:t[$],messages:[{role:"user",content:Ye}]})})).json();s.content?.[0]?.text?Le(s.content[0].text):Le("Error: "+(s.error||"No response"))}catch{Le("Connection error. Please try again.")}Va(!1)},[so,Et]=l.useState(!1),[ro,ja]=l.useState(!1),[x,ct]=l.useState({rating:0,message:"",name:"",email:""}),[za,Ja]=l.useState(!1),Ka=l.useRef(!1);l.useEffect(()=>{if(localStorage.getItem("mfsh_feedback_done"))return;const a=setTimeout(()=>{Ka.current||(Ka.current=!0,Et(!0))},5*60*1e3);return()=>clearTimeout(a)},[]);const io=async()=>{if(x.message.trim()){Ja(!0);try{await g.from("feedback").insert({user_id:c?.id||null,name:x.name.trim()||c?.name||"Anonymous",email:x.email.trim()||c?.email||null,rating:x.rating||null,message:x.message.trim(),page:u})}catch{}localStorage.setItem("mfsh_feedback_done","1"),Ja(!1),ja(!0),setTimeout(()=>{Et(!1),ja(!1)},2500)}},[St,ee]=l.useState(0),ge=l.useRef({welcome:!1,signin:!1,community:!1});l.useEffect(()=>{const t=()=>{ge.current.welcome||setTimeout(()=>{ee(1),ge.current.welcome=!0},1500),window.removeEventListener("scroll",t)};window.addEventListener("scroll",t,{passive:!0});const a=setTimeout(()=>{!c&&!ge.current.signin&&(ee(2),ge.current.signin=!0)},6e4),s=setTimeout(()=>{!xe&&!ge.current.community&&(ee(3),ge.current.community=!0)},12e4);return()=>{window.removeEventListener("scroll",t),clearTimeout(a),clearTimeout(s)}},[c,xe]);const Qa=[{id:"all",label:"All"},{id:"languages",label:"Languages",ids:["jcl","cobol","rexx","procs"]},{id:"databases",label:"Databases",ids:["db2","imsdb","vsam"]},{id:"middleware",label:"Middleware",ids:["cics","tso"]},{id:"operations",label:"Operations",ids:["ca7","smf","security"]},{id:"modern",label:"Modern Z",ids:["modernization","linuxonz","zowe"]}];l.useEffect(()=>{const t=()=>On(window.scrollY>20);return window.addEventListener("scroll",t),Zo().then(a=>ia(a)),()=>window.removeEventListener("scroll",t)},[]),l.useEffect(()=>{window.scrollTo(0,0)},[u,i]);const qa=N.filter(t=>{const a=Ot.toLowerCase(),s=t.title.toLowerCase().includes(a)||t.subtitle.toLowerCase().includes(a)||t.description.toLowerCase().includes(a),o=Qe==="all"||(Qa.find(n=>n.id===Qe)?.ids||[]).includes(t.id);return s&&o}),fe=t=>{h(t),S(0),A("topics"),Ie(!1),window.scrollTo(0,0)},j=(t,a)=>{A(t),h(null),Ie(!1),oa(null),Lt(null),ce(t==="community"?"chat":null)},lo=t=>{if(I.selected!==null)return;const a=Z?aa:ea,s=t===a[I.index].answer;Q(o=>({...o,selected:t,score:s?o.score+1:o.score,showExp:!0})),setTimeout(()=>{I.index+1<a.length?Q(o=>({...o,index:o.index+1,selected:null,showExp:!1})):(Q(o=>({...o,done:!0})),Z&&pn(s?I.score+1:I.score))},2200)},_a=()=>Q({index:0,score:0,selected:null,done:!1,showExp:!1}),Za=async t=>{ft(!0),Mt(null),fn(t),Nt(null),la("tip");const a=await _o(t.id);if(a){Nt(a),ft(!1);return}try{const s=await Qo(t);s?(s.topicId=t.id,s.generatedDate=new Date().toLocaleString(),await qo(t.id,s),Nt(s),ia(new Date().toISOString())):Mt("Could not parse update. Try again.")}catch(s){Mt("Failed to fetch update: "+s.message)}finally{ft(!1)}},Eo=async()=>{if(re){try{localStorage.removeItem("weekly_"+re.id)}catch{}Za(re)}},co=tn.filter(t=>(qe==="All"||t.category===qe)&&(_e==="All"||t.difficulty===_e)),So=["All",...new Set(tn.map(t=>t.category))],Co=["All","Beginner","Intermediate","Advanced"];return e.jsxs("div",{style:r.root,children:[e.jsxs("div",{className:"mesh-bg",children:[e.jsx("div",{className:"mesh-orb",style:{width:600,height:600,top:"-10%",right:"-5%",background:"radial-gradient(circle,#7c3aed,transparent 70%)",animationDelay:"0s"}}),e.jsx("div",{className:"mesh-orb",style:{width:500,height:500,bottom:"10%",left:"-8%",background:"radial-gradient(circle,#0071e3,transparent 70%)",animationDelay:"4s"}}),e.jsx("div",{className:"mesh-orb",style:{width:400,height:400,top:"40%",right:"20%",background:"radial-gradient(circle,#06b6d4,transparent 70%)",animationDelay:"8s",opacity:.1}})]}),e.jsx("style",{children:`
         /* system fonts used — no external fonts needed */
         *{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth}
@@ -17966,12 +21690,12 @@ FETCH FIRST 20 ROWS ONLY;`},oo=async()=>{if(!Ye.trim())return;jn(!0),ge(null);co
           body{background:#080b16!important}
           .content-card{box-shadow:none!important;border:1px solid rgba(255,255,255,0.08)!important}
         }
-      `}),e.jsx("nav",{role:"navigation","aria-label":"Main navigation",style:{...i.nav,background:an?"rgba(8,11,22,0.95)":"rgba(8,11,22,0.8)",boxShadow:an?"0 1px 0 rgba(0,0,0,0.1)":"none",backdropFilter:"saturate(180%) blur(20px)",WebkitBackdropFilter:"saturate(180%) blur(20px)"},children:e.jsxs("div",{style:i.navInner,children:[e.jsxs("button",{style:i.navLogo,onClick:()=>j("home"),children:[e.jsx("img",{src:"/favicon.svg",alt:"logo",style:{width:28,height:28,borderRadius:6}}),e.jsx("span",{style:{fontWeight:700,fontSize:15,letterSpacing:"-.3px"},children:"MainframeStudyHub"})]}),e.jsx("div",{className:"nav-scroll",style:i.navLinks,children:[["home","Overview"],["topics","Topics"],["scenarios","Scenarios"],["blog","Blog"],["quiz","Quiz"],["playground","Code Lab"],["community","Community"],["abends","Abend Solver"],["roadmap","Roadmap"],["weekly","Weekly Update"],["about","About"]].map(([t,n])=>e.jsx("button",{className:"nav-btn",onClick:()=>j(t),style:{...i.navLink,color:u===t?"#ffffff":"#94a3b8",fontWeight:u===t?600:400},children:n},t))}),S?e.jsx(We,{name:S.name,size:32,showRing:!0,onClick:()=>L(v==="profile"?null:"profile"),style:{marginLeft:8}}):e.jsx("button",{onClick:()=>{L("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})},style:{marginLeft:8,background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:980,padding:"6px 16px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:E,whiteSpace:"nowrap",flexShrink:0},children:"Sign In"}),e.jsxs("button",{"aria-label":"Menu",style:i.hamburger,onClick:()=>Ae(t=>!t),children:[e.jsx("div",{style:{width:18,height:1.5,background:"#e2e8f0",marginBottom:5,transform:Me?"rotate(45deg) translate(4px,4px)":"none",transition:"all .2s"}}),e.jsx("div",{style:{width:18,height:1.5,background:"#e2e8f0",marginBottom:5,opacity:Me?0:1,transition:"all .2s"}}),e.jsx("div",{style:{width:18,height:1.5,background:"#e2e8f0",transform:Me?"rotate(-45deg) translate(4px,-4px)":"none",transition:"all .2s"}})]})]})}),Me&&e.jsxs("div",{style:i.drawer,className:"fi",children:[e.jsx("div",{style:{height:52}}),S?e.jsxs("div",{style:{padding:"12px 24px",display:"flex",alignItems:"center",gap:12,borderBottom:"1px solid rgba(255,255,255,0.06)",marginBottom:8},children:[e.jsx(We,{name:S.name,size:36,showRing:!0}),e.jsxs("div",{style:{flex:1,minWidth:0},children:[e.jsx("div",{style:{fontSize:14,fontWeight:700,color:"#f1f5f9"},children:S.name}),e.jsxs("div",{style:{fontSize:11,color:"#94a3b8"},children:[S.role," · ",S.mfYears,"yr MF"]})]}),e.jsx("button",{onClick:()=>{pn(),Ae(!1)},style:{fontSize:11,color:"#fca5a5",background:"rgba(239,68,68,0.15)",border:"none",borderRadius:6,padding:"4px 10px",cursor:"pointer",fontFamily:E},children:"Sign Out"})]}):e.jsx("div",{style:{padding:"8px 24px 12px",borderBottom:"1px solid rgba(255,255,255,0.06)",marginBottom:8},children:e.jsx("button",{onClick:()=>{L("signin"),D(""),Ae(!1)},style:{width:"100%",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:10,padding:"10px",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:E},children:"Sign In / Sign Up"})}),[["home","🏠 Overview"],["topics","📚 Topics"],["scenarios","🎯 Scenarios"],["blog","📰 Blog"],["quiz","🧠 Quiz"],["community","💬 Community"],["abends","🔍 Abend Solver"],["roadmap","🗺️ Roadmap"],["weekly","🔄 Weekly Update"],["about","👤 About"]].map(([t,n])=>e.jsx("button",{onClick:()=>j(t),style:{...i.drawerLink,color:u===t?"#0071e3":"#e2e8f0"},children:n},t)),e.jsx("div",{style:{height:1,background:"#1e293b",margin:"8px 0"}}),P.map(t=>e.jsxs("button",{onClick:()=>Le(t),style:i.drawerTopicLink,children:[t.icon," ",t.title]},t.id))]}),Me&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:998},onClick:()=>Ae(!1)}),to&&e.jsxs("div",{style:{position:"fixed",top:52,left:0,right:0,zIndex:900,background:"linear-gradient(90deg,#0a1628 0%,#0d2040 50%,#0a1628 100%)",borderBottom:"1px solid rgba(0,113,227,0.2)",padding:"8px 0",animation:"slideDown 0.5s ease",overflow:"hidden"},children:[e.jsx("div",{style:{position:"absolute",inset:0,background:"radial-gradient(ellipse at 50% 50%,rgba(0,113,227,0.08),transparent 70%)"}}),e.jsxs("div",{style:{maxWidth:1200,margin:"0 auto",padding:"0 24px",display:"flex",alignItems:"center",justifyContent:"center",gap:16,position:"relative"},children:[e.jsx("span",{style:{width:7,height:7,borderRadius:"50%",background:"#00b365",boxShadow:"0 0 6px #00b365",animation:"commPulse 2s ease-in-out infinite",flexShrink:0}}),e.jsxs("span",{style:{fontSize:13,color:"rgba(255,255,255,0.8)",fontWeight:500},children:["🖥️ ",e.jsx("strong",{style:{color:"#fff"},children:"MainframeStudyHub Community"})," is live — ",we," members online"]}),e.jsx("button",{onClick:()=>{ae(!0),re(0),Hn(!1)},style:{background:"rgba(0,113,227,0.9)",color:"#fff",border:"none",borderRadius:980,padding:"5px 16px",fontSize:12,fontWeight:700,cursor:"pointer",fontFamily:E,flexShrink:0},children:"Join Now"}),e.jsx("button",{onClick:()=>Hn(!1),style:{position:"absolute",right:24,background:"none",border:"none",color:"rgba(255,255,255,0.3)",cursor:"pointer",fontSize:16,padding:4},"aria-label":"Close",children:"✕"})]})]}),e.jsxs("main",{id:"main-content",role:"main",style:{paddingTop:52,minHeight:"100vh"},children:[(v==="signin"||v==="signup")&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(0,0,0,0.4)",backdropFilter:"blur(8px)"},onClick:t=>{t.target===t.currentTarget&&L(null)},children:e.jsxs("div",{className:"scaleIn",style:{background:"rgba(8,11,22,0.97)",backdropFilter:"blur(20px)",borderRadius:24,padding:"36px 32px",maxWidth:420,width:"90%",boxShadow:"0 24px 80px rgba(0,0,0,0.2)",border:"1px solid rgba(255,255,255,0.08)"},children:[e.jsxs("div",{style:{textAlign:"center",marginBottom:24},children:[e.jsx("img",{src:"/favicon.svg",alt:"logo",style:{width:48,height:48,borderRadius:12,marginBottom:12}}),e.jsx("h2",{style:{fontSize:24,fontWeight:800,letterSpacing:"-0.5px",color:"#f1f5f9",marginBottom:4},children:v==="signin"?"Welcome Back":"Join MainframeStudyHub"}),e.jsx("p",{style:{fontSize:14,color:"#94a3b8"},children:v==="signin"?"Sign in to your account":"Create your account to join the community"})]}),e.jsxs("button",{onClick:Pa,disabled:H,style:{width:"100%",padding:"11px",background:"#1e293b",color:"#f1f5f9",border:"1.5px solid rgba(255,255,255,0.15)",borderRadius:12,fontSize:14,fontWeight:600,cursor:H?"wait":"pointer",fontFamily:E,display:"flex",alignItems:"center",justifyContent:"center",gap:10,marginBottom:16,transition:"background 0.2s,box-shadow 0.2s"},onMouseEnter:t=>{t.currentTarget.style.background="rgba(30,41,59,0.8)",t.currentTarget.style.boxShadow="0 2px 8px rgba(0,0,0,0.08)"},onMouseLeave:t=>{t.currentTarget.style.background="rgba(30,41,59,0.5)",t.currentTarget.style.boxShadow="none"},children:[e.jsxs("svg",{width:"18",height:"18",viewBox:"0 0 24 24",children:[e.jsx("path",{d:"M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z",fill:"#4285F4"}),e.jsx("path",{d:"M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z",fill:"#34A853"}),e.jsx("path",{d:"M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z",fill:"#FBBC05"}),e.jsx("path",{d:"M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z",fill:"#EA4335"})]}),v==="signin"?"Sign in with Google":"Sign up with Google"]}),e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:12,marginBottom:16},children:[e.jsx("div",{style:{flex:1,height:1,background:"rgba(255,255,255,0.1)"}}),e.jsx("span",{style:{fontSize:12,color:"#94a3b8",fontWeight:500},children:"or"}),e.jsx("div",{style:{flex:1,height:1,background:"rgba(255,255,255,0.1)"}})]}),Sn&&e.jsx("div",{style:{background:"rgba(239,68,68,0.15)",color:"#fca5a5",padding:"10px 14px",borderRadius:10,fontSize:13,marginBottom:16,border:"1px solid rgba(239,68,68,0.25)"},children:Sn}),v==="signup"&&e.jsx("input",{value:g.name,onChange:t=>b({...g,name:t.target.value}),"aria-label":"Full name",placeholder:"Full Name *",style:J}),e.jsx("input",{value:g.email,onChange:t=>b({...g,email:t.target.value}),"aria-label":"Email address",placeholder:"Email *",type:"email",style:J}),e.jsx("input",{value:g.password,onChange:t=>b({...g,password:t.target.value}),placeholder:v==="signup"?"Password (min 6 chars) *":"Password *",type:"password",style:J,onKeyDown:t=>{t.key==="Enter"&&!H&&(t.preventDefault(),v==="signin"?En():dn())}}),v==="signup"&&e.jsxs(e.Fragment,{children:[e.jsxs("div",{style:{marginBottom:16},children:[e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"Current Role"}),e.jsxs("select",{value:g.role,onChange:t=>b({...g,role:t.target.value}),style:{...J,marginBottom:0,cursor:"pointer",color:g.role?"#f1f5f9":"#64748b"},children:[e.jsx("option",{value:"",children:"Select your role..."}),un.map(t=>e.jsx("option",{value:t,children:t},t))]})]}),e.jsxs("div",{style:{display:"flex",gap:10,marginBottom:20},children:[e.jsxs("div",{style:{flex:1},children:[e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"IT Experience (years)"}),e.jsx("input",{value:g.itYears,onChange:t=>b({...g,itYears:t.target.value}),"aria-label":"IT experience years",placeholder:"e.g. 5",type:"number",min:"0",max:"50",style:{...J,marginBottom:0}})]}),e.jsxs("div",{style:{flex:1},children:[e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"Mainframe Exp (years)"}),e.jsx("input",{value:g.mfYears,onChange:t=>b({...g,mfYears:t.target.value}),"aria-label":"Mainframe experience years",placeholder:"e.g. 2",type:"number",min:"0",max:"50",style:{...J,marginBottom:0}})]})]})]}),e.jsx("button",{onClick:v==="signin"?En:dn,disabled:H,className:"glow-btn",style:{width:"100%",padding:"12px",background:H?"#334155":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:12,fontSize:15,fontWeight:700,cursor:H?"wait":"pointer",fontFamily:E,marginTop:v==="signin"?16:0},children:H?"Please wait...":v==="signin"?"Sign In":"Create Account"}),v==="signin"&&e.jsx("div",{style:{textAlign:"center",marginTop:10},children:e.jsx("button",{onClick:Na,style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontFamily:E,fontSize:12,fontWeight:500},children:"Forgot your password?"})}),e.jsx("div",{style:{textAlign:"center",marginTop:12,fontSize:13,color:"#94a3b8"},children:v==="signin"?e.jsxs(e.Fragment,{children:["Don't have an account? ",e.jsx("button",{onClick:()=>{L("signup"),D("")},style:{background:"none",border:"none",color:"#0071e3",cursor:"pointer",fontWeight:600,fontFamily:E,fontSize:13},children:"Sign Up"})]}):e.jsxs(e.Fragment,{children:["Already have an account? ",e.jsx("button",{onClick:()=>{L("signin"),D("")},style:{background:"none",border:"none",color:"#0071e3",cursor:"pointer",fontWeight:600,fontFamily:E,fontSize:13},children:"Sign In"})]})})]})}),v==="profile"&&e.jsxs(e.Fragment,{children:[e.jsx("div",{style:{position:"fixed",inset:0,zIndex:9998},onClick:()=>L(null)}),e.jsxs("div",{className:"scaleIn",style:{position:"fixed",top:48,right:16,zIndex:9999,background:"rgba(8,11,22,0.97)",backdropFilter:"blur(20px)",borderRadius:18,padding:24,boxShadow:"0 16px 56px rgba(0,0,0,0.18)",border:"1px solid rgba(255,255,255,0.06)",minWidth:260},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:14,marginBottom:18,paddingBottom:16,borderBottom:"1px solid rgba(255,255,255,0.06)"},children:[e.jsx(We,{name:S?.name,size:52,showRing:!0}),e.jsxs("div",{children:[e.jsx("div",{style:{fontSize:17,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.3px"},children:S?.name}),e.jsx("div",{style:{fontSize:12,color:"#0071e3",fontWeight:600},children:S?.role}),e.jsx("div",{style:{fontSize:11,color:"#94a3b8"},children:S?.email})]})]}),e.jsxs("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:18},children:[e.jsxs("div",{style:{background:"rgba(30,41,59,0.8)",borderRadius:12,padding:"12px",textAlign:"center"},children:[e.jsx("div",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9"},children:S?.itYears}),e.jsx("div",{style:{fontSize:10,color:"#94a3b8",fontWeight:600},children:"IT YEARS"})]}),e.jsxs("div",{style:{background:"rgba(30,41,59,0.8)",borderRadius:12,padding:"12px",textAlign:"center"},children:[e.jsx("div",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9"},children:S?.mfYears}),e.jsx("div",{style:{fontSize:10,color:"#94a3b8",fontWeight:600},children:"MF YEARS"})]})]}),e.jsxs("div",{style:{fontSize:12,color:"#94a3b8",marginBottom:16,textAlign:"center"},children:["Member since ",S?.joinDate]}),e.jsxs("div",{style:{display:"flex",flexDirection:"column",gap:8},children:[e.jsx("button",{onClick:Ma,style:{width:"100%",padding:"10px",background:"rgba(0,113,227,0.08)",color:"#0071e3",border:"none",borderRadius:10,cursor:"pointer",fontSize:13,fontWeight:600,fontFamily:E},children:"✏️ Edit Profile"}),e.jsx("button",{onClick:()=>{$e(!0),L(null),le(""),bt("")},style:{width:"100%",padding:"10px",background:"rgba(30,41,59,0.8)",color:"#cbd5e1",border:"none",borderRadius:10,cursor:"pointer",fontSize:13,fontWeight:600,fontFamily:E},children:"🔒 Change Password"}),e.jsx("button",{onClick:()=>{pn(),L(null)},style:{width:"100%",padding:"10px",background:"rgba(239,68,68,0.15)",color:"#fca5a5",border:"none",borderRadius:10,cursor:"pointer",fontSize:13,fontWeight:600,fontFamily:E},children:"Sign Out"})]})]})]}),v==="forgot-sent"&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(0,0,0,0.4)",backdropFilter:"blur(8px)"},onClick:t=>{t.target===t.currentTarget&&L(null)},children:e.jsxs("div",{className:"scaleIn",style:{background:"rgba(8,11,22,0.97)",backdropFilter:"blur(20px)",borderRadius:24,padding:"40px 32px",maxWidth:400,width:"90%",textAlign:"center",boxShadow:"0 24px 80px rgba(0,0,0,0.2)"},children:[e.jsx("div",{style:{fontSize:56,marginBottom:16},children:"📧"}),e.jsx("h2",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9",marginBottom:8},children:"Check Your Email"}),e.jsxs("p",{style:{fontSize:14,color:"#94a3b8",lineHeight:1.6,marginBottom:24},children:["We've sent a password reset link to ",e.jsx("strong",{style:{color:"#f1f5f9"},children:g.email}),". Click the link in the email to set a new password."]}),e.jsx("button",{onClick:()=>{L("signin"),D("")},className:"glow-btn",style:{padding:"10px 28px",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:12,fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:E},children:"Back to Sign In"})]})}),ya&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(0,0,0,0.4)",backdropFilter:"blur(8px)"},onClick:t=>{t.target===t.currentTarget&&_e(!1)},children:e.jsxs("div",{className:"scaleIn",style:{background:"rgba(8,11,22,0.97)",backdropFilter:"blur(20px)",borderRadius:24,padding:"36px 32px",maxWidth:420,width:"90%",boxShadow:"0 24px 80px rgba(0,0,0,0.2)"},children:[e.jsxs("div",{style:{textAlign:"center",marginBottom:24},children:[e.jsx("div",{style:{width:56,height:56,borderRadius:"50%",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",fontSize:24,fontWeight:700,display:"inline-flex",alignItems:"center",justifyContent:"center",marginBottom:12},children:X.name?.charAt(0)?.toUpperCase()||"U"}),e.jsx("h2",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9"},children:"Edit Profile"})]}),e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"Full Name"}),e.jsx("input",{value:X.name,onChange:t=>Ue({...X,name:t.target.value}),"aria-label":"Full name",placeholder:"Full Name *",style:J}),e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"Current Role"}),e.jsxs("select",{value:X.role,onChange:t=>Ue({...X,role:t.target.value}),style:{...J,cursor:"pointer",color:"#f1f5f9"},children:[e.jsx("option",{value:"",children:"Select your role..."}),un.map(t=>e.jsx("option",{value:t,children:t},t))]}),e.jsxs("div",{style:{display:"flex",gap:10,marginBottom:20},children:[e.jsxs("div",{style:{flex:1},children:[e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"IT Experience (years)"}),e.jsx("input",{value:X.itYears,onChange:t=>Ue({...X,itYears:t.target.value}),type:"number",min:"0",max:"50",style:{...J,marginBottom:0}})]}),e.jsxs("div",{style:{flex:1},children:[e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"Mainframe Exp (years)"}),e.jsx("input",{value:X.mfYears,onChange:t=>Ue({...X,mfYears:t.target.value}),type:"number",min:"0",max:"50",style:{...J,marginBottom:0}})]})]}),e.jsxs("div",{style:{display:"flex",gap:10},children:[e.jsx("button",{onClick:ba,disabled:H,className:"glow-btn",style:{flex:1,padding:"12px",background:H?"#334155":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:12,fontSize:14,fontWeight:700,cursor:H?"wait":"pointer",fontFamily:E},children:H?"Saving...":"Save Changes"}),e.jsx("button",{onClick:()=>_e(!1),style:{padding:"12px 20px",background:"rgba(30,41,59,0.8)",color:"#cbd5e1",border:"none",borderRadius:12,fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:E},children:"Cancel"})]})]})}),Ua&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(0,0,0,0.4)",backdropFilter:"blur(8px)"},onClick:t=>{t.target===t.currentTarget&&$e(!1)},children:e.jsxs("div",{className:"scaleIn",style:{background:"rgba(8,11,22,0.97)",backdropFilter:"blur(20px)",borderRadius:24,padding:"36px 32px",maxWidth:380,width:"90%",boxShadow:"0 24px 80px rgba(0,0,0,0.2)"},children:[e.jsxs("div",{style:{textAlign:"center",marginBottom:24},children:[e.jsx("div",{style:{fontSize:48,marginBottom:8},children:"🔒"}),e.jsx("h2",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9"},children:"Change Password"})]}),et&&e.jsx("div",{style:{background:et.includes("✅")?"rgba(22,101,52,0.2)":"rgba(239,68,68,0.15)",color:et.includes("✅")?"#4ade80":"#fca5a5",padding:"10px 14px",borderRadius:10,fontSize:13,marginBottom:16},children:et}),e.jsx("input",{value:Mt,onChange:t=>bt(t.target.value),placeholder:"New password (min 6 chars)",type:"password",style:J,onKeyDown:t=>{t.key==="Enter"&&Cn()}}),e.jsxs("div",{style:{display:"flex",gap:10},children:[e.jsx("button",{onClick:Cn,disabled:H,className:"glow-btn",style:{flex:1,padding:"12px",background:H?"#334155":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:12,fontSize:14,fontWeight:700,cursor:H?"wait":"pointer",fontFamily:E},children:H?"Updating...":"Update Password"}),e.jsx("button",{onClick:()=>$e(!1),style:{padding:"12px 20px",background:"rgba(30,41,59,0.8)",color:"#cbd5e1",border:"none",borderRadius:12,fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:E},children:"Cancel"})]})]})}),u==="home"&&e.jsxs("div",{children:[e.jsxs("section",{style:{position:"relative",overflow:"hidden",background:"linear-gradient(135deg,#030712 0%,#0a0e27 40%,#0f1642 70%,#1a0a3e 100%)",padding:"100px 0 70px",minHeight:"85vh",display:"flex",alignItems:"center"},children:[W&&e.jsx(l.Suspense,{fallback:null,children:e.jsx(jo,{})}),e.jsx("div",{style:{position:"absolute",inset:0,background:"radial-gradient(ellipse at 30% 50%,rgba(0,113,227,0.12) 0%,transparent 60%)",pointerEvents:"none"}}),e.jsx("div",{style:{position:"absolute",inset:0,background:"radial-gradient(ellipse at 70% 60%,rgba(124,58,237,0.1) 0%,transparent 50%)",pointerEvents:"none"}}),e.jsx("div",{style:{position:"absolute",inset:0,opacity:.04,pointerEvents:"none",backgroundImage:"linear-gradient(rgba(255,255,255,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.1) 1px,transparent 1px)",backgroundSize:"60px 60px"}}),e.jsxs("div",{style:{...i.heroInner,position:"relative",zIndex:2},children:[e.jsxs("div",{className:"fu",style:{animationDelay:"0ms",display:"inline-flex",alignItems:"center",gap:8,background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:980,padding:"8px 20px 8px 12px",marginBottom:20,backdropFilter:"blur(10px)"},children:[e.jsx("span",{style:{width:8,height:8,borderRadius:"50%",background:"#22c55e",animation:"pulse 2s ease infinite"}}),e.jsx("span",{style:{fontSize:13,fontWeight:600,color:"rgba(255,255,255,0.8)",letterSpacing:"0.5px"},children:"IBM Z Knowledge Platform"})]}),e.jsxs("h1",{className:"fu",style:{fontSize:"clamp(40px,7vw,76px)",fontWeight:900,lineHeight:1.04,letterSpacing:"-3px",color:"#fff",marginBottom:20,animationDelay:"80ms"},children:["Everything",e.jsx("br",{}),"Mainframe."]}),e.jsx("h2",{className:"fu",style:{fontSize:"clamp(22px,3.5vw,36px)",fontWeight:800,lineHeight:1.15,letterSpacing:"-1px",marginBottom:24,animationDelay:"140ms",background:"linear-gradient(135deg,#60a5fa 0%,#a78bfa 40%,#f472b6 70%,#22d3ee 100%)",backgroundSize:"200% auto",animation:"gradientShift 4s ease infinite",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text"},children:"Beginner to Professional."}),e.jsx("p",{className:"fu",style:{fontSize:"clamp(15px,1.6vw,18px)",color:"rgba(255,255,255,0.55)",lineHeight:1.7,maxWidth:560,marginBottom:36,animationDelay:"200ms",fontWeight:400},children:"The most comprehensive IBM Z reference. JCL, COBOL, REXX, DB2, CICS, IMS, RACF — every topic, every level, updated weekly."}),e.jsxs("div",{className:"fu",style:{display:"flex",gap:12,flexWrap:"wrap",animationDelay:"260ms"},children:[e.jsx("button",{className:"glow-btn",onClick:()=>j("topics"),style:{padding:"14px 32px",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:14,fontSize:16,fontWeight:700,cursor:"pointer",fontFamily:E,boxShadow:"0 4px 24px rgba(0,113,227,0.4),0 0 0 1px rgba(255,255,255,0.1) inset",transition:"transform 0.2s,box-shadow 0.2s"},children:"Explore Topics →"}),e.jsx("button",{onClick:()=>j("quiz"),style:{padding:"14px 28px",background:"rgba(255,255,255,0.06)",color:"#fff",border:"1px solid rgba(255,255,255,0.15)",borderRadius:14,fontSize:15,fontWeight:600,cursor:"pointer",fontFamily:E,backdropFilter:"blur(10px)",transition:"all 0.2s"},onMouseOver:t=>{t.currentTarget.style.background="rgba(255,255,255,0.12)",t.currentTarget.style.borderColor="rgba(255,255,255,0.3)"},onMouseOut:t=>{t.currentTarget.style.background="rgba(255,255,255,0.06)",t.currentTarget.style.borderColor="rgba(255,255,255,0.15)"},children:"Take the Quiz"}),e.jsx("button",{onClick:()=>j("abends"),style:{padding:"14px 28px",background:"rgba(255,255,255,0.06)",color:"#fff",border:"1px solid rgba(255,255,255,0.15)",borderRadius:14,fontSize:15,fontWeight:600,cursor:"pointer",fontFamily:E,backdropFilter:"blur(10px)",transition:"all 0.2s"},onMouseOver:t=>{t.currentTarget.style.background="rgba(255,255,255,0.12)",t.currentTarget.style.borderColor="rgba(255,255,255,0.3)"},onMouseOut:t=>{t.currentTarget.style.background="rgba(255,255,255,0.06)",t.currentTarget.style.borderColor="rgba(255,255,255,0.15)"},children:"Abend Solver"})]}),e.jsx("div",{className:"fu",style:{display:"flex",gap:8,flexWrap:"wrap",marginTop:40,animationDelay:"320ms"},children:["JCL","COBOL","DB2","CICS","VSAM","REXX","IMS","RACF","z/OS","TSO"].map(t=>e.jsx("span",{style:{fontSize:11,fontWeight:600,padding:"4px 12px",borderRadius:980,background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",color:"rgba(255,255,255,0.45)",letterSpacing:"0.5px"},children:t},t))})]})]}),e.jsx("section",{style:{background:"#111827",position:"relative",zIndex:3},children:e.jsx("div",{style:{maxWidth:1e3,margin:"0 auto",padding:"0 24px",transform:"translateY(-40px)"},children:e.jsx("div",{style:{display:"flex",justifyContent:"center",gap:0,flexWrap:"wrap",background:"rgba(8,11,22,0.95)",backdropFilter:"blur(20px)",borderRadius:20,padding:"24px 16px",boxShadow:"0 8px 40px rgba(0,0,0,0.3),0 0 0 1px rgba(255,255,255,0.06)"},children:[["15","Topics","📚"],["192+","Sections","📄"],["200","Quiz Qs","🧠"],["87","Abend Codes","🔍"],["6","Levels","🗺️"],["Weekly","AI Updates","🤖"]].map(([t,n,s],o)=>e.jsxs("div",{className:"fu stat-card",style:{flex:"1 1 120px",textAlign:"center",padding:"12px 8px",borderRadius:12,animationDelay:`${o*60}ms`,cursor:"default"},children:[e.jsx("div",{style:{fontSize:11,marginBottom:4},children:s}),e.jsx("div",{style:{fontSize:24,fontWeight:800,color:"#f1f5f9",letterSpacing:"-1px",lineHeight:1},children:t}),e.jsx("div",{style:{fontSize:11,color:"#94a3b8",fontWeight:600,marginTop:4},children:n})]},n))})})}),e.jsx("section",{style:{...i.section,background:"rgba(17,24,39,0.5)"},children:e.jsxs("div",{style:i.inner,children:[e.jsx("h2",{style:i.sectionTitle,children:"All Topics — A to Z."}),e.jsx("div",{style:i.topicsGrid,children:P.map((t,n)=>e.jsxs("button",{className:"card fu",style:{...i.topicCard,borderTop:`3px solid ${t.color}`,animationDelay:`${n*25}ms`},onClick:()=>Le(t),children:[e.jsx("div",{style:{fontSize:32,marginBottom:12},children:t.icon}),e.jsx("div",{style:i.tcTitle,children:t.title}),e.jsx("div",{style:i.tcSub,children:t.subtitle}),e.jsx("div",{style:{fontSize:11,color:"#94a3b8",marginBottom:10},children:t.level}),e.jsx("div",{style:{...i.tcMore,color:sa(t.color)},children:"Learn more →"})]},t.id))})]})}),e.jsx("section",{style:i.section,children:e.jsx("div",{style:i.inner,children:e.jsxs("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))",gap:24},children:[e.jsxs("div",{className:"card",style:i.featureCard,onClick:()=>j("scenarios"),children:[e.jsx("div",{style:{fontSize:40,marginBottom:16},children:"🎯"}),e.jsx("h3",{style:i.fcTitle,children:"Real-World Scenarios"}),e.jsx("p",{style:i.fcDesc,children:"Production abends, performance issues, security incidents. Solve real problems with expert analysis and step-by-step solutions."}),e.jsx("div",{style:{color:"#0071e3",fontSize:14,fontWeight:500,marginTop:16},children:"Browse Scenarios →"})]}),e.jsxs("div",{className:"card",style:i.featureCard,onClick:()=>j("blog"),children:[e.jsx("div",{style:{fontSize:40,marginBottom:16},children:"📰"}),e.jsx("h3",{style:i.fcTitle,children:"Expert Blog"}),e.jsx("p",{style:i.fcDesc,children:"Deep dives into mainframe topics. Why COBOL will outlive all of us. Debugging production abends at 3 AM. IMS vs DB2 explained."}),e.jsx("div",{style:{color:"#0071e3",fontSize:14,fontWeight:500,marginTop:16},children:"Read Articles →"})]}),e.jsxs("div",{className:"card",style:i.featureCard,onClick:()=>j("weekly"),children:[e.jsx("div",{style:{fontSize:40,marginBottom:16},children:"🔄"}),e.jsx("h3",{style:i.fcTitle,children:"Weekly AI Updates"}),e.jsx("p",{style:i.fcDesc,children:"Every Saturday, fresh content generated by AI for any mainframe topic. New tips, new scenarios, new code examples — always current."}),e.jsx("div",{style:{color:"#0071e3",fontSize:14,fontWeight:500,marginTop:16},children:"Get This Week's Update →"})]}),e.jsxs("div",{className:"card",style:i.featureCard,onClick:()=>{Se("chat"),j("community")},children:[e.jsx("div",{style:{fontSize:40,marginBottom:16},children:"💬"}),e.jsx("h3",{style:i.fcTitle,children:"Community Hub"}),e.jsxs("p",{style:i.fcDesc,children:["WhatsApp-style group chat + Q&A forum. Jobs, doubts, knowledge sharing — all real-time with ",B.length,"+ members."]}),e.jsx("div",{style:{color:"#0071e3",fontSize:14,fontWeight:500,marginTop:16},children:"Join the Community →"})]}),e.jsxs("div",{className:"card",style:i.featureCard,onClick:()=>j("abends"),children:[e.jsx("div",{style:{fontSize:40,marginBottom:16},children:"🔍"}),e.jsx("h3",{style:i.fcTitle,children:"Abend Solver"}),e.jsx("p",{style:i.fcDesc,children:"Quick-search 30+ IBM ABEND codes with instant cause, fix, and pro tips. Debug production issues in seconds."}),e.jsx("div",{style:{color:"#0071e3",fontSize:14,fontWeight:500,marginTop:16},children:"Search Abends →"})]}),e.jsxs("div",{className:"card",style:i.featureCard,onClick:()=>j("roadmap"),children:[e.jsx("div",{style:{fontSize:40,marginBottom:16},children:"🗺️"}),e.jsx("h3",{style:i.fcTitle,children:"Learning Roadmap"}),e.jsx("p",{style:i.fcDesc,children:"Your guided path from Trainee to Architect. Six levels with skills, milestones, and direct links to study material."}),e.jsx("div",{style:{color:"#0071e3",fontSize:14,fontWeight:500,marginTop:16},children:"View Roadmap →"})]})]})})}),e.jsx("section",{style:{padding:"72px 0",background:"linear-gradient(180deg, rgba(8,11,22,0.95) 0%, rgba(12,18,32,0.95) 100%)"},children:e.jsx("div",{style:{...i.inner,display:"flex",flexDirection:"column",alignItems:"center"},children:e.jsxs("div",{style:{position:"relative",width:"100%",maxWidth:820,borderRadius:28,overflow:"hidden",background:"linear-gradient(135deg, #0a1628, #0d2040, #0a1628)",border:"1.5px solid rgba(0,113,227,0.15)",minHeight:420,cursor:"pointer",boxShadow:"0 24px 80px rgba(0,0,0,0.18), 0 0 60px rgba(0,113,227,0.06)"},onClick:()=>{ae(!0),re(0)},children:[e.jsx(He,{}),e.jsxs("div",{style:{position:"relative",zIndex:2,padding:"52px 44px",display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center"},children:[e.jsxs("div",{className:"fu",style:{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(0,179,101,0.12)",border:"1px solid rgba(0,179,101,0.25)",borderRadius:20,padding:"6px 16px",marginBottom:24,animationDelay:"0ms"},children:[e.jsx("span",{style:{width:8,height:8,borderRadius:"50%",background:"#00b365",boxShadow:"0 0 10px #00b365",animation:"commPulse 2s ease-in-out infinite"}}),e.jsxs("span",{style:{fontSize:13,color:"#00b365",fontWeight:600},children:[we," members online now"]})]}),e.jsxs("h2",{className:"fu",style:{fontSize:"clamp(28px,4.5vw,46px)",fontWeight:800,color:"#fff",letterSpacing:"-1.5px",marginBottom:14,lineHeight:1.1,animationDelay:"80ms"},children:["Join Our ",e.jsx("span",{style:{background:"linear-gradient(135deg,#58a6ff,#0071e3)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"},children:"Live Community"})]}),e.jsxs("p",{className:"fu",style:{fontSize:16,color:"rgba(255,255,255,0.55)",maxWidth:480,lineHeight:1.6,marginBottom:28,animationDelay:"160ms"},children:[B.length,"+ mainframe professionals sharing knowledge, posting jobs, solving doubts — all in real-time group chat."]}),e.jsx("div",{className:"fu",style:{display:"flex",gap:8,flexWrap:"wrap",justifyContent:"center",marginBottom:28,animationDelay:"240ms"},children:[{i:"💬",t:"Live Chat"},{i:"💼",t:"Jobs"},{i:"❓",t:"Doubt Solving"},{i:"💭",t:"Knowledge"},{i:"📊",t:"Polls"}].map((t,n)=>e.jsxs("span",{style:{padding:"5px 14px",borderRadius:20,fontSize:12,background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",color:"rgba(255,255,255,0.55)",display:"flex",alignItems:"center",gap:5},children:[t.i," ",t.t]},n))}),e.jsxs("div",{className:"fu",style:{display:"flex",marginBottom:28,animationDelay:"320ms"},children:[B.slice(0,6).map((t,n)=>e.jsx("div",{style:{width:40,height:40,borderRadius:"50%",background:`linear-gradient(135deg,${t.color}35,${t.color}12)`,border:`2px solid ${t.color}50`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,marginLeft:n>0?-8:0,zIndex:6-n,boxShadow:`0 0 14px ${t.color}18`},children:t.emoji},n)),e.jsxs("div",{style:{width:40,height:40,borderRadius:"50%",background:"rgba(0,113,227,0.15)",border:"2px solid rgba(0,113,227,0.3)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,color:"#58a6ff",fontWeight:700,marginLeft:-8},children:["+",B.length-6]})]}),e.jsx("button",{className:"fu glow-btn",onClick:t=>{t.stopPropagation(),ae(!0),re(0)},style:{background:"#0071e3",color:"#fff",border:"none",borderRadius:980,padding:"14px 40px",fontSize:16,fontWeight:700,cursor:"pointer",fontFamily:E,boxShadow:"0 4px 24px rgba(0,113,227,0.4)",animationDelay:"400ms"},children:"Join Community →"})]})]})})})]}),u==="topics"&&e.jsx("div",{children:r?e.jsxs("div",{className:"fi",children:[e.jsx("div",{style:{...i.inner,paddingTop:24},children:e.jsx("button",{style:i.backBtn,onClick:()=>h(null),children:"‹ All Topics"})}),e.jsx("div",{style:{background:`linear-gradient(135deg,${r.color}15 0%,rgba(17,24,39,0.6) 50%,${r.color}08 100%)`,padding:"20px 0",borderBottom:"1px solid rgba(255,255,255,0.06)"},children:e.jsxs("div",{style:i.inner,children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:16},children:[e.jsx("span",{style:{fontSize:40},children:r.icon}),e.jsxs("div",{children:[e.jsxs("h1",{style:{fontSize:28,fontWeight:800,letterSpacing:"-1px",color:"#f1f5f9",marginBottom:2},children:[r.title," Tutorial"]}),e.jsxs("div",{style:{fontSize:13,color:"#94a3b8"},children:["Progress ",e.jsx("span",{style:{fontWeight:700,color:r.color},children:m+1})," of ",r.sections.length," lessons"]})]})]}),e.jsx("div",{style:{marginTop:12,height:4,background:"rgba(255,255,255,0.08)",borderRadius:4,overflow:"hidden"},children:e.jsx("div",{style:{height:"100%",width:`${(m+1)/r.sections.length*100}%`,background:`linear-gradient(90deg,${r.color},${r.color}cc)`,borderRadius:4,transition:"width 0.3s ease"}})})]})}),e.jsxs("div",{className:"topic-layout",style:{...i.inner,display:"flex",gap:0,alignItems:"flex-start",paddingTop:0,paddingBottom:60},children:[e.jsxs("div",{className:"topic-sidebar",style:{width:300,flexShrink:0,borderRight:"1px solid rgba(255,255,255,0.06)",position:"sticky",top:52,height:"calc(100vh - 52px)",overflowY:"auto",padding:"8px 0"},children:[e.jsxs("div",{style:{padding:"12px 16px 8px",marginBottom:4},children:[e.jsxs("div",{style:{fontSize:17,fontWeight:800,color:"#f1f5f9",marginBottom:2},children:[r.icon," ",r.title," Tutorial"]}),e.jsxs("div",{style:{fontSize:12,color:"#64748b"},children:[r.sections.length," Lessons"]})]}),(()=>{const t={},n=["Beginner","Intermediate","Advanced","Expert","All Levels","General"];r.sections.forEach((a,c)=>{const C=a.level||"General";t[C]||(t[C]=[]),t[C].push({...a,idx:c})});const s=Object.entries(t).sort((a,c)=>{const C=n.indexOf(a[0]),O=n.indexOf(c[0]);return(C===-1?99:C)-(O===-1?99:O)}),o=s.map(a=>a[0]).find(a=>t[a].some(c=>c.idx===m));return s.map(([a,c])=>{const C=te[a]!==void 0?te[a]:a===o,O=c.some(N=>N.idx===m);return e.jsxs("div",{style:{marginBottom:2},children:[e.jsxs("button",{onClick:()=>Z(N=>({...N,[a]:!C})),style:{display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%",padding:"10px 16px",background:O?"rgba(255,255,255,0.03)":"transparent",border:"none",borderLeft:O?`3px solid ${r.color}`:"3px solid transparent",cursor:"pointer",fontFamily:E,transition:"all 0.15s"},children:[e.jsx("span",{style:{fontSize:13,fontWeight:600,color:O?"#f1f5f9":"#94a3b8",textAlign:"left"},children:a}),e.jsx("span",{style:{fontSize:12,color:"#64748b",transition:"transform 0.2s",transform:C?"rotate(90deg)":"rotate(0)",flexShrink:0},children:"▸"})]}),C&&c.map(N=>e.jsxs("button",{onClick:()=>{d(N.idx),window.scrollTo(0,280)},style:{display:"flex",alignItems:"center",gap:8,width:"100%",textAlign:"left",padding:"8px 16px 8px 28px",background:m===N.idx?`${r.color}12`:"transparent",border:"none",cursor:"pointer",fontFamily:E,fontSize:12.5,color:m===N.idx?"#ffffff":"#94a3b8",fontWeight:m===N.idx?600:400,transition:"all 0.15s",lineHeight:1.4},children:[e.jsx("span",{style:{fontSize:14,color:m===N.idx?r.color:"#475569",flexShrink:0},children:(m===N.idx,"📄")}),e.jsx("span",{style:{overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"},children:N.title})]},N.idx))]},a)})})()]}),e.jsx("div",{className:"topic-mobile-nav",style:{width:"100%",padding:"12px 0",borderBottom:"1px solid rgba(255,255,255,0.06)"},children:e.jsx("select",{value:m,onChange:t=>d(Number(t.target.value)),"aria-label":"Select lesson",style:{width:"100%",padding:"12px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.12)",fontSize:14,fontFamily:E,background:"#111827",color:"#f1f5f9",cursor:"pointer",appearance:"auto"},children:(()=>{const t={},n=["Beginner","Intermediate","Advanced","Expert","All Levels","General"];return r.sections.forEach((s,o)=>{const a=s.level||"General";t[a]||(t[a]=[]),t[a].push({...s,idx:o})}),Object.entries(t).sort((s,o)=>{const a=n.indexOf(s[0]),c=n.indexOf(o[0]);return(a===-1?99:a)-(c===-1?99:c)}).map(([s,o])=>e.jsx("optgroup",{label:s,children:o.map(a=>e.jsxs("option",{value:a.idx,children:[a.idx+1,". ",a.title]},a.idx))},s))})()})}),e.jsxs("div",{className:"topic-content-main scaleIn",children:[e.jsxs("div",{style:{fontSize:12,color:"#64748b",marginBottom:16},children:[e.jsx("span",{style:{cursor:"pointer",color:"#0071e3"},onClick:()=>h(null),children:"Topics"})," › ",e.jsx("span",{style:{cursor:"pointer",color:"#0071e3"},onClick:()=>d(0),children:r.title})," › ",e.jsx("span",{style:{color:"#94a3b8"},children:r.sections[m].title})]}),e.jsx("h2",{style:{fontSize:28,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.5px",marginBottom:6},children:r.sections[m].title}),e.jsxs("div",{style:{display:"flex",gap:12,alignItems:"center",marginBottom:24},children:[e.jsx("span",{style:{...i.diffBadge,background:r.sections[m].level==="Beginner"?"rgba(22,101,52,0.2)":r.sections[m].level==="Intermediate"?"rgba(30,64,175,0.2)":r.sections[m].level==="Advanced"?"rgba(107,33,168,0.2)":"rgba(153,27,27,0.2)",color:r.sections[m].level==="Beginner"?"#4ade80":r.sections[m].level==="Intermediate"?"#60a5fa":r.sections[m].level==="Advanced"?"#c084fc":"#f87171"},children:r.sections[m].level}),e.jsxs("span",{style:{fontSize:12,color:"#64748b"},children:["Lesson ",m+1," of ",r.sections.length]}),e.jsxs("span",{style:{fontSize:12,color:"#64748b"},children:["· ~",Math.max(3,Math.round((r.sections[m].content||"").length/900))," min read"]})]}),e.jsxs("div",{className:"content-card",style:{border:"none",boxShadow:"none",padding:0},children:[r.sections[m].content&&On(r.sections[m].content),r.sections[m].code&&e.jsxs("div",{style:i.codeWrap,children:[e.jsxs("div",{style:i.codeTopBar,children:[e.jsx("div",{style:{display:"flex",gap:6},children:["#ff5f57","#febc2e","#28c840"].map(t=>e.jsx("div",{style:{width:12,height:12,borderRadius:"50%",background:t}},t))}),e.jsx("span",{style:{fontSize:11,color:"#94a3b8",letterSpacing:"1px"},children:"CODE EXAMPLE"})]}),e.jsx("pre",{style:{...i.codePre,background:"#0f172a",color:"#f8fafc"},dangerouslySetInnerHTML:{__html:vt(r.sections[m].code)}})]})]}),e.jsxs("div",{style:{display:"flex",gap:12,marginTop:40,paddingTop:24,borderTop:"1px solid rgba(255,255,255,0.06)"},children:[m>0&&e.jsxs("button",{onClick:()=>{d(m-1),window.scrollTo(0,280)},style:{flex:1,padding:"14px 18px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",cursor:"pointer",textAlign:"left",fontFamily:E},children:[e.jsx("div",{style:{fontSize:11,color:"#64748b",marginBottom:4},children:"‹ Previous Lesson"}),e.jsx("div",{style:{fontSize:14,fontWeight:600,color:"#f1f5f9"},children:r.sections[m-1].title})]}),m<r.sections.length-1&&e.jsxs("button",{onClick:()=>{d(m+1),window.scrollTo(0,280)},style:{flex:1,padding:"14px 18px",borderRadius:12,border:`1.5px solid ${r.color}50`,background:`${r.color}08`,cursor:"pointer",textAlign:"right",fontFamily:E},children:[e.jsx("div",{style:{fontSize:11,color:"#64748b",marginBottom:4},children:"Next Lesson ›"}),e.jsx("div",{style:{fontSize:14,fontWeight:600,color:r.color},children:r.sections[m+1].title})]})]})]},m)]}),e.jsxs("div",{style:{...i.inner,paddingBottom:60,borderTop:"1px solid rgba(255,255,255,0.06)",paddingTop:28,display:"flex",gap:16,flexWrap:"wrap"},children:[P[P.indexOf(r)-1]&&e.jsxs("button",{style:i.prevNextBtn,onClick:()=>Le(P[P.indexOf(r)-1]),children:[e.jsx("span",{style:{fontSize:11,color:"#94a3b8",display:"block",marginBottom:4},children:"Previous"}),e.jsxs("span",{style:{fontSize:15,fontWeight:500},children:[P[P.indexOf(r)-1].icon," ",P[P.indexOf(r)-1].title]})]}),P[P.indexOf(r)+1]&&e.jsxs("button",{style:{...i.prevNextBtn,textAlign:"right",marginLeft:"auto"},onClick:()=>Le(P[P.indexOf(r)+1]),children:[e.jsx("span",{style:{fontSize:11,color:"#94a3b8",display:"block",marginBottom:4},children:"Next"}),e.jsxs("span",{style:{fontSize:15,fontWeight:500},children:[P[P.indexOf(r)+1].icon," ",P[P.indexOf(r)+1].title]})]})]})]}):e.jsxs("div",{children:[e.jsxs("div",{style:i.pageHero,children:[e.jsx("h1",{style:i.pageHeroTitle,children:"Topics"}),e.jsxs("p",{style:i.pageHeroSub,children:["Every IBM Z topic from absolute beginner to ultra pro. ",P.length," subjects, hundreds of code examples."]})]}),e.jsx("div",{style:{borderBottom:"1px solid rgba(255,255,255,0.06)",padding:"14px 0",position:"sticky",top:52,background:"rgba(8,11,22,0.95)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",zIndex:100},children:e.jsxs("div",{style:{...i.inner,display:"flex",alignItems:"center",gap:12,flexWrap:"wrap"},children:[e.jsxs("div",{style:{position:"relative",flexShrink:0},children:[e.jsx("span",{style:{position:"absolute",left:11,top:"50%",transform:"translateY(-50%)",color:"#64748b",fontSize:14},children:"⌕"}),e.jsx("input",{role:"searchbox",style:i.searchInput,placeholder:"Search all topics…",value:Ot,onChange:t=>Aa(t.target.value)})]}),e.jsx("div",{style:{display:"flex",gap:6,flexWrap:"wrap"},children:qn.map(t=>e.jsx("button",{className:"pill",style:{...i.pill,background:Qe===t.id?"#0071e3":"rgba(30,41,59,0.8)",color:Qe===t.id?"#fff":"#94a3b8"},onClick:()=>Ra(t.id),children:t.label},t.id))})]})}),e.jsxs("div",{style:{...i.inner,paddingTop:32,paddingBottom:80},children:[e.jsx("div",{style:i.topicsGrid,children:Zn.map((t,n)=>e.jsxs("button",{className:"card fu",style:{...i.topicCard,borderTop:`3px solid ${t.color}`,animationDelay:`${n*20}ms`},onClick:()=>Le(t),children:[e.jsx("div",{style:{fontSize:32,marginBottom:12},children:t.icon}),e.jsx("div",{style:i.tcTitle,children:t.title}),e.jsx("div",{style:i.tcSub,children:t.subtitle}),e.jsx("div",{style:{fontSize:11,color:"#94a3b8",marginBottom:10},children:t.level}),e.jsx("div",{style:{...i.tcMore,color:sa(t.color)},children:"Learn more →"})]},t.id))}),Zn.length===0&&e.jsxs("div",{style:{textAlign:"center",padding:"80px 0",color:"#94a3b8"},children:[e.jsx("div",{style:{fontSize:48,marginBottom:12},children:"🔍"}),'No results for "',Ot,'"']})]})]})}),u==="scenarios"&&e.jsxs("div",{children:[e.jsxs("div",{style:i.pageHero,children:[e.jsx("h1",{style:i.pageHeroTitle,children:"Real-World Scenarios"}),e.jsx("p",{style:i.pageHeroSub,children:"Production incidents, performance crises, security audits. Learn from real problems with expert step-by-step solutions."})]}),e.jsx("div",{style:{borderBottom:"1px solid rgba(255,255,255,0.06)",padding:"12px 0",position:"sticky",top:52,background:"rgba(8,11,22,0.95)",backdropFilter:"blur(20px)",zIndex:100},children:e.jsxs("div",{style:{...i.inner,display:"flex",gap:10,flexWrap:"wrap",alignItems:"center"},children:[e.jsx("span",{style:{fontSize:12,color:"#94a3b8",fontWeight:500},children:"Category:"}),Eo.map(t=>e.jsx("button",{className:"pill",style:{...i.pill,fontSize:11,padding:"5px 12px",background:qe===t?"#0071e3":"rgba(30,41,59,0.8)",color:qe===t?"#fff":"#94a3b8"},onClick:()=>ga(t),children:t},t)),e.jsx("span",{style:{fontSize:12,color:"#94a3b8",fontWeight:500,marginLeft:8},children:"Level:"}),po.map(t=>e.jsx("button",{className:"pill",style:{...i.pill,fontSize:11,padding:"5px 12px",background:Ze===t?"#0071e3":"rgba(255,255,255,0.1)",color:Ze===t?"#fff":"#94a3b8"},onClick:()=>fa(t),children:t},t))]})}),e.jsx("div",{style:{...i.inner,paddingTop:28,paddingBottom:80},children:So.map((t,n)=>e.jsxs("div",{className:"scenario-card fu",style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:16,marginBottom:16,overflow:"hidden",animationDelay:`${n*60}ms`},children:[e.jsx("button",{style:{width:"100%",background:"none",border:"none",padding:"20px 24px",cursor:"pointer",textAlign:"left",fontFamily:E},onClick:()=>on(ht===t.id?null:t.id),children:e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:12,flexWrap:"wrap"},children:[e.jsx("span",{style:{...i.diffBadge,background:t.difficulty==="Beginner"?"rgba(22,101,52,0.2)":t.difficulty==="Intermediate"?"rgba(133,77,14,0.2)":"rgba(153,27,27,0.2)",color:t.difficulty==="Beginner"?"#4ade80":t.difficulty==="Intermediate"?"#fbbf24":"#f87171"},children:t.difficulty}),e.jsx("span",{style:{...i.diffBadge,background:"rgba(30,64,175,0.15)",color:"#60a5fa"},children:t.category}),e.jsx("h3",{style:{fontSize:16,fontWeight:600,color:"#f1f5f9",flex:1,textAlign:"left"},children:t.question}),e.jsx("span",{style:{fontSize:20,color:"#94a3b8",transition:"transform .2s",transform:ht===t.id?"rotate(180deg)":"none"},children:"⌄"})]})}),ht===t.id&&e.jsxs("div",{className:"fi",style:{borderTop:"1px solid rgba(255,255,255,0.06)",padding:"24px"},children:[e.jsx("div",{style:{marginBottom:12,fontSize:13,fontWeight:600,color:"#0071e3"},children:"Expert Answer & Solution:"}),e.jsx("div",{style:{background:"#111827",padding:24,borderRadius:14,border:"1px solid rgba(255,255,255,0.08)"},children:t.answer.split(`
-`).map((s,o)=>{const a=s.trim();if(!a)return null;if(a.match(/^\d+[\.\)]/)){const c=a.match(/^(\d+)/)[1],C=a.replace(/^\d+[\.\)]\s*/,"");return e.jsxs("div",{style:{display:"flex",gap:10,alignItems:"flex-start",marginBottom:8},children:[e.jsx("span",{style:{width:24,height:24,borderRadius:8,background:"#0071e312",color:"#0071e3",fontSize:12,fontWeight:800,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:2},children:c}),e.jsx("span",{style:{fontSize:14.5,color:"#cbd5e1",lineHeight:1.8},children:C})]},o)}return e.jsx("p",{style:{fontSize:14.5,color:"#cbd5e1",lineHeight:1.8,marginBottom:6},children:a},o)})}),e.jsx("div",{style:{marginTop:12,display:"flex",gap:6,flexWrap:"wrap"},children:t.tags.map(s=>e.jsxs("span",{style:{fontSize:11,background:"#1e293b",color:"#94a3b8",padding:"3px 10px",borderRadius:980},children:["#",s]},s))})]})]},t.id))})]}),u==="blog"&&e.jsxs("div",{children:[e.jsx("div",{style:i.pageHero,children:e.jsxs("div",{style:{display:"flex",alignItems:"flex-start",justifyContent:"space-between",flexWrap:"wrap",gap:16},children:[e.jsxs("div",{children:[e.jsx("h1",{style:i.pageHeroTitle,children:"Expert Blog"}),e.jsx("p",{style:i.pageHeroSub,children:"Deep technical insights, career guidance, and industry perspective from mainframe practitioners."})]}),wt&&e.jsx("button",{onClick:()=>Ft(!hn),className:"glow-btn",style:{...i.btnBlue,fontSize:14,padding:"10px 22px",marginTop:8,whiteSpace:"nowrap"},children:"✍️ Write Expert Blog"}),S&&!wt&&e.jsx("div",{style:{fontSize:12,color:"#94a3b8",background:"rgba(30,41,59,0.8)",borderRadius:10,padding:"8px 14px",maxWidth:220,marginTop:8},children:"💡 Members with 5+ years experience can write expert blogs"})]})}),e.jsxs("div",{style:{...i.inner,paddingBottom:80},children:[hn&&wt&&e.jsxs("div",{className:"scaleIn",style:{background:"rgba(17,24,39,0.9)",backdropFilter:"blur(20px)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:20,padding:32,marginBottom:32,boxShadow:"0 8px 32px rgba(0,0,0,0.3)"},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:12,marginBottom:20},children:[e.jsx(We,{name:S.name,size:40,showRing:!0}),e.jsxs("div",{children:[e.jsx("div",{style:{fontSize:15,fontWeight:700},children:S.name}),e.jsxs("div",{style:{fontSize:12,color:"#94a3b8"},children:[S.role," · ",S.mfYears," yrs mainframe experience"]})]}),e.jsx("span",{style:{marginLeft:"auto",fontSize:11,fontWeight:600,padding:"4px 10px",borderRadius:980,background:"linear-gradient(135deg,#059669,#0d9488)",color:"#fff"},children:"✦ Expert Author"})]}),e.jsx("input",{value:V.title,onChange:t=>nt({...V,title:t.target.value}),placeholder:"Blog title — make it compelling *",style:{width:"100%",padding:"14px 16px",fontSize:18,fontWeight:700,border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:12,outline:"none",fontFamily:E,background:"rgba(30,41,59,0.6)",marginBottom:14,color:"#f1f5f9"}}),e.jsxs("div",{style:{display:"flex",gap:10,marginBottom:14},children:[e.jsx("select",{value:V.category,onChange:t=>nt({...V,category:t.target.value}),style:{padding:"8px 14px",fontSize:13,border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:10,outline:"none",fontFamily:E,background:"rgba(30,41,59,0.6)",cursor:"pointer",color:"#f1f5f9"},children:Ya.map(t=>e.jsx("option",{children:t},t))}),e.jsx("span",{style:{fontSize:12,color:"#94a3b8",alignSelf:"center"},children:V.content?Math.max(1,Math.round(V.content.split(/\s+/).length/200))+" min read":""})]}),e.jsx("textarea",{value:V.content,onChange:t=>nt({...V,content:t.target.value}),placeholder:`Share your expertise...
+      `}),e.jsx("nav",{role:"navigation","aria-label":"Main navigation",style:{...r.nav,background:na?"rgba(8,11,22,0.95)":"rgba(8,11,22,0.8)",boxShadow:na?"0 1px 0 rgba(0,0,0,0.1)":"none",backdropFilter:"saturate(180%) blur(20px)",WebkitBackdropFilter:"saturate(180%) blur(20px)"},children:e.jsxs("div",{style:r.navInner,children:[e.jsxs("button",{style:r.navLogo,onClick:()=>j("home"),children:[e.jsx("img",{src:"/favicon.svg",alt:"logo",style:{width:28,height:28,borderRadius:6}}),e.jsx("span",{style:{fontWeight:700,fontSize:15,letterSpacing:"-.3px"},children:"MainframeStudyHub"})]}),e.jsx("div",{className:"nav-scroll",style:r.navLinks,children:[["home","Overview"],["topics","Topics"],["scenarios","Scenarios"],["blog","Blog"],["quiz","Quiz"],["playground","Code Lab"],["community","Community"],["abends","Abend Solver"],["roadmap","Roadmap"],["weekly","Weekly Update"],["about","About"]].map(([t,a])=>e.jsx("button",{className:"nav-btn",onClick:()=>j(t),style:{...r.navLink,color:u===t?"#ffffff":"#94a3b8",fontWeight:u===t?600:400},children:a},t))}),c?e.jsx(Ge,{name:c.name,size:32,showRing:!0,onClick:()=>f(B==="profile"?null:"profile"),style:{marginLeft:8}}):e.jsx("button",{onClick:()=>{f("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})},style:{marginLeft:8,background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:980,padding:"6px 16px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:d,whiteSpace:"nowrap",flexShrink:0},children:"Sign In"}),e.jsxs("button",{"aria-label":"Menu",style:r.hamburger,onClick:()=>Ie(t=>!t),children:[e.jsx("div",{style:{width:18,height:1.5,background:"#e2e8f0",marginBottom:5,transform:ye?"rotate(45deg) translate(4px,4px)":"none",transition:"all .2s"}}),e.jsx("div",{style:{width:18,height:1.5,background:"#e2e8f0",marginBottom:5,opacity:ye?0:1,transition:"all .2s"}}),e.jsx("div",{style:{width:18,height:1.5,background:"#e2e8f0",transform:ye?"rotate(-45deg) translate(4px,-4px)":"none",transition:"all .2s"}})]})]})}),ye&&e.jsxs("div",{style:r.drawer,className:"fi",children:[e.jsx("div",{style:{height:52}}),c?e.jsxs("div",{style:{padding:"12px 24px",display:"flex",alignItems:"center",gap:12,borderBottom:"1px solid rgba(255,255,255,0.06)",marginBottom:8},children:[e.jsx(Ge,{name:c.name,size:36,showRing:!0}),e.jsxs("div",{style:{flex:1,minWidth:0},children:[e.jsx("div",{style:{fontSize:14,fontWeight:700,color:"#f1f5f9"},children:c.name}),e.jsxs("div",{style:{fontSize:11,color:"#94a3b8"},children:[c.role," · ",c.mfYears,"yr MF"]})]}),e.jsx("button",{onClick:()=>{da(),Ie(!1)},style:{fontSize:11,color:"#fca5a5",background:"rgba(239,68,68,0.15)",border:"none",borderRadius:6,padding:"4px 10px",cursor:"pointer",fontFamily:d},children:"Sign Out"})]}):e.jsx("div",{style:{padding:"8px 24px 12px",borderBottom:"1px solid rgba(255,255,255,0.06)",marginBottom:8},children:e.jsx("button",{onClick:()=>{f("signin"),D(""),Ie(!1)},style:{width:"100%",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:10,padding:"10px",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:d},children:"Sign In / Sign Up"})}),[["home","🏠 Overview"],["topics","📚 Topics"],["scenarios","🎯 Scenarios"],["blog","📰 Blog"],["quiz","🧠 Quiz"],["community","💬 Community"],["abends","🔍 Abend Solver"],["roadmap","🗺️ Roadmap"],["weekly","🔄 Weekly Update"],["about","👤 About"]].map(([t,a])=>e.jsx("button",{onClick:()=>j(t),style:{...r.drawerLink,color:u===t?"#0071e3":"#e2e8f0"},children:a},t)),e.jsx("div",{style:{height:1,background:"#1e293b",margin:"8px 0"}}),N.map(t=>e.jsxs("button",{onClick:()=>fe(t),style:r.drawerTopicLink,children:[t.icon," ",t.title]},t.id))]}),ye&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:998},onClick:()=>Ie(!1)}),to&&e.jsxs("div",{style:{position:"fixed",top:52,left:0,right:0,zIndex:900,background:"linear-gradient(90deg,#0a1628 0%,#0d2040 50%,#0a1628 100%)",borderBottom:"1px solid rgba(0,113,227,0.2)",padding:"8px 0",animation:"slideDown 0.5s ease",overflow:"hidden"},children:[e.jsx("div",{style:{position:"absolute",inset:0,background:"radial-gradient(ellipse at 50% 50%,rgba(0,113,227,0.08),transparent 70%)"}}),e.jsxs("div",{style:{maxWidth:1200,margin:"0 auto",padding:"0 24px",display:"flex",alignItems:"center",justifyContent:"center",gap:16,position:"relative"},children:[e.jsx("span",{style:{width:7,height:7,borderRadius:"50%",background:"#00b365",boxShadow:"0 0 6px #00b365",animation:"commPulse 2s ease-in-out infinite",flexShrink:0}}),e.jsxs("span",{style:{fontSize:13,color:"rgba(255,255,255,0.8)",fontWeight:500},children:["🖥️ ",e.jsx("strong",{style:{color:"#fff"},children:"MainframeStudyHub Community"})," is live — ",we," members online"]}),e.jsx("button",{onClick:()=>{ne(!0),ie(0),Ga(!1)},style:{background:"rgba(0,113,227,0.9)",color:"#fff",border:"none",borderRadius:980,padding:"5px 16px",fontSize:12,fontWeight:700,cursor:"pointer",fontFamily:d,flexShrink:0},children:"Join Now"}),e.jsx("button",{onClick:()=>Ga(!1),style:{position:"absolute",right:24,background:"none",border:"none",color:"rgba(255,255,255,0.3)",cursor:"pointer",fontSize:16,padding:4},"aria-label":"Close",children:"✕"})]})]}),e.jsxs("main",{id:"main-content",role:"main",style:{paddingTop:52,minHeight:"100vh"},children:[(B==="signin"||B==="signup")&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(0,0,0,0.4)",backdropFilter:"blur(8px)"},onClick:t=>{t.target===t.currentTarget&&f(null)},children:e.jsxs("div",{className:"scaleIn",style:{background:"rgba(8,11,22,0.97)",backdropFilter:"blur(20px)",borderRadius:24,padding:"36px 32px",maxWidth:420,width:"90%",boxShadow:"0 24px 80px rgba(0,0,0,0.2)",border:"1px solid rgba(255,255,255,0.08)"},children:[e.jsxs("div",{style:{textAlign:"center",marginBottom:24},children:[e.jsx("img",{src:"/favicon.svg",alt:"logo",style:{width:48,height:48,borderRadius:12,marginBottom:12}}),e.jsx("h2",{style:{fontSize:24,fontWeight:800,letterSpacing:"-0.5px",color:"#f1f5f9",marginBottom:4},children:B==="signin"?"Welcome Back":"Join MainframeStudyHub"}),e.jsx("p",{style:{fontSize:14,color:"#94a3b8"},children:B==="signin"?"Sign in to your account":"Create your account to join the community"})]}),e.jsxs("button",{onClick:Nn,disabled:H,style:{width:"100%",padding:"11px",background:"#1e293b",color:"#f1f5f9",border:"1.5px solid rgba(255,255,255,0.15)",borderRadius:12,fontSize:14,fontWeight:600,cursor:H?"wait":"pointer",fontFamily:d,display:"flex",alignItems:"center",justifyContent:"center",gap:10,marginBottom:16,transition:"background 0.2s,box-shadow 0.2s"},onMouseEnter:t=>{t.currentTarget.style.background="rgba(30,41,59,0.8)",t.currentTarget.style.boxShadow="0 2px 8px rgba(0,0,0,0.08)"},onMouseLeave:t=>{t.currentTarget.style.background="rgba(30,41,59,0.5)",t.currentTarget.style.boxShadow="none"},children:[e.jsxs("svg",{width:"18",height:"18",viewBox:"0 0 24 24",children:[e.jsx("path",{d:"M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z",fill:"#4285F4"}),e.jsx("path",{d:"M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z",fill:"#34A853"}),e.jsx("path",{d:"M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z",fill:"#FBBC05"}),e.jsx("path",{d:"M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z",fill:"#EA4335"})]}),B==="signin"?"Sign in with Google":"Sign up with Google"]}),e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:12,marginBottom:16},children:[e.jsx("div",{style:{flex:1,height:1,background:"rgba(255,255,255,0.1)"}}),e.jsx("span",{style:{fontSize:12,color:"#94a3b8",fontWeight:500},children:"or"}),e.jsx("div",{style:{flex:1,height:1,background:"rgba(255,255,255,0.1)"}})]}),Ea&&e.jsx("div",{style:{background:"rgba(239,68,68,0.15)",color:"#fca5a5",padding:"10px 14px",borderRadius:10,fontSize:13,marginBottom:16,border:"1px solid rgba(239,68,68,0.25)"},children:Ea}),B==="signup"&&e.jsx("input",{value:L.name,onChange:t=>b({...L,name:t.target.value}),"aria-label":"Full name",placeholder:"Full Name *",style:J}),e.jsx("input",{value:L.email,onChange:t=>b({...L,email:t.target.value}),"aria-label":"Email address",placeholder:"Email *",type:"email",style:J}),e.jsx("input",{value:L.password,onChange:t=>b({...L,password:t.target.value}),placeholder:B==="signup"?"Password (min 6 chars) *":"Password *",type:"password",style:J,onKeyDown:t=>{t.key==="Enter"&&!H&&(t.preventDefault(),B==="signin"?Sa():ca())}}),B==="signup"&&e.jsxs(e.Fragment,{children:[e.jsxs("div",{style:{marginBottom:16},children:[e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"Current Role"}),e.jsxs("select",{value:L.role,onChange:t=>b({...L,role:t.target.value}),style:{...J,marginBottom:0,cursor:"pointer",color:L.role?"#f1f5f9":"#64748b"},children:[e.jsx("option",{value:"",children:"Select your role..."}),Ta.map(t=>e.jsx("option",{value:t,children:t},t))]})]}),e.jsxs("div",{style:{display:"flex",gap:10,marginBottom:20},children:[e.jsxs("div",{style:{flex:1},children:[e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"IT Experience (years)"}),e.jsx("input",{value:L.itYears,onChange:t=>b({...L,itYears:t.target.value}),"aria-label":"IT experience years",placeholder:"e.g. 5",type:"number",min:"0",max:"50",style:{...J,marginBottom:0}})]}),e.jsxs("div",{style:{flex:1},children:[e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"Mainframe Exp (years)"}),e.jsx("input",{value:L.mfYears,onChange:t=>b({...L,mfYears:t.target.value}),"aria-label":"Mainframe experience years",placeholder:"e.g. 2",type:"number",min:"0",max:"50",style:{...J,marginBottom:0}})]})]})]}),e.jsx("button",{onClick:B==="signin"?Sa:ca,disabled:H,className:"glow-btn",style:{width:"100%",padding:"12px",background:H?"#334155":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:12,fontSize:15,fontWeight:700,cursor:H?"wait":"pointer",fontFamily:d,marginTop:B==="signin"?16:0},children:H?"Please wait...":B==="signin"?"Sign In":"Create Account"}),B==="signin"&&e.jsx("div",{style:{textAlign:"center",marginTop:10},children:e.jsx("button",{onClick:Pn,style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontFamily:d,fontSize:12,fontWeight:500},children:"Forgot your password?"})}),e.jsx("div",{style:{textAlign:"center",marginTop:12,fontSize:13,color:"#94a3b8"},children:B==="signin"?e.jsxs(e.Fragment,{children:["Don't have an account? ",e.jsx("button",{onClick:()=>{f("signup"),D("")},style:{background:"none",border:"none",color:"#0071e3",cursor:"pointer",fontWeight:600,fontFamily:d,fontSize:13},children:"Sign Up"})]}):e.jsxs(e.Fragment,{children:["Already have an account? ",e.jsx("button",{onClick:()=>{f("signin"),D("")},style:{background:"none",border:"none",color:"#0071e3",cursor:"pointer",fontWeight:600,fontFamily:d,fontSize:13},children:"Sign In"})]})})]})}),B==="profile"&&e.jsxs(e.Fragment,{children:[e.jsx("div",{style:{position:"fixed",inset:0,zIndex:9998},onClick:()=>f(null)}),e.jsxs("div",{className:"scaleIn",style:{position:"fixed",top:48,right:16,zIndex:9999,background:"rgba(8,11,22,0.97)",backdropFilter:"blur(20px)",borderRadius:18,padding:24,boxShadow:"0 16px 56px rgba(0,0,0,0.18)",border:"1px solid rgba(255,255,255,0.06)",minWidth:260},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:14,marginBottom:18,paddingBottom:16,borderBottom:"1px solid rgba(255,255,255,0.06)"},children:[e.jsx(Ge,{name:c?.name,size:52,showRing:!0}),e.jsxs("div",{children:[e.jsx("div",{style:{fontSize:17,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.3px"},children:c?.name}),e.jsx("div",{style:{fontSize:12,color:"#0071e3",fontWeight:600},children:c?.role}),e.jsx("div",{style:{fontSize:11,color:"#94a3b8"},children:c?.email})]})]}),e.jsxs("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:18},children:[e.jsxs("div",{style:{background:"rgba(30,41,59,0.8)",borderRadius:12,padding:"12px",textAlign:"center"},children:[e.jsx("div",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9"},children:c?.itYears}),e.jsx("div",{style:{fontSize:10,color:"#94a3b8",fontWeight:600},children:"IT YEARS"})]}),e.jsxs("div",{style:{background:"rgba(30,41,59,0.8)",borderRadius:12,padding:"12px",textAlign:"center"},children:[e.jsx("div",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9"},children:c?.mfYears}),e.jsx("div",{style:{fontSize:10,color:"#94a3b8",fontWeight:600},children:"MF YEARS"})]})]}),e.jsxs("div",{style:{fontSize:12,color:"#94a3b8",marginBottom:16,textAlign:"center"},children:["Member since ",c?.joinDate]}),e.jsxs("div",{style:{display:"flex",flexDirection:"column",gap:8},children:[e.jsx("button",{onClick:yn,style:{width:"100%",padding:"10px",background:"rgba(0,113,227,0.08)",color:"#0071e3",border:"none",borderRadius:10,cursor:"pointer",fontSize:13,fontWeight:600,fontFamily:d},children:"✏️ Edit Profile"}),e.jsx("button",{onClick:()=>{$e(!0),f(null),le(""),bt("")},style:{width:"100%",padding:"10px",background:"rgba(30,41,59,0.8)",color:"#cbd5e1",border:"none",borderRadius:10,cursor:"pointer",fontSize:13,fontWeight:600,fontFamily:d},children:"🔒 Change Password"}),e.jsx("button",{onClick:()=>{da(),f(null)},style:{width:"100%",padding:"10px",background:"rgba(239,68,68,0.15)",color:"#fca5a5",border:"none",borderRadius:10,cursor:"pointer",fontSize:13,fontWeight:600,fontFamily:d},children:"Sign Out"})]})]})]}),B==="forgot-sent"&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(0,0,0,0.4)",backdropFilter:"blur(8px)"},onClick:t=>{t.target===t.currentTarget&&f(null)},children:e.jsxs("div",{className:"scaleIn",style:{background:"rgba(8,11,22,0.97)",backdropFilter:"blur(20px)",borderRadius:24,padding:"40px 32px",maxWidth:400,width:"90%",textAlign:"center",boxShadow:"0 24px 80px rgba(0,0,0,0.2)"},children:[e.jsx("div",{style:{fontSize:56,marginBottom:16},children:"📧"}),e.jsx("h2",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9",marginBottom:8},children:"Check Your Email"}),e.jsxs("p",{style:{fontSize:14,color:"#94a3b8",lineHeight:1.6,marginBottom:24},children:["We've sent a password reset link to ",e.jsx("strong",{style:{color:"#f1f5f9"},children:L.email}),". Click the link in the email to set a new password."]}),e.jsx("button",{onClick:()=>{f("signin"),D("")},className:"glow-btn",style:{padding:"10px 28px",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:12,fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:d},children:"Back to Sign In"})]})}),Mn&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(0,0,0,0.4)",backdropFilter:"blur(8px)"},onClick:t=>{t.target===t.currentTarget&&Ze(!1)},children:e.jsxs("div",{className:"scaleIn",style:{background:"rgba(8,11,22,0.97)",backdropFilter:"blur(20px)",borderRadius:24,padding:"36px 32px",maxWidth:420,width:"90%",boxShadow:"0 24px 80px rgba(0,0,0,0.2)"},children:[e.jsxs("div",{style:{textAlign:"center",marginBottom:24},children:[e.jsx("div",{style:{width:56,height:56,borderRadius:"50%",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",fontSize:24,fontWeight:700,display:"inline-flex",alignItems:"center",justifyContent:"center",marginBottom:12},children:X.name?.charAt(0)?.toUpperCase()||"U"}),e.jsx("h2",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9"},children:"Edit Profile"})]}),e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"Full Name"}),e.jsx("input",{value:X.name,onChange:t=>Ue({...X,name:t.target.value}),"aria-label":"Full name",placeholder:"Full Name *",style:J}),e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"Current Role"}),e.jsxs("select",{value:X.role,onChange:t=>Ue({...X,role:t.target.value}),style:{...J,cursor:"pointer",color:"#f1f5f9"},children:[e.jsx("option",{value:"",children:"Select your role..."}),Ta.map(t=>e.jsx("option",{value:t,children:t},t))]}),e.jsxs("div",{style:{display:"flex",gap:10,marginBottom:20},children:[e.jsxs("div",{style:{flex:1},children:[e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"IT Experience (years)"}),e.jsx("input",{value:X.itYears,onChange:t=>Ue({...X,itYears:t.target.value}),type:"number",min:"0",max:"50",style:{...J,marginBottom:0}})]}),e.jsxs("div",{style:{flex:1},children:[e.jsx("label",{style:{fontSize:12,fontWeight:600,color:"#94a3b8",display:"block",marginBottom:4},children:"Mainframe Exp (years)"}),e.jsx("input",{value:X.mfYears,onChange:t=>Ue({...X,mfYears:t.target.value}),type:"number",min:"0",max:"50",style:{...J,marginBottom:0}})]})]}),e.jsxs("div",{style:{display:"flex",gap:10},children:[e.jsx("button",{onClick:bn,disabled:H,className:"glow-btn",style:{flex:1,padding:"12px",background:H?"#334155":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:12,fontSize:14,fontWeight:700,cursor:H?"wait":"pointer",fontFamily:d},children:H?"Saving...":"Save Changes"}),e.jsx("button",{onClick:()=>Ze(!1),style:{padding:"12px 20px",background:"rgba(30,41,59,0.8)",color:"#cbd5e1",border:"none",borderRadius:12,fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:d},children:"Cancel"})]})]})}),Un&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(0,0,0,0.4)",backdropFilter:"blur(8px)"},onClick:t=>{t.target===t.currentTarget&&$e(!1)},children:e.jsxs("div",{className:"scaleIn",style:{background:"rgba(8,11,22,0.97)",backdropFilter:"blur(20px)",borderRadius:24,padding:"36px 32px",maxWidth:380,width:"90%",boxShadow:"0 24px 80px rgba(0,0,0,0.2)"},children:[e.jsxs("div",{style:{textAlign:"center",marginBottom:24},children:[e.jsx("div",{style:{fontSize:48,marginBottom:8},children:"🔒"}),e.jsx("h2",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9"},children:"Change Password"})]}),et&&e.jsx("div",{style:{background:et.includes("✅")?"rgba(22,101,52,0.2)":"rgba(239,68,68,0.15)",color:et.includes("✅")?"#4ade80":"#fca5a5",padding:"10px 14px",borderRadius:10,fontSize:13,marginBottom:16},children:et}),e.jsx("input",{value:yt,onChange:t=>bt(t.target.value),placeholder:"New password (min 6 chars)",type:"password",style:J,onKeyDown:t=>{t.key==="Enter"&&Ca()}}),e.jsxs("div",{style:{display:"flex",gap:10},children:[e.jsx("button",{onClick:Ca,disabled:H,className:"glow-btn",style:{flex:1,padding:"12px",background:H?"#334155":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:12,fontSize:14,fontWeight:700,cursor:H?"wait":"pointer",fontFamily:d},children:H?"Updating...":"Update Password"}),e.jsx("button",{onClick:()=>$e(!1),style:{padding:"12px 20px",background:"rgba(30,41,59,0.8)",color:"#cbd5e1",border:"none",borderRadius:12,fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:d},children:"Cancel"})]})]})}),u==="home"&&e.jsxs("div",{children:[e.jsxs("section",{style:{position:"relative",overflow:"hidden",background:"linear-gradient(135deg,#030712 0%,#0a0e27 40%,#0f1642 70%,#1a0a3e 100%)",padding:"100px 0 70px",minHeight:"85vh",display:"flex",alignItems:"center"},children:[G&&e.jsx(l.Suspense,{fallback:null,children:e.jsx(jo,{})}),e.jsx("div",{style:{position:"absolute",inset:0,background:"radial-gradient(ellipse at 30% 50%,rgba(0,113,227,0.12) 0%,transparent 60%)",pointerEvents:"none"}}),e.jsx("div",{style:{position:"absolute",inset:0,background:"radial-gradient(ellipse at 70% 60%,rgba(124,58,237,0.1) 0%,transparent 50%)",pointerEvents:"none"}}),e.jsx("div",{style:{position:"absolute",inset:0,opacity:.04,pointerEvents:"none",backgroundImage:"linear-gradient(rgba(255,255,255,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.1) 1px,transparent 1px)",backgroundSize:"60px 60px"}}),e.jsxs("div",{style:{...r.heroInner,position:"relative",zIndex:2},children:[e.jsxs("div",{className:"fu",style:{animationDelay:"0ms",display:"inline-flex",alignItems:"center",gap:8,background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:980,padding:"8px 20px 8px 12px",marginBottom:20,backdropFilter:"blur(10px)"},children:[e.jsx("span",{style:{width:8,height:8,borderRadius:"50%",background:"#22c55e",animation:"pulse 2s ease infinite"}}),e.jsx("span",{style:{fontSize:13,fontWeight:600,color:"rgba(255,255,255,0.8)",letterSpacing:"0.5px"},children:"IBM Z Knowledge Platform"})]}),e.jsxs("h1",{className:"fu",style:{fontSize:"clamp(40px,7vw,76px)",fontWeight:900,lineHeight:1.04,letterSpacing:"-3px",color:"#fff",marginBottom:20,animationDelay:"80ms"},children:["Everything",e.jsx("br",{}),"Mainframe."]}),e.jsx("h2",{className:"fu",style:{fontSize:"clamp(22px,3.5vw,36px)",fontWeight:800,lineHeight:1.15,letterSpacing:"-1px",marginBottom:24,animationDelay:"140ms",background:"linear-gradient(135deg,#60a5fa 0%,#a78bfa 40%,#f472b6 70%,#22d3ee 100%)",backgroundSize:"200% auto",animation:"gradientShift 4s ease infinite",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text"},children:"Beginner to Professional."}),e.jsx("p",{className:"fu",style:{fontSize:"clamp(15px,1.6vw,18px)",color:"rgba(255,255,255,0.55)",lineHeight:1.7,maxWidth:560,marginBottom:36,animationDelay:"200ms",fontWeight:400},children:"The most comprehensive IBM Z reference. JCL, COBOL, REXX, DB2, CICS, IMS, RACF — every topic, every level, updated weekly."}),e.jsxs("div",{className:"fu",style:{display:"flex",gap:12,flexWrap:"wrap",animationDelay:"260ms"},children:[e.jsx("button",{className:"glow-btn",onClick:()=>j("topics"),style:{padding:"14px 32px",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:14,fontSize:16,fontWeight:700,cursor:"pointer",fontFamily:d,boxShadow:"0 4px 24px rgba(0,113,227,0.4),0 0 0 1px rgba(255,255,255,0.1) inset",transition:"transform 0.2s,box-shadow 0.2s"},children:"Explore Topics →"}),e.jsx("button",{onClick:()=>j("quiz"),style:{padding:"14px 28px",background:"rgba(255,255,255,0.06)",color:"#fff",border:"1px solid rgba(255,255,255,0.15)",borderRadius:14,fontSize:15,fontWeight:600,cursor:"pointer",fontFamily:d,backdropFilter:"blur(10px)",transition:"all 0.2s"},onMouseOver:t=>{t.currentTarget.style.background="rgba(255,255,255,0.12)",t.currentTarget.style.borderColor="rgba(255,255,255,0.3)"},onMouseOut:t=>{t.currentTarget.style.background="rgba(255,255,255,0.06)",t.currentTarget.style.borderColor="rgba(255,255,255,0.15)"},children:"Take the Quiz"}),e.jsx("button",{onClick:()=>j("abends"),style:{padding:"14px 28px",background:"rgba(255,255,255,0.06)",color:"#fff",border:"1px solid rgba(255,255,255,0.15)",borderRadius:14,fontSize:15,fontWeight:600,cursor:"pointer",fontFamily:d,backdropFilter:"blur(10px)",transition:"all 0.2s"},onMouseOver:t=>{t.currentTarget.style.background="rgba(255,255,255,0.12)",t.currentTarget.style.borderColor="rgba(255,255,255,0.3)"},onMouseOut:t=>{t.currentTarget.style.background="rgba(255,255,255,0.06)",t.currentTarget.style.borderColor="rgba(255,255,255,0.15)"},children:"Abend Solver"})]}),e.jsx("div",{className:"fu",style:{display:"flex",gap:8,flexWrap:"wrap",marginTop:40,animationDelay:"320ms"},children:["JCL","COBOL","DB2","CICS","VSAM","REXX","IMS","RACF","z/OS","TSO"].map(t=>e.jsx("span",{style:{fontSize:11,fontWeight:600,padding:"4px 12px",borderRadius:980,background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",color:"rgba(255,255,255,0.45)",letterSpacing:"0.5px"},children:t},t))})]})]}),e.jsx("section",{style:{background:"#111827",position:"relative",zIndex:3},children:e.jsx("div",{style:{maxWidth:1e3,margin:"0 auto",padding:"0 24px",transform:"translateY(-40px)"},children:e.jsx("div",{style:{display:"flex",justifyContent:"center",gap:0,flexWrap:"wrap",background:"rgba(8,11,22,0.95)",backdropFilter:"blur(20px)",borderRadius:20,padding:"24px 16px",boxShadow:"0 8px 40px rgba(0,0,0,0.3),0 0 0 1px rgba(255,255,255,0.06)"},children:[["15","Topics","📚"],["192+","Sections","📄"],["200","Quiz Qs","🧠"],["87","Abend Codes","🔍"],["6","Levels","🗺️"],["Weekly","AI Updates","🤖"]].map(([t,a,s],o)=>e.jsxs("div",{className:"fu stat-card",style:{flex:"1 1 120px",textAlign:"center",padding:"12px 8px",borderRadius:12,animationDelay:`${o*60}ms`,cursor:"default"},children:[e.jsx("div",{style:{fontSize:11,marginBottom:4},children:s}),e.jsx("div",{style:{fontSize:24,fontWeight:800,color:"#f1f5f9",letterSpacing:"-1px",lineHeight:1},children:t}),e.jsx("div",{style:{fontSize:11,color:"#94a3b8",fontWeight:600,marginTop:4},children:a})]},a))})})}),e.jsx("section",{style:{...r.section,background:"rgba(17,24,39,0.5)"},children:e.jsxs("div",{style:r.inner,children:[e.jsx("h2",{style:r.sectionTitle,children:"All Topics — A to Z."}),e.jsx("div",{style:r.topicsGrid,children:N.map((t,a)=>e.jsxs("button",{className:"card fu",style:{...r.topicCard,borderTop:`3px solid ${t.color}`,animationDelay:`${a*25}ms`},onClick:()=>fe(t),children:[e.jsx("div",{style:{fontSize:32,marginBottom:12},children:t.icon}),e.jsx("div",{style:r.tcTitle,children:t.title}),e.jsx("div",{style:r.tcSub,children:t.subtitle}),e.jsx("div",{style:{fontSize:11,color:"#94a3b8",marginBottom:10},children:t.level}),e.jsx("div",{style:{...r.tcMore,color:on(t.color)},children:"Learn more →"})]},t.id))})]})}),e.jsx("section",{style:r.section,children:e.jsx("div",{style:r.inner,children:e.jsxs("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))",gap:24},children:[e.jsxs("div",{className:"card",style:r.featureCard,onClick:()=>j("scenarios"),children:[e.jsx("div",{style:{fontSize:40,marginBottom:16},children:"🎯"}),e.jsx("h3",{style:r.fcTitle,children:"Real-World Scenarios"}),e.jsx("p",{style:r.fcDesc,children:"Production abends, performance issues, security incidents. Solve real problems with expert analysis and step-by-step solutions."}),e.jsx("div",{style:{color:"#0071e3",fontSize:14,fontWeight:500,marginTop:16},children:"Browse Scenarios →"})]}),e.jsxs("div",{className:"card",style:r.featureCard,onClick:()=>j("blog"),children:[e.jsx("div",{style:{fontSize:40,marginBottom:16},children:"📰"}),e.jsx("h3",{style:r.fcTitle,children:"Expert Blog"}),e.jsx("p",{style:r.fcDesc,children:"Deep dives into mainframe topics. Why COBOL will outlive all of us. Debugging production abends at 3 AM. IMS vs DB2 explained."}),e.jsx("div",{style:{color:"#0071e3",fontSize:14,fontWeight:500,marginTop:16},children:"Read Articles →"})]}),e.jsxs("div",{className:"card",style:r.featureCard,onClick:()=>j("weekly"),children:[e.jsx("div",{style:{fontSize:40,marginBottom:16},children:"🔄"}),e.jsx("h3",{style:r.fcTitle,children:"Weekly AI Updates"}),e.jsx("p",{style:r.fcDesc,children:"Every Saturday, fresh content generated by AI for any mainframe topic. New tips, new scenarios, new code examples — always current."}),e.jsx("div",{style:{color:"#0071e3",fontSize:14,fontWeight:500,marginTop:16},children:"Get This Week's Update →"})]}),e.jsxs("div",{className:"card",style:r.featureCard,onClick:()=>{ce("chat"),j("community")},children:[e.jsx("div",{style:{fontSize:40,marginBottom:16},children:"💬"}),e.jsx("h3",{style:r.fcTitle,children:"Community Hub"}),e.jsxs("p",{style:r.fcDesc,children:["WhatsApp-style group chat + Q&A forum. Jobs, doubts, knowledge sharing — all real-time with ",v.length,"+ members."]}),e.jsx("div",{style:{color:"#0071e3",fontSize:14,fontWeight:500,marginTop:16},children:"Join the Community →"})]}),e.jsxs("div",{className:"card",style:r.featureCard,onClick:()=>j("abends"),children:[e.jsx("div",{style:{fontSize:40,marginBottom:16},children:"🔍"}),e.jsx("h3",{style:r.fcTitle,children:"Abend Solver"}),e.jsx("p",{style:r.fcDesc,children:"Quick-search 30+ IBM ABEND codes with instant cause, fix, and pro tips. Debug production issues in seconds."}),e.jsx("div",{style:{color:"#0071e3",fontSize:14,fontWeight:500,marginTop:16},children:"Search Abends →"})]}),e.jsxs("div",{className:"card",style:r.featureCard,onClick:()=>j("roadmap"),children:[e.jsx("div",{style:{fontSize:40,marginBottom:16},children:"🗺️"}),e.jsx("h3",{style:r.fcTitle,children:"Learning Roadmap"}),e.jsx("p",{style:r.fcDesc,children:"Your guided path from Trainee to Architect. Six levels with skills, milestones, and direct links to study material."}),e.jsx("div",{style:{color:"#0071e3",fontSize:14,fontWeight:500,marginTop:16},children:"View Roadmap →"})]})]})})}),e.jsx("section",{style:{padding:"72px 0",background:"linear-gradient(180deg, rgba(8,11,22,0.95) 0%, rgba(12,18,32,0.95) 100%)"},children:e.jsx("div",{style:{...r.inner,display:"flex",flexDirection:"column",alignItems:"center"},children:e.jsxs("div",{style:{position:"relative",width:"100%",maxWidth:820,borderRadius:28,overflow:"hidden",background:"linear-gradient(135deg, #0a1628, #0d2040, #0a1628)",border:"1.5px solid rgba(0,113,227,0.15)",minHeight:420,cursor:"pointer",boxShadow:"0 24px 80px rgba(0,0,0,0.18), 0 0 60px rgba(0,113,227,0.06)"},onClick:()=>{ne(!0),ie(0)},children:[e.jsx(He,{}),e.jsxs("div",{style:{position:"relative",zIndex:2,padding:"52px 44px",display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center"},children:[e.jsxs("div",{className:"fu",style:{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(0,179,101,0.12)",border:"1px solid rgba(0,179,101,0.25)",borderRadius:20,padding:"6px 16px",marginBottom:24,animationDelay:"0ms"},children:[e.jsx("span",{style:{width:8,height:8,borderRadius:"50%",background:"#00b365",boxShadow:"0 0 10px #00b365",animation:"commPulse 2s ease-in-out infinite"}}),e.jsxs("span",{style:{fontSize:13,color:"#00b365",fontWeight:600},children:[we," members online now"]})]}),e.jsxs("h2",{className:"fu",style:{fontSize:"clamp(28px,4.5vw,46px)",fontWeight:800,color:"#fff",letterSpacing:"-1.5px",marginBottom:14,lineHeight:1.1,animationDelay:"80ms"},children:["Join Our ",e.jsx("span",{style:{background:"linear-gradient(135deg,#58a6ff,#0071e3)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"},children:"Live Community"})]}),e.jsxs("p",{className:"fu",style:{fontSize:16,color:"rgba(255,255,255,0.55)",maxWidth:480,lineHeight:1.6,marginBottom:28,animationDelay:"160ms"},children:[v.length,"+ mainframe professionals sharing knowledge, posting jobs, solving doubts — all in real-time group chat."]}),e.jsx("div",{className:"fu",style:{display:"flex",gap:8,flexWrap:"wrap",justifyContent:"center",marginBottom:28,animationDelay:"240ms"},children:[{i:"💬",t:"Live Chat"},{i:"💼",t:"Jobs"},{i:"❓",t:"Doubt Solving"},{i:"💭",t:"Knowledge"},{i:"📊",t:"Polls"}].map((t,a)=>e.jsxs("span",{style:{padding:"5px 14px",borderRadius:20,fontSize:12,background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",color:"rgba(255,255,255,0.55)",display:"flex",alignItems:"center",gap:5},children:[t.i," ",t.t]},a))}),e.jsxs("div",{className:"fu",style:{display:"flex",marginBottom:28,animationDelay:"320ms"},children:[v.slice(0,6).map((t,a)=>e.jsx("div",{style:{width:40,height:40,borderRadius:"50%",background:`linear-gradient(135deg,${t.color}35,${t.color}12)`,border:`2px solid ${t.color}50`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,marginLeft:a>0?-8:0,zIndex:6-a,boxShadow:`0 0 14px ${t.color}18`},children:t.emoji},a)),e.jsxs("div",{style:{width:40,height:40,borderRadius:"50%",background:"rgba(0,113,227,0.15)",border:"2px solid rgba(0,113,227,0.3)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,color:"#58a6ff",fontWeight:700,marginLeft:-8},children:["+",v.length-6]})]}),e.jsx("button",{className:"fu glow-btn",onClick:t=>{t.stopPropagation(),ne(!0),ie(0)},style:{background:"#0071e3",color:"#fff",border:"none",borderRadius:980,padding:"14px 40px",fontSize:16,fontWeight:700,cursor:"pointer",fontFamily:d,boxShadow:"0 4px 24px rgba(0,113,227,0.4)",animationDelay:"400ms"},children:"Join Community →"})]})]})})})]}),u==="topics"&&e.jsx("div",{children:i?e.jsxs("div",{className:"fi",children:[e.jsx("div",{style:{...r.inner,paddingTop:24},children:e.jsx("button",{style:r.backBtn,onClick:()=>h(null),children:"‹ All Topics"})}),e.jsx("div",{style:{background:`linear-gradient(135deg,${i.color}15 0%,rgba(17,24,39,0.6) 50%,${i.color}08 100%)`,padding:"20px 0",borderBottom:"1px solid rgba(255,255,255,0.06)"},children:e.jsxs("div",{style:r.inner,children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:16},children:[e.jsx("span",{style:{fontSize:40},children:i.icon}),e.jsxs("div",{children:[e.jsxs("h1",{style:{fontSize:28,fontWeight:800,letterSpacing:"-1px",color:"#f1f5f9",marginBottom:2},children:[i.title," Tutorial"]}),e.jsxs("div",{style:{fontSize:13,color:"#94a3b8"},children:["Progress ",e.jsx("span",{style:{fontWeight:700,color:i.color},children:p+1})," of ",i.sections.length," lessons"]})]})]}),e.jsx("div",{style:{marginTop:12,height:4,background:"rgba(255,255,255,0.08)",borderRadius:4,overflow:"hidden"},children:e.jsx("div",{style:{height:"100%",width:`${(p+1)/i.sections.length*100}%`,background:`linear-gradient(90deg,${i.color},${i.color}cc)`,borderRadius:4,transition:"width 0.3s ease"}})})]})}),e.jsxs("div",{className:"topic-layout",style:{...r.inner,display:"flex",gap:0,alignItems:"flex-start",paddingTop:0,paddingBottom:60},children:[e.jsxs("div",{className:"topic-sidebar",style:{width:300,flexShrink:0,borderRight:"1px solid rgba(255,255,255,0.06)",position:"sticky",top:52,height:"calc(100vh - 52px)",overflowY:"auto",padding:"8px 0"},children:[e.jsxs("div",{style:{padding:"12px 16px 8px",marginBottom:4},children:[e.jsxs("div",{style:{fontSize:17,fontWeight:800,color:"#f1f5f9",marginBottom:2},children:[i.icon," ",i.title," Tutorial"]}),e.jsxs("div",{style:{fontSize:12,color:"#64748b"},children:[i.sections.length," Lessons"]})]}),(()=>{const t={},a=["Beginner","Intermediate","Advanced","Expert","All Levels","General"];i.sections.forEach((n,E)=>{const T=n.level||"General";t[T]||(t[T]=[]),t[T].push({...n,idx:E})});const s=Object.entries(t).sort((n,E)=>{const T=a.indexOf(n[0]),O=a.indexOf(E[0]);return(T===-1?99:T)-(O===-1?99:O)}),o=s.map(n=>n[0]).find(n=>t[n].some(E=>E.idx===p));return s.map(([n,E])=>{const T=te[n]!==void 0?te[n]:n===o,O=E.some(P=>P.idx===p);return e.jsxs("div",{style:{marginBottom:2},children:[e.jsxs("button",{onClick:()=>_(P=>({...P,[n]:!T})),style:{display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%",padding:"10px 16px",background:O?"rgba(255,255,255,0.03)":"transparent",border:"none",borderLeft:O?`3px solid ${i.color}`:"3px solid transparent",cursor:"pointer",fontFamily:d,transition:"all 0.15s"},children:[e.jsx("span",{style:{fontSize:13,fontWeight:600,color:O?"#f1f5f9":"#94a3b8",textAlign:"left"},children:n}),e.jsx("span",{style:{fontSize:12,color:"#64748b",transition:"transform 0.2s",transform:T?"rotate(90deg)":"rotate(0)",flexShrink:0},children:"▸"})]}),T&&E.map(P=>e.jsxs("button",{onClick:()=>{S(P.idx),window.scrollTo(0,280)},style:{display:"flex",alignItems:"center",gap:8,width:"100%",textAlign:"left",padding:"8px 16px 8px 28px",background:p===P.idx?`${i.color}12`:"transparent",border:"none",cursor:"pointer",fontFamily:d,fontSize:12.5,color:p===P.idx?"#ffffff":"#94a3b8",fontWeight:p===P.idx?600:400,transition:"all 0.15s",lineHeight:1.4},children:[e.jsx("span",{style:{fontSize:14,color:p===P.idx?i.color:"#475569",flexShrink:0},children:(p===P.idx,"📄")}),e.jsx("span",{style:{overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"},children:P.title})]},P.idx))]},n)})})()]}),e.jsx("div",{className:"topic-mobile-nav",style:{width:"100%",padding:"12px 0",borderBottom:"1px solid rgba(255,255,255,0.06)"},children:e.jsx("select",{value:p,onChange:t=>S(Number(t.target.value)),"aria-label":"Select lesson",style:{width:"100%",padding:"12px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.12)",fontSize:14,fontFamily:d,background:"#111827",color:"#f1f5f9",cursor:"pointer",appearance:"auto"},children:(()=>{const t={},a=["Beginner","Intermediate","Advanced","Expert","All Levels","General"];return i.sections.forEach((s,o)=>{const n=s.level||"General";t[n]||(t[n]=[]),t[n].push({...s,idx:o})}),Object.entries(t).sort((s,o)=>{const n=a.indexOf(s[0]),E=a.indexOf(o[0]);return(n===-1?99:n)-(E===-1?99:E)}).map(([s,o])=>e.jsx("optgroup",{label:s,children:o.map(n=>e.jsxs("option",{value:n.idx,children:[n.idx+1,". ",n.title]},n.idx))},s))})()})}),e.jsxs("div",{className:"topic-content-main scaleIn",children:[e.jsxs("div",{style:{fontSize:12,color:"#64748b",marginBottom:16},children:[e.jsx("span",{style:{cursor:"pointer",color:"#0071e3"},onClick:()=>h(null),children:"Topics"})," › ",e.jsx("span",{style:{cursor:"pointer",color:"#0071e3"},onClick:()=>S(0),children:i.title})," › ",e.jsx("span",{style:{color:"#94a3b8"},children:i.sections[p].title})]}),e.jsx("h2",{style:{fontSize:28,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.5px",marginBottom:6},children:i.sections[p].title}),e.jsxs("div",{style:{display:"flex",gap:12,alignItems:"center",marginBottom:24},children:[e.jsx("span",{style:{...r.diffBadge,background:i.sections[p].level==="Beginner"?"rgba(22,101,52,0.2)":i.sections[p].level==="Intermediate"?"rgba(30,64,175,0.2)":i.sections[p].level==="Advanced"?"rgba(107,33,168,0.2)":"rgba(153,27,27,0.2)",color:i.sections[p].level==="Beginner"?"#4ade80":i.sections[p].level==="Intermediate"?"#60a5fa":i.sections[p].level==="Advanced"?"#c084fc":"#f87171"},children:i.sections[p].level}),e.jsxs("span",{style:{fontSize:12,color:"#64748b"},children:["Lesson ",p+1," of ",i.sections.length]}),e.jsxs("span",{style:{fontSize:12,color:"#64748b"},children:["· ~",Math.max(3,Math.round((i.sections[p].content||"").length/900))," min read"]})]}),e.jsxs("div",{className:"content-card",style:{border:"none",boxShadow:"none",padding:0},children:[i.sections[p].content&&Ra(i.sections[p].content),i.sections[p].code&&e.jsxs("div",{style:r.codeWrap,children:[e.jsxs("div",{style:r.codeTopBar,children:[e.jsx("div",{style:{display:"flex",gap:6},children:["#ff5f57","#febc2e","#28c840"].map(t=>e.jsx("div",{style:{width:12,height:12,borderRadius:"50%",background:t}},t))}),e.jsx("span",{style:{fontSize:11,color:"#94a3b8",letterSpacing:"1px"},children:"CODE EXAMPLE"})]}),e.jsx("pre",{style:{...r.codePre,background:"#0f172a",color:"#f8fafc"},dangerouslySetInnerHTML:{__html:Bt(i.sections[p].code)}})]})]}),e.jsxs("div",{style:{display:"flex",gap:12,marginTop:40,paddingTop:24,borderTop:"1px solid rgba(255,255,255,0.06)"},children:[p>0&&e.jsxs("button",{onClick:()=>{S(p-1),window.scrollTo(0,280)},style:{flex:1,padding:"14px 18px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",cursor:"pointer",textAlign:"left",fontFamily:d},children:[e.jsx("div",{style:{fontSize:11,color:"#64748b",marginBottom:4},children:"‹ Previous Lesson"}),e.jsx("div",{style:{fontSize:14,fontWeight:600,color:"#f1f5f9"},children:i.sections[p-1].title})]}),p<i.sections.length-1&&e.jsxs("button",{onClick:()=>{S(p+1),window.scrollTo(0,280)},style:{flex:1,padding:"14px 18px",borderRadius:12,border:`1.5px solid ${i.color}50`,background:`${i.color}08`,cursor:"pointer",textAlign:"right",fontFamily:d},children:[e.jsx("div",{style:{fontSize:11,color:"#64748b",marginBottom:4},children:"Next Lesson ›"}),e.jsx("div",{style:{fontSize:14,fontWeight:600,color:i.color},children:i.sections[p+1].title})]})]})]},p)]}),e.jsxs("div",{style:{...r.inner,paddingBottom:60,borderTop:"1px solid rgba(255,255,255,0.06)",paddingTop:28,display:"flex",gap:16,flexWrap:"wrap"},children:[N[N.indexOf(i)-1]&&e.jsxs("button",{style:r.prevNextBtn,onClick:()=>fe(N[N.indexOf(i)-1]),children:[e.jsx("span",{style:{fontSize:11,color:"#94a3b8",display:"block",marginBottom:4},children:"Previous"}),e.jsxs("span",{style:{fontSize:15,fontWeight:500},children:[N[N.indexOf(i)-1].icon," ",N[N.indexOf(i)-1].title]})]}),N[N.indexOf(i)+1]&&e.jsxs("button",{style:{...r.prevNextBtn,textAlign:"right",marginLeft:"auto"},onClick:()=>fe(N[N.indexOf(i)+1]),children:[e.jsx("span",{style:{fontSize:11,color:"#94a3b8",display:"block",marginBottom:4},children:"Next"}),e.jsxs("span",{style:{fontSize:15,fontWeight:500},children:[N[N.indexOf(i)+1].icon," ",N[N.indexOf(i)+1].title]})]})]})]}):e.jsxs("div",{children:[e.jsxs("div",{style:r.pageHero,children:[e.jsx("h1",{style:r.pageHeroTitle,children:"Topics"}),e.jsxs("p",{style:r.pageHeroSub,children:["Every IBM Z topic from absolute beginner to ultra pro. ",N.length," subjects, hundreds of code examples."]})]}),e.jsx("div",{style:{borderBottom:"1px solid rgba(255,255,255,0.06)",padding:"14px 0",position:"sticky",top:52,background:"rgba(8,11,22,0.95)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",zIndex:100},children:e.jsxs("div",{style:{...r.inner,display:"flex",alignItems:"center",gap:12,flexWrap:"wrap"},children:[e.jsxs("div",{style:{position:"relative",flexShrink:0},children:[e.jsx("span",{style:{position:"absolute",left:11,top:"50%",transform:"translateY(-50%)",color:"#64748b",fontSize:14},children:"⌕"}),e.jsx("input",{role:"searchbox",style:r.searchInput,placeholder:"Search all topics…",value:Ot,onChange:t=>In(t.target.value)})]}),e.jsx("div",{style:{display:"flex",gap:6,flexWrap:"wrap"},children:Qa.map(t=>e.jsx("button",{className:"pill",style:{...r.pill,background:Qe===t.id?"#0071e3":"rgba(30,41,59,0.8)",color:Qe===t.id?"#fff":"#94a3b8"},onClick:()=>Rn(t.id),children:t.label},t.id))})]})}),e.jsxs("div",{style:{...r.inner,paddingTop:32,paddingBottom:80},children:[e.jsx("div",{style:r.topicsGrid,children:qa.map((t,a)=>e.jsxs("button",{className:"card fu",style:{...r.topicCard,borderTop:`3px solid ${t.color}`,animationDelay:`${a*20}ms`},onClick:()=>fe(t),children:[e.jsx("div",{style:{fontSize:32,marginBottom:12},children:t.icon}),e.jsx("div",{style:r.tcTitle,children:t.title}),e.jsx("div",{style:r.tcSub,children:t.subtitle}),e.jsx("div",{style:{fontSize:11,color:"#94a3b8",marginBottom:10},children:t.level}),e.jsx("div",{style:{...r.tcMore,color:on(t.color)},children:"Learn more →"})]},t.id))}),qa.length===0&&e.jsxs("div",{style:{textAlign:"center",padding:"80px 0",color:"#94a3b8"},children:[e.jsx("div",{style:{fontSize:48,marginBottom:12},children:"🔍"}),'No results for "',Ot,'"']})]})]})}),u==="scenarios"&&e.jsxs("div",{children:[e.jsxs("div",{style:r.pageHero,children:[e.jsx("h1",{style:r.pageHeroTitle,children:"Real-World Scenarios"}),e.jsx("p",{style:r.pageHeroSub,children:"Production incidents, performance crises, security audits. Learn from real problems with expert step-by-step solutions."})]}),e.jsx("div",{style:{borderBottom:"1px solid rgba(255,255,255,0.06)",padding:"12px 0",position:"sticky",top:52,background:"rgba(8,11,22,0.95)",backdropFilter:"blur(20px)",zIndex:100},children:e.jsxs("div",{style:{...r.inner,display:"flex",gap:10,flexWrap:"wrap",alignItems:"center"},children:[e.jsx("span",{style:{fontSize:12,color:"#94a3b8",fontWeight:500},children:"Category:"}),So.map(t=>e.jsx("button",{className:"pill",style:{...r.pill,fontSize:11,padding:"5px 12px",background:qe===t?"#0071e3":"rgba(30,41,59,0.8)",color:qe===t?"#fff":"#94a3b8"},onClick:()=>Ln(t),children:t},t)),e.jsx("span",{style:{fontSize:12,color:"#94a3b8",fontWeight:500,marginLeft:8},children:"Level:"}),Co.map(t=>e.jsx("button",{className:"pill",style:{...r.pill,fontSize:11,padding:"5px 12px",background:_e===t?"#0071e3":"rgba(255,255,255,0.1)",color:_e===t?"#fff":"#94a3b8"},onClick:()=>gn(t),children:t},t))]})}),e.jsx("div",{style:{...r.inner,paddingTop:28,paddingBottom:80},children:co.map((t,a)=>e.jsxs("div",{className:"scenario-card fu",style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:16,marginBottom:16,overflow:"hidden",animationDelay:`${a*60}ms`},children:[e.jsx("button",{style:{width:"100%",background:"none",border:"none",padding:"20px 24px",cursor:"pointer",textAlign:"left",fontFamily:d},onClick:()=>oa(ht===t.id?null:t.id),children:e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:12,flexWrap:"wrap"},children:[e.jsx("span",{style:{...r.diffBadge,background:t.difficulty==="Beginner"?"rgba(22,101,52,0.2)":t.difficulty==="Intermediate"?"rgba(133,77,14,0.2)":"rgba(153,27,27,0.2)",color:t.difficulty==="Beginner"?"#4ade80":t.difficulty==="Intermediate"?"#fbbf24":"#f87171"},children:t.difficulty}),e.jsx("span",{style:{...r.diffBadge,background:"rgba(30,64,175,0.15)",color:"#60a5fa"},children:t.category}),e.jsx("h3",{style:{fontSize:16,fontWeight:600,color:"#f1f5f9",flex:1,textAlign:"left"},children:t.question}),e.jsx("span",{style:{fontSize:20,color:"#94a3b8",transition:"transform .2s",transform:ht===t.id?"rotate(180deg)":"none"},children:"⌄"})]})}),ht===t.id&&e.jsxs("div",{className:"fi",style:{borderTop:"1px solid rgba(255,255,255,0.06)",padding:"24px"},children:[e.jsx("div",{style:{marginBottom:12,fontSize:13,fontWeight:600,color:"#0071e3"},children:"Expert Answer & Solution:"}),e.jsx("div",{style:{background:"#111827",padding:24,borderRadius:14,border:"1px solid rgba(255,255,255,0.08)"},children:t.answer.split(`
+`).map((s,o)=>{const n=s.trim();if(!n)return null;if(n.match(/^\d+[\.\)]/)){const E=n.match(/^(\d+)/)[1],T=n.replace(/^\d+[\.\)]\s*/,"");return e.jsxs("div",{style:{display:"flex",gap:10,alignItems:"flex-start",marginBottom:8},children:[e.jsx("span",{style:{width:24,height:24,borderRadius:8,background:"#0071e312",color:"#0071e3",fontSize:12,fontWeight:800,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:2},children:E}),e.jsx("span",{style:{fontSize:14.5,color:"#cbd5e1",lineHeight:1.8},children:T})]},o)}return e.jsx("p",{style:{fontSize:14.5,color:"#cbd5e1",lineHeight:1.8,marginBottom:6},children:n},o)})}),e.jsx("div",{style:{marginTop:12,display:"flex",gap:6,flexWrap:"wrap"},children:t.tags.map(s=>e.jsxs("span",{style:{fontSize:11,background:"#1e293b",color:"#94a3b8",padding:"3px 10px",borderRadius:980},children:["#",s]},s))})]})]},t.id))})]}),u==="blog"&&e.jsxs("div",{children:[e.jsx("div",{style:r.pageHero,children:e.jsxs("div",{style:{display:"flex",alignItems:"flex-start",justifyContent:"space-between",flexWrap:"wrap",gap:16},children:[e.jsxs("div",{children:[e.jsx("h1",{style:r.pageHeroTitle,children:"Expert Blog"}),e.jsx("p",{style:r.pageHeroSub,children:"Deep technical insights, career guidance, and industry perspective from mainframe practitioners."})]}),wt&&e.jsx("button",{onClick:()=>xt(!Oa),className:"glow-btn",style:{...r.btnBlue,fontSize:14,padding:"10px 22px",marginTop:8,whiteSpace:"nowrap"},children:"✍️ Write Expert Blog"}),c&&!wt&&e.jsx("div",{style:{fontSize:12,color:"#94a3b8",background:"rgba(30,41,59,0.8)",borderRadius:10,padding:"8px 14px",maxWidth:220,marginTop:8},children:"💡 Members with 5+ years experience can write expert blogs"})]})}),e.jsxs("div",{style:{...r.inner,paddingBottom:80},children:[Oa&&wt&&e.jsxs("div",{className:"scaleIn",style:{background:"rgba(17,24,39,0.9)",backdropFilter:"blur(20px)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:20,padding:32,marginBottom:32,boxShadow:"0 8px 32px rgba(0,0,0,0.3)"},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:12,marginBottom:20},children:[e.jsx(Ge,{name:c.name,size:40,showRing:!0}),e.jsxs("div",{children:[e.jsx("div",{style:{fontSize:15,fontWeight:700},children:c.name}),e.jsxs("div",{style:{fontSize:12,color:"#94a3b8"},children:[c.role," · ",c.mfYears," yrs mainframe experience"]})]}),e.jsx("span",{style:{marginLeft:"auto",fontSize:11,fontWeight:600,padding:"4px 10px",borderRadius:980,background:"linear-gradient(135deg,#059669,#0d9488)",color:"#fff"},children:"✦ Expert Author"})]}),e.jsx("input",{value:V.title,onChange:t=>at({...V,title:t.target.value}),placeholder:"Blog title — make it compelling *",style:{width:"100%",padding:"14px 16px",fontSize:18,fontWeight:700,border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:12,outline:"none",fontFamily:d,background:"rgba(30,41,59,0.6)",marginBottom:14,color:"#f1f5f9"}}),e.jsxs("div",{style:{display:"flex",gap:10,marginBottom:14},children:[e.jsx("select",{value:V.category,onChange:t=>at({...V,category:t.target.value}),style:{padding:"8px 14px",fontSize:13,border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:10,outline:"none",fontFamily:d,background:"rgba(30,41,59,0.6)",cursor:"pointer",color:"#f1f5f9"},children:Yn.map(t=>e.jsx("option",{children:t},t))}),e.jsx("span",{style:{fontSize:12,color:"#94a3b8",alignSelf:"center"},children:V.content?Math.max(1,Math.round(V.content.split(/\s+/).length/200))+" min read":""})]}),e.jsx("textarea",{value:V.content,onChange:t=>at({...V,content:t.target.value}),placeholder:`Share your expertise...
 
 Write about real-world experiences, technical deep dives, best practices, lessons learned, or career advice.
 
-Tip: Use clear paragraphs and include code examples where relevant.`,rows:14,style:{width:"100%",padding:"16px",fontSize:15,lineHeight:1.8,border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:12,outline:"none",fontFamily:E,background:"rgba(30,41,59,0.6)",resize:"vertical",minHeight:200,color:"#cbd5e1"}}),e.jsxs("div",{style:{display:"flex",gap:10,marginTop:16},children:[e.jsx("button",{onClick:ka,className:"glow-btn",style:{...i.btnBlue,fontSize:14,padding:"10px 24px",opacity:V.title&&V.content?1:.5},children:"Publish Blog"}),e.jsx("button",{onClick:()=>Ft(!1),style:{...i.btnGhost,fontSize:14,padding:"10px 20px"},children:"Cancel"})]})]}),sn?e.jsxs("div",{className:"fi",style:{maxWidth:720,margin:"0 auto"},children:[e.jsx("button",{style:i.backBtn,onClick:()=>gt(null),children:"‹ Blog"}),(()=>{const t=gn.find(n=>n.id===sn);return t?e.jsxs("div",{children:[e.jsxs("div",{style:{display:"flex",gap:8,marginBottom:20,flexWrap:"wrap",alignItems:"center"},children:[e.jsx("span",{style:{...i.diffBadge,background:"rgba(30,64,175,0.15)",color:"#60a5fa"},children:t.category}),e.jsx("span",{style:{...i.diffBadge,background:"#1e293b",color:"#94a3b8"},children:t.readTime}),e.jsx("span",{style:{...i.diffBadge,background:"#1e293b",color:"#94a3b8"},children:t.date}),t.isUserBlog&&e.jsx("span",{style:{...i.diffBadge,background:"linear-gradient(135deg,#059669,#0d9488)",color:"#fff"},children:"✦ Community Expert"})]}),e.jsx("h1",{style:{fontSize:"clamp(24px,4vw,40px)",fontWeight:800,letterSpacing:"-1px",color:"#f1f5f9",marginBottom:16,lineHeight:1.2},children:t.title}),t.isUserBlog&&e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:12,marginBottom:28,padding:"16px 20px",background:"rgba(30,41,59,0.7)",borderRadius:14,border:"1px solid rgba(255,255,255,0.06)"},children:[e.jsx("div",{style:{width:44,height:44,borderRadius:"50%",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",fontSize:18,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center"},children:t.author?.charAt(0)}),e.jsxs("div",{children:[e.jsx("div",{style:{fontSize:15,fontWeight:700,color:"#f1f5f9"},children:t.author}),e.jsxs("div",{style:{fontSize:12,color:"#94a3b8"},children:[t.authorRole," · ",t.authorMfYears," years mainframe experience"]})]}),e.jsxs("button",{onClick:n=>{n.stopPropagation(),Ga(t.id)},style:{marginLeft:"auto",background:"none",border:"1.5px solid #fecaca",borderRadius:10,padding:"6px 14px",cursor:"pointer",fontSize:13,color:"#ef4444",fontFamily:E,fontWeight:600},children:["❤️ ",t.likes||0]})]}),e.jsx("div",{className:"content-card",style:{padding:"36px 40px"},children:e.jsx("div",{style:{fontSize:16,color:"#cbd5e1",lineHeight:1.9,whiteSpace:"pre-wrap"},children:t.content})})]}):null})()]}):e.jsx("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(320px,1fr))",gap:24},children:gn.map((t,n)=>e.jsxs("button",{className:"card fu",onClick:()=>gt(t.id),style:{...i.blogCard,animationDelay:`${n*60}ms`},children:[e.jsxs("div",{style:{display:"flex",gap:8,marginBottom:16,flexWrap:"wrap",alignItems:"center"},children:[e.jsx("span",{style:{...i.diffBadge,background:"rgba(30,64,175,0.15)",color:"#60a5fa"},children:t.category}),e.jsx("span",{style:{...i.diffBadge,background:"#1e293b",color:"#94a3b8"},children:t.readTime}),t.isUserBlog&&e.jsx("span",{style:{...i.diffBadge,background:"linear-gradient(135deg,#059669,#0d9488)",color:"#fff"},children:"✦ Community"})]}),e.jsx("h3",{style:{fontSize:18,fontWeight:700,color:"#f1f5f9",lineHeight:1.4,marginBottom:12,textAlign:"left"},children:t.title}),e.jsxs("p",{style:{fontSize:13,color:"#94a3b8",marginBottom:16,textAlign:"left"},children:[t.content.substring(0,150),"…"]}),e.jsxs("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center"},children:[e.jsxs("div",{style:{fontSize:12,color:"#94a3b8",textAlign:"left"},children:[t.isUserBlog?e.jsxs(e.Fragment,{children:[e.jsx("strong",{style:{color:"#f1f5f9"},children:t.author})," · ",t.authorRole," · "]}):"",t.date]}),t.isUserBlog&&t.likes>0&&e.jsxs("span",{style:{fontSize:12,color:"#ef4444"},children:["❤️ ",t.likes]})]}),e.jsx("div",{style:{color:"#0071e3",fontSize:13,fontWeight:500,marginTop:12,textAlign:"left"},children:"Read Article →"})]},t.id))})]})]}),u==="quiz"&&e.jsxs("div",{children:[e.jsxs("div",{style:i.pageHero,children:[e.jsx("h1",{style:i.pageHeroTitle,children:_?"Daily Challenge":"Knowledge Quiz"}),e.jsx("p",{style:i.pageHeroSub,children:_?"5 questions • One attempt per day • Beat the clock!":`${Te.length} questions across all mainframe topics. Beginner to expert level.`})]}),e.jsxs("div",{style:{...i.inner,paddingBottom:80},children:[!_&&e.jsxs("div",{className:"fi",style:{background:"linear-gradient(135deg,#0f172a,#1e1b4b)",borderRadius:20,padding:"28px 28px",marginBottom:28,display:"flex",alignItems:"center",gap:20,flexWrap:"wrap",justifyContent:"space-between",border:"1px solid rgba(124,58,237,0.2)",boxShadow:"0 4px 24px rgba(0,0,0,0.1)"},children:[e.jsxs("div",{children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:6},children:[e.jsx("span",{style:{fontSize:28},children:"🏆"}),e.jsx("span",{style:{color:"#f59e0b",fontSize:18,fontWeight:800,letterSpacing:"-0.3px"},children:"Daily Challenge"}),ze()>0&&e.jsxs("span",{style:{background:"rgba(239,68,68,0.2)",color:"#f87171",padding:"3px 10px",borderRadius:980,fontSize:12,fontWeight:700},children:["🔥 ",ze(),"-day streak"]})]}),e.jsx("p",{style:{color:"rgba(255,255,255,0.6)",fontSize:13,lineHeight:1.5},children:se?`Today's score: ${se.score}/5 in ${se.time}s — Come back tomorrow!`:"5 random questions. Timed. One attempt per day. How fast can you go?"})]}),se?e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:10},children:[e.jsxs("div",{style:{textAlign:"center"},children:[e.jsxs("div",{style:{fontSize:28,fontWeight:800,color:"#f59e0b"},children:[se.score,"/5"]}),e.jsxs("div",{style:{fontSize:11,color:"rgba(255,255,255,0.4)"},children:[se.time,"s"]})]}),e.jsx("div",{style:{fontSize:32},children:se.score===5?"🏅":se.score>=3?"⭐":"💪"})]}):e.jsx("button",{onClick:ua,className:"glow-btn",style:{padding:"12px 28px",background:"linear-gradient(135deg,#f59e0b,#ef4444)",color:"#fff",border:"none",borderRadius:12,fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:E,whiteSpace:"nowrap",flexShrink:0},children:"Start Challenge →"})]}),_&&!A.done&&e.jsxs("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20,background:"rgba(30,41,59,0.8)",borderRadius:12,padding:"10px 18px"},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:8},children:[e.jsx("span",{style:{fontSize:18},children:"⏱️"}),e.jsxs("span",{style:{fontSize:20,fontWeight:800,color:"#f1f5f9",fontFamily:"'SF Mono',Menlo,monospace"},children:[Math.floor(Ve/60),":",String(Ve%60).padStart(2,"0")]})]}),e.jsx("button",{onClick:()=>{Tt(!1),clearInterval(Dt.current),Q({index:0,score:0,selected:null,done:!1,showExp:!1})},style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:13,fontFamily:E},children:"✕ Exit Challenge"})]}),!_&&e.jsx("div",{style:{display:"flex",gap:8,flexWrap:"wrap",marginBottom:24,justifyContent:"center"},children:pa.map(t=>e.jsx("button",{onClick:()=>{Xe(t),Q({index:0,score:0,selected:null,done:!1,showExp:!1})},style:{padding:"6px 14px",borderRadius:980,fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:E,border:"none",background:ne===t?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(30,41,59,0.8)",color:ne===t?"#fff":"#94a3b8",transition:"all .15s"},children:t==="All"?`All (${Te.length})`:`${t} (${Te.filter(n=>n.topic===t).length})`},t))}),(()=>{const t=_?nn:en;return e.jsx("div",{style:{maxWidth:640,margin:"0 auto"},children:t.length===0?e.jsx("div",{style:{textAlign:"center",padding:60,color:"#94a3b8"},children:"No questions for this topic yet."}):A.done?e.jsxs("div",{className:"fi",style:{textAlign:"center",padding:"60px 0"},children:[_&&e.jsx("div",{style:{marginBottom:16},children:e.jsxs("span",{style:{background:"linear-gradient(135deg,#f59e0b,#ef4444)",color:"#fff",padding:"6px 16px",borderRadius:980,fontSize:13,fontWeight:700},children:["⏱️ Completed in ",Ve,"s"]})}),e.jsxs("div",{style:{fontSize:72,fontWeight:800,letterSpacing:"-3px",color:"#f1f5f9",lineHeight:1,marginBottom:8},children:[A.score,"/",t.length]}),e.jsx("div",{style:{fontSize:24,fontWeight:700,letterSpacing:"-.5px",color:"#f1f5f9",marginBottom:10},children:A.score===t.length?"🏆 Perfect — Mainframe Master!":A.score>=t.length*.8?"🎉 Expert Level":A.score>=t.length*.5?"📚 Solid Knowledge":"💪 Keep Learning"}),e.jsx("p",{style:{color:"#94a3b8",fontSize:15,marginBottom:28},children:_?`Daily Challenge — ${new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}${ze()>0?` • 🔥 ${ze()}-day streak`:""}`:`${Math.round(A.score/t.length*100)}% correct${ne!=="All"?` in ${ne}`:""}`}),e.jsxs("div",{style:{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"},children:[_?e.jsx("button",{style:i.btnBlue,onClick:()=>{Tt(!1),_n()},children:"Back to Quiz"}):e.jsx("button",{style:i.btnBlue,onClick:_n,children:"Try Again"}),e.jsx("button",{style:i.btnGhost,onClick:()=>j("topics"),children:"Study Topics"}),e.jsx("button",{style:i.btnGhost,onClick:()=>j("scenarios"),children:"Practice Scenarios"})]})]}):e.jsxs("div",{className:"fi",children:[e.jsx("div",{style:{height:4,background:"#1e293b",borderRadius:2,marginBottom:20,overflow:"hidden"},children:e.jsx("div",{style:{height:"100%",background:_?"#f59e0b":"#0071e3",borderRadius:2,width:`${A.index/t.length*100}%`,transition:"width .4s ease"}})}),e.jsxs("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:24,fontSize:13,color:"#94a3b8"},children:[e.jsxs("span",{children:["Question ",A.index+1," of ",t.length]}),e.jsxs("span",{children:["Score: ",A.score,"/",A.index]})]}),t[A.index].topic&&e.jsx("span",{style:{display:"inline-block",fontSize:11,fontWeight:600,padding:"3px 10px",borderRadius:980,marginBottom:14,background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff"},children:t[A.index].topic}),e.jsx("h2",{style:{fontSize:"clamp(17px,2.5vw,22px)",fontWeight:700,color:"#f1f5f9",letterSpacing:"-.5px",lineHeight:1.4,marginBottom:24},children:t[A.index].q}),e.jsx("div",{style:{display:"flex",flexDirection:"column",gap:10},children:t[A.index].options.map((n,s)=>{let o="#1e293b",a="1.5px solid rgba(255,255,255,0.12)",c="#e2e8f0",C="rgba(30,41,59,0.8)",O="#94a3b8";return A.selected!==null&&(s===t[A.index].answer?(o="rgba(22,163,74,0.15)",a="1.5px solid #22c55e",c="#4ade80",C="#22c55e",O="#fff"):s===A.selected&&(o="rgba(239,68,68,0.15)",a="1.5px solid #ef4444",c="#fca5a5",C="#ef4444",O="#fff")),e.jsxs("button",{onClick:()=>lo(s),style:{display:"flex",alignItems:"center",gap:12,padding:"15px 18px",borderRadius:12,cursor:"pointer",fontSize:15,textAlign:"left",fontFamily:E,background:o,border:a,color:c,transition:"all .15s",width:"100%"},children:[e.jsx("span",{style:{width:28,height:28,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,fontWeight:600,flexShrink:0,background:C,color:O,transition:"all .2s"},children:String.fromCharCode(65+s)}),n]},s)})}),A.showExp&&A.selected!==null&&e.jsxs("div",{className:"fi",style:{marginTop:20,padding:16,background:"rgba(17,24,39,0.8)",borderRadius:12,border:"1px solid rgba(255,255,255,0.08)"},children:[e.jsx("div",{style:{fontSize:13,fontWeight:600,color:"#0071e3",marginBottom:8},children:A.selected===t[A.index].answer?"✅ Correct!":"❌ Incorrect"}),e.jsx("div",{style:{fontSize:13,color:"#cbd5e1",lineHeight:1.6},children:t[A.index].explanation})]})]},A.index)})})()]})]}),u==="weekly"&&e.jsxs("div",{children:[e.jsxs("div",{style:i.pageHero,children:[e.jsx("h1",{style:i.pageHeroTitle,children:"Weekly AI Update"}),e.jsxs("p",{style:i.pageHeroSub,children:["Every Saturday, fresh mainframe content generated by AI. Pick any topic — get new tips, scenarios, and code examples.",rn&&e.jsxs("span",{style:{display:"block",fontSize:13,color:"#94a3b8",marginTop:6},children:["Last updated: ",new Date(rn).toLocaleDateString()]})]})]}),e.jsxs("div",{style:{...i.inner,paddingBottom:80},children:[e.jsxs("div",{style:{marginBottom:32},children:[e.jsx("h3",{style:{fontSize:17,fontWeight:700,color:"#f1f5f9",marginBottom:16},children:"Choose a topic to update:"}),e.jsx("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(160px,1fr))",gap:10},children:P.map(t=>e.jsxs("button",{onClick:()=>$n(t),style:{background:ie?.id===t.id?"#0071e3":"rgba(30,41,59,0.8)",color:ie?.id===t.id?"#fff":"#94a3b8",border:"none",borderRadius:12,padding:"12px 16px",cursor:"pointer",fontSize:13,fontWeight:500,fontFamily:E,textAlign:"left",display:"flex",alignItems:"center",gap:8,transition:"background .2s,color .2s"},children:[t.icon," ",t.title]},t.id))})]}),ft&&e.jsxs("div",{style:{textAlign:"center",padding:"60px 0"},children:[e.jsx("div",{style:{width:40,height:40,border:"3px solid rgba(255,255,255,0.1)",borderTop:"3px solid #0071e3",borderRadius:"50%",animation:"spin 0.8s linear infinite",margin:"0 auto 16px"}}),e.jsxs("div",{style:{fontSize:16,color:"#94a3b8"},children:["Fetching fresh content for ",ie?.title,"…"]}),e.jsx("div",{style:{fontSize:13,color:"#94a3b8",marginTop:6},children:"This may take a moment"})]}),Nt&&e.jsxs("div",{style:{background:"rgba(239,68,68,0.12)",border:"1px solid rgba(239,68,68,0.25)",borderRadius:12,padding:20,color:"#fca5a5",marginBottom:24},children:[e.jsx("strong",{children:"Error:"})," ",Nt,e.jsx("br",{}),e.jsx("span",{style:{fontSize:13},children:"Make sure you're connected to the internet and try again."})]}),w&&!ft&&e.jsxs("div",{className:"fi",children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12,marginBottom:24},children:[e.jsxs("div",{children:[e.jsxs("h2",{style:{fontSize:22,fontWeight:700,color:"#f1f5f9"},children:[ie?.icon," ",ie?.title," — Weekly Update"]}),e.jsxs("div",{style:{fontSize:13,color:"#94a3b8",marginTop:4},children:["Generated: ",w.generatedDate]})]}),e.jsx("button",{style:{...i.btnGhost,fontSize:13,padding:"8px 16px"},onClick:co,children:"↻ Refresh Content"})]}),e.jsx("div",{style:{display:"flex",gap:4,marginBottom:24,flexWrap:"wrap"},children:["tip","scenario","code","facts"].map(t=>e.jsx("button",{onClick:()=>cn(t),style:{background:Re===t?"#0071e3":"rgba(30,41,59,0.8)",color:Re===t?"#fff":"#94a3b8",border:"none",borderRadius:8,padding:"8px 16px",cursor:"pointer",fontSize:13,fontWeight:500,fontFamily:E,textTransform:"capitalize"},children:t==="tip"?"💡 New Tip":t==="scenario"?"🎯 New Scenario":t==="code"?"💻 Code Example":"📊 Key Facts"},t))}),Re==="tip"&&w.tip&&e.jsxs("div",{className:"fi",style:{background:"rgba(17,24,39,0.8)",borderRadius:16,padding:28,border:"1px solid rgba(255,255,255,0.08)"},children:[e.jsx("h3",{style:{fontSize:18,fontWeight:700,color:"#f1f5f9",marginBottom:16},children:w.tip.title}),e.jsx("div",{style:{fontSize:15,color:"#cbd5e1",lineHeight:1.8,whiteSpace:"pre-wrap"},children:w.tip.content})]}),Re==="scenario"&&w.scenario&&e.jsxs("div",{className:"fi",children:[e.jsxs("div",{style:{background:"rgba(30,64,175,0.15)",borderRadius:12,padding:20,border:"1px solid #bfdbfe",marginBottom:16},children:[e.jsx("div",{style:{fontSize:13,fontWeight:600,color:"#60a5fa",marginBottom:8},children:"Scenario Question:"}),e.jsx("div",{style:{fontSize:15,color:"#1e3a8a",fontWeight:500,lineHeight:1.6},children:w.scenario.question})]}),e.jsxs("div",{style:{background:"rgba(34,197,94,0.12)",borderRadius:12,padding:20,border:"1px solid rgba(34,197,94,0.25)"},children:[e.jsx("div",{style:{fontSize:13,fontWeight:600,color:"#4ade80",marginBottom:8},children:"Expert Answer:"}),e.jsx("pre",{style:{fontSize:14,color:"#14532d",lineHeight:1.8,whiteSpace:"pre-wrap",fontFamily:E},children:w.scenario.answer})]})]}),Re==="code"&&w.code&&e.jsxs("div",{className:"fi",children:[e.jsx("h3",{style:{fontSize:17,fontWeight:700,color:"#f1f5f9",marginBottom:12},children:w.code.title}),e.jsxs("div",{style:i.codeWrap,children:[e.jsx("div",{style:i.codeTopBar,children:e.jsx("div",{style:{display:"flex",gap:6},children:["#ff5f57","#febc2e","#28c840"].map(t=>e.jsx("div",{style:{width:12,height:12,borderRadius:"50%",background:t}},t))})}),e.jsx("pre",{style:{...i.codePre,background:"#0f172a",color:"#f8fafc"},dangerouslySetInnerHTML:{__html:vt(w.code.snippet)}})]}),w.code.explanation&&e.jsx("div",{style:{marginTop:16,fontSize:15,color:"#cbd5e1",lineHeight:1.7,padding:"16px 20px",background:"rgba(17,24,39,0.8)",borderRadius:12},children:w.code.explanation})]}),Re==="facts"&&w.facts&&e.jsx("div",{className:"fi",children:e.jsx("div",{style:{display:"flex",flexDirection:"column",gap:12},children:w.facts.map((t,n)=>e.jsxs("div",{style:{display:"flex",gap:16,alignItems:"flex-start",background:"rgba(17,24,39,0.8)",borderRadius:12,padding:20,border:"1px solid rgba(255,255,255,0.08)"},children:[e.jsx("div",{style:{fontSize:24,fontWeight:800,color:"#0071e3",minWidth:32,lineHeight:1},children:n+1}),e.jsx("div",{style:{fontSize:15,color:"#cbd5e1",lineHeight:1.6},children:t})]},n))})})]}),!ft&&!w&&!Nt&&e.jsxs("div",{style:{textAlign:"center",padding:"60px 0",color:"#94a3b8"},children:[e.jsx("div",{style:{fontSize:56,marginBottom:16},children:"🔄"}),e.jsx("div",{style:{fontSize:18,fontWeight:600,color:"#f1f5f9",marginBottom:8},children:"Select a topic above"}),e.jsx("div",{style:{fontSize:15},children:"AI will generate fresh tips, a new scenario, a code example, and key facts — every Saturday."})]})]})]}),u==="playground"&&e.jsxs("div",{children:[e.jsxs("div",{style:i.pageHero,children:[e.jsx("h1",{style:i.pageHeroTitle,children:"🧪 Code Lab"}),e.jsx("p",{style:i.pageHeroSub,children:"Paste JCL, COBOL, REXX, or DB2 SQL — get instant AI-powered explanations, error detection, and execution simulation."})]}),e.jsxs("div",{style:{...i.inner,paddingTop:24,paddingBottom:80},children:[e.jsxs("div",{style:{display:"flex",gap:10,flexWrap:"wrap",marginBottom:16,alignItems:"center"},children:[["JCL","COBOL","REXX","DB2 SQL"].map(t=>e.jsx("button",{onClick:()=>{Xn(t),lt(ao[t]),ge(null)},style:{padding:"8px 16px",borderRadius:10,border:ue===t?"2px solid #0071e3":"2px solid rgba(255,255,255,0.12)",background:ue===t?"rgba(0,113,227,0.15)":"rgba(30,41,59,0.6)",color:ue===t?"#60a5fa":"#94a3b8",fontSize:13,fontWeight:600,cursor:"pointer",fontFamily:E},children:t},t)),e.jsx("div",{style:{marginLeft:"auto",display:"flex",gap:6},children:[["explain","💡 Explain"],["errors","🔍 Find Errors"],["simulate","▶️ Simulate"]].map(([t,n])=>e.jsx("button",{onClick:()=>no(t),style:{padding:"8px 14px",borderRadius:10,border:$===t?"2px solid #7c3aed":"2px solid rgba(255,255,255,0.12)",background:$===t?"rgba(124,58,237,0.15)":"rgba(30,41,59,0.6)",color:$===t?"#a78bfa":"#94a3b8",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:E},children:n},t))})]}),e.jsxs("div",{style:{borderRadius:16,overflow:"hidden",border:"1.5px solid rgba(255,255,255,0.1)",boxShadow:"0 4px 20px rgba(0,0,0,0.3)"},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 16px",background:"#1e293b"},children:[e.jsx("div",{style:{display:"flex",gap:6},children:["#ff5f57","#febc2e","#28c840"].map(t=>e.jsx("div",{style:{width:12,height:12,borderRadius:"50%",background:t}},t))}),e.jsx("span",{style:{fontSize:11,color:"#64748b",letterSpacing:"1px",fontFamily:ut},children:ue}),e.jsx("button",{onClick:oo,disabled:ke,style:{background:ke?"#64748b":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:8,padding:"6px 18px",fontSize:12,fontWeight:700,cursor:ke?"wait":"pointer",fontFamily:E},children:ke?"Analyzing...":$==="explain"?"💡 Explain Code":$==="errors"?"🔍 Find Errors":"▶️ Run Simulation"})]}),e.jsx("textarea",{value:Ye,onChange:t=>lt(t.target.value),"aria-label":"Code editor",spellCheck:!1,style:{width:"100%",minHeight:280,padding:"20px",margin:0,border:"none",resize:"vertical",background:"#0f172a",color:"#f8fafc",fontSize:13.5,lineHeight:1.8,fontFamily:ut,outline:"none",tabSize:2},onKeyDown:t=>{if(t.key==="Tab"){t.preventDefault();const n=t.target.selectionStart;lt(Ye.substring(0,n)+"  "+Ye.substring(t.target.selectionEnd)),setTimeout(()=>{t.target.selectionStart=t.target.selectionEnd=n+2},0)}}})]}),e.jsxs("div",{style:{display:"flex",gap:8,marginTop:12,flexWrap:"wrap"},children:[e.jsx("span",{style:{fontSize:12,color:"#64748b",lineHeight:"32px"},children:"Try:"}),[["JCL","SORT Job",`//SORTJOB JOB ,'SORT',CLASS=A
+Tip: Use clear paragraphs and include code examples where relevant.`,rows:14,style:{width:"100%",padding:"16px",fontSize:15,lineHeight:1.8,border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:12,outline:"none",fontFamily:d,background:"rgba(30,41,59,0.6)",resize:"vertical",minHeight:200,color:"#cbd5e1"}}),e.jsxs("div",{style:{display:"flex",gap:10,marginTop:16},children:[e.jsx("button",{onClick:kn,className:"glow-btn",style:{...r.btnBlue,fontSize:14,padding:"10px 24px",opacity:V.title&&V.content?1:.5},children:"Publish Blog"}),e.jsx("button",{onClick:()=>xt(!1),style:{...r.btnGhost,fontSize:14,padding:"10px 20px"},children:"Cancel"})]})]}),sa?e.jsxs("div",{className:"fi",style:{maxWidth:720,margin:"0 auto"},children:[e.jsx("button",{style:r.backBtn,onClick:()=>Lt(null),children:"‹ Blog"}),(()=>{const t=ha.find(a=>a.id===sa);return t?e.jsxs("div",{children:[e.jsxs("div",{style:{display:"flex",gap:8,marginBottom:20,flexWrap:"wrap",alignItems:"center"},children:[e.jsx("span",{style:{...r.diffBadge,background:"rgba(30,64,175,0.15)",color:"#60a5fa"},children:t.category}),e.jsx("span",{style:{...r.diffBadge,background:"#1e293b",color:"#94a3b8"},children:t.readTime}),e.jsx("span",{style:{...r.diffBadge,background:"#1e293b",color:"#94a3b8"},children:t.date}),t.isUserBlog&&e.jsx("span",{style:{...r.diffBadge,background:"linear-gradient(135deg,#059669,#0d9488)",color:"#fff"},children:"✦ Community Expert"})]}),e.jsx("h1",{style:{fontSize:"clamp(24px,4vw,40px)",fontWeight:800,letterSpacing:"-1px",color:"#f1f5f9",marginBottom:16,lineHeight:1.2},children:t.title}),t.isUserBlog&&e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:12,marginBottom:28,padding:"16px 20px",background:"rgba(30,41,59,0.7)",borderRadius:14,border:"1px solid rgba(255,255,255,0.06)"},children:[e.jsx("div",{style:{width:44,height:44,borderRadius:"50%",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",fontSize:18,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center"},children:t.author?.charAt(0)}),e.jsxs("div",{children:[e.jsx("div",{style:{fontSize:15,fontWeight:700,color:"#f1f5f9"},children:t.author}),e.jsxs("div",{style:{fontSize:12,color:"#94a3b8"},children:[t.authorRole," · ",t.authorMfYears," years mainframe experience"]})]}),e.jsxs("button",{onClick:a=>{a.stopPropagation(),Wn(t.id)},style:{marginLeft:"auto",background:"none",border:"1.5px solid #fecaca",borderRadius:10,padding:"6px 14px",cursor:"pointer",fontSize:13,color:"#ef4444",fontFamily:d,fontWeight:600},children:["❤️ ",t.likes||0]})]}),e.jsx("div",{className:"content-card",style:{padding:"36px 40px"},children:e.jsx("div",{style:{fontSize:16,color:"#cbd5e1",lineHeight:1.9,whiteSpace:"pre-wrap"},children:t.content})})]}):null})()]}):e.jsx("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(320px,1fr))",gap:24},children:ha.map((t,a)=>e.jsxs("button",{className:"card fu",onClick:()=>Lt(t.id),style:{...r.blogCard,animationDelay:`${a*60}ms`},children:[e.jsxs("div",{style:{display:"flex",gap:8,marginBottom:16,flexWrap:"wrap",alignItems:"center"},children:[e.jsx("span",{style:{...r.diffBadge,background:"rgba(30,64,175,0.15)",color:"#60a5fa"},children:t.category}),e.jsx("span",{style:{...r.diffBadge,background:"#1e293b",color:"#94a3b8"},children:t.readTime}),t.isUserBlog&&e.jsx("span",{style:{...r.diffBadge,background:"linear-gradient(135deg,#059669,#0d9488)",color:"#fff"},children:"✦ Community"})]}),e.jsx("h3",{style:{fontSize:18,fontWeight:700,color:"#f1f5f9",lineHeight:1.4,marginBottom:12,textAlign:"left"},children:t.title}),e.jsxs("p",{style:{fontSize:13,color:"#94a3b8",marginBottom:16,textAlign:"left"},children:[t.content.substring(0,150),"…"]}),e.jsxs("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center"},children:[e.jsxs("div",{style:{fontSize:12,color:"#94a3b8",textAlign:"left"},children:[t.isUserBlog?e.jsxs(e.Fragment,{children:[e.jsx("strong",{style:{color:"#f1f5f9"},children:t.author})," · ",t.authorRole," · "]}):"",t.date]}),t.isUserBlog&&t.likes>0&&e.jsxs("span",{style:{fontSize:12,color:"#ef4444"},children:["❤️ ",t.likes]})]}),e.jsx("div",{style:{color:"#0071e3",fontSize:13,fontWeight:500,marginTop:12,textAlign:"left"},children:"Read Article →"})]},t.id))})]})]}),u==="quiz"&&e.jsxs("div",{children:[e.jsxs("div",{style:r.pageHero,children:[e.jsx("h1",{style:r.pageHeroTitle,children:Z?"Daily Challenge":"Knowledge Quiz"}),e.jsx("p",{style:r.pageHeroSub,children:Z?"5 questions • One attempt per day • Beat the clock!":`${me.length} questions across all mainframe topics. Beginner to expert level.`})]}),e.jsxs("div",{style:{...r.inner,paddingBottom:80},children:[!Z&&e.jsxs("div",{className:"fi",style:{background:"linear-gradient(135deg,#0f172a,#1e1b4b)",borderRadius:20,padding:"28px 28px",marginBottom:28,display:"flex",alignItems:"center",gap:20,flexWrap:"wrap",justifyContent:"space-between",border:"1px solid rgba(124,58,237,0.2)",boxShadow:"0 4px 24px rgba(0,0,0,0.1)"},children:[e.jsxs("div",{children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:6},children:[e.jsx("span",{style:{fontSize:28},children:"🏆"}),e.jsx("span",{style:{color:"#f59e0b",fontSize:18,fontWeight:800,letterSpacing:"-0.3px"},children:"Daily Challenge"}),ze()>0&&e.jsxs("span",{style:{background:"rgba(239,68,68,0.2)",color:"#f87171",padding:"3px 10px",borderRadius:980,fontSize:12,fontWeight:700},children:["🔥 ",ze(),"-day streak"]})]}),e.jsx("p",{style:{color:"rgba(255,255,255,0.6)",fontSize:13,lineHeight:1.5},children:se?`Today's score: ${se.score}/5 in ${se.time}s — Come back tomorrow!`:"5 random questions. Timed. One attempt per day. How fast can you go?"})]}),se?e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:10},children:[e.jsxs("div",{style:{textAlign:"center"},children:[e.jsxs("div",{style:{fontSize:28,fontWeight:800,color:"#f59e0b"},children:[se.score,"/5"]}),e.jsxs("div",{style:{fontSize:11,color:"rgba(255,255,255,0.4)"},children:[se.time,"s"]})]}),e.jsx("div",{style:{fontSize:32},children:se.score===5?"🏅":se.score>=3?"⭐":"💪"})]}):e.jsx("button",{onClick:un,className:"glow-btn",style:{padding:"12px 28px",background:"linear-gradient(135deg,#f59e0b,#ef4444)",color:"#fff",border:"none",borderRadius:12,fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:d,whiteSpace:"nowrap",flexShrink:0},children:"Start Challenge →"})]}),Z&&!I.done&&e.jsxs("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20,background:"rgba(30,41,59,0.8)",borderRadius:12,padding:"10px 18px"},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:8},children:[e.jsx("span",{style:{fontSize:18},children:"⏱️"}),e.jsxs("span",{style:{fontSize:20,fontWeight:800,color:"#f1f5f9",fontFamily:"'SF Mono',Menlo,monospace"},children:[Math.floor(Ve/60),":",String(Ve%60).padStart(2,"0")]})]}),e.jsx("button",{onClick:()=>{mt(!1),clearInterval(Dt.current),Q({index:0,score:0,selected:null,done:!1,showExp:!1})},style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:13,fontFamily:d},children:"✕ Exit Challenge"})]}),!Z&&e.jsx("div",{style:{display:"flex",gap:8,flexWrap:"wrap",marginBottom:24,justifyContent:"center"},children:Cn.map(t=>e.jsx("button",{onClick:()=>{Xe(t),Q({index:0,score:0,selected:null,done:!1,showExp:!1})},style:{padding:"6px 14px",borderRadius:980,fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:d,border:"none",background:ae===t?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(30,41,59,0.8)",color:ae===t?"#fff":"#94a3b8",transition:"all .15s"},children:t==="All"?`All (${me.length})`:`${t} (${me.filter(a=>a.topic===t).length})`},t))}),(()=>{const t=Z?aa:ea;return e.jsx("div",{style:{maxWidth:640,margin:"0 auto"},children:t.length===0?e.jsx("div",{style:{textAlign:"center",padding:60,color:"#94a3b8"},children:"No questions for this topic yet."}):I.done?e.jsxs("div",{className:"fi",style:{textAlign:"center",padding:"60px 0"},children:[Z&&e.jsx("div",{style:{marginBottom:16},children:e.jsxs("span",{style:{background:"linear-gradient(135deg,#f59e0b,#ef4444)",color:"#fff",padding:"6px 16px",borderRadius:980,fontSize:13,fontWeight:700},children:["⏱️ Completed in ",Ve,"s"]})}),e.jsxs("div",{style:{fontSize:72,fontWeight:800,letterSpacing:"-3px",color:"#f1f5f9",lineHeight:1,marginBottom:8},children:[I.score,"/",t.length]}),e.jsx("div",{style:{fontSize:24,fontWeight:700,letterSpacing:"-.5px",color:"#f1f5f9",marginBottom:10},children:I.score===t.length?"🏆 Perfect — Mainframe Master!":I.score>=t.length*.8?"🎉 Expert Level":I.score>=t.length*.5?"📚 Solid Knowledge":"💪 Keep Learning"}),e.jsx("p",{style:{color:"#94a3b8",fontSize:15,marginBottom:28},children:Z?`Daily Challenge — ${new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}${ze()>0?` • 🔥 ${ze()}-day streak`:""}`:`${Math.round(I.score/t.length*100)}% correct${ae!=="All"?` in ${ae}`:""}`}),e.jsxs("div",{style:{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"},children:[Z?e.jsx("button",{style:r.btnBlue,onClick:()=>{mt(!1),_a()},children:"Back to Quiz"}):e.jsx("button",{style:r.btnBlue,onClick:_a,children:"Try Again"}),e.jsx("button",{style:r.btnGhost,onClick:()=>j("topics"),children:"Study Topics"}),e.jsx("button",{style:r.btnGhost,onClick:()=>j("scenarios"),children:"Practice Scenarios"})]})]}):e.jsxs("div",{className:"fi",children:[e.jsx("div",{style:{height:4,background:"#1e293b",borderRadius:2,marginBottom:20,overflow:"hidden"},children:e.jsx("div",{style:{height:"100%",background:Z?"#f59e0b":"#0071e3",borderRadius:2,width:`${I.index/t.length*100}%`,transition:"width .4s ease"}})}),e.jsxs("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:24,fontSize:13,color:"#94a3b8"},children:[e.jsxs("span",{children:["Question ",I.index+1," of ",t.length]}),e.jsxs("span",{children:["Score: ",I.score,"/",I.index]})]}),t[I.index].topic&&e.jsx("span",{style:{display:"inline-block",fontSize:11,fontWeight:600,padding:"3px 10px",borderRadius:980,marginBottom:14,background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff"},children:t[I.index].topic}),e.jsx("h2",{style:{fontSize:"clamp(17px,2.5vw,22px)",fontWeight:700,color:"#f1f5f9",letterSpacing:"-.5px",lineHeight:1.4,marginBottom:24},children:t[I.index].q}),e.jsx("div",{style:{display:"flex",flexDirection:"column",gap:10},children:t[I.index].options.map((a,s)=>{let o="#1e293b",n="1.5px solid rgba(255,255,255,0.12)",E="#e2e8f0",T="rgba(30,41,59,0.8)",O="#94a3b8";return I.selected!==null&&(s===t[I.index].answer?(o="rgba(22,163,74,0.15)",n="1.5px solid #22c55e",E="#4ade80",T="#22c55e",O="#fff"):s===I.selected&&(o="rgba(239,68,68,0.15)",n="1.5px solid #ef4444",E="#fca5a5",T="#ef4444",O="#fff")),e.jsxs("button",{onClick:()=>lo(s),style:{display:"flex",alignItems:"center",gap:12,padding:"15px 18px",borderRadius:12,cursor:"pointer",fontSize:15,textAlign:"left",fontFamily:d,background:o,border:n,color:E,transition:"all .15s",width:"100%"},children:[e.jsx("span",{style:{width:28,height:28,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,fontWeight:600,flexShrink:0,background:T,color:O,transition:"all .2s"},children:String.fromCharCode(65+s)}),a]},s)})}),I.showExp&&I.selected!==null&&e.jsxs("div",{className:"fi",style:{marginTop:20,padding:16,background:"rgba(17,24,39,0.8)",borderRadius:12,border:"1px solid rgba(255,255,255,0.08)"},children:[e.jsx("div",{style:{fontSize:13,fontWeight:600,color:"#0071e3",marginBottom:8},children:I.selected===t[I.index].answer?"✅ Correct!":"❌ Incorrect"}),e.jsx("div",{style:{fontSize:13,color:"#cbd5e1",lineHeight:1.6},children:t[I.index].explanation})]})]},I.index)})})()]})]}),u==="weekly"&&e.jsxs("div",{children:[e.jsxs("div",{style:r.pageHero,children:[e.jsx("h1",{style:r.pageHeroTitle,children:"Weekly AI Update"}),e.jsxs("p",{style:r.pageHeroSub,children:["Every Saturday, fresh mainframe content generated by AI. Pick any topic — get new tips, scenarios, and code examples.",ra&&e.jsxs("span",{style:{display:"block",fontSize:13,color:"#94a3b8",marginTop:6},children:["Last updated: ",new Date(ra).toLocaleDateString()]})]})]}),e.jsxs("div",{style:{...r.inner,paddingBottom:80},children:[e.jsxs("div",{style:{marginBottom:32},children:[e.jsx("h3",{style:{fontSize:17,fontWeight:700,color:"#f1f5f9",marginBottom:16},children:"Choose a topic to update:"}),e.jsx("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(160px,1fr))",gap:10},children:N.map(t=>e.jsxs("button",{onClick:()=>Za(t),style:{background:re?.id===t.id?"#0071e3":"rgba(30,41,59,0.8)",color:re?.id===t.id?"#fff":"#94a3b8",border:"none",borderRadius:12,padding:"12px 16px",cursor:"pointer",fontSize:13,fontWeight:500,fontFamily:d,textAlign:"left",display:"flex",alignItems:"center",gap:8,transition:"background .2s,color .2s"},children:[t.icon," ",t.title]},t.id))})]}),gt&&e.jsxs("div",{style:{textAlign:"center",padding:"60px 0"},children:[e.jsx("div",{style:{width:40,height:40,border:"3px solid rgba(255,255,255,0.1)",borderTop:"3px solid #0071e3",borderRadius:"50%",animation:"spin 0.8s linear infinite",margin:"0 auto 16px"}}),e.jsxs("div",{style:{fontSize:16,color:"#94a3b8"},children:["Fetching fresh content for ",re?.title,"…"]}),e.jsx("div",{style:{fontSize:13,color:"#94a3b8",marginTop:6},children:"This may take a moment"})]}),Pt&&e.jsxs("div",{style:{background:"rgba(239,68,68,0.12)",border:"1px solid rgba(239,68,68,0.25)",borderRadius:12,padding:20,color:"#fca5a5",marginBottom:24},children:[e.jsx("strong",{children:"Error:"})," ",Pt,e.jsx("br",{}),e.jsx("span",{style:{fontSize:13},children:"Make sure you're connected to the internet and try again."})]}),w&&!gt&&e.jsxs("div",{className:"fi",children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12,marginBottom:24},children:[e.jsxs("div",{children:[e.jsxs("h2",{style:{fontSize:22,fontWeight:700,color:"#f1f5f9"},children:[re?.icon," ",re?.title," — Weekly Update"]}),e.jsxs("div",{style:{fontSize:13,color:"#94a3b8",marginTop:4},children:["Generated: ",w.generatedDate]})]}),e.jsx("button",{style:{...r.btnGhost,fontSize:13,padding:"8px 16px"},onClick:Eo,children:"↻ Refresh Content"})]}),e.jsx("div",{style:{display:"flex",gap:4,marginBottom:24,flexWrap:"wrap"},children:["tip","scenario","code","facts"].map(t=>e.jsx("button",{onClick:()=>la(t),style:{background:Re===t?"#0071e3":"rgba(30,41,59,0.8)",color:Re===t?"#fff":"#94a3b8",border:"none",borderRadius:8,padding:"8px 16px",cursor:"pointer",fontSize:13,fontWeight:500,fontFamily:d,textTransform:"capitalize"},children:t==="tip"?"💡 New Tip":t==="scenario"?"🎯 New Scenario":t==="code"?"💻 Code Example":"📊 Key Facts"},t))}),Re==="tip"&&w.tip&&e.jsxs("div",{className:"fi",style:{background:"rgba(17,24,39,0.8)",borderRadius:16,padding:28,border:"1px solid rgba(255,255,255,0.08)"},children:[e.jsx("h3",{style:{fontSize:18,fontWeight:700,color:"#f1f5f9",marginBottom:16},children:w.tip.title}),e.jsx("div",{style:{fontSize:15,color:"#cbd5e1",lineHeight:1.8,whiteSpace:"pre-wrap"},children:w.tip.content})]}),Re==="scenario"&&w.scenario&&e.jsxs("div",{className:"fi",children:[e.jsxs("div",{style:{background:"rgba(30,64,175,0.15)",borderRadius:12,padding:20,border:"1px solid #bfdbfe",marginBottom:16},children:[e.jsx("div",{style:{fontSize:13,fontWeight:600,color:"#60a5fa",marginBottom:8},children:"Scenario Question:"}),e.jsx("div",{style:{fontSize:15,color:"#1e3a8a",fontWeight:500,lineHeight:1.6},children:w.scenario.question})]}),e.jsxs("div",{style:{background:"rgba(34,197,94,0.12)",borderRadius:12,padding:20,border:"1px solid rgba(34,197,94,0.25)"},children:[e.jsx("div",{style:{fontSize:13,fontWeight:600,color:"#4ade80",marginBottom:8},children:"Expert Answer:"}),e.jsx("pre",{style:{fontSize:14,color:"#14532d",lineHeight:1.8,whiteSpace:"pre-wrap",fontFamily:d},children:w.scenario.answer})]})]}),Re==="code"&&w.code&&e.jsxs("div",{className:"fi",children:[e.jsx("h3",{style:{fontSize:17,fontWeight:700,color:"#f1f5f9",marginBottom:12},children:w.code.title}),e.jsxs("div",{style:r.codeWrap,children:[e.jsx("div",{style:r.codeTopBar,children:e.jsx("div",{style:{display:"flex",gap:6},children:["#ff5f57","#febc2e","#28c840"].map(t=>e.jsx("div",{style:{width:12,height:12,borderRadius:"50%",background:t}},t))})}),e.jsx("pre",{style:{...r.codePre,background:"#0f172a",color:"#f8fafc"},dangerouslySetInnerHTML:{__html:Bt(w.code.snippet)}})]}),w.code.explanation&&e.jsx("div",{style:{marginTop:16,fontSize:15,color:"#cbd5e1",lineHeight:1.7,padding:"16px 20px",background:"rgba(17,24,39,0.8)",borderRadius:12},children:w.code.explanation})]}),Re==="facts"&&w.facts&&e.jsx("div",{className:"fi",children:e.jsx("div",{style:{display:"flex",flexDirection:"column",gap:12},children:w.facts.map((t,a)=>e.jsxs("div",{style:{display:"flex",gap:16,alignItems:"flex-start",background:"rgba(17,24,39,0.8)",borderRadius:12,padding:20,border:"1px solid rgba(255,255,255,0.08)"},children:[e.jsx("div",{style:{fontSize:24,fontWeight:800,color:"#0071e3",minWidth:32,lineHeight:1},children:a+1}),e.jsx("div",{style:{fontSize:15,color:"#cbd5e1",lineHeight:1.6},children:t})]},a))})})]}),!gt&&!w&&!Pt&&e.jsxs("div",{style:{textAlign:"center",padding:"60px 0",color:"#94a3b8"},children:[e.jsx("div",{style:{fontSize:56,marginBottom:16},children:"🔄"}),e.jsx("div",{style:{fontSize:18,fontWeight:600,color:"#f1f5f9",marginBottom:8},children:"Select a topic above"}),e.jsx("div",{style:{fontSize:15},children:"AI will generate fresh tips, a new scenario, a code example, and key facts — every Saturday."})]})]})]}),u==="playground"&&e.jsxs("div",{children:[e.jsxs("div",{style:r.pageHero,children:[e.jsx("h1",{style:r.pageHeroTitle,children:"🧪 Code Lab"}),e.jsx("p",{style:r.pageHeroSub,children:"Paste JCL, COBOL, REXX, or DB2 SQL — get instant AI-powered explanations, error detection, and execution simulation."})]}),e.jsxs("div",{style:{...r.inner,paddingTop:24,paddingBottom:80},children:[e.jsxs("div",{style:{display:"flex",gap:10,flexWrap:"wrap",marginBottom:16,alignItems:"center"},children:[["JCL","COBOL","REXX","DB2 SQL"].map(t=>e.jsx("button",{onClick:()=>{Ha(t),lt(no[t]),Le(null)},style:{padding:"8px 16px",borderRadius:10,border:ue===t?"2px solid #0071e3":"2px solid rgba(255,255,255,0.12)",background:ue===t?"rgba(0,113,227,0.15)":"rgba(30,41,59,0.6)",color:ue===t?"#60a5fa":"#94a3b8",fontSize:13,fontWeight:600,cursor:"pointer",fontFamily:d},children:t},t)),e.jsx("div",{style:{marginLeft:"auto",display:"flex",gap:6},children:[["explain","💡 Explain"],["errors","🔍 Find Errors"],["simulate","▶️ Simulate"]].map(([t,a])=>e.jsx("button",{onClick:()=>ao(t),style:{padding:"8px 14px",borderRadius:10,border:$===t?"2px solid #7c3aed":"2px solid rgba(255,255,255,0.12)",background:$===t?"rgba(124,58,237,0.15)":"rgba(30,41,59,0.6)",color:$===t?"#a78bfa":"#94a3b8",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:d},children:a},t))})]}),e.jsxs("div",{style:{borderRadius:16,overflow:"hidden",border:"1.5px solid rgba(255,255,255,0.1)",boxShadow:"0 4px 20px rgba(0,0,0,0.3)"},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 16px",background:"#1e293b"},children:[e.jsx("div",{style:{display:"flex",gap:6},children:["#ff5f57","#febc2e","#28c840"].map(t=>e.jsx("div",{style:{width:12,height:12,borderRadius:"50%",background:t}},t))}),e.jsx("span",{style:{fontSize:11,color:"#64748b",letterSpacing:"1px",fontFamily:ut},children:ue}),e.jsx("button",{onClick:oo,disabled:ke,style:{background:ke?"#64748b":"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",border:"none",borderRadius:8,padding:"6px 18px",fontSize:12,fontWeight:700,cursor:ke?"wait":"pointer",fontFamily:d},children:ke?"Analyzing...":$==="explain"?"💡 Explain Code":$==="errors"?"🔍 Find Errors":"▶️ Run Simulation"})]}),e.jsx("textarea",{value:Ye,onChange:t=>lt(t.target.value),"aria-label":"Code editor",spellCheck:!1,style:{width:"100%",minHeight:280,padding:"20px",margin:0,border:"none",resize:"vertical",background:"#0f172a",color:"#f8fafc",fontSize:13.5,lineHeight:1.8,fontFamily:ut,outline:"none",tabSize:2},onKeyDown:t=>{if(t.key==="Tab"){t.preventDefault();const a=t.target.selectionStart;lt(Ye.substring(0,a)+"  "+Ye.substring(t.target.selectionEnd)),setTimeout(()=>{t.target.selectionStart=t.target.selectionEnd=a+2},0)}}})]}),e.jsxs("div",{style:{display:"flex",gap:8,marginTop:12,flexWrap:"wrap"},children:[e.jsx("span",{style:{fontSize:12,color:"#64748b",lineHeight:"32px"},children:"Try:"}),[["JCL","SORT Job",`//SORTJOB JOB ,'SORT',CLASS=A
 //STEP1  EXEC PGM=SORT
 //SORTIN DD DSN=MY.INPUT.FILE,DISP=SHR
 //SORTOUT DD DSN=MY.OUTPUT.FILE,
@@ -18014,5 +21738,5 @@ INNER JOIN DEPARTMENT D
   ON E.WORKDEPT = D.DEPTNO
 GROUP BY D.DEPTNAME
 HAVING COUNT(*) > 5
-ORDER BY AVG_SALARY DESC;`]].map(([t,n,s])=>e.jsx("button",{onClick:()=>{Xn(t),lt(s),ge(null)},style:{padding:"4px 12px",borderRadius:8,border:"1px solid rgba(255,255,255,0.08)",background:"#0f172a",color:"#94a3b8",fontSize:11,cursor:"pointer",fontFamily:E},children:n},n))]}),Vn&&e.jsxs("div",{style:{marginTop:24,borderRadius:16,border:"1px solid rgba(0,113,227,0.15)",background:"rgba(0,113,227,0.08)",padding:"24px 28px",animation:"fadeUp 0.3s ease"},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:8,marginBottom:16},children:[e.jsx("span",{style:{fontSize:20},children:$==="explain"?"💡":$==="errors"?"🔍":"▶️"}),e.jsx("span",{style:{fontSize:16,fontWeight:700,color:"#f1f5f9"},children:$==="explain"?"Code Explanation":$==="errors"?"Error Analysis":"Execution Simulation"})]}),e.jsx("div",{style:i.contentPre,children:On(Vn)})]}),ke&&e.jsxs("div",{style:{marginTop:24,textAlign:"center",padding:"40px 0"},children:[e.jsx("div",{style:{width:40,height:40,border:"3px solid rgba(255,255,255,0.12)",borderTop:"3px solid #0071e3",borderRadius:"50%",animation:"spin 1s linear infinite",margin:"0 auto 16px"}}),e.jsx("p",{style:{fontSize:14,color:"#94a3b8"},children:$==="explain"?"Analyzing your code line by line...":$==="errors"?"Checking for errors and bad practices...":"Simulating execution on z/OS..."})]})]})]}),u==="community"&&e.jsxs("div",{children:[e.jsxs("div",{style:i.pageHero,children:[e.jsx("h1",{style:i.pageHeroTitle,children:"💬 Community"}),e.jsx("p",{style:i.pageHeroSub,children:"Real-time group chat, job postings, doubt solving & Q&A — all in one place."}),e.jsxs("div",{style:{display:"flex",gap:8,marginTop:20},children:[e.jsx("button",{onClick:()=>Se("chat"),style:{padding:"10px 24px",borderRadius:980,border:k==="chat"||k===null?"none":"1.5px solid rgba(255,255,255,0.12)",background:k==="chat"||k===null?"#0071e3":"rgba(30,41,59,0.8)",color:k==="chat"||k===null?"#fff":"#94a3b8",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:E},children:"🖥️ Group Chat"}),e.jsx("button",{onClick:()=>Se("qa"),style:{padding:"10px 24px",borderRadius:980,border:k==="qa"?"none":"1.5px solid rgba(255,255,255,0.12)",background:k==="qa"?"#0071e3":"rgba(30,41,59,0.8)",color:k==="qa"?"#fff":"#94a3b8",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:E},children:"❓ Q&A Forum"})]})]}),(k==="chat"||k===null)&&e.jsx("div",{style:{maxWidth:900,margin:"0 auto",padding:"0 24px 80px"},children:Fe?e.jsxs("div",{style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:20,overflow:"hidden",boxShadow:"0 4px 20px rgba(0,0,0,0.3)",height:"70vh",display:"flex"},children:[e.jsxs("div",{style:{width:Vt?260:0,minWidth:Vt?260:0,background:"#0f172a",borderRight:"1px solid rgba(255,255,255,0.12)",transition:"all 0.3s",overflow:"hidden",display:"flex",flexDirection:"column"},children:[e.jsxs("div",{style:{padding:"12px 16px",borderBottom:"1px solid rgba(255,255,255,0.06)",display:"flex",alignItems:"center",justifyContent:"space-between"},children:[e.jsxs("span",{style:{fontSize:13,fontWeight:700,color:"#f1f5f9"},children:["Members (",B.length,")"]}),e.jsxs("div",{style:{display:"flex",gap:6},children:[e.jsx("button",{onClick:()=>$a(),style:{background:"rgba(0,113,227,0.15)",border:"none",borderRadius:8,color:"#0071e3",padding:"3px 8px",cursor:"pointer",fontSize:11,fontWeight:600},children:"+ Add"}),e.jsx("button",{onClick:()=>Un(!1),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:14},"aria-label":"Close",children:"✕"})]})]}),e.jsx("div",{style:{flex:1,overflowY:"auto",padding:"4px 0"},children:B.map((t,n)=>e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:8,padding:"8px 16px"},children:[e.jsx(Ea,{m:t,sz:30}),e.jsxs("div",{style:{flex:1,minWidth:0},children:[e.jsxs("div",{style:{fontSize:12,color:"#f1f5f9",fontWeight:600,display:"flex",alignItems:"center",gap:4},children:[t.name,n===0&&e.jsx("span",{style:{fontSize:9,background:"#e8f8f0",color:"#00b365",padding:"1px 5px",borderRadius:6},children:"Admin"}),n===Zt&&e.jsx("span",{style:{fontSize:9,background:"rgba(0,113,227,0.15)",color:"#0071e3",padding:"1px 5px",borderRadius:6},children:"You"})]}),e.jsx("div",{style:{fontSize:10,color:"#94a3b8"},children:t.role})]}),n!==0&&n!==Zt&&e.jsx("button",{onClick:()=>it(s=>[...s,{id:eo.current++,sender:-1,type:G.SYS,text:`${t.name} was removed`,time:new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),reactions:{},del:!1}]),style:{background:"none",border:"none",color:"rgba(255,255,255,0.1)",cursor:"pointer",fontSize:12},onMouseEnter:s=>s.target.style.color="#e74c3c",onMouseLeave:s=>s.target.style.color="rgba(255,255,255,0.1)","aria-label":"Close",children:"✕"})]},n))})]}),e.jsxs("div",{style:{flex:1,display:"flex",flexDirection:"column",minWidth:0},children:[e.jsxs("div",{style:{padding:"10px 16px",background:"#111827",borderBottom:"1px solid rgba(255,255,255,0.06)",display:"flex",alignItems:"center",gap:10},children:[e.jsx("button",{onClick:()=>Un(!Vt),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16,padding:2},"aria-label":"Toggle menu",children:"☰"}),e.jsx("div",{style:{width:36,height:36,borderRadius:10,background:"linear-gradient(135deg,rgba(0,113,227,0.15),rgba(0,113,227,0.08))",border:"1px solid rgba(0,113,227,0.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18},children:"🖥️"}),e.jsxs("div",{style:{flex:1},children:[e.jsx("div",{style:{fontSize:14,fontWeight:700,color:"#f1f5f9"},children:"MainframeStudyHub"}),e.jsxs("div",{style:{fontSize:11,color:"#94a3b8"},children:[B.length," members • ",we," online"]})]}),e.jsx("button",{onClick:()=>{za(!rt),vn("")},style:{background:rt?"rgba(0,113,227,0.15)":"transparent",border:"none",borderRadius:6,color:rt?"#60a5fa":"#94a3b8",cursor:"pointer",fontSize:14,padding:"4px 8px"},"aria-label":"Search",children:"🔍"}),e.jsx("button",{onClick:()=>Bn(!Ce),"aria-label":"Toggle bookmarks",style:{background:Ce?"rgba(212,160,23,0.15)":"transparent",border:"none",borderRadius:6,color:Ce?"#d4a017":"#94a3b8",cursor:"pointer",fontSize:14,padding:"4px 8px"},children:Ce?"⭐":"☆"})]}),rt&&e.jsx("div",{style:{padding:"6px 16px",background:"#1e293b",borderBottom:"1px solid rgba(255,255,255,0.12)"},children:e.jsx("input",{value:zt,onChange:t=>vn(t.target.value),placeholder:"Search messages...",autoFocus:!0,style:{width:"100%",boxSizing:"border-box",padding:"6px 12px",borderRadius:8,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",color:"#f1f5f9",fontSize:13,outline:"none",fontFamily:E}})}),Ce&&e.jsxs("div",{style:{padding:"5px 16px",background:"rgba(251,191,36,0.15)",borderBottom:"1px solid #fde68a",fontSize:12,color:"#d4a017",display:"flex",alignItems:"center",gap:4},children:["⭐ Starred (",Jt.size,")",e.jsx("button",{onClick:()=>Bn(!1),style:{background:"none",border:"none",color:"#d4a017",cursor:"pointer",marginLeft:"auto",fontSize:12},children:"Show all"})]}),e.jsxs("div",{style:{flex:1,overflowY:"auto",padding:"12px 0",background:"#0f172a"},children:[Gn.map(t=>e.jsx(Ko,{msg:t,members:B,self:Zt,onReact:Qa,onReply:jt,onDel:qa,onStar:Za,starred:Jt.has(t.id)},t.id)),Gn.length===0&&e.jsx("div",{style:{textAlign:"center",padding:40,color:"#94a3b8",fontSize:13},children:Ce?"No starred messages":"No messages found"}),e.jsx("div",{ref:Fn})]}),he&&e.jsxs("div",{style:{padding:"6px 16px",background:"#1e293b",borderTop:"1px solid rgba(255,255,255,0.12)",display:"flex",alignItems:"center",gap:8},children:[e.jsx("div",{style:{width:3,height:24,borderRadius:2,background:B[he.sender]?.color||"#0071e3"}}),e.jsxs("div",{style:{flex:1,minWidth:0},children:[e.jsx("div",{style:{fontSize:11,color:B[he.sender]?.color,fontWeight:600},children:B[he.sender]?.name}),e.jsx("div",{style:{fontSize:11,color:"#94a3b8",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"},children:he.text})]}),e.jsx("button",{onClick:()=>jt(null),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:14},"aria-label":"Close",children:"✕"})]}),e.jsxs("div",{style:{padding:"8px 12px",background:"#111827",borderTop:"1px solid rgba(255,255,255,0.06)"},children:[e.jsx("div",{style:{display:"flex",gap:4,marginBottom:6},children:[{t:G.TEXT,i:"💬",l:"Message"},{t:G.JOB,i:"💼",l:"Job"},{t:G.DOUBT,i:"❓",l:"Doubt"},{t:G.THOUGHT,i:"💭",l:"Thought"}].map(t=>e.jsxs("button",{onClick:()=>xn(t.t),style:{padding:"3px 10px",borderRadius:980,border:`1.5px solid ${pe===t.t?"#0071e3":"rgba(255,255,255,0.1)"}`,background:pe===t.t?"rgba(0,113,227,0.15)":"rgba(30,41,59,0.6)",color:pe===t.t?"#60a5fa":"#94a3b8",fontSize:11,cursor:"pointer",fontFamily:E,display:"flex",alignItems:"center",gap:3},children:[t.i," ",t.l]},t.t))}),e.jsxs("div",{style:{display:"flex",gap:8,alignItems:"flex-end"},children:[e.jsx("textarea",{ref:wn,value:Ee,onChange:t=>Mn(t.target.value),onKeyDown:t=>{t.key==="Enter"&&!t.shiftKey&&(t.preventDefault(),kn())},placeholder:pe===G.JOB?"Paste job details...":pe===G.DOUBT?"Ask your doubt...":pe===G.THOUGHT?"Share your thought...":"Type a message...",rows:1,style:{flex:1,padding:"9px 12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"#1e293b",color:"#f1f5f9",fontSize:13,fontFamily:E,outline:"none",resize:"none",minHeight:38,maxHeight:90}}),e.jsx("button",{onClick:kn,disabled:!Ee.trim(),style:{width:38,height:38,borderRadius:10,border:"none",background:Ee.trim()?"#0071e3":"rgba(255,255,255,0.1)",color:Ee.trim()?"#fff":"#64748b",fontSize:16,cursor:Ee.trim()?"pointer":"default",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0},children:"➤"})]})]})]}),_a]}):e.jsxs("div",{style:{position:"relative",borderRadius:24,overflow:"hidden",background:"linear-gradient(135deg, #0a1628, #0d2040)",border:"1.5px solid rgba(0,113,227,0.2)",minHeight:380},children:[e.jsx(He,{style:{opacity:.5}}),e.jsxs("div",{style:{position:"relative",zIndex:2,padding:"48px 36px",display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center"},children:[e.jsxs("div",{style:{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(0,179,101,0.12)",border:"1px solid rgba(0,179,101,0.25)",borderRadius:20,padding:"6px 16px",marginBottom:20},children:[e.jsx("span",{style:{width:8,height:8,borderRadius:"50%",background:"#00b365",boxShadow:"0 0 8px #00b365",animation:"commPulse 2s ease-in-out infinite"}}),e.jsxs("span",{style:{fontSize:13,color:"#00b365",fontWeight:600},children:[we," members online"]})]}),e.jsxs("h2",{style:{fontSize:28,fontWeight:800,color:"#fff",letterSpacing:"-1px",marginBottom:8},children:["Join ",e.jsx("span",{style:{color:"#58a6ff"},children:"MainframeStudyHub"})," Group"]}),e.jsxs("p",{style:{fontSize:14,color:"rgba(255,255,255,0.5)",maxWidth:400,lineHeight:1.6,marginBottom:24},children:[B.length," members sharing knowledge, jobs & solving doubts in real-time"]}),e.jsx("div",{style:{display:"flex",gap:6,flexWrap:"wrap",justifyContent:"center",marginBottom:24},children:["💬 Chat","💼 Jobs","❓ Doubts","💭 Ideas","📊 Polls"].map((t,n)=>e.jsx("span",{style:{padding:"4px 12px",borderRadius:16,fontSize:11,background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",color:"rgba(255,255,255,0.5)"},children:t},n))}),e.jsx("div",{style:{display:"flex",marginBottom:24},children:B.slice(0,6).map((t,n)=>e.jsx("div",{style:{width:36,height:36,borderRadius:"50%",background:`${t.color}25`,border:`2px solid ${t.color}40`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,marginLeft:n>0?-8:0,zIndex:6-n},children:t.emoji},n))}),e.jsxs("div",{style:{width:"100%",maxWidth:320},children:[e.jsx("button",{onClick:()=>{ae(!1),ee(0),L("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})},style:{width:"100%",padding:"14px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:E,boxShadow:"0 4px 16px rgba(0,113,227,0.3)"},children:"Sign In →"}),e.jsx("p",{style:{fontSize:12,color:"rgba(255,255,255,0.35)",marginTop:10},children:"New here? Create a free account to join the community"}),e.jsx("button",{onClick:Wn,style:{width:"100%",padding:"13px",borderRadius:12,border:"none",background:"linear-gradient(135deg,#7c3aed,#0071e3)",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:E,boxShadow:"0 4px 16px rgba(0,113,227,0.3)"},children:"Join Community →"})]})]})]})}),k==="qa"&&e.jsxs("div",{style:{...i.inner,maxWidth:900,paddingBottom:80},children:[e.jsxs("div",{style:{display:"flex",gap:10,flexWrap:"wrap",marginBottom:24,alignItems:"center"},children:[e.jsxs("div",{style:{position:"relative",flex:"1 1 200px"},children:[e.jsx("span",{style:{position:"absolute",left:10,top:"50%",transform:"translateY(-50%)",fontSize:14,color:"#94a3b8"},children:"🔍"}),e.jsx("input",{value:at,onChange:t=>Xa(t.target.value),"aria-label":"Search questions",placeholder:"Search questions...",style:{...i.searchInput,width:"100%",paddingLeft:32}})]}),e.jsx("div",{style:{display:"flex",gap:4},children:["hot","new","top"].map(t=>e.jsx("button",{onClick:()=>Wa(t),style:{...i.pill,background:Be===t?"#0071e3":"rgba(30,41,59,0.8)",color:Be===t?"#fff":"#94a3b8",border:Be===t?"none":"1.5px solid rgba(255,255,255,0.12)",textTransform:"capitalize"},children:t==="hot"?"🔥 Hot":t==="new"?"🕐 New":"⬆️ Top"},t))}),e.jsxs("select",{value:Gt,onChange:t=>Ha(t.target.value),style:{padding:"6px 12px",borderRadius:8,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",fontSize:13,color:"#f1f5f9",fontFamily:E,cursor:"pointer"},children:[e.jsx("option",{children:"All"}),P.map(t=>e.jsx("option",{value:t.title,children:t.title},t.id)),e.jsx("option",{children:"General"})]}),e.jsx("button",{onClick:()=>{if(!S){L("signin");return}Wt(!fn)},style:{...i.btnBlue,padding:"8px 18px",fontSize:13,display:"flex",alignItems:"center",gap:6},children:"✍️ Ask Question"})]}),fn&&e.jsxs("div",{className:"fi",style:{border:"1.5px solid #0071e3",borderRadius:16,padding:20,marginBottom:24,background:"#0f172a"},children:[e.jsx("input",{value:de.title,onChange:t=>ot(n=>({...n,title:t.target.value})),placeholder:"Question title...",style:{width:"100%",boxSizing:"border-box",padding:"10px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",fontSize:15,fontWeight:600,color:"#f1f5f9",outline:"none",fontFamily:E,marginBottom:10}}),e.jsx("textarea",{value:de.body,onChange:t=>ot(n=>({...n,body:t.target.value})),placeholder:"Details (optional)...",rows:3,style:{width:"100%",boxSizing:"border-box",padding:"10px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",fontSize:14,color:"#f1f5f9",outline:"none",fontFamily:E,resize:"vertical",marginBottom:10}}),e.jsxs("div",{style:{display:"flex",gap:10,alignItems:"center"},children:[e.jsxs("select",{value:de.topic,onChange:t=>ot(n=>({...n,topic:t.target.value})),style:{padding:"8px 12px",borderRadius:8,border:"1.5px solid rgba(255,255,255,0.1)",fontSize:13,fontFamily:E},children:[P.map(t=>e.jsx("option",{value:t.title,children:t.title},t.id)),e.jsx("option",{children:"General"})]}),e.jsx("button",{onClick:Va,style:{...i.btnBlue,padding:"8px 20px",fontSize:13},children:"Post Question"}),e.jsx("button",{onClick:()=>Wt(!1),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:13,fontFamily:E},children:"Cancel"})]})]}),yn.length===0&&e.jsxs("div",{style:{textAlign:"center",padding:"48px 0",color:"#94a3b8"},children:[e.jsx("div",{style:{fontSize:40,marginBottom:12},children:"🔍"}),"No questions found."]}),yn.map(t=>e.jsx("div",{className:"card",style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:16,padding:"20px 24px",marginBottom:16,cursor:"pointer",boxShadow:"0 2px 8px rgba(0,0,0,0.2)"},onClick:()=>Se(t.id),children:e.jsxs("div",{style:{display:"flex",gap:16,alignItems:"flex-start"},children:[e.jsxs("div",{style:{display:"flex",flexDirection:"column",alignItems:"center",gap:4,minWidth:40},children:[e.jsx("button",{onClick:n=>{n.stopPropagation(),st(t.id,1)},style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16},children:"▲"}),e.jsx("span",{style:{fontSize:16,fontWeight:800,color:"#f1f5f9"},children:t.votes}),e.jsx("button",{onClick:n=>{n.stopPropagation(),st(t.id,-1)},style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16},children:"▼"})]}),e.jsxs("div",{style:{flex:1},children:[e.jsx("div",{style:{fontSize:16,fontWeight:700,color:"#f1f5f9",marginBottom:6,lineHeight:1.4},children:t.title}),t.body&&e.jsx("div",{style:{fontSize:13,color:"#94a3b8",lineHeight:1.5,marginBottom:8,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"},children:t.body}),e.jsxs("div",{style:{display:"flex",gap:10,alignItems:"center",fontSize:12,color:"#94a3b8"},children:[e.jsx("span",{style:{...i.pill,background:"rgba(0,113,227,0.12)",color:"#0071e3",padding:"3px 10px",fontSize:11},children:t.topic}),e.jsxs("span",{children:["by ",e.jsx("strong",{style:{color:"#f1f5f9"},children:t.author})]}),e.jsx("span",{children:t.date}),e.jsxs("span",{style:{color:"#0071e3"},children:["💬 ",t.answers.length," ",t.answers.length===1?"answer":"answers"]})]})]})]})},t.id))]}),k&&k!=="chat"&&k!=="qa"&&(()=>{const t=Yt.find(n=>n.id===k);return t?e.jsxs("div",{style:{...i.inner,maxWidth:800,paddingBottom:80},children:[e.jsx("button",{onClick:()=>Se("qa"),style:i.backBtn,children:"← Back to all questions"}),e.jsx("div",{style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"28px 32px",marginBottom:32,background:"#111827"},children:e.jsxs("div",{style:{display:"flex",gap:16},children:[e.jsxs("div",{style:{display:"flex",flexDirection:"column",alignItems:"center",gap:4},children:[e.jsx("button",{onClick:()=>st(t.id,1),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:20},children:"▲"}),e.jsx("span",{style:{fontSize:24,fontWeight:800,color:"#f1f5f9"},children:t.votes}),e.jsx("button",{onClick:()=>st(t.id,-1),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:20},children:"▼"})]}),e.jsxs("div",{style:{flex:1},children:[e.jsx("div",{style:{display:"flex",gap:8,marginBottom:12},children:e.jsx("span",{style:{...i.pill,background:"rgba(0,113,227,0.12)",color:"#0071e3",padding:"4px 12px"},children:t.topic})}),e.jsx("h2",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9",marginBottom:12,letterSpacing:"-.3px"},children:t.title}),t.body&&e.jsx("div",{style:{fontSize:15,color:"#cbd5e1",lineHeight:1.8,marginBottom:16,whiteSpace:"pre-wrap"},children:t.body}),e.jsxs("div",{style:{fontSize:13,color:"#94a3b8"},children:["Asked by ",e.jsx("strong",{style:{color:"#f1f5f9"},children:t.author}),t.authorRole&&e.jsxs("span",{style:{color:"#0071e3"},children:[" • ",t.authorRole]})," on ",t.date]})]})]})}),e.jsxs("h3",{style:{fontSize:18,fontWeight:700,marginBottom:16,color:"#f1f5f9"},children:[t.answers.length," ",t.answers.length===1?"Answer":"Answers"]}),t.answers.map(n=>e.jsx("div",{style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:16,padding:"20px 24px",marginBottom:16,background:"#111827"},children:e.jsxs("div",{style:{display:"flex",gap:12},children:[e.jsxs("div",{style:{display:"flex",flexDirection:"column",alignItems:"center",gap:4},children:[e.jsx("button",{onClick:()=>Nn(t.id,n.id,1),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16},children:"▲"}),e.jsx("span",{style:{fontSize:16,fontWeight:800,color:"#f1f5f9"},children:n.votes}),e.jsx("button",{onClick:()=>Nn(t.id,n.id,-1),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16},children:"▼"})]}),e.jsxs("div",{style:{flex:1},children:[e.jsx("div",{style:{fontSize:14,color:"#cbd5e1",lineHeight:1.8,whiteSpace:"pre-wrap"},children:n.body}),e.jsxs("div",{style:{fontSize:12,color:"#94a3b8",marginTop:10},children:["Answered by ",e.jsx("strong",{style:{color:"#f1f5f9"},children:n.author}),n.authorRole&&e.jsxs("span",{style:{color:"#0071e3"},children:[" • ",n.authorRole]})," on ",n.date]})]})]})},n.id)),S?e.jsxs("div",{style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:16,padding:20,background:"#0f172a"},children:[e.jsx("h4",{style:{fontSize:15,fontWeight:700,color:"#f1f5f9",marginBottom:12},children:"Your Answer"}),e.jsx("textarea",{value:Ht,onChange:n=>Ln(n.target.value),rows:4,placeholder:"Write your answer...",style:{width:"100%",boxSizing:"border-box",padding:"12px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",fontSize:14,color:"#f1f5f9",outline:"none",fontFamily:E,resize:"vertical",marginBottom:12}}),e.jsx("button",{onClick:()=>ja(t.id),style:{...i.btnBlue,padding:"10px 24px",fontSize:14},children:"Post Answer"})]}):e.jsxs("div",{style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:16,padding:"24px 20px",textAlign:"center",background:"#0f172a"},children:[e.jsx("p",{style:{color:"#94a3b8",marginBottom:12},children:"Sign in to post your answer"}),e.jsx("button",{onClick:()=>{L("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})},style:i.btnBlue,children:"Sign In"})]})]}):null})()]}),u==="abends"&&e.jsxs("div",{children:[e.jsxs("div",{style:i.pageHero,children:[e.jsx("h1",{style:i.pageHeroTitle,children:"Abend Solver"}),e.jsx("p",{style:i.pageHeroSub,children:"Quick-search IBM ABEND codes — get the cause and fix instantly"})]}),e.jsxs("div",{style:{...i.inner,paddingBottom:80},children:[e.jsxs("div",{className:"content-card fi",style:{marginBottom:24},children:[e.jsxs("div",{style:{display:"flex",gap:12,flexWrap:"wrap",alignItems:"center",marginBottom:18},children:[e.jsxs("div",{style:{flex:1,minWidth:200,position:"relative"},children:[e.jsx("span",{style:{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",fontSize:18},children:"🔍"}),e.jsx("input",{value:Je,onChange:t=>{Ta(t.target.value),At(null)},"aria-label":"Search abend codes",placeholder:"Search abend code (e.g. S0C7, ASRA, S878...)",style:{width:"100%",padding:"14px 14px 14px 44px",fontSize:15,border:"2px solid rgba(0,0,0,0.08)",borderRadius:14,outline:"none",background:"rgba(30,41,59,0.8)",fontFamily:"inherit",color:"#f1f5f9",transition:"border-color 0.2s"},onFocus:t=>t.target.style.borderColor="#7c3aed",onBlur:t=>t.target.style.borderColor="rgba(0,0,0,0.08)"})]}),e.jsxs("div",{style:{fontSize:13,color:"#94a3b8",fontWeight:600},children:[Rt.length," codes"]})]}),e.jsx("div",{style:{display:"flex",gap:6,flexWrap:"wrap"},children:Xo.map(t=>e.jsx("button",{onClick:()=>{Da(t),At(null)},style:{padding:"6px 16px",borderRadius:980,border:"1.5px solid",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:"inherit",transition:"all 0.2s",background:ye===t?"linear-gradient(135deg,#0071e3,#7c3aed)":"transparent",color:ye===t?"#fff":"#94a3b8",borderColor:ye===t?"transparent":"rgba(0,0,0,0.1)"},children:t},t))})]}),e.jsxs("div",{style:{display:"flex",flexDirection:"column",gap:12},children:[Rt.length===0&&e.jsxs("div",{style:{textAlign:"center",padding:"48px 0",color:"#94a3b8"},children:[e.jsx("div",{style:{fontSize:48,marginBottom:12},children:"🔎"}),e.jsx("p",{children:"No abend codes found. Try a different search term."})]}),Rt.map((t,n)=>e.jsxs("div",{className:"fi",style:{animationDelay:`${Math.min(n,8)*40}ms`},children:[e.jsxs("div",{onClick:()=>At(Ke===t.code?null:t.code),style:{background:"rgba(17,24,39,0.92)",backdropFilter:"blur(20px)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:Ke===t.code?"16px 16px 0 0":"16px",padding:"18px 22px",cursor:"pointer",display:"flex",alignItems:"center",gap:14,transition:"all 0.2s",boxShadow:"0 2px 12px rgba(0,0,0,0.3)"},children:[e.jsx("div",{style:{background:pt[t.severity]+"18",color:pt[t.severity],padding:"8px 14px",borderRadius:10,fontSize:18,fontWeight:800,fontFamily:"'SF Mono',Menlo,monospace",letterSpacing:"0.5px",minWidth:70,textAlign:"center",border:`1.5px solid ${pt[t.severity]}30`},children:t.code}),e.jsxs("div",{style:{flex:1},children:[e.jsx("div",{style:{fontSize:15,fontWeight:700,color:"#f1f5f9",marginBottom:2},children:t.name}),e.jsxs("div",{style:{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"},children:[e.jsx("span",{style:{fontSize:11,color:pt[t.severity],fontWeight:700},children:Vo[t.severity]}),e.jsx("span",{style:{fontSize:11,color:"#94a3b8",background:"rgba(30,41,59,0.8)",padding:"2px 8px",borderRadius:980},children:t.category})]})]}),e.jsx("span",{style:{fontSize:18,color:"#94a3b8",transition:"transform 0.3s",transform:Ke===t.code?"rotate(180deg)":"rotate(0)"},children:"▼"})]}),Ke===t.code&&e.jsxs("div",{style:{background:"rgba(8,11,22,0.95)",borderRadius:"0 0 16px 16px",padding:"24px 22px",borderTop:"2px solid",borderImage:"linear-gradient(90deg,#0071e3,#7c3aed) 1",boxShadow:"0 4px 20px rgba(0,0,0,0.3)"},children:[e.jsxs("div",{style:{marginBottom:20},children:[e.jsx("div",{style:{display:"flex",alignItems:"center",gap:8,marginBottom:10},children:e.jsx("span",{style:{background:"rgba(239,68,68,0.15)",color:"#dc2626",padding:"4px 10px",borderRadius:8,fontSize:12,fontWeight:700},children:"⚠️ CAUSE"})}),e.jsx("p",{style:{fontSize:14,color:"#cbd5e1",lineHeight:1.75},children:t.cause})]}),e.jsxs("div",{style:{marginBottom:20},children:[e.jsx("div",{style:{display:"flex",alignItems:"center",gap:8,marginBottom:10},children:e.jsx("span",{style:{background:"rgba(34,197,94,0.15)",color:"#16a34a",padding:"4px 10px",borderRadius:8,fontSize:12,fontWeight:700},children:"✅ FIX"})}),e.jsx("div",{style:{fontSize:14,color:"#cbd5e1",lineHeight:1.75,whiteSpace:"pre-line"},children:t.fix})]}),t.tips&&t.tips.length>0&&e.jsxs("div",{style:{background:"rgba(0,113,227,0.08)",borderRadius:12,padding:"14px 18px",border:"1px solid rgba(0,113,227,0.08)"},children:[e.jsx("div",{style:{fontSize:12,fontWeight:700,color:"#0071e3",marginBottom:8},children:"💡 PRO TIPS"}),t.tips.map((s,o)=>e.jsxs("div",{style:{fontSize:13,color:"#cbd5e1",lineHeight:1.6,paddingLeft:16,position:"relative",marginBottom:4},children:[e.jsx("span",{style:{position:"absolute",left:0,color:"#0071e3"},children:"›"}),s]},o))]})]})]},t.code))]})]})]}),u==="roadmap"&&e.jsxs("div",{children:[e.jsxs("div",{style:i.pageHero,children:[e.jsx("h1",{style:i.pageHeroTitle,children:"Learning Roadmap"}),e.jsx("p",{style:i.pageHeroSub,children:"Your path from Trainee to Architect — click any level to explore"})]}),e.jsx("div",{style:{...i.inner,paddingBottom:80,maxWidth:900},children:e.jsxs("div",{style:{position:"relative",paddingLeft:40},children:[e.jsx("div",{style:{position:"absolute",left:18,top:0,bottom:0,width:4,background:"linear-gradient(to bottom,#22c55e,#3b82f6,#8b5cf6,#ec4899,#f59e0b,#ef4444)",borderRadius:4}}),oa.map((t,n)=>e.jsxs("div",{className:"fi",style:{marginBottom:n<oa.length-1?32:0,position:"relative",animationDelay:`${n*100}ms`},children:[e.jsx("div",{style:{position:"absolute",left:-30,top:20,width:28,height:28,borderRadius:"50%",background:t.color,border:"4px solid #fff",boxShadow:`0 0 0 3px ${t.color}40, 0 2px 8px ${t.color}30`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,zIndex:1},children:e.jsx("span",{style:{filter:"grayscale(0)"},children:t.icon})}),e.jsxs("div",{onClick:()=>Ia(Ie===t.level?null:t.level),className:"scenario-card",style:{background:"rgba(17,24,39,0.9)",backdropFilter:"blur(20px)",border:`1.5px solid ${Ie===t.level?t.color+"50":"rgba(0,0,0,0.05)"}`,borderRadius:18,padding:"24px 26px",cursor:"pointer",boxShadow:Ie===t.level?`0 8px 32px ${t.color}15`:"0 2px 12px rgba(0,0,0,0.3)"},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,marginBottom:Ie===t.level?16:0},children:[e.jsxs("div",{children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:4},children:[e.jsxs("span",{style:{fontSize:11,fontWeight:800,color:t.color,background:t.color+"15",padding:"3px 10px",borderRadius:980},children:["LEVEL ",t.level]}),e.jsx("span",{style:{fontSize:11,color:"#94a3b8"},children:t.duration})]}),e.jsxs("div",{style:{fontSize:20,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.3px"},children:[t.icon," ",t.title]}),e.jsx("div",{style:{fontSize:13,color:"#94a3b8"},children:t.subtitle})]}),e.jsx("span",{style:{fontSize:18,color:"#94a3b8",transition:"transform 0.3s",transform:Ie===t.level?"rotate(180deg)":"rotate(0)",flexShrink:0},children:"▼"})]}),Ie===t.level&&e.jsxs("div",{style:{borderTop:"1px solid rgba(255,255,255,0.06)",paddingTop:16},children:[e.jsx("div",{style:{fontSize:12,fontWeight:700,color:"#94a3b8",marginBottom:12,textTransform:"uppercase",letterSpacing:"0.5px"},children:"Skills to Master"}),e.jsx("div",{style:{display:"flex",flexDirection:"column",gap:8,marginBottom:16},children:t.skills.map((s,o)=>e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:10},children:[e.jsx("div",{style:{width:8,height:8,borderRadius:"50%",background:t.color,flexShrink:0}}),e.jsx("span",{style:{fontSize:14,color:"#cbd5e1"},children:s.name}),e.jsx("button",{onClick:a=>{a.stopPropagation();const c=P.find(C=>C.id===s.topic);c&&Le(c)},style:{background:t.color+"12",color:t.color,border:"none",padding:"2px 10px",borderRadius:980,fontSize:11,fontWeight:600,cursor:"pointer",fontFamily:"inherit",marginLeft:"auto",flexShrink:0},children:"Study →"})]},o))}),e.jsxs("div",{style:{background:`${t.color}08`,borderRadius:12,padding:"14px 18px",border:`1px solid ${t.color}15`},children:[e.jsx("div",{style:{fontSize:12,fontWeight:700,color:t.color,marginBottom:4},children:"🎯 MILESTONE"}),e.jsx("div",{style:{fontSize:13,color:"#cbd5e1",lineHeight:1.6},children:t.milestone})]})]})]})]},t.level))]})})]}),u==="about"&&e.jsxs("div",{children:[e.jsxs("div",{style:i.pageHero,children:[e.jsx("h1",{style:i.pageHeroTitle,children:"About"}),e.jsx("p",{style:i.pageHeroSub,children:"The story behind MainframeStudyHub"})]}),e.jsxs("div",{style:{...i.inner,paddingBottom:80,maxWidth:800},children:[e.jsxs("div",{className:"content-card fi",style:{marginBottom:32},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:14,marginBottom:28},children:[e.jsx("div",{style:{width:56,height:56,borderRadius:16,background:"linear-gradient(135deg,#0071e3,#7c3aed)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,flexShrink:0},children:"🎯"}),e.jsxs("div",{children:[e.jsx("h2",{style:{fontSize:24,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.5px"},children:"About This Platform"}),e.jsx("p",{style:{fontSize:14,color:"#94a3b8"},children:"Built with passion for the Mainframe community"})]})]}),e.jsxs("div",{style:{fontSize:15,color:"#cbd5e1",lineHeight:1.85},children:[e.jsxs("p",{style:{marginBottom:18},children:["Welcome to this dedicated learning space built for the ",e.jsx("strong",{style:{color:"#f1f5f9"},children:"Mainframe community"}),"."]}),e.jsxs("p",{style:{marginBottom:18},children:["I created this website with a simple mission — to bring together all essential Mainframe concepts in one place and make learning ",e.jsx("strong",{style:{color:"#f1f5f9"},children:"easier, structured, and practical"}),". As someone deeply interested in Mainframe technologies and real-world development practices, I wanted to build a platform that helps beginners and experienced professionals strengthen their fundamentals and prepare confidently for interviews and projects."]}),e.jsxs("p",{style:{marginBottom:18},children:["My growing interest in modern development approaches and ",e.jsx("em",{children:'"vibe coding"'})," inspired me to design and develop this site in a clean, focused, and user-friendly way. This platform reflects both my passion for Mainframe technology and my curiosity for building efficient digital learning experiences."]}),e.jsxs("p",{style:{marginBottom:18},children:["I will be truly happy to see learners use this site effectively for their ",e.jsx("strong",{style:{color:"#f1f5f9"},children:"study purposes, career growth, and skill enhancement"}),". If this platform helps even one person gain clarity in COBOL, JCL, DB2, CICS, or overall Mainframe concepts — it fulfills its purpose."]}),e.jsx("p",{style:{fontSize:17,fontWeight:700,color:"#0071e3",fontStyle:"italic"},children:"Let's grow and learn together. 🚀"})]})]}),e.jsxs("div",{className:"content-card fi",style:{marginBottom:32,animationDelay:"0.1s"},children:[e.jsx("h3",{style:{fontSize:20,fontWeight:800,color:"#f1f5f9",marginBottom:20,letterSpacing:"-0.3px"},children:"What You'll Find Here"}),e.jsx("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))",gap:14},children:[["📚","15 Topics","Comprehensive coverage from z/OS to Modernization"],["🧠","200 Quiz Questions","Test your knowledge across all mainframe domains"],["🎯","Real Scenarios","Practice with production-like interview scenarios"],["💬","Community Q&A","Ask questions and share knowledge with peers"],["📰","Expert Blogs","Insights from experienced mainframe professionals"],["🤖","AI Assistant","Get instant help with mainframe concepts and debugging"]].map(([t,n,s],o)=>e.jsxs("div",{style:{background:"rgba(30,41,59,0.6)",borderRadius:14,padding:"18px 16px",border:"1px solid rgba(255,255,255,0.06)"},children:[e.jsx("div",{style:{fontSize:24,marginBottom:8},children:t}),e.jsx("div",{style:{fontSize:14,fontWeight:700,color:"#f1f5f9",marginBottom:4},children:n}),e.jsx("div",{style:{fontSize:12,color:"#94a3b8",lineHeight:1.5},children:s})]},o))})]}),e.jsxs("div",{className:"content-card fi",style:{animationDelay:"0.2s"},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:8,marginBottom:24},children:[e.jsx("div",{style:{width:4,height:28,borderRadius:4,background:"linear-gradient(135deg,#0071e3,#7c3aed)"}}),e.jsx("h3",{style:{fontSize:20,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.3px"},children:"Meet the Founder"})]}),e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:24,flexWrap:"wrap"},children:[e.jsxs("div",{style:{position:"relative",flexShrink:0},children:[e.jsx("div",{style:{position:"absolute",inset:-4,borderRadius:"50%",background:"conic-gradient(#0071e3, #7c3aed, #00b365, #0071e3)",animation:"spin 4s linear infinite",opacity:.7}}),e.jsx("img",{src:"/founder.jpg",alt:"Harikrishnan K",style:{width:90,height:90,borderRadius:"50%",objectFit:"cover",border:"3px solid #fff",position:"relative",zIndex:1,boxShadow:"0 8px 24px rgba(0,113,227,0.25)"}})]}),e.jsxs("div",{style:{flex:1,minWidth:200},children:[e.jsx("div",{style:{fontSize:24,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.5px",marginBottom:2},children:"Harikrishnan K"}),e.jsx("div",{style:{fontSize:14,color:"#94a3b8",marginBottom:10},children:"Founder & Creator of MainframeStudyHub"}),e.jsx("div",{style:{display:"inline-flex",alignItems:"center",gap:6,background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",padding:"5px 14px",borderRadius:980,fontSize:12,fontWeight:700,marginBottom:14},children:"🖥️ Mainframe Developer"}),e.jsxs("div",{style:{display:"flex",gap:10,flexWrap:"wrap"},children:[e.jsx("a",{href:"mailto:harikrish17642@gmail.com",style:{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(30,41,59,0.8)",color:"#cbd5e1",padding:"8px 14px",borderRadius:10,fontSize:12,fontWeight:600,textDecoration:"none",border:"1px solid rgba(255,255,255,0.06)",transition:"all 0.2s"},children:"📧 Email"}),e.jsxs("a",{href:"https://www.linkedin.com/in/harikrishnan-k-4560241a2",target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:6,background:"#0A66C2",color:"#fff",padding:"8px 14px",borderRadius:10,fontSize:12,fontWeight:700,textDecoration:"none",transition:"all 0.2s"},children:[e.jsx("svg",{width:"14",height:"14",viewBox:"0 0 24 24",fill:"white",children:e.jsx("path",{d:"M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"})}),"LinkedIn"]})]})]})]}),e.jsx("div",{style:{marginTop:24,padding:"18px 22px",background:"linear-gradient(135deg,rgba(0,113,227,0.08),rgba(124,58,237,0.04))",borderRadius:14,border:"1px solid rgba(0,113,227,0.08)"},children:e.jsx("p",{style:{fontSize:13.5,color:"#94a3b8",lineHeight:1.7,margin:0},children:"Passionate about making mainframe knowledge accessible to everyone. Built MainframeStudyHub to bridge the gap between experienced professionals and newcomers entering the IBM Z world. Have suggestions or want to contribute? I'd love to connect!"})})]})]})]})]}),dt>0&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:2400,background:"rgba(0,0,0,0.5)",backdropFilter:"blur(12px)",display:"flex",alignItems:"center",justifyContent:"center",animation:"fadeIn 0.4s ease"},onClick:()=>ee(0),children:e.jsxs("div",{onClick:t=>t.stopPropagation(),style:{background:"#111827",borderRadius:24,overflow:"hidden",width:420,maxWidth:"92vw",boxShadow:"0 30px 80px rgba(0,0,0,0.25)",animation:"popIn 0.5s cubic-bezier(0.16,1,0.3,1)"},children:[dt===1&&e.jsxs("div",{children:[e.jsxs("div",{style:{position:"relative",height:180,background:"linear-gradient(135deg, #0a1628, #0d2040)",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"},children:[e.jsx(He,{style:{opacity:.5}}),e.jsxs("div",{style:{position:"relative",zIndex:2,textAlign:"center"},children:[e.jsx("div",{style:{fontSize:56,marginBottom:8,animation:"popIn 0.6s ease 0.2s both"},children:"🖥️"}),e.jsxs("h2",{style:{margin:0,fontSize:26,fontWeight:800,color:"#fff",letterSpacing:"-0.5px",animation:"popIn 0.6s ease 0.3s both"},children:["Welcome to the",e.jsx("br",{}),e.jsx("span",{style:{background:"linear-gradient(135deg,#58a6ff,#0071e3)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"},children:"Mainframe World"})]})]})]}),e.jsxs("div",{style:{padding:"24px 28px 28px",textAlign:"center"},children:[e.jsx("p",{style:{fontSize:15,color:"#94a3b8",lineHeight:1.6,marginBottom:20},children:"The most comprehensive IBM Z learning platform. Master JCL, COBOL, DB2, CICS and more — from beginner to architect."}),e.jsx("div",{style:{display:"flex",gap:8,flexWrap:"wrap",justifyContent:"center",marginBottom:24},children:["📚 15+ Topics","🧠 Quiz","🎯 Scenarios","🔍 Abend Solver","💬 Community","🗺️ Roadmap"].map((t,n)=>e.jsx("span",{style:{padding:"4px 12px",borderRadius:16,fontSize:12,background:"rgba(0,113,227,0.12)",color:"#0071e3",border:"1px solid rgba(0,113,227,0.2)"},children:t},n))}),e.jsx("button",{onClick:()=>ee(0),style:{width:"100%",padding:"14px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:16,fontWeight:700,cursor:"pointer",fontFamily:E,boxShadow:"0 4px 16px rgba(0,113,227,0.3)"},children:"Start Exploring →"})]})]}),dt===2&&e.jsxs("div",{children:[e.jsx("div",{style:{position:"relative",height:140,background:"linear-gradient(135deg, #1a0a38, #2d1060)",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"},children:e.jsxs("div",{style:{position:"relative",zIndex:2,textAlign:"center"},children:[e.jsx("div",{style:{fontSize:48,marginBottom:6},children:"🔐"}),e.jsx("h2",{style:{margin:0,fontSize:22,fontWeight:800,color:"#fff"},children:"Create Your Account"})]})}),e.jsxs("div",{style:{padding:"20px 28px 28px",textAlign:"center"},children:[e.jsx("p",{style:{fontSize:14,color:"#94a3b8",lineHeight:1.6,marginBottom:20},children:"Sign in to save progress, post in Q&A, get personalized recommendations, and track your learning journey."}),e.jsxs("div",{style:{display:"flex",gap:10},children:[e.jsx("button",{onClick:()=>ee(0),style:{flex:1,padding:"12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"transparent",color:"#94a3b8",cursor:"pointer",fontSize:14,fontFamily:E},children:"Maybe Later"}),e.jsx("button",{onClick:()=>{ee(0),L("signup"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})},style:{flex:1,padding:"12px",borderRadius:12,border:"none",background:"linear-gradient(135deg,#7c3aed,#0071e3)",color:"#fff",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:E},children:"Sign Up Free"})]})]})]}),dt===3&&e.jsxs("div",{children:[e.jsxs("div",{style:{position:"relative",height:160,background:"linear-gradient(135deg, #0a1628, #0d2040)",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"},children:[e.jsx(He,{style:{opacity:.4}}),e.jsxs("div",{style:{position:"relative",zIndex:2,textAlign:"center"},children:[e.jsx("div",{style:{display:"flex",justifyContent:"center",marginBottom:10},children:B.slice(0,5).map((t,n)=>e.jsx("div",{style:{width:32,height:32,borderRadius:"50%",background:`${t.color}25`,border:`2px solid ${t.color}40`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,marginLeft:n>0?-6:0,zIndex:5-n},children:t.emoji},n))}),e.jsxs("h2",{style:{margin:0,fontSize:22,fontWeight:800,color:"#fff"},children:["Join the ",e.jsx("span",{style:{color:"#58a6ff"},children:"Community"})]})]})]}),e.jsxs("div",{style:{padding:"20px 28px 28px",textAlign:"center"},children:[e.jsxs("p",{style:{fontSize:14,color:"#94a3b8",lineHeight:1.6,marginBottom:20},children:[B.length,"+ mainframe professionals are chatting right now. Share knowledge, find jobs, solve doubts in real-time!"]}),e.jsxs("div",{style:{display:"flex",gap:10},children:[e.jsx("button",{onClick:()=>ee(0),style:{flex:1,padding:"12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"transparent",color:"#94a3b8",cursor:"pointer",fontSize:14,fontFamily:E},children:"Later"}),e.jsx("button",{onClick:()=>{ee(0),ae(!0),re(0)},style:{flex:1,padding:"12px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:E},children:"Join Community"})]})]})]})]})}),so&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:9999,background:"rgba(0,0,0,0.45)",backdropFilter:"blur(10px)",display:"flex",alignItems:"center",justifyContent:"center",animation:"fadeIn 0.3s ease"},onClick:()=>ct(!1),children:e.jsx("div",{onClick:t=>t.stopPropagation(),className:"scaleIn",style:{background:"rgba(17,24,39,0.98)",backdropFilter:"blur(20px)",borderRadius:24,padding:"36px 32px",maxWidth:440,width:"90%",boxShadow:"0 24px 80px rgba(0,0,0,0.2)",border:"1px solid rgba(255,255,255,0.08)"},children:io?e.jsxs("div",{style:{textAlign:"center",padding:"20px 0"},children:[e.jsx("div",{style:{fontSize:56,marginBottom:12},children:"🎉"}),e.jsx("h3",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9",marginBottom:8},children:"Thank You!"}),e.jsx("p",{style:{fontSize:14,color:"#94a3b8"},children:"Your feedback helps us improve."})]}):e.jsxs(e.Fragment,{children:[e.jsxs("div",{style:{textAlign:"center",marginBottom:20},children:[e.jsx("div",{style:{fontSize:40,marginBottom:8},children:"💬"}),e.jsx("h3",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.5px",marginBottom:4},children:"How's your experience?"}),e.jsx("p",{style:{fontSize:13,color:"#94a3b8"},children:"We'd love your feedback to make MainframeStudyHub even better"})]}),e.jsx("div",{style:{display:"flex",justifyContent:"center",gap:8,marginBottom:20},children:[1,2,3,4,5].map(t=>e.jsx("button",{onClick:()=>St({...F,rating:t}),style:{background:"none",border:"none",fontSize:32,cursor:"pointer",transform:F.rating>=t?"scale(1.15)":"scale(1)",filter:F.rating>=t?"none":"grayscale(1) opacity(0.4)",transition:"all 0.15s ease"},children:"⭐"},t))}),e.jsx("textarea",{value:F.message,onChange:t=>St({...F,message:t.target.value}),"aria-label":"Feedback message",placeholder:"What do you like? What can we improve? Any features you'd love to see?",rows:3,style:{...J,resize:"vertical",minHeight:72}}),!S&&e.jsxs("div",{style:{display:"flex",gap:8},children:[e.jsx("input",{value:F.name,onChange:t=>St({...F,name:t.target.value}),"aria-label":"Your name",placeholder:"Name (optional)",style:{...J,flex:1}}),e.jsx("input",{value:F.email,onChange:t=>St({...F,email:t.target.value}),"aria-label":"Your email",placeholder:"Email (optional)",style:{...J,flex:1}})]}),e.jsxs("div",{style:{display:"flex",gap:10},children:[e.jsx("button",{onClick:()=>{ct(!1),localStorage.setItem("mfsh_feedback_done","1")},style:{flex:1,padding:"12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"transparent",color:"#94a3b8",cursor:"pointer",fontSize:14,fontFamily:E},children:"Maybe Later"}),e.jsx("button",{onClick:ro,disabled:Jn||!F.message.trim(),style:{flex:1,padding:"12px",borderRadius:12,border:"none",background:F.message.trim()?"linear-gradient(135deg,#0071e3,#7c3aed)":"#d1d1d6",color:"#fff",fontSize:14,fontWeight:700,cursor:F.message.trim()?"pointer":"default",fontFamily:E},children:Jn?"Sending...":"Submit Feedback"})]})]})})}),Kt&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:2500,background:"rgba(0,0,0,0.5)",backdropFilter:"blur(10px)",display:"flex",alignItems:"center",justifyContent:"center"},onClick:()=>ae(!1),children:e.jsxs("div",{onClick:t=>t.stopPropagation(),style:{width:420,maxWidth:"92vw",background:"#111827",borderRadius:24,overflow:"hidden",boxShadow:"0 30px 80px rgba(0,0,0,0.2)",transform:oe>=1?"scale(1) translateY(0)":"scale(0.85) translateY(30px)",opacity:oe>=1?1:0,transition:"all 0.5s cubic-bezier(0.16,1,0.3,1)"},children:[e.jsxs("div",{style:{position:"relative",height:150,background:"linear-gradient(135deg,#0a1628,#0d2040)",overflow:"hidden"},children:[e.jsx(He,{style:{opacity:.6}}),e.jsxs("div",{style:{position:"relative",zIndex:2,padding:"26px 26px 0",textAlign:"center"},children:[e.jsxs("div",{style:{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(0,179,101,0.15)",border:"1px solid rgba(0,179,101,0.3)",borderRadius:20,padding:"4px 12px",marginBottom:10,opacity:oe>=2?1:0,transition:"opacity 0.4s ease 0.1s"},children:[e.jsx("span",{style:{width:7,height:7,borderRadius:"50%",background:"#00b365",boxShadow:"0 0 6px #00b365"}}),e.jsxs("span",{style:{fontSize:12,color:"#00b365",fontWeight:600},children:[we," online"]})]}),e.jsxs("h3",{style:{margin:0,fontSize:20,fontWeight:800,color:"#fff",letterSpacing:"-0.5px",opacity:oe>=2?1:0,transform:oe>=2?"translateY(0)":"translateY(10px)",transition:"all 0.4s ease 0.2s"},children:["MainframeStudyHub ",e.jsx("span",{style:{color:"#58a6ff"},children:"Community"})]})]})]}),e.jsx("div",{style:{padding:"16px 26px 6px",display:"flex",gap:6,flexWrap:"wrap",justifyContent:"center",opacity:oe>=2?1:0,transition:"opacity 0.4s ease 0.3s"},children:["💬 Chat","💼 Jobs","❓ Doubts","💭 Ideas","📊 Polls"].map((t,n)=>e.jsx("span",{style:{padding:"4px 10px",borderRadius:16,fontSize:11,background:"#1e293b",color:"#94a3b8",border:"1px solid rgba(255,255,255,0.08)"},children:t},n))}),e.jsxs("div",{style:{padding:"14px 26px",display:"flex",justifyContent:"center",opacity:oe>=3?1:0,transition:"opacity 0.4s ease 0.35s"},children:[B.slice(0,6).map((t,n)=>e.jsx("div",{style:{width:32,height:32,borderRadius:"50%",background:`${t.color}15`,border:`2px solid ${t.color}40`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,marginLeft:n>0?-6:0,zIndex:6-n},children:t.emoji},n)),e.jsxs("div",{style:{width:32,height:32,borderRadius:"50%",background:"rgba(0,113,227,0.15)",border:"2px solid #c0d8ff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:"#0071e3",fontWeight:700,marginLeft:-6},children:["+",Math.max(0,B.length-6)]})]}),e.jsxs("div",{style:{padding:"0 26px 26px",opacity:oe>=3?1:0,transform:oe>=3?"translateY(0)":"translateY(10px)",transition:"all 0.4s ease 0.4s"},children:[e.jsx("button",{onClick:()=>{ae(!1),ee(0),L("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})},style:{width:"100%",padding:"13px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:E,boxShadow:"0 4px 16px rgba(0,113,227,0.25)"},children:"Sign In →"}),e.jsx("p",{style:{fontSize:11,color:"#94a3b8",marginTop:8,textAlign:"center"},children:"New here? Create a free account"}),e.jsx("button",{onClick:Wn,style:{width:"100%",padding:"13px",borderRadius:12,border:"none",background:"linear-gradient(135deg,#7c3aed,#0071e3)",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:E,boxShadow:"0 4px 16px rgba(0,113,227,0.25)"},children:"Join Community →"})]})]})}),e.jsx("button",{className:"chat-fab",onClick:()=>Tn(t=>!t),style:{position:"fixed",bottom:24,right:24,zIndex:3e3,width:60,height:60,borderRadius:"50%",border:"none",cursor:"pointer",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",fontSize:26,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 6px 24px rgba(124,58,237,0.35)"},children:mn?"✕":"🤖"}),mn&&e.jsxs("div",{className:Y?"":"chat-window",style:Y?{position:"fixed",inset:0,zIndex:3001,background:"rgba(17,24,39,0.99)",backdropFilter:"blur(24px)",display:"flex",flexDirection:"column",overflow:"hidden"}:{position:"fixed",bottom:96,right:24,zIndex:3e3,width:400,maxWidth:"calc(100vw - 32px)",height:560,maxHeight:"calc(100vh - 140px)",background:"rgba(8,11,22,0.97)",backdropFilter:"blur(24px)",WebkitBackdropFilter:"blur(24px)",borderRadius:24,boxShadow:"0 20px 60px rgba(0,0,0,0.2),0 0 0 1px rgba(0,0,0,0.05)",display:"flex",flexDirection:"column",overflow:"hidden"},children:[e.jsx("div",{style:{padding:Y?"16px 24px":"18px 22px",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",flexShrink:0},children:e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:12},children:[e.jsx("div",{style:{width:38,height:38,borderRadius:12,background:"rgba(255,255,255,0.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22},children:"🤖"}),e.jsxs("div",{style:{flex:1},children:[e.jsx("div",{style:{fontSize:Y?18:16,fontWeight:700},children:"MainframeStudyHub AI"}),e.jsx("div",{style:{fontSize:11,opacity:.85},children:"Your mainframe learning companion"})]}),e.jsxs("div",{style:{display:"flex",gap:6,alignItems:"center"},children:[e.jsx("button",{onClick:()=>Dn(t=>!t),title:Y?"Minimize":"Maximize",style:{background:"rgba(255,255,255,0.15)",border:"none",color:"#fff",borderRadius:8,padding:"4px 10px",cursor:"pointer",fontSize:13,fontFamily:E,fontWeight:600},children:Y?"⊖":"⊕"}),e.jsx("button",{onClick:()=>{tt([xe[0]])},style:{background:"rgba(255,255,255,0.15)",border:"none",color:"#fff",borderRadius:8,padding:"4px 10px",cursor:"pointer",fontSize:11,fontFamily:E,fontWeight:600},children:"Clear"}),Y&&e.jsx("button",{onClick:()=>{Dn(!1),Tn(!1)},style:{background:"rgba(255,255,255,0.15)",border:"none",color:"#fff",borderRadius:8,padding:"4px 10px",cursor:"pointer",fontSize:13,fontFamily:E,fontWeight:600},children:"✕"})]})]})}),e.jsxs("div",{style:{flex:1,overflowY:"auto",padding:Y?"24px 0":"16px 18px",display:"flex",flexDirection:"column",gap:12,...Y?{maxWidth:720,margin:"0 auto",width:"100%",paddingLeft:24,paddingRight:24}:{}},children:[xe.map((t,n)=>e.jsxs("div",{className:n>0?"chat-msg-enter":"",style:{display:"flex",gap:10,flexDirection:t.role==="user"?"row-reverse":"row",animationDelay:`${Math.min(n,3)*80}ms`},children:[t.role==="assistant"&&e.jsx("div",{style:{width:30,height:30,borderRadius:10,background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0},children:"🤖"}),e.jsx("div",{style:{maxWidth:Y?"90%":"82%",padding:Y?"16px 20px":"12px 16px",borderRadius:t.role==="user"?"18px 18px 4px 18px":"18px 18px 18px 4px",background:t.role==="user"?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(30,41,59,0.9)",color:t.role==="user"?"#fff":"#e2e8f0",fontSize:Y?15:13.5,lineHeight:1.7,border:t.role==="user"?"none":"1px solid rgba(255,255,255,0.06)"},children:Fa(t.content)}),t.role==="user"&&S&&e.jsx(We,{name:S.name,size:30})]},n)),xt&&e.jsxs("div",{style:{display:"flex",gap:10},children:[e.jsx("div",{style:{width:30,height:30,borderRadius:10,background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0},children:"🤖"}),e.jsx("div",{style:{padding:"14px 20px",background:"rgba(30,41,59,0.9)",borderRadius:"18px 18px 18px 4px",display:"flex",gap:6,alignItems:"center",border:"1px solid rgba(255,255,255,0.06)"},children:[0,1,2].map(t=>e.jsx("div",{style:{width:8,height:8,borderRadius:"50%",background:"#7c3aed",animation:"dotPulse 1.2s ease infinite",animationDelay:`${t*.2}s`}},t))})]}),e.jsx("div",{ref:An})]}),xe.length<=2&&e.jsx("div",{style:{padding:"0 18px 8px",display:"flex",gap:6,flexWrap:"wrap"},children:["What causes S0C7 and how to fix it?","Write JCL to sort a file by column 1-10","Explain CICS pseudo-conversational","DB2 performance tuning tips","COBOL COMP-3 vs COMP","How to debug a production abend","Mainframe career path & salary","What is Zowe?"].map(t=>e.jsx("button",{onClick:()=>{Ut(t)},style:{fontSize:11,padding:"5px 10px",borderRadius:980,border:"1px solid rgba(255,255,255,0.08)",background:"rgba(17,24,39,0.8)",color:"#cbd5e1",cursor:"pointer",fontFamily:E,fontWeight:500,transition:"all 0.15s"},onMouseOver:n=>n.currentTarget.style.background="rgba(0,113,227,0.1)",onMouseOut:n=>n.currentTarget.style.background="rgba(30,41,59,0.8)",children:t},t))}),e.jsxs("div",{style:{padding:Y?"16px 24px":"12px 16px",borderTop:"1px solid rgba(255,255,255,0.06)",background:"rgba(17,24,39,0.9)",flexShrink:0,...Y?{maxWidth:720,margin:"0 auto",width:"100%"}:{}},children:[e.jsxs("div",{style:{display:"flex",gap:8},children:[e.jsx("input",{className:"chat-input",value:ce,onChange:t=>Ut(t.target.value),"aria-label":"Ask about mainframes",placeholder:"Ask about mainframes...",onKeyDown:t=>{t.key==="Enter"&&!t.shiftKey&&(t.preventDefault(),Rn())},style:{flex:1,padding:Y?"14px 18px":"10px 14px",fontSize:Y?16:14,border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:14,outline:"none",fontFamily:E,background:"rgba(30,41,59,0.6)",color:"#f1f5f9",transition:"all 0.2s"}}),e.jsx("button",{onClick:Rn,disabled:xt||!ce.trim(),style:{width:42,height:42,borderRadius:14,border:"none",cursor:ce.trim()?"pointer":"default",background:ce.trim()?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(30,41,59,0.8)",color:ce.trim()?"#fff":"#64748b",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.2s",flexShrink:0},children:"↑"})]}),e.jsx("div",{style:{fontSize:10,color:"#b0b0b6",textAlign:"center",marginTop:6},children:"AI assistant for mainframe learning · Powered by Claude"})]})]}),e.jsx("footer",{style:{borderTop:"1px solid rgba(255,255,255,0.06)",background:"rgba(17,24,39,0.6)",backdropFilter:"blur(20px)",padding:"28px 0"},children:e.jsxs("div",{style:{...i.inner,display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12},children:[e.jsxs("span",{style:{fontSize:12,color:"#94a3b8",display:"flex",alignItems:"center",gap:6},children:[e.jsx("img",{src:"/favicon.svg",alt:"",style:{width:16,height:16,borderRadius:3}})," MainframeStudyHub Hub — The complete IBM Z knowledge platform. A to Z, Beginner to Professional."]}),e.jsx("div",{style:{display:"flex",gap:16,flexWrap:"wrap"},children:[["home","Overview"],["topics","Topics"],["scenarios","Scenarios"],["blog","Blog"],["quiz","Quiz"],["community","Community"],["weekly","Weekly"]].map(([t,n])=>e.jsx("button",{onClick:()=>j(t),style:{background:"none",border:"none",color:"#94a3b8",fontSize:12,cursor:"pointer",fontFamily:E},children:n},t))})]})})]})}const J={width:"100%",padding:"12px 14px",fontSize:14,border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:10,outline:"none",fontFamily:E,background:"rgba(30,41,59,0.8)",marginBottom:12,color:"#f1f5f9",transition:"border-color 0.2s"},i={root:{fontFamily:E,background:"transparent",color:"#e2e8f0",minHeight:"100vh",overflowX:"hidden"},nav:{position:"fixed",top:0,left:0,right:0,zIndex:1e3,height:52,transition:"background .3s,box-shadow .3s",background:"rgba(8,11,22,0.85)",backdropFilter:"blur(20px)",borderBottom:"1px solid rgba(255,255,255,0.06)"},navInner:{maxWidth:1200,margin:"0 auto",padding:"0 24px",height:52,display:"flex",alignItems:"center"},navLogo:{display:"flex",alignItems:"center",gap:8,background:"none",border:"none",cursor:"pointer",color:"#f1f5f9",fontFamily:E},navLinks:{display:"flex",gap:0,marginLeft:"auto",overflowX:"auto",overflowY:"hidden",WebkitOverflowScrolling:"touch",scrollbarWidth:"none",msOverflowStyle:"none",maxWidth:"calc(100vw - 200px)",flexShrink:1},navLink:{background:"none",border:"none",cursor:"pointer",fontSize:13,padding:"6px 11px",borderRadius:6,fontFamily:E,transition:"color .2s",whiteSpace:"nowrap",flexShrink:0},hamburger:{display:"flex",flexDirection:"column",background:"none",border:"none",cursor:"pointer",padding:"8px",marginLeft:"auto"},drawer:{position:"fixed",top:0,left:0,right:0,background:"rgba(8,11,22,0.97)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",zIndex:999,padding:"8px 0 24px",boxShadow:"0 8px 30px rgba(0,0,0,0.1)",maxHeight:"90vh",overflowY:"auto"},drawerLink:{display:"block",width:"100%",textAlign:"left",padding:"12px 24px",background:"none",border:"none",fontSize:17,fontWeight:500,cursor:"pointer",fontFamily:E,color:"#e2e8f0"},drawerTopicLink:{display:"block",width:"100%",textAlign:"left",padding:"9px 24px",background:"none",border:"none",fontSize:14,color:"#f1f5f9",cursor:"pointer",fontFamily:E},heroInner:{maxWidth:720,margin:"0 auto",padding:"0 24px"},btnBlue:{background:"#0071e3",color:"#fff",border:"none",borderRadius:980,padding:"12px 24px",fontSize:15,fontWeight:600,cursor:"pointer",fontFamily:E},btnGhost:{background:"transparent",color:"#0071e3",border:"1.5px solid #0071e3",borderRadius:980,padding:"12px 24px",fontSize:15,fontWeight:600,cursor:"pointer",fontFamily:E},section:{padding:"72px 0"},inner:{maxWidth:1200,margin:"0 auto",padding:"0 24px"},sectionTitle:{fontSize:"clamp(26px,4vw,44px)",fontWeight:800,letterSpacing:"-1.5px",color:"#f1f5f9",marginBottom:36},topicsGrid:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(185px,1fr))",gap:14},topicCard:{background:"rgba(17,24,39,0.8)",borderRadius:16,border:"1px solid rgba(255,255,255,0.08)",padding:"20px 18px",cursor:"pointer",textAlign:"left",boxShadow:"0 2px 16px rgba(0,0,0,0.3)",backdropFilter:"blur(12px)",transition:"transform 0.3s ease,box-shadow 0.3s ease"},tcTitle:{fontSize:16,fontWeight:700,color:"#f1f5f9",marginBottom:4},tcSub:{fontSize:12,color:"#94a3b8",marginBottom:6,lineHeight:1.4},tcMore:{fontSize:13,fontWeight:600},featureCard:{background:"rgba(17,24,39,0.8)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:20,padding:"32px 28px",cursor:"pointer",textAlign:"left",boxShadow:"0 4px 20px rgba(0,0,0,0.3)",backdropFilter:"blur(12px)",transition:"transform 0.3s ease,box-shadow 0.3s ease"},fcTitle:{fontSize:20,fontWeight:700,color:"#f1f5f9",marginBottom:10},fcDesc:{fontSize:14,color:"#94a3b8",lineHeight:1.6},pageHero:{padding:"64px 24px 36px",maxWidth:1200,margin:"0 auto"},pageHeroTitle:{fontSize:"clamp(34px,5vw,60px)",fontWeight:800,letterSpacing:"-2px",color:"#f1f5f9",marginBottom:12},pageHeroSub:{fontSize:18,color:"#94a3b8",fontWeight:400,maxWidth:620},searchInput:{background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:8,padding:"8px 12px 8px 32px",fontSize:14,color:"#e2e8f0",outline:"none",fontFamily:E,width:220},pill:{border:"none",borderRadius:980,padding:"6px 14px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:E,transition:"all .15s"},backBtn:{background:"none",border:"none",color:"#60a5fa",cursor:"pointer",fontSize:15,fontFamily:E,marginBottom:20,padding:0},contentPre:{fontSize:15.5,color:"#cbd5e1",lineHeight:2.05,whiteSpace:"pre-wrap",fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif",letterSpacing:"-.15px",wordSpacing:"0.5px"},codeWrap:{borderRadius:14,overflow:"hidden",border:"1.5px solid rgba(255,255,255,0.1)",background:"#1c1c1e",marginTop:20},codeTopBar:{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 16px",background:"#2c2c2e"},codePre:{padding:"22px",margin:0,fontSize:13,lineHeight:1.85,overflowX:"auto",fontFamily:ut},prevNextBtn:{background:"rgba(17,24,39,0.6)",border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:12,padding:"14px 18px",cursor:"pointer",textAlign:"left",fontFamily:E,color:"#f1f5f9",flex:"0 0 auto",maxWidth:260},diffBadge:{fontSize:11,fontWeight:600,padding:"3px 10px",borderRadius:980},blogCard:{background:"rgba(17,24,39,0.8)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:18,padding:"24px",cursor:"pointer",textAlign:"left",boxShadow:"0 2px 16px rgba(0,0,0,0.3)",backdropFilter:"blur(12px)"}};class es extends De.Component{constructor(T){super(T),this.state={error:null}}static getDerivedStateFromError(T){return{error:T}}render(){return this.state.error?De.createElement("div",{style:{padding:40,fontFamily:"system-ui",textAlign:"center"}},De.createElement("h1",{style:{color:"#e74c3c"}},"Something went wrong"),De.createElement("pre",{style:{background:"#f5f5f5",padding:20,borderRadius:12,textAlign:"left",overflow:"auto",maxWidth:600,margin:"20px auto",fontSize:13}},this.state.error.toString()),De.createElement("button",{onClick:()=>{this.setState({error:null}),window.location.reload()},style:{background:"#0071e3",color:"#fff",border:"none",borderRadius:8,padding:"10px 24px",cursor:"pointer",fontSize:15,marginTop:16}},"Reload")):this.props.children}}_t.createRoot(document.getElementById("root")).render(De.createElement(es,null,De.createElement($o)));export{e as j};
-//# sourceMappingURL=index-BdHkewhp.js.map
+ORDER BY AVG_SALARY DESC;`]].map(([t,a,s])=>e.jsx("button",{onClick:()=>{Ha(t),lt(s),Le(null)},style:{padding:"4px 12px",borderRadius:8,border:"1px solid rgba(255,255,255,0.08)",background:"#0f172a",color:"#94a3b8",fontSize:11,cursor:"pointer",fontFamily:d},children:a},a))]}),Xa&&e.jsxs("div",{style:{marginTop:24,borderRadius:16,border:"1px solid rgba(0,113,227,0.15)",background:"rgba(0,113,227,0.08)",padding:"24px 28px",animation:"fadeUp 0.3s ease"},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:8,marginBottom:16},children:[e.jsx("span",{style:{fontSize:20},children:$==="explain"?"💡":$==="errors"?"🔍":"▶️"}),e.jsx("span",{style:{fontSize:16,fontWeight:700,color:"#f1f5f9"},children:$==="explain"?"Code Explanation":$==="errors"?"Error Analysis":"Execution Simulation"})]}),e.jsx("div",{style:r.contentPre,children:Ra(Xa)})]}),ke&&e.jsxs("div",{style:{marginTop:24,textAlign:"center",padding:"40px 0"},children:[e.jsx("div",{style:{width:40,height:40,border:"3px solid rgba(255,255,255,0.12)",borderTop:"3px solid #0071e3",borderRadius:"50%",animation:"spin 1s linear infinite",margin:"0 auto 16px"}}),e.jsx("p",{style:{fontSize:14,color:"#94a3b8"},children:$==="explain"?"Analyzing your code line by line...":$==="errors"?"Checking for errors and bad practices...":"Simulating execution on z/OS..."})]})]})]}),u==="community"&&e.jsxs("div",{children:[e.jsxs("div",{style:r.pageHero,children:[e.jsx("h1",{style:r.pageHeroTitle,children:"💬 Community"}),e.jsx("p",{style:r.pageHeroSub,children:"Real-time group chat, job postings, doubt solving & Q&A — all in one place."}),e.jsxs("div",{style:{display:"flex",gap:8,marginTop:20},children:[e.jsx("button",{onClick:()=>ce("chat"),style:{padding:"10px 24px",borderRadius:980,border:k==="chat"||k===null?"none":"1.5px solid rgba(255,255,255,0.12)",background:k==="chat"||k===null?"#0071e3":"rgba(30,41,59,0.8)",color:k==="chat"||k===null?"#fff":"#94a3b8",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:d},children:"🖥️ Group Chat"}),e.jsx("button",{onClick:()=>ce("qa"),style:{padding:"10px 24px",borderRadius:980,border:k==="qa"?"none":"1.5px solid rgba(255,255,255,0.12)",background:k==="qa"?"#0071e3":"rgba(30,41,59,0.8)",color:k==="qa"?"#fff":"#94a3b8",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:d},children:"❓ Q&A Forum"})]})]}),(k==="chat"||k===null)&&e.jsx("div",{style:{maxWidth:900,margin:"0 auto",padding:"0 24px 80px"},children:xe?e.jsxs("div",{style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:20,overflow:"hidden",boxShadow:"0 4px 20px rgba(0,0,0,0.3)",height:"70vh",display:"flex"},children:[e.jsxs("div",{style:{width:Vt?260:0,minWidth:Vt?260:0,background:"#0f172a",borderRight:"1px solid rgba(255,255,255,0.12)",transition:"all 0.3s",overflow:"hidden",display:"flex",flexDirection:"column"},children:[e.jsxs("div",{style:{padding:"12px 16px",borderBottom:"1px solid rgba(255,255,255,0.06)",display:"flex",alignItems:"center",justifyContent:"space-between"},children:[e.jsxs("span",{style:{fontSize:13,fontWeight:700,color:"#f1f5f9"},children:["Members (",v.length,")"]}),e.jsxs("div",{style:{display:"flex",gap:6},children:[e.jsx("button",{onClick:()=>$n(),style:{background:"rgba(0,113,227,0.15)",border:"none",borderRadius:8,color:"#0071e3",padding:"3px 8px",cursor:"pointer",fontSize:11,fontWeight:600},children:"+ Add"}),e.jsx("button",{onClick:()=>ba(!1),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:14},"aria-label":"Close",children:"✕"})]})]}),e.jsx("div",{style:{flex:1,overflowY:"auto",padding:"4px 0"},children:v.map((t,a)=>e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:8,padding:"8px 16px"},children:[e.jsx(dn,{m:t,sz:30}),e.jsxs("div",{style:{flex:1,minWidth:0},children:[e.jsxs("div",{style:{fontSize:12,color:"#f1f5f9",fontWeight:600,display:"flex",alignItems:"center",gap:4},children:[t.name,a===0&&e.jsx("span",{style:{fontSize:9,background:"#e8f8f0",color:"#00b365",padding:"1px 5px",borderRadius:6},children:"Admin"}),a===_t&&e.jsx("span",{style:{fontSize:9,background:"rgba(0,113,227,0.15)",color:"#0071e3",padding:"1px 5px",borderRadius:6},children:"You"})]}),e.jsx("div",{style:{fontSize:10,color:"#94a3b8"},children:t.role})]}),a!==0&&a!==_t&&e.jsx("button",{onClick:()=>rt(s=>[...s,{id:eo.current++,sender:-1,type:W.SYS,text:`${t.name} was removed`,time:new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),reactions:{},del:!1}]),style:{background:"none",border:"none",color:"rgba(255,255,255,0.1)",cursor:"pointer",fontSize:12},onMouseEnter:s=>s.target.style.color="#e74c3c",onMouseLeave:s=>s.target.style.color="rgba(255,255,255,0.1)","aria-label":"Close",children:"✕"})]},a))})]}),e.jsxs("div",{style:{flex:1,display:"flex",flexDirection:"column",minWidth:0},children:[e.jsxs("div",{style:{padding:"10px 16px",background:"#111827",borderBottom:"1px solid rgba(255,255,255,0.06)",display:"flex",alignItems:"center",gap:10},children:[e.jsx("button",{onClick:()=>ba(!Vt),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16,padding:2},"aria-label":"Toggle menu",children:"☰"}),e.jsx("div",{style:{width:36,height:36,borderRadius:10,background:"linear-gradient(135deg,rgba(0,113,227,0.15),rgba(0,113,227,0.08))",border:"1px solid rgba(0,113,227,0.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18},children:"🖥️"}),e.jsxs("div",{style:{flex:1},children:[e.jsx("div",{style:{fontSize:14,fontWeight:700,color:"#f1f5f9"},children:"MainframeStudyHub"}),e.jsxs("div",{style:{fontSize:11,color:"#94a3b8"},children:[v.length," members • ",we," online"]})]}),e.jsx("button",{onClick:()=>{zn(!it),Fa("")},style:{background:it?"rgba(0,113,227,0.15)":"transparent",border:"none",borderRadius:6,color:it?"#60a5fa":"#94a3b8",cursor:"pointer",fontSize:14,padding:"4px 8px"},"aria-label":"Search",children:"🔍"}),e.jsx("button",{onClick:()=>Ba(!Te),"aria-label":"Toggle bookmarks",style:{background:Te?"rgba(212,160,23,0.15)":"transparent",border:"none",borderRadius:6,color:Te?"#d4a017":"#94a3b8",cursor:"pointer",fontSize:14,padding:"4px 8px"},children:Te?"⭐":"☆"})]}),it&&e.jsx("div",{style:{padding:"6px 16px",background:"#1e293b",borderBottom:"1px solid rgba(255,255,255,0.12)"},children:e.jsx("input",{value:zt,onChange:t=>Fa(t.target.value),placeholder:"Search messages...",autoFocus:!0,style:{width:"100%",boxSizing:"border-box",padding:"6px 12px",borderRadius:8,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",color:"#f1f5f9",fontSize:13,outline:"none",fontFamily:d}})}),Te&&e.jsxs("div",{style:{padding:"5px 16px",background:"rgba(251,191,36,0.15)",borderBottom:"1px solid #fde68a",fontSize:12,color:"#d4a017",display:"flex",alignItems:"center",gap:4},children:["⭐ Starred (",Jt.size,")",e.jsx("button",{onClick:()=>Ba(!1),style:{background:"none",border:"none",color:"#d4a017",cursor:"pointer",marginLeft:"auto",fontSize:12},children:"Show all"})]}),e.jsxs("div",{style:{flex:1,overflowY:"auto",padding:"12px 0",background:"#0f172a"},children:[ka.map(t=>e.jsx(Ko,{msg:t,members:v,self:_t,onReact:Qn,onReply:jt,onDel:qn,onStar:_n,starred:Jt.has(t.id)},t.id)),ka.length===0&&e.jsx("div",{style:{textAlign:"center",padding:40,color:"#94a3b8",fontSize:13},children:Te?"No starred messages":"No messages found"}),e.jsx("div",{ref:va})]}),he&&e.jsxs("div",{style:{padding:"6px 16px",background:"#1e293b",borderTop:"1px solid rgba(255,255,255,0.12)",display:"flex",alignItems:"center",gap:8},children:[e.jsx("div",{style:{width:3,height:24,borderRadius:2,background:v[he.sender]?.color||"#0071e3"}}),e.jsxs("div",{style:{flex:1,minWidth:0},children:[e.jsx("div",{style:{fontSize:11,color:v[he.sender]?.color,fontWeight:600},children:v[he.sender]?.name}),e.jsx("div",{style:{fontSize:11,color:"#94a3b8",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"},children:he.text})]}),e.jsx("button",{onClick:()=>jt(null),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:14},"aria-label":"Close",children:"✕"})]}),e.jsxs("div",{style:{padding:"8px 12px",background:"#111827",borderTop:"1px solid rgba(255,255,255,0.06)"},children:[e.jsx("div",{style:{display:"flex",gap:4,marginBottom:6},children:[{t:W.TEXT,i:"💬",l:"Message"},{t:W.JOB,i:"💼",l:"Job"},{t:W.DOUBT,i:"❓",l:"Doubt"},{t:W.THOUGHT,i:"💭",l:"Thought"}].map(t=>e.jsxs("button",{onClick:()=>Ua(t.t),style:{padding:"3px 10px",borderRadius:980,border:`1.5px solid ${Ce===t.t?"#0071e3":"rgba(255,255,255,0.1)"}`,background:Ce===t.t?"rgba(0,113,227,0.15)":"rgba(30,41,59,0.6)",color:Ce===t.t?"#60a5fa":"#94a3b8",fontSize:11,cursor:"pointer",fontFamily:d,display:"flex",alignItems:"center",gap:3},children:[t.i," ",t.l]},t.t))}),e.jsxs("div",{style:{display:"flex",gap:8,alignItems:"flex-end"},children:[e.jsx("textarea",{ref:xa,value:de,onChange:t=>Ma(t.target.value),onKeyDown:t=>{t.key==="Enter"&&!t.shiftKey&&(t.preventDefault(),Ya())},placeholder:Ce===W.JOB?"Paste job details...":Ce===W.DOUBT?"Ask your doubt...":Ce===W.THOUGHT?"Share your thought...":"Type a message...",rows:1,style:{flex:1,padding:"9px 12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"#1e293b",color:"#f1f5f9",fontSize:13,fontFamily:d,outline:"none",resize:"none",minHeight:38,maxHeight:90}}),e.jsx("button",{onClick:Ya,disabled:!de.trim(),style:{width:38,height:38,borderRadius:10,border:"none",background:de.trim()?"#0071e3":"rgba(255,255,255,0.1)",color:de.trim()?"#fff":"#64748b",fontSize:16,cursor:de.trim()?"pointer":"default",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0},children:"➤"})]})]})]}),Zn]}):e.jsxs("div",{style:{position:"relative",borderRadius:24,overflow:"hidden",background:"linear-gradient(135deg, #0a1628, #0d2040)",border:"1.5px solid rgba(0,113,227,0.2)",minHeight:380},children:[e.jsx(He,{style:{opacity:.5}}),e.jsxs("div",{style:{position:"relative",zIndex:2,padding:"48px 36px",display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center"},children:[e.jsxs("div",{style:{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(0,179,101,0.12)",border:"1px solid rgba(0,179,101,0.25)",borderRadius:20,padding:"6px 16px",marginBottom:20},children:[e.jsx("span",{style:{width:8,height:8,borderRadius:"50%",background:"#00b365",boxShadow:"0 0 8px #00b365",animation:"commPulse 2s ease-in-out infinite"}}),e.jsxs("span",{style:{fontSize:13,color:"#00b365",fontWeight:600},children:[we," members online"]})]}),e.jsxs("h2",{style:{fontSize:28,fontWeight:800,color:"#fff",letterSpacing:"-1px",marginBottom:8},children:["Join ",e.jsx("span",{style:{color:"#58a6ff"},children:"MainframeStudyHub"})," Group"]}),e.jsxs("p",{style:{fontSize:14,color:"rgba(255,255,255,0.5)",maxWidth:400,lineHeight:1.6,marginBottom:24},children:[v.length," members sharing knowledge, jobs & solving doubts in real-time"]}),e.jsx("div",{style:{display:"flex",gap:6,flexWrap:"wrap",justifyContent:"center",marginBottom:24},children:["💬 Chat","💼 Jobs","❓ Doubts","💭 Ideas","📊 Polls"].map((t,a)=>e.jsx("span",{style:{padding:"4px 12px",borderRadius:16,fontSize:11,background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",color:"rgba(255,255,255,0.5)"},children:t},a))}),e.jsx("div",{style:{display:"flex",marginBottom:24},children:v.slice(0,6).map((t,a)=>e.jsx("div",{style:{width:36,height:36,borderRadius:"50%",background:`${t.color}25`,border:`2px solid ${t.color}40`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,marginLeft:a>0?-8:0,zIndex:6-a},children:t.emoji},a))}),e.jsxs("div",{style:{width:"100%",maxWidth:320},children:[e.jsx("button",{onClick:()=>{ne(!1),ee(0),f("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})},style:{width:"100%",padding:"14px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:d,boxShadow:"0 4px 16px rgba(0,113,227,0.3)"},children:"Sign In →"}),e.jsx("p",{style:{fontSize:12,color:"rgba(255,255,255,0.35)",marginTop:10},children:"New here? Create a free account to join the community"}),e.jsx("button",{onClick:Wa,style:{width:"100%",padding:"13px",borderRadius:12,border:"none",background:"linear-gradient(135deg,#7c3aed,#0071e3)",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:d,boxShadow:"0 4px 16px rgba(0,113,227,0.3)"},children:"Join Community →"})]})]})]})}),k==="qa"&&e.jsxs("div",{style:{...r.inner,maxWidth:900,paddingBottom:80},children:[e.jsxs("div",{style:{display:"flex",gap:10,flexWrap:"wrap",marginBottom:24,alignItems:"center"},children:[e.jsxs("div",{style:{position:"relative",flex:"1 1 200px"},children:[e.jsx("span",{style:{position:"absolute",left:10,top:"50%",transform:"translateY(-50%)",fontSize:14,color:"#94a3b8"},children:"🔍"}),e.jsx("input",{value:nt,onChange:t=>Xn(t.target.value),"aria-label":"Search questions",placeholder:"Search questions...",style:{...r.searchInput,width:"100%",paddingLeft:32}})]}),e.jsx("div",{style:{display:"flex",gap:4},children:["hot","new","top"].map(t=>e.jsx("button",{onClick:()=>Gn(t),style:{...r.pill,background:ve===t?"#0071e3":"rgba(30,41,59,0.8)",color:ve===t?"#fff":"#94a3b8",border:ve===t?"none":"1.5px solid rgba(255,255,255,0.12)",textTransform:"capitalize"},children:t==="hot"?"🔥 Hot":t==="new"?"🕐 New":"⬆️ Top"},t))}),e.jsxs("select",{value:Wt,onChange:t=>Hn(t.target.value),style:{padding:"6px 12px",borderRadius:8,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",fontSize:13,color:"#f1f5f9",fontFamily:d,cursor:"pointer"},children:[e.jsx("option",{children:"All"}),N.map(t=>e.jsx("option",{value:t.title,children:t.title},t.id)),e.jsx("option",{children:"General"})]}),e.jsx("button",{onClick:()=>{if(!c){f("signin");return}Gt(!La)},style:{...r.btnBlue,padding:"8px 18px",fontSize:13,display:"flex",alignItems:"center",gap:6},children:"✍️ Ask Question"})]}),La&&e.jsxs("div",{className:"fi",style:{border:"1.5px solid #0071e3",borderRadius:16,padding:20,marginBottom:24,background:"#0f172a"},children:[e.jsx("input",{value:Se.title,onChange:t=>ot(a=>({...a,title:t.target.value})),placeholder:"Question title...",style:{width:"100%",boxSizing:"border-box",padding:"10px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",fontSize:15,fontWeight:600,color:"#f1f5f9",outline:"none",fontFamily:d,marginBottom:10}}),e.jsx("textarea",{value:Se.body,onChange:t=>ot(a=>({...a,body:t.target.value})),placeholder:"Details (optional)...",rows:3,style:{width:"100%",boxSizing:"border-box",padding:"10px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",fontSize:14,color:"#f1f5f9",outline:"none",fontFamily:d,resize:"vertical",marginBottom:10}}),e.jsxs("div",{style:{display:"flex",gap:10,alignItems:"center"},children:[e.jsxs("select",{value:Se.topic,onChange:t=>ot(a=>({...a,topic:t.target.value})),style:{padding:"8px 12px",borderRadius:8,border:"1.5px solid rgba(255,255,255,0.1)",fontSize:13,fontFamily:d},children:[N.map(t=>e.jsx("option",{value:t.title,children:t.title},t.id)),e.jsx("option",{children:"General"})]}),e.jsx("button",{onClick:Vn,style:{...r.btnBlue,padding:"8px 20px",fontSize:13},children:"Post Question"}),e.jsx("button",{onClick:()=>Gt(!1),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:13,fontFamily:d},children:"Cancel"})]})]}),Pa.length===0&&e.jsxs("div",{style:{textAlign:"center",padding:"48px 0",color:"#94a3b8"},children:[e.jsx("div",{style:{fontSize:40,marginBottom:12},children:"🔍"}),"No questions found."]}),Pa.map(t=>e.jsx("div",{className:"card",style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:16,padding:"20px 24px",marginBottom:16,cursor:"pointer",boxShadow:"0 2px 8px rgba(0,0,0,0.2)"},onClick:()=>ce(t.id),children:e.jsxs("div",{style:{display:"flex",gap:16,alignItems:"flex-start"},children:[e.jsxs("div",{style:{display:"flex",flexDirection:"column",alignItems:"center",gap:4,minWidth:40},children:[e.jsx("button",{onClick:a=>{a.stopPropagation(),st(t.id,1)},style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16},children:"▲"}),e.jsx("span",{style:{fontSize:16,fontWeight:800,color:"#f1f5f9"},children:t.votes}),e.jsx("button",{onClick:a=>{a.stopPropagation(),st(t.id,-1)},style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16},children:"▼"})]}),e.jsxs("div",{style:{flex:1},children:[e.jsx("div",{style:{fontSize:16,fontWeight:700,color:"#f1f5f9",marginBottom:6,lineHeight:1.4},children:t.title}),t.body&&e.jsx("div",{style:{fontSize:13,color:"#94a3b8",lineHeight:1.5,marginBottom:8,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"},children:t.body}),e.jsxs("div",{style:{display:"flex",gap:10,alignItems:"center",fontSize:12,color:"#94a3b8"},children:[e.jsx("span",{style:{...r.pill,background:"rgba(0,113,227,0.12)",color:"#0071e3",padding:"3px 10px",fontSize:11},children:t.topic}),e.jsxs("span",{children:["by ",e.jsx("strong",{style:{color:"#f1f5f9"},children:t.author})]}),e.jsx("span",{children:t.date}),e.jsxs("span",{style:{color:"#0071e3"},children:["💬 ",t.answers.length," ",t.answers.length===1?"answer":"answers"]})]})]})]})},t.id))]}),k&&k!=="chat"&&k!=="qa"&&(()=>{const t=Yt.find(a=>a.id===k);return t?e.jsxs("div",{style:{...r.inner,maxWidth:800,paddingBottom:80},children:[e.jsx("button",{onClick:()=>ce("qa"),style:r.backBtn,children:"← Back to all questions"}),e.jsx("div",{style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:20,padding:"28px 32px",marginBottom:32,background:"#111827"},children:e.jsxs("div",{style:{display:"flex",gap:16},children:[e.jsxs("div",{style:{display:"flex",flexDirection:"column",alignItems:"center",gap:4},children:[e.jsx("button",{onClick:()=>st(t.id,1),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:20},children:"▲"}),e.jsx("span",{style:{fontSize:24,fontWeight:800,color:"#f1f5f9"},children:t.votes}),e.jsx("button",{onClick:()=>st(t.id,-1),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:20},children:"▼"})]}),e.jsxs("div",{style:{flex:1},children:[e.jsx("div",{style:{display:"flex",gap:8,marginBottom:12},children:e.jsx("span",{style:{...r.pill,background:"rgba(0,113,227,0.12)",color:"#0071e3",padding:"4px 12px"},children:t.topic})}),e.jsx("h2",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9",marginBottom:12,letterSpacing:"-.3px"},children:t.title}),t.body&&e.jsx("div",{style:{fontSize:15,color:"#cbd5e1",lineHeight:1.8,marginBottom:16,whiteSpace:"pre-wrap"},children:t.body}),e.jsxs("div",{style:{fontSize:13,color:"#94a3b8"},children:["Asked by ",e.jsx("strong",{style:{color:"#f1f5f9"},children:t.author}),t.authorRole&&e.jsxs("span",{style:{color:"#0071e3"},children:[" • ",t.authorRole]})," on ",t.date]})]})]})}),e.jsxs("h3",{style:{fontSize:18,fontWeight:700,marginBottom:16,color:"#f1f5f9"},children:[t.answers.length," ",t.answers.length===1?"Answer":"Answers"]}),t.answers.map(a=>e.jsx("div",{style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:16,padding:"20px 24px",marginBottom:16,background:"#111827"},children:e.jsxs("div",{style:{display:"flex",gap:12},children:[e.jsxs("div",{style:{display:"flex",flexDirection:"column",alignItems:"center",gap:4},children:[e.jsx("button",{onClick:()=>Na(t.id,a.id,1),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16},children:"▲"}),e.jsx("span",{style:{fontSize:16,fontWeight:800,color:"#f1f5f9"},children:a.votes}),e.jsx("button",{onClick:()=>Na(t.id,a.id,-1),style:{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:16},children:"▼"})]}),e.jsxs("div",{style:{flex:1},children:[e.jsx("div",{style:{fontSize:14,color:"#cbd5e1",lineHeight:1.8,whiteSpace:"pre-wrap"},children:a.body}),e.jsxs("div",{style:{fontSize:12,color:"#94a3b8",marginTop:10},children:["Answered by ",e.jsx("strong",{style:{color:"#f1f5f9"},children:a.author}),a.authorRole&&e.jsxs("span",{style:{color:"#0071e3"},children:[" • ",a.authorRole]})," on ",a.date]})]})]})},a.id)),c?e.jsxs("div",{style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:16,padding:20,background:"#0f172a"},children:[e.jsx("h4",{style:{fontSize:15,fontWeight:700,color:"#f1f5f9",marginBottom:12},children:"Your Answer"}),e.jsx("textarea",{value:Ht,onChange:a=>ga(a.target.value),rows:4,placeholder:"Write your answer...",style:{width:"100%",boxSizing:"border-box",padding:"12px 14px",borderRadius:10,border:"1.5px solid rgba(255,255,255,0.1)",background:"#111827",fontSize:14,color:"#f1f5f9",outline:"none",fontFamily:d,resize:"vertical",marginBottom:12}}),e.jsx("button",{onClick:()=>jn(t.id),style:{...r.btnBlue,padding:"10px 24px",fontSize:14},children:"Post Answer"})]}):e.jsxs("div",{style:{border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:16,padding:"24px 20px",textAlign:"center",background:"#0f172a"},children:[e.jsx("p",{style:{color:"#94a3b8",marginBottom:12},children:"Sign in to post your answer"}),e.jsx("button",{onClick:()=>{f("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})},style:r.btnBlue,children:"Sign In"})]})]}):null})()]}),u==="abends"&&e.jsxs("div",{children:[e.jsxs("div",{style:r.pageHero,children:[e.jsx("h1",{style:r.pageHeroTitle,children:"Abend Solver"}),e.jsx("p",{style:r.pageHeroSub,children:"Quick-search IBM ABEND codes — get the cause and fix instantly"})]}),e.jsxs("div",{style:{...r.inner,paddingBottom:80},children:[e.jsxs("div",{className:"content-card fi",style:{marginBottom:24},children:[e.jsxs("div",{style:{display:"flex",gap:12,flexWrap:"wrap",alignItems:"center",marginBottom:18},children:[e.jsxs("div",{style:{flex:1,minWidth:200,position:"relative"},children:[e.jsx("span",{style:{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",fontSize:18},children:"🔍"}),e.jsx("input",{value:Je,onChange:t=>{mn(t.target.value),It(null)},"aria-label":"Search abend codes",placeholder:"Search abend code (e.g. S0C7, ASRA, S878...)",style:{width:"100%",padding:"14px 14px 14px 44px",fontSize:15,border:"2px solid rgba(0,0,0,0.08)",borderRadius:14,outline:"none",background:"rgba(30,41,59,0.8)",fontFamily:"inherit",color:"#f1f5f9",transition:"border-color 0.2s"},onFocus:t=>t.target.style.borderColor="#7c3aed",onBlur:t=>t.target.style.borderColor="rgba(0,0,0,0.08)"})]}),e.jsxs("div",{style:{fontSize:13,color:"#94a3b8",fontWeight:600},children:[Rt.length," codes"]})]}),e.jsx("div",{style:{display:"flex",gap:6,flexWrap:"wrap"},children:Xo.map(t=>e.jsx("button",{onClick:()=>{Dn(t),It(null)},style:{padding:"6px 16px",borderRadius:980,border:"1.5px solid",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:"inherit",transition:"all 0.2s",background:Me===t?"linear-gradient(135deg,#0071e3,#7c3aed)":"transparent",color:Me===t?"#fff":"#94a3b8",borderColor:Me===t?"transparent":"rgba(0,0,0,0.1)"},children:t},t))})]}),e.jsxs("div",{style:{display:"flex",flexDirection:"column",gap:12},children:[Rt.length===0&&e.jsxs("div",{style:{textAlign:"center",padding:"48px 0",color:"#94a3b8"},children:[e.jsx("div",{style:{fontSize:48,marginBottom:12},children:"🔎"}),e.jsx("p",{children:"No abend codes found. Try a different search term."})]}),Rt.map((t,a)=>e.jsxs("div",{className:"fi",style:{animationDelay:`${Math.min(a,8)*40}ms`},children:[e.jsxs("div",{onClick:()=>It(Ke===t.code?null:t.code),style:{background:"rgba(17,24,39,0.92)",backdropFilter:"blur(20px)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:Ke===t.code?"16px 16px 0 0":"16px",padding:"18px 22px",cursor:"pointer",display:"flex",alignItems:"center",gap:14,transition:"all 0.2s",boxShadow:"0 2px 12px rgba(0,0,0,0.3)"},children:[e.jsx("div",{style:{background:Ct[t.severity]+"18",color:Ct[t.severity],padding:"8px 14px",borderRadius:10,fontSize:18,fontWeight:800,fontFamily:"'SF Mono',Menlo,monospace",letterSpacing:"0.5px",minWidth:70,textAlign:"center",border:`1.5px solid ${Ct[t.severity]}30`},children:t.code}),e.jsxs("div",{style:{flex:1},children:[e.jsx("div",{style:{fontSize:15,fontWeight:700,color:"#f1f5f9",marginBottom:2},children:t.name}),e.jsxs("div",{style:{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"},children:[e.jsx("span",{style:{fontSize:11,color:Ct[t.severity],fontWeight:700},children:Vo[t.severity]}),e.jsx("span",{style:{fontSize:11,color:"#94a3b8",background:"rgba(30,41,59,0.8)",padding:"2px 8px",borderRadius:980},children:t.category})]})]}),e.jsx("span",{style:{fontSize:18,color:"#94a3b8",transition:"transform 0.3s",transform:Ke===t.code?"rotate(180deg)":"rotate(0)"},children:"▼"})]}),Ke===t.code&&e.jsxs("div",{style:{background:"rgba(8,11,22,0.95)",borderRadius:"0 0 16px 16px",padding:"24px 22px",borderTop:"2px solid",borderImage:"linear-gradient(90deg,#0071e3,#7c3aed) 1",boxShadow:"0 4px 20px rgba(0,0,0,0.3)"},children:[e.jsxs("div",{style:{marginBottom:20},children:[e.jsx("div",{style:{display:"flex",alignItems:"center",gap:8,marginBottom:10},children:e.jsx("span",{style:{background:"rgba(239,68,68,0.15)",color:"#dc2626",padding:"4px 10px",borderRadius:8,fontSize:12,fontWeight:700},children:"⚠️ CAUSE"})}),e.jsx("p",{style:{fontSize:14,color:"#cbd5e1",lineHeight:1.75},children:t.cause})]}),e.jsxs("div",{style:{marginBottom:20},children:[e.jsx("div",{style:{display:"flex",alignItems:"center",gap:8,marginBottom:10},children:e.jsx("span",{style:{background:"rgba(34,197,94,0.15)",color:"#16a34a",padding:"4px 10px",borderRadius:8,fontSize:12,fontWeight:700},children:"✅ FIX"})}),e.jsx("div",{style:{fontSize:14,color:"#cbd5e1",lineHeight:1.75,whiteSpace:"pre-line"},children:t.fix})]}),t.tips&&t.tips.length>0&&e.jsxs("div",{style:{background:"rgba(0,113,227,0.08)",borderRadius:12,padding:"14px 18px",border:"1px solid rgba(0,113,227,0.08)"},children:[e.jsx("div",{style:{fontSize:12,fontWeight:700,color:"#0071e3",marginBottom:8},children:"💡 PRO TIPS"}),t.tips.map((s,o)=>e.jsxs("div",{style:{fontSize:13,color:"#cbd5e1",lineHeight:1.6,paddingLeft:16,position:"relative",marginBottom:4},children:[e.jsx("span",{style:{position:"absolute",left:0,color:"#0071e3"},children:"›"}),s]},o))]})]})]},t.code))]})]})]}),u==="roadmap"&&e.jsxs("div",{children:[e.jsxs("div",{style:r.pageHero,children:[e.jsx("h1",{style:r.pageHeroTitle,children:"Learning Roadmap"}),e.jsx("p",{style:r.pageHeroSub,children:"Your path from Trainee to Architect — click any level to explore"})]}),e.jsx("div",{style:{...r.inner,paddingBottom:80,maxWidth:900},children:e.jsxs("div",{style:{position:"relative",paddingLeft:40},children:[e.jsx("div",{style:{position:"absolute",left:18,top:0,bottom:0,width:4,background:"linear-gradient(to bottom,#22c55e,#3b82f6,#8b5cf6,#ec4899,#f59e0b,#ef4444)",borderRadius:4}}),nn.map((t,a)=>e.jsxs("div",{className:"fi",style:{marginBottom:a<nn.length-1?32:0,position:"relative",animationDelay:`${a*100}ms`},children:[e.jsx("div",{style:{position:"absolute",left:-30,top:20,width:28,height:28,borderRadius:"50%",background:t.color,border:"4px solid #fff",boxShadow:`0 0 0 3px ${t.color}40, 0 2px 8px ${t.color}30`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,zIndex:1},children:e.jsx("span",{style:{filter:"grayscale(0)"},children:t.icon})}),e.jsxs("div",{onClick:()=>An(Ae===t.level?null:t.level),className:"scenario-card",style:{background:"rgba(17,24,39,0.9)",backdropFilter:"blur(20px)",border:`1.5px solid ${Ae===t.level?t.color+"50":"rgba(0,0,0,0.05)"}`,borderRadius:18,padding:"24px 26px",cursor:"pointer",boxShadow:Ae===t.level?`0 8px 32px ${t.color}15`:"0 2px 12px rgba(0,0,0,0.3)"},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,marginBottom:Ae===t.level?16:0},children:[e.jsxs("div",{children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:4},children:[e.jsxs("span",{style:{fontSize:11,fontWeight:800,color:t.color,background:t.color+"15",padding:"3px 10px",borderRadius:980},children:["LEVEL ",t.level]}),e.jsx("span",{style:{fontSize:11,color:"#94a3b8"},children:t.duration})]}),e.jsxs("div",{style:{fontSize:20,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.3px"},children:[t.icon," ",t.title]}),e.jsx("div",{style:{fontSize:13,color:"#94a3b8"},children:t.subtitle})]}),e.jsx("span",{style:{fontSize:18,color:"#94a3b8",transition:"transform 0.3s",transform:Ae===t.level?"rotate(180deg)":"rotate(0)",flexShrink:0},children:"▼"})]}),Ae===t.level&&e.jsxs("div",{style:{borderTop:"1px solid rgba(255,255,255,0.06)",paddingTop:16},children:[e.jsx("div",{style:{fontSize:12,fontWeight:700,color:"#94a3b8",marginBottom:12,textTransform:"uppercase",letterSpacing:"0.5px"},children:"Skills to Master"}),e.jsx("div",{style:{display:"flex",flexDirection:"column",gap:8,marginBottom:16},children:t.skills.map((s,o)=>e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:10},children:[e.jsx("div",{style:{width:8,height:8,borderRadius:"50%",background:t.color,flexShrink:0}}),e.jsx("span",{style:{fontSize:14,color:"#cbd5e1"},children:s.name}),e.jsx("button",{onClick:n=>{n.stopPropagation();const E=N.find(T=>T.id===s.topic);E&&fe(E)},style:{background:t.color+"12",color:t.color,border:"none",padding:"2px 10px",borderRadius:980,fontSize:11,fontWeight:600,cursor:"pointer",fontFamily:"inherit",marginLeft:"auto",flexShrink:0},children:"Study →"})]},o))}),e.jsxs("div",{style:{background:`${t.color}08`,borderRadius:12,padding:"14px 18px",border:`1px solid ${t.color}15`},children:[e.jsx("div",{style:{fontSize:12,fontWeight:700,color:t.color,marginBottom:4},children:"🎯 MILESTONE"}),e.jsx("div",{style:{fontSize:13,color:"#cbd5e1",lineHeight:1.6},children:t.milestone})]})]})]})]},t.level))]})})]}),u==="about"&&e.jsxs("div",{children:[e.jsxs("div",{style:r.pageHero,children:[e.jsx("h1",{style:r.pageHeroTitle,children:"About"}),e.jsx("p",{style:r.pageHeroSub,children:"The story behind MainframeStudyHub"})]}),e.jsxs("div",{style:{...r.inner,paddingBottom:80,maxWidth:800},children:[e.jsxs("div",{className:"content-card fi",style:{marginBottom:32},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:14,marginBottom:28},children:[e.jsx("div",{style:{width:56,height:56,borderRadius:16,background:"linear-gradient(135deg,#0071e3,#7c3aed)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,flexShrink:0},children:"🎯"}),e.jsxs("div",{children:[e.jsx("h2",{style:{fontSize:24,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.5px"},children:"About This Platform"}),e.jsx("p",{style:{fontSize:14,color:"#94a3b8"},children:"Built with passion for the Mainframe community"})]})]}),e.jsxs("div",{style:{fontSize:15,color:"#cbd5e1",lineHeight:1.85},children:[e.jsxs("p",{style:{marginBottom:18},children:["Welcome to this dedicated learning space built for the ",e.jsx("strong",{style:{color:"#f1f5f9"},children:"Mainframe community"}),"."]}),e.jsxs("p",{style:{marginBottom:18},children:["I created this website with a simple mission — to bring together all essential Mainframe concepts in one place and make learning ",e.jsx("strong",{style:{color:"#f1f5f9"},children:"easier, structured, and practical"}),". As someone deeply interested in Mainframe technologies and real-world development practices, I wanted to build a platform that helps beginners and experienced professionals strengthen their fundamentals and prepare confidently for interviews and projects."]}),e.jsxs("p",{style:{marginBottom:18},children:["My growing interest in modern development approaches and ",e.jsx("em",{children:'"vibe coding"'})," inspired me to design and develop this site in a clean, focused, and user-friendly way. This platform reflects both my passion for Mainframe technology and my curiosity for building efficient digital learning experiences."]}),e.jsxs("p",{style:{marginBottom:18},children:["I will be truly happy to see learners use this site effectively for their ",e.jsx("strong",{style:{color:"#f1f5f9"},children:"study purposes, career growth, and skill enhancement"}),". If this platform helps even one person gain clarity in COBOL, JCL, DB2, CICS, or overall Mainframe concepts — it fulfills its purpose."]}),e.jsx("p",{style:{fontSize:17,fontWeight:700,color:"#0071e3",fontStyle:"italic"},children:"Let's grow and learn together. 🚀"})]})]}),e.jsxs("div",{className:"content-card fi",style:{marginBottom:32,animationDelay:"0.1s"},children:[e.jsx("h3",{style:{fontSize:20,fontWeight:800,color:"#f1f5f9",marginBottom:20,letterSpacing:"-0.3px"},children:"What You'll Find Here"}),e.jsx("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))",gap:14},children:[["📚","15 Topics","Comprehensive coverage from z/OS to Modernization"],["🧠","200 Quiz Questions","Test your knowledge across all mainframe domains"],["🎯","Real Scenarios","Practice with production-like interview scenarios"],["💬","Community Q&A","Ask questions and share knowledge with peers"],["📰","Expert Blogs","Insights from experienced mainframe professionals"],["🤖","AI Assistant","Get instant help with mainframe concepts and debugging"]].map(([t,a,s],o)=>e.jsxs("div",{style:{background:"rgba(30,41,59,0.6)",borderRadius:14,padding:"18px 16px",border:"1px solid rgba(255,255,255,0.06)"},children:[e.jsx("div",{style:{fontSize:24,marginBottom:8},children:t}),e.jsx("div",{style:{fontSize:14,fontWeight:700,color:"#f1f5f9",marginBottom:4},children:a}),e.jsx("div",{style:{fontSize:12,color:"#94a3b8",lineHeight:1.5},children:s})]},o))})]}),e.jsxs("div",{className:"content-card fi",style:{animationDelay:"0.2s"},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:8,marginBottom:24},children:[e.jsx("div",{style:{width:4,height:28,borderRadius:4,background:"linear-gradient(135deg,#0071e3,#7c3aed)"}}),e.jsx("h3",{style:{fontSize:20,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.3px"},children:"Meet the Founder"})]}),e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:24,flexWrap:"wrap"},children:[e.jsxs("div",{style:{position:"relative",flexShrink:0},children:[e.jsx("div",{style:{position:"absolute",inset:-4,borderRadius:"50%",background:"conic-gradient(#0071e3, #7c3aed, #00b365, #0071e3)",animation:"spin 4s linear infinite",opacity:.7}}),e.jsx("img",{src:"/founder.jpg",alt:"Harikrishnan K",style:{width:90,height:90,borderRadius:"50%",objectFit:"cover",border:"3px solid #fff",position:"relative",zIndex:1,boxShadow:"0 8px 24px rgba(0,113,227,0.25)"}})]}),e.jsxs("div",{style:{flex:1,minWidth:200},children:[e.jsx("div",{style:{fontSize:24,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.5px",marginBottom:2},children:"Harikrishnan K"}),e.jsx("div",{style:{fontSize:14,color:"#94a3b8",marginBottom:10},children:"Founder & Creator of MainframeStudyHub"}),e.jsx("div",{style:{display:"inline-flex",alignItems:"center",gap:6,background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",padding:"5px 14px",borderRadius:980,fontSize:12,fontWeight:700,marginBottom:14},children:"🖥️ Mainframe Developer"}),e.jsxs("div",{style:{display:"flex",gap:10,flexWrap:"wrap"},children:[e.jsx("a",{href:"mailto:harikrish17642@gmail.com",style:{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(30,41,59,0.8)",color:"#cbd5e1",padding:"8px 14px",borderRadius:10,fontSize:12,fontWeight:600,textDecoration:"none",border:"1px solid rgba(255,255,255,0.06)",transition:"all 0.2s"},children:"📧 Email"}),e.jsxs("a",{href:"https://www.linkedin.com/in/harikrishnan-k-4560241a2",target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:6,background:"#0A66C2",color:"#fff",padding:"8px 14px",borderRadius:10,fontSize:12,fontWeight:700,textDecoration:"none",transition:"all 0.2s"},children:[e.jsx("svg",{width:"14",height:"14",viewBox:"0 0 24 24",fill:"white",children:e.jsx("path",{d:"M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"})}),"LinkedIn"]})]})]})]}),e.jsx("div",{style:{marginTop:24,padding:"18px 22px",background:"linear-gradient(135deg,rgba(0,113,227,0.08),rgba(124,58,237,0.04))",borderRadius:14,border:"1px solid rgba(0,113,227,0.08)"},children:e.jsx("p",{style:{fontSize:13.5,color:"#94a3b8",lineHeight:1.7,margin:0},children:"Passionate about making mainframe knowledge accessible to everyone. Built MainframeStudyHub to bridge the gap between experienced professionals and newcomers entering the IBM Z world. Have suggestions or want to contribute? I'd love to connect!"})})]})]})]})]}),St>0&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:2400,background:"rgba(0,0,0,0.5)",backdropFilter:"blur(12px)",display:"flex",alignItems:"center",justifyContent:"center",animation:"fadeIn 0.4s ease"},onClick:()=>ee(0),children:e.jsxs("div",{onClick:t=>t.stopPropagation(),style:{background:"#111827",borderRadius:24,overflow:"hidden",width:420,maxWidth:"92vw",boxShadow:"0 30px 80px rgba(0,0,0,0.25)",animation:"popIn 0.5s cubic-bezier(0.16,1,0.3,1)"},children:[St===1&&e.jsxs("div",{children:[e.jsxs("div",{style:{position:"relative",height:180,background:"linear-gradient(135deg, #0a1628, #0d2040)",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"},children:[e.jsx(He,{style:{opacity:.5}}),e.jsxs("div",{style:{position:"relative",zIndex:2,textAlign:"center"},children:[e.jsx("div",{style:{fontSize:56,marginBottom:8,animation:"popIn 0.6s ease 0.2s both"},children:"🖥️"}),e.jsxs("h2",{style:{margin:0,fontSize:26,fontWeight:800,color:"#fff",letterSpacing:"-0.5px",animation:"popIn 0.6s ease 0.3s both"},children:["Welcome to the",e.jsx("br",{}),e.jsx("span",{style:{background:"linear-gradient(135deg,#58a6ff,#0071e3)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"},children:"Mainframe World"})]})]})]}),e.jsxs("div",{style:{padding:"24px 28px 28px",textAlign:"center"},children:[e.jsx("p",{style:{fontSize:15,color:"#94a3b8",lineHeight:1.6,marginBottom:20},children:"The most comprehensive IBM Z learning platform. Master JCL, COBOL, DB2, CICS and more — from beginner to architect."}),e.jsx("div",{style:{display:"flex",gap:8,flexWrap:"wrap",justifyContent:"center",marginBottom:24},children:["📚 15+ Topics","🧠 Quiz","🎯 Scenarios","🔍 Abend Solver","💬 Community","🗺️ Roadmap"].map((t,a)=>e.jsx("span",{style:{padding:"4px 12px",borderRadius:16,fontSize:12,background:"rgba(0,113,227,0.12)",color:"#0071e3",border:"1px solid rgba(0,113,227,0.2)"},children:t},a))}),e.jsx("button",{onClick:()=>ee(0),style:{width:"100%",padding:"14px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:16,fontWeight:700,cursor:"pointer",fontFamily:d,boxShadow:"0 4px 16px rgba(0,113,227,0.3)"},children:"Start Exploring →"})]})]}),St===2&&e.jsxs("div",{children:[e.jsx("div",{style:{position:"relative",height:140,background:"linear-gradient(135deg, #1a0a38, #2d1060)",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"},children:e.jsxs("div",{style:{position:"relative",zIndex:2,textAlign:"center"},children:[e.jsx("div",{style:{fontSize:48,marginBottom:6},children:"🔐"}),e.jsx("h2",{style:{margin:0,fontSize:22,fontWeight:800,color:"#fff"},children:"Create Your Account"})]})}),e.jsxs("div",{style:{padding:"20px 28px 28px",textAlign:"center"},children:[e.jsx("p",{style:{fontSize:14,color:"#94a3b8",lineHeight:1.6,marginBottom:20},children:"Sign in to save progress, post in Q&A, get personalized recommendations, and track your learning journey."}),e.jsxs("div",{style:{display:"flex",gap:10},children:[e.jsx("button",{onClick:()=>ee(0),style:{flex:1,padding:"12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"transparent",color:"#94a3b8",cursor:"pointer",fontSize:14,fontFamily:d},children:"Maybe Later"}),e.jsx("button",{onClick:()=>{ee(0),f("signup"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})},style:{flex:1,padding:"12px",borderRadius:12,border:"none",background:"linear-gradient(135deg,#7c3aed,#0071e3)",color:"#fff",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:d},children:"Sign Up Free"})]})]})]}),St===3&&e.jsxs("div",{children:[e.jsxs("div",{style:{position:"relative",height:160,background:"linear-gradient(135deg, #0a1628, #0d2040)",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"},children:[e.jsx(He,{style:{opacity:.4}}),e.jsxs("div",{style:{position:"relative",zIndex:2,textAlign:"center"},children:[e.jsx("div",{style:{display:"flex",justifyContent:"center",marginBottom:10},children:v.slice(0,5).map((t,a)=>e.jsx("div",{style:{width:32,height:32,borderRadius:"50%",background:`${t.color}25`,border:`2px solid ${t.color}40`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,marginLeft:a>0?-6:0,zIndex:5-a},children:t.emoji},a))}),e.jsxs("h2",{style:{margin:0,fontSize:22,fontWeight:800,color:"#fff"},children:["Join the ",e.jsx("span",{style:{color:"#58a6ff"},children:"Community"})]})]})]}),e.jsxs("div",{style:{padding:"20px 28px 28px",textAlign:"center"},children:[e.jsxs("p",{style:{fontSize:14,color:"#94a3b8",lineHeight:1.6,marginBottom:20},children:[v.length,"+ mainframe professionals are chatting right now. Share knowledge, find jobs, solve doubts in real-time!"]}),e.jsxs("div",{style:{display:"flex",gap:10},children:[e.jsx("button",{onClick:()=>ee(0),style:{flex:1,padding:"12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"transparent",color:"#94a3b8",cursor:"pointer",fontSize:14,fontFamily:d},children:"Later"}),e.jsx("button",{onClick:()=>{ee(0),ne(!0),ie(0)},style:{flex:1,padding:"12px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:d},children:"Join Community"})]})]})]})]})}),so&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:9999,background:"rgba(0,0,0,0.45)",backdropFilter:"blur(10px)",display:"flex",alignItems:"center",justifyContent:"center",animation:"fadeIn 0.3s ease"},onClick:()=>Et(!1),children:e.jsx("div",{onClick:t=>t.stopPropagation(),className:"scaleIn",style:{background:"rgba(17,24,39,0.98)",backdropFilter:"blur(20px)",borderRadius:24,padding:"36px 32px",maxWidth:440,width:"90%",boxShadow:"0 24px 80px rgba(0,0,0,0.2)",border:"1px solid rgba(255,255,255,0.08)"},children:ro?e.jsxs("div",{style:{textAlign:"center",padding:"20px 0"},children:[e.jsx("div",{style:{fontSize:56,marginBottom:12},children:"🎉"}),e.jsx("h3",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9",marginBottom:8},children:"Thank You!"}),e.jsx("p",{style:{fontSize:14,color:"#94a3b8"},children:"Your feedback helps us improve."})]}):e.jsxs(e.Fragment,{children:[e.jsxs("div",{style:{textAlign:"center",marginBottom:20},children:[e.jsx("div",{style:{fontSize:40,marginBottom:8},children:"💬"}),e.jsx("h3",{style:{fontSize:22,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.5px",marginBottom:4},children:"How's your experience?"}),e.jsx("p",{style:{fontSize:13,color:"#94a3b8"},children:"We'd love your feedback to make MainframeStudyHub even better"})]}),e.jsx("div",{style:{display:"flex",justifyContent:"center",gap:8,marginBottom:20},children:[1,2,3,4,5].map(t=>e.jsx("button",{onClick:()=>ct({...x,rating:t}),style:{background:"none",border:"none",fontSize:32,cursor:"pointer",transform:x.rating>=t?"scale(1.15)":"scale(1)",filter:x.rating>=t?"none":"grayscale(1) opacity(0.4)",transition:"all 0.15s ease"},children:"⭐"},t))}),e.jsx("textarea",{value:x.message,onChange:t=>ct({...x,message:t.target.value}),"aria-label":"Feedback message",placeholder:"What do you like? What can we improve? Any features you'd love to see?",rows:3,style:{...J,resize:"vertical",minHeight:72}}),!c&&e.jsxs("div",{style:{display:"flex",gap:8},children:[e.jsx("input",{value:x.name,onChange:t=>ct({...x,name:t.target.value}),"aria-label":"Your name",placeholder:"Name (optional)",style:{...J,flex:1}}),e.jsx("input",{value:x.email,onChange:t=>ct({...x,email:t.target.value}),"aria-label":"Your email",placeholder:"Email (optional)",style:{...J,flex:1}})]}),e.jsxs("div",{style:{display:"flex",gap:10},children:[e.jsx("button",{onClick:()=>{Et(!1),localStorage.setItem("mfsh_feedback_done","1")},style:{flex:1,padding:"12px",borderRadius:12,border:"1.5px solid rgba(255,255,255,0.1)",background:"transparent",color:"#94a3b8",cursor:"pointer",fontSize:14,fontFamily:d},children:"Maybe Later"}),e.jsx("button",{onClick:io,disabled:za||!x.message.trim(),style:{flex:1,padding:"12px",borderRadius:12,border:"none",background:x.message.trim()?"linear-gradient(135deg,#0071e3,#7c3aed)":"#d1d1d6",color:"#fff",fontSize:14,fontWeight:700,cursor:x.message.trim()?"pointer":"default",fontFamily:d},children:za?"Sending...":"Submit Feedback"})]})]})})}),Kt&&e.jsx("div",{style:{position:"fixed",inset:0,zIndex:2500,background:"rgba(0,0,0,0.5)",backdropFilter:"blur(10px)",display:"flex",alignItems:"center",justifyContent:"center"},onClick:()=>ne(!1),children:e.jsxs("div",{onClick:t=>t.stopPropagation(),style:{width:420,maxWidth:"92vw",background:"#111827",borderRadius:24,overflow:"hidden",boxShadow:"0 30px 80px rgba(0,0,0,0.2)",transform:oe>=1?"scale(1) translateY(0)":"scale(0.85) translateY(30px)",opacity:oe>=1?1:0,transition:"all 0.5s cubic-bezier(0.16,1,0.3,1)"},children:[e.jsxs("div",{style:{position:"relative",height:150,background:"linear-gradient(135deg,#0a1628,#0d2040)",overflow:"hidden"},children:[e.jsx(He,{style:{opacity:.6}}),e.jsxs("div",{style:{position:"relative",zIndex:2,padding:"26px 26px 0",textAlign:"center"},children:[e.jsxs("div",{style:{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(0,179,101,0.15)",border:"1px solid rgba(0,179,101,0.3)",borderRadius:20,padding:"4px 12px",marginBottom:10,opacity:oe>=2?1:0,transition:"opacity 0.4s ease 0.1s"},children:[e.jsx("span",{style:{width:7,height:7,borderRadius:"50%",background:"#00b365",boxShadow:"0 0 6px #00b365"}}),e.jsxs("span",{style:{fontSize:12,color:"#00b365",fontWeight:600},children:[we," online"]})]}),e.jsxs("h3",{style:{margin:0,fontSize:20,fontWeight:800,color:"#fff",letterSpacing:"-0.5px",opacity:oe>=2?1:0,transform:oe>=2?"translateY(0)":"translateY(10px)",transition:"all 0.4s ease 0.2s"},children:["MainframeStudyHub ",e.jsx("span",{style:{color:"#58a6ff"},children:"Community"})]})]})]}),e.jsx("div",{style:{padding:"16px 26px 6px",display:"flex",gap:6,flexWrap:"wrap",justifyContent:"center",opacity:oe>=2?1:0,transition:"opacity 0.4s ease 0.3s"},children:["💬 Chat","💼 Jobs","❓ Doubts","💭 Ideas","📊 Polls"].map((t,a)=>e.jsx("span",{style:{padding:"4px 10px",borderRadius:16,fontSize:11,background:"#1e293b",color:"#94a3b8",border:"1px solid rgba(255,255,255,0.08)"},children:t},a))}),e.jsxs("div",{style:{padding:"14px 26px",display:"flex",justifyContent:"center",opacity:oe>=3?1:0,transition:"opacity 0.4s ease 0.35s"},children:[v.slice(0,6).map((t,a)=>e.jsx("div",{style:{width:32,height:32,borderRadius:"50%",background:`${t.color}15`,border:`2px solid ${t.color}40`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,marginLeft:a>0?-6:0,zIndex:6-a},children:t.emoji},a)),e.jsxs("div",{style:{width:32,height:32,borderRadius:"50%",background:"rgba(0,113,227,0.15)",border:"2px solid #c0d8ff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:"#0071e3",fontWeight:700,marginLeft:-6},children:["+",Math.max(0,v.length-6)]})]}),e.jsxs("div",{style:{padding:"0 26px 26px",opacity:oe>=3?1:0,transform:oe>=3?"translateY(0)":"translateY(10px)",transition:"all 0.4s ease 0.4s"},children:[e.jsx("button",{onClick:()=>{ne(!1),ee(0),f("signin"),D(""),b({name:"",email:"",password:"",role:"",itYears:"",mfYears:""})},style:{width:"100%",padding:"13px",borderRadius:12,border:"none",background:"#0071e3",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:d,boxShadow:"0 4px 16px rgba(0,113,227,0.25)"},children:"Sign In →"}),e.jsx("p",{style:{fontSize:11,color:"#94a3b8",marginTop:8,textAlign:"center"},children:"New here? Create a free account"}),e.jsx("button",{onClick:Wa,style:{width:"100%",padding:"13px",borderRadius:12,border:"none",background:"linear-gradient(135deg,#7c3aed,#0071e3)",color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:d,boxShadow:"0 4px 16px rgba(0,113,227,0.25)"},children:"Join Community →"})]})]})}),e.jsx("button",{className:"chat-fab",onClick:()=>pa(t=>!t),style:{position:"fixed",bottom:24,right:24,zIndex:3e3,width:60,height:60,borderRadius:"50%",border:"none",cursor:"pointer",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",fontSize:26,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 6px 24px rgba(124,58,237,0.35)"},children:ua?"✕":"🤖"}),ua&&e.jsxs("div",{className:Y?"":"chat-window",style:Y?{position:"fixed",inset:0,zIndex:3001,background:"rgba(17,24,39,0.99)",backdropFilter:"blur(24px)",display:"flex",flexDirection:"column",overflow:"hidden"}:{position:"fixed",bottom:96,right:24,zIndex:3e3,width:400,maxWidth:"calc(100vw - 32px)",height:560,maxHeight:"calc(100vh - 140px)",background:"rgba(8,11,22,0.97)",backdropFilter:"blur(24px)",WebkitBackdropFilter:"blur(24px)",borderRadius:24,boxShadow:"0 20px 60px rgba(0,0,0,0.2),0 0 0 1px rgba(0,0,0,0.05)",display:"flex",flexDirection:"column",overflow:"hidden"},children:[e.jsx("div",{style:{padding:Y?"16px 24px":"18px 22px",background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",flexShrink:0},children:e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:12},children:[e.jsx("div",{style:{width:38,height:38,borderRadius:12,background:"rgba(255,255,255,0.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22},children:"🤖"}),e.jsxs("div",{style:{flex:1},children:[e.jsx("div",{style:{fontSize:Y?18:16,fontWeight:700},children:"MainframeStudyHub AI"}),e.jsx("div",{style:{fontSize:11,opacity:.85},children:"Your mainframe learning companion"})]}),e.jsxs("div",{style:{display:"flex",gap:6,alignItems:"center"},children:[e.jsx("button",{onClick:()=>ma(t=>!t),title:Y?"Minimize":"Maximize",style:{background:"rgba(255,255,255,0.15)",border:"none",color:"#fff",borderRadius:8,padding:"4px 10px",cursor:"pointer",fontSize:13,fontFamily:d,fontWeight:600},children:Y?"⊖":"⊕"}),e.jsx("button",{onClick:()=>{tt([Fe[0]])},style:{background:"rgba(255,255,255,0.15)",border:"none",color:"#fff",borderRadius:8,padding:"4px 10px",cursor:"pointer",fontSize:11,fontFamily:d,fontWeight:600},children:"Clear"}),Y&&e.jsx("button",{onClick:()=>{ma(!1),pa(!1)},style:{background:"rgba(255,255,255,0.15)",border:"none",color:"#fff",borderRadius:8,padding:"4px 10px",cursor:"pointer",fontSize:13,fontFamily:d,fontWeight:600},children:"✕"})]})]})}),e.jsxs("div",{style:{flex:1,overflowY:"auto",padding:Y?"24px 0":"16px 18px",display:"flex",flexDirection:"column",gap:12,...Y?{maxWidth:720,margin:"0 auto",width:"100%",paddingLeft:24,paddingRight:24}:{}},children:[Fe.map((t,a)=>e.jsxs("div",{className:a>0?"chat-msg-enter":"",style:{display:"flex",gap:10,flexDirection:t.role==="user"?"row-reverse":"row",animationDelay:`${Math.min(a,3)*80}ms`},children:[t.role==="assistant"&&e.jsx("div",{style:{width:30,height:30,borderRadius:10,background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0},children:"🤖"}),e.jsx("div",{style:{maxWidth:Y?"90%":"82%",padding:Y?"16px 20px":"12px 16px",borderRadius:t.role==="user"?"18px 18px 4px 18px":"18px 18px 18px 4px",background:t.role==="user"?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(30,41,59,0.9)",color:t.role==="user"?"#fff":"#e2e8f0",fontSize:Y?15:13.5,lineHeight:1.7,border:t.role==="user"?"none":"1px solid rgba(255,255,255,0.06)"},children:xn(t.content)}),t.role==="user"&&c&&e.jsx(Ge,{name:c.name,size:30})]},a)),Ft&&e.jsxs("div",{style:{display:"flex",gap:10},children:[e.jsx("div",{style:{width:30,height:30,borderRadius:10,background:"linear-gradient(135deg,#0071e3,#7c3aed)",color:"#fff",fontSize:14,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0},children:"🤖"}),e.jsx("div",{style:{padding:"14px 20px",background:"rgba(30,41,59,0.9)",borderRadius:"18px 18px 18px 4px",display:"flex",gap:6,alignItems:"center",border:"1px solid rgba(255,255,255,0.06)"},children:[0,1,2].map(t=>e.jsx("div",{style:{width:8,height:8,borderRadius:"50%",background:"#7c3aed",animation:"dotPulse 1.2s ease infinite",animationDelay:`${t*.2}s`}},t))})]}),e.jsx("div",{ref:Aa})]}),Fe.length<=2&&e.jsx("div",{style:{padding:"0 18px 8px",display:"flex",gap:6,flexWrap:"wrap"},children:["What causes S0C7 and how to fix it?","Write JCL to sort a file by column 1-10","Explain CICS pseudo-conversational","DB2 performance tuning tips","COBOL COMP-3 vs COMP","How to debug a production abend","Mainframe career path & salary","What is Zowe?"].map(t=>e.jsx("button",{onClick:()=>{Ut(t)},style:{fontSize:11,padding:"5px 10px",borderRadius:980,border:"1px solid rgba(255,255,255,0.08)",background:"rgba(17,24,39,0.8)",color:"#cbd5e1",cursor:"pointer",fontFamily:d,fontWeight:500,transition:"all 0.15s"},onMouseOver:a=>a.currentTarget.style.background="rgba(0,113,227,0.1)",onMouseOut:a=>a.currentTarget.style.background="rgba(30,41,59,0.8)",children:t},t))}),e.jsxs("div",{style:{padding:Y?"16px 24px":"12px 16px",borderTop:"1px solid rgba(255,255,255,0.06)",background:"rgba(17,24,39,0.9)",flexShrink:0,...Y?{maxWidth:720,margin:"0 auto",width:"100%"}:{}},children:[e.jsxs("div",{style:{display:"flex",gap:8},children:[e.jsx("input",{className:"chat-input",value:Ee,onChange:t=>Ut(t.target.value),"aria-label":"Ask about mainframes",placeholder:"Ask about mainframes...",onKeyDown:t=>{t.key==="Enter"&&!t.shiftKey&&(t.preventDefault(),Ia())},style:{flex:1,padding:Y?"14px 18px":"10px 14px",fontSize:Y?16:14,border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:14,outline:"none",fontFamily:d,background:"rgba(30,41,59,0.6)",color:"#f1f5f9",transition:"all 0.2s"}}),e.jsx("button",{onClick:Ia,disabled:Ft||!Ee.trim(),style:{width:42,height:42,borderRadius:14,border:"none",cursor:Ee.trim()?"pointer":"default",background:Ee.trim()?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(30,41,59,0.8)",color:Ee.trim()?"#fff":"#64748b",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.2s",flexShrink:0},children:"↑"})]}),e.jsx("div",{style:{fontSize:10,color:"#b0b0b6",textAlign:"center",marginTop:6},children:"AI assistant for mainframe learning · Powered by Claude"})]})]}),e.jsx("footer",{style:{borderTop:"1px solid rgba(255,255,255,0.06)",background:"rgba(17,24,39,0.6)",backdropFilter:"blur(20px)",padding:"28px 0"},children:e.jsxs("div",{style:{...r.inner,display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12},children:[e.jsxs("span",{style:{fontSize:12,color:"#94a3b8",display:"flex",alignItems:"center",gap:6},children:[e.jsx("img",{src:"/favicon.svg",alt:"",style:{width:16,height:16,borderRadius:3}})," MainframeStudyHub Hub — The complete IBM Z knowledge platform. A to Z, Beginner to Professional."]}),e.jsx("div",{style:{display:"flex",gap:16,flexWrap:"wrap"},children:[["home","Overview"],["topics","Topics"],["scenarios","Scenarios"],["blog","Blog"],["quiz","Quiz"],["community","Community"],["weekly","Weekly"]].map(([t,a])=>e.jsx("button",{onClick:()=>j(t),style:{background:"none",border:"none",color:"#94a3b8",fontSize:12,cursor:"pointer",fontFamily:d},children:a},t))})]})})]})}const J={width:"100%",padding:"12px 14px",fontSize:14,border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:10,outline:"none",fontFamily:d,background:"rgba(30,41,59,0.8)",marginBottom:12,color:"#f1f5f9",transition:"border-color 0.2s"},r={root:{fontFamily:d,background:"transparent",color:"#e2e8f0",minHeight:"100vh",overflowX:"hidden"},nav:{position:"fixed",top:0,left:0,right:0,zIndex:1e3,height:52,transition:"background .3s,box-shadow .3s",background:"rgba(8,11,22,0.85)",backdropFilter:"blur(20px)",borderBottom:"1px solid rgba(255,255,255,0.06)"},navInner:{maxWidth:1200,margin:"0 auto",padding:"0 24px",height:52,display:"flex",alignItems:"center"},navLogo:{display:"flex",alignItems:"center",gap:8,background:"none",border:"none",cursor:"pointer",color:"#f1f5f9",fontFamily:d},navLinks:{display:"flex",gap:0,marginLeft:"auto",overflowX:"auto",overflowY:"hidden",WebkitOverflowScrolling:"touch",scrollbarWidth:"none",msOverflowStyle:"none",maxWidth:"calc(100vw - 200px)",flexShrink:1},navLink:{background:"none",border:"none",cursor:"pointer",fontSize:13,padding:"6px 11px",borderRadius:6,fontFamily:d,transition:"color .2s",whiteSpace:"nowrap",flexShrink:0},hamburger:{display:"flex",flexDirection:"column",background:"none",border:"none",cursor:"pointer",padding:"8px",marginLeft:"auto"},drawer:{position:"fixed",top:0,left:0,right:0,background:"rgba(8,11,22,0.97)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",zIndex:999,padding:"8px 0 24px",boxShadow:"0 8px 30px rgba(0,0,0,0.1)",maxHeight:"90vh",overflowY:"auto"},drawerLink:{display:"block",width:"100%",textAlign:"left",padding:"12px 24px",background:"none",border:"none",fontSize:17,fontWeight:500,cursor:"pointer",fontFamily:d,color:"#e2e8f0"},drawerTopicLink:{display:"block",width:"100%",textAlign:"left",padding:"9px 24px",background:"none",border:"none",fontSize:14,color:"#f1f5f9",cursor:"pointer",fontFamily:d},heroInner:{maxWidth:720,margin:"0 auto",padding:"0 24px"},btnBlue:{background:"#0071e3",color:"#fff",border:"none",borderRadius:980,padding:"12px 24px",fontSize:15,fontWeight:600,cursor:"pointer",fontFamily:d},btnGhost:{background:"transparent",color:"#0071e3",border:"1.5px solid #0071e3",borderRadius:980,padding:"12px 24px",fontSize:15,fontWeight:600,cursor:"pointer",fontFamily:d},section:{padding:"72px 0"},inner:{maxWidth:1200,margin:"0 auto",padding:"0 24px"},sectionTitle:{fontSize:"clamp(26px,4vw,44px)",fontWeight:800,letterSpacing:"-1.5px",color:"#f1f5f9",marginBottom:36},topicsGrid:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(185px,1fr))",gap:14},topicCard:{background:"rgba(17,24,39,0.8)",borderRadius:16,border:"1px solid rgba(255,255,255,0.08)",padding:"20px 18px",cursor:"pointer",textAlign:"left",boxShadow:"0 2px 16px rgba(0,0,0,0.3)",backdropFilter:"blur(12px)",transition:"transform 0.3s ease,box-shadow 0.3s ease"},tcTitle:{fontSize:16,fontWeight:700,color:"#f1f5f9",marginBottom:4},tcSub:{fontSize:12,color:"#94a3b8",marginBottom:6,lineHeight:1.4},tcMore:{fontSize:13,fontWeight:600},featureCard:{background:"rgba(17,24,39,0.8)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:20,padding:"32px 28px",cursor:"pointer",textAlign:"left",boxShadow:"0 4px 20px rgba(0,0,0,0.3)",backdropFilter:"blur(12px)",transition:"transform 0.3s ease,box-shadow 0.3s ease"},fcTitle:{fontSize:20,fontWeight:700,color:"#f1f5f9",marginBottom:10},fcDesc:{fontSize:14,color:"#94a3b8",lineHeight:1.6},pageHero:{padding:"64px 24px 36px",maxWidth:1200,margin:"0 auto"},pageHeroTitle:{fontSize:"clamp(34px,5vw,60px)",fontWeight:800,letterSpacing:"-2px",color:"#f1f5f9",marginBottom:12},pageHeroSub:{fontSize:18,color:"#94a3b8",fontWeight:400,maxWidth:620},searchInput:{background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:8,padding:"8px 12px 8px 32px",fontSize:14,color:"#e2e8f0",outline:"none",fontFamily:d,width:220},pill:{border:"none",borderRadius:980,padding:"6px 14px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:d,transition:"all .15s"},backBtn:{background:"none",border:"none",color:"#60a5fa",cursor:"pointer",fontSize:15,fontFamily:d,marginBottom:20,padding:0},contentPre:{fontSize:15.5,color:"#cbd5e1",lineHeight:2.05,whiteSpace:"pre-wrap",fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif",letterSpacing:"-.15px",wordSpacing:"0.5px"},codeWrap:{borderRadius:14,overflow:"hidden",border:"1.5px solid rgba(255,255,255,0.1)",background:"#1c1c1e",marginTop:20},codeTopBar:{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 16px",background:"#2c2c2e"},codePre:{padding:"22px",margin:0,fontSize:13,lineHeight:1.85,overflowX:"auto",fontFamily:ut},prevNextBtn:{background:"rgba(17,24,39,0.6)",border:"1.5px solid rgba(255,255,255,0.1)",borderRadius:12,padding:"14px 18px",cursor:"pointer",textAlign:"left",fontFamily:d,color:"#f1f5f9",flex:"0 0 auto",maxWidth:260},diffBadge:{fontSize:11,fontWeight:600,padding:"3px 10px",borderRadius:980},blogCard:{background:"rgba(17,24,39,0.8)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:18,padding:"24px",cursor:"pointer",textAlign:"left",boxShadow:"0 2px 16px rgba(0,0,0,0.3)",backdropFilter:"blur(12px)"}};class es extends De.Component{constructor(m){super(m),this.state={error:null}}static getDerivedStateFromError(m){return{error:m}}render(){return this.state.error?De.createElement("div",{style:{padding:40,fontFamily:"system-ui",textAlign:"center"}},De.createElement("h1",{style:{color:"#e74c3c"}},"Something went wrong"),De.createElement("pre",{style:{background:"#f5f5f5",padding:20,borderRadius:12,textAlign:"left",overflow:"auto",maxWidth:600,margin:"20px auto",fontSize:13}},this.state.error.toString()),De.createElement("button",{onClick:()=>{this.setState({error:null}),window.location.reload()},style:{background:"#0071e3",color:"#fff",border:"none",borderRadius:8,padding:"10px 24px",cursor:"pointer",fontSize:15,marginTop:16}},"Reload")):this.props.children}}Zt.createRoot(document.getElementById("root")).render(De.createElement(es,null,De.createElement($o)));export{e as j};
+//# sourceMappingURL=index-BKkJQM7Q.js.map
