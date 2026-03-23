@@ -30,6 +30,7 @@
 - [Career Roadmap](https://mainframestudyhub.com/roadmap) — Trainee to Architect path
 - [Community](https://mainframestudyhub.com/community) — Live chat and Q&A forum
 - [Blog](https://mainframestudyhub.com/blog) — Expert articles
+- [Feedback](https://mainframestudyhub.com/feedback) — Share feedback and suggestions
 - [About](https://mainframestudyhub.com/about) — Built by Harikrishnan K
 
 ## Contact

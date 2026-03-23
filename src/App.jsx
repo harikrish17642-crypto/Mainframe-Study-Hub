@@ -298,7 +298,7 @@ async function loadLastUpdate() {
 
 /* ─── MAIN APP ───────────────────────────────────────────────────────────── */
 export default function App() {
-  const VALID_PAGES = ["home","topics","scenarios","blog","quiz","playground","community","abends","roadmap","weekly","about"];
+  const VALID_PAGES = ["home","topics","scenarios","blog","quiz","playground","community","abends","roadmap","weekly","about","feedback"];
   const TOPIC_IDS = ["jcl","cobol","cics","db2","vsam","rexx","imsdb","zos","security","tso","smf","ca7","linuxonz","modernization","procs"];
 
   // Simple initial page from URL path (no complex logic in useState)
@@ -337,6 +337,7 @@ export default function App() {
     weekly: "Weekly Mainframe Updates | MainframeStudyHub",
     playground: "AI Code Lab — JCL/COBOL Explainer & Simulator | MainframeStudyHub",
     about: "About MainframeStudyHub — Built by Harikrishnan K",
+    feedback: "Feedback — Help Us Improve MainframeStudyHub",
   };
   const PAGE_DESCS = {
     home: "MainframeStudyHub — Free IBM Z mainframe learning platform. 560+ lessons across 15 topics. AI Code Lab, 200+ quizzes, interview Q&A, cheat sheets.",
@@ -350,6 +351,7 @@ export default function App() {
     roadmap: "6-level mainframe career roadmap from Trainee to Architect. Skills, certifications, and timeline guidance.",
     weekly: "Weekly mainframe content updates across all 15 topics. Stay current with the latest tutorials and tips.",
     about: "MainframeStudyHub — Built by Harikrishnan K, Mainframe Developer. Free platform for the mainframe community.",
+    feedback: "Share your feedback about MainframeStudyHub. Help us improve the platform for the mainframe community.",
   };
 
   // Sync page + topic state with URL for SEO
@@ -1803,7 +1805,7 @@ Behavior guidelines:
             <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: "-.3px" }}>MainframeStudyHub</span>
           </button>
           <div className="nav-scroll" style={S.navLinks}>
-            {[["home","Overview"],["topics","Topics"],["scenarios","Scenarios"],["blog","Blog"],["quiz","Quiz"],["playground","Code Lab"],["community","Community"],["abends","Abend Solver"],["roadmap","Roadmap"],["weekly","Weekly Update"],["about","About"]].map(([p,l]) => (
+            {[["home","Overview"],["topics","Topics"],["scenarios","Scenarios"],["blog","Blog"],["quiz","Quiz"],["playground","Code Lab"],["community","Community"],["abends","Abend Solver"],["roadmap","Roadmap"],["weekly","Weekly Update"],["feedback","Feedback"],["about","About"]].map(([p,l]) => (
               <button key={p} className="nav-btn" onClick={() => goPage(p)}
                 style={{ ...S.navLink, color: page===p ? "#ffffff":"#94a3b8", fontWeight: page===p?600:400 }}>
                 {l}
@@ -1856,7 +1858,7 @@ Behavior guidelines:
               </button>
             </div>
           )}
-          {[["home","🏠 Overview"],["topics","📚 Topics"],["scenarios","🎯 Scenarios"],["blog","📰 Blog"],["quiz","🧠 Quiz"],["community","💬 Community"],["abends","🔍 Abend Solver"],["roadmap","🗺️ Roadmap"],["weekly","🔄 Weekly Update"],["about","👤 About"]].map(([p,l]) => (
+          {[["home","🏠 Overview"],["topics","📚 Topics"],["scenarios","🎯 Scenarios"],["blog","📰 Blog"],["quiz","🧠 Quiz"],["community","💬 Community"],["abends","🔍 Abend Solver"],["roadmap","🗺️ Roadmap"],["weekly","🔄 Weekly Update"],["feedback","📝 Feedback"],["about","👤 About"]].map(([p,l]) => (
             <button key={p} onClick={() => goPage(p)}
               style={{ ...S.drawerLink, color: page===p?"#0071e3":"#e2e8f0" }}>{l}</button>
           ))}
@@ -3721,6 +3723,160 @@ Behavior guidelines:
             </div>
           </div>
         )}
+
+        {page === "feedback" && (() => {
+          const [fbRating, setFbRating] = [feedbackForm.rating, (r) => setFeedbackForm(f => ({...f, rating: r}))];
+          const [fbSent, setFbSent] = [feedbackSent, setFeedbackSent];
+          return (
+          <div>
+            <div style={S.pageHero}>
+              <h1 style={S.pageHeroTitle}>Feedback</h1>
+              <p style={S.pageHeroSub}>Help us make MainframeStudyHub better for everyone</p>
+            </div>
+            <div style={{ ...S.inner, paddingBottom:80, maxWidth:800 }}>
+              {/* Feedback Categories */}
+              <div className="content-card fi" style={{ marginBottom:32 }}>
+                <div style={{ display:"flex",alignItems:"center",gap:14,marginBottom:24 }}>
+                  <div style={{ width:56,height:56,borderRadius:16,background:"linear-gradient(135deg,#0071e3,#7c3aed)",
+                    display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,flexShrink:0 }}>📝</div>
+                  <div>
+                    <h2 style={{ fontSize:24,fontWeight:800,color:"#f1f5f9",letterSpacing:"-0.5px" }}>We Value Your Feedback</h2>
+                    <p style={{ fontSize:14,color:"#94a3b8" }}>Your input shapes the future of this platform</p>
+                  </div>
+                </div>
+
+                {fbSent ? (
+                  <div style={{ textAlign:"center",padding:"40px 20px" }}>
+                    <div style={{ fontSize:64,marginBottom:16 }}>🎉</div>
+                    <h3 style={{ fontSize:22,fontWeight:800,color:"#4ade80",marginBottom:8 }}>Thank You!</h3>
+                    <p style={{ color:"#94a3b8",fontSize:15 }}>Your feedback has been submitted. We appreciate you helping us improve!</p>
+                    <button onClick={() => { setFeedbackSent(false); setFeedbackForm({rating:0,message:"",name:"",email:""}); }}
+                      style={{ marginTop:20,padding:"10px 24px",background:"rgba(0,113,227,0.15)",color:"#60a5fa",border:"1px solid rgba(0,113,227,0.3)",
+                        borderRadius:10,fontSize:14,fontWeight:700,cursor:"pointer" }}>
+                      Submit Another
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    {/* Star Rating */}
+                    <div style={{ marginBottom:24 }}>
+                      <label style={{ fontSize:14,fontWeight:700,color:"#e2e8f0",marginBottom:10,display:"block" }}>
+                        How would you rate MainframeStudyHub?
+                      </label>
+                      <div style={{ display:"flex",gap:8 }}>
+                        {[1,2,3,4,5].map(s => (
+                          <button key={s} onClick={() => setFeedbackForm(f=>({...f,rating:s}))}
+                            style={{ fontSize:32,background:"none",border:"none",cursor:"pointer",
+                              filter:s<=feedbackForm.rating?"none":"grayscale(1) opacity(0.4)",
+                              transition:"all 0.2s",transform:s<=feedbackForm.rating?"scale(1.1)":"scale(1)" }}>
+                            ⭐
+                          </button>
+                        ))}
+                        {feedbackForm.rating > 0 && (
+                          <span style={{ color:"#94a3b8",fontSize:14,alignSelf:"center",marginLeft:8 }}>
+                            {["","Needs work","Fair","Good","Great","Excellent!"][feedbackForm.rating]}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Name */}
+                    <div style={{ marginBottom:16 }}>
+                      <label style={{ fontSize:13,fontWeight:600,color:"#94a3b8",marginBottom:6,display:"block" }}>Name (optional)</label>
+                      <input value={feedbackForm.name} onChange={e=>setFeedbackForm(f=>({...f,name:e.target.value}))}
+                        placeholder={user?.name || "Your name"}
+                        style={{ width:"100%",padding:"12px 16px",background:"rgba(30,41,59,0.8)",border:"1.5px solid rgba(255,255,255,0.1)",
+                          borderRadius:12,color:"#f1f5f9",fontSize:15,outline:"none",fontFamily:"inherit" }} />
+                    </div>
+
+                    {/* Email */}
+                    <div style={{ marginBottom:16 }}>
+                      <label style={{ fontSize:13,fontWeight:600,color:"#94a3b8",marginBottom:6,display:"block" }}>Email (optional)</label>
+                      <input value={feedbackForm.email} onChange={e=>setFeedbackForm(f=>({...f,email:e.target.value}))}
+                        placeholder={user?.email || "your@email.com"}
+                        style={{ width:"100%",padding:"12px 16px",background:"rgba(30,41,59,0.8)",border:"1.5px solid rgba(255,255,255,0.1)",
+                          borderRadius:12,color:"#f1f5f9",fontSize:15,outline:"none",fontFamily:"inherit" }} />
+                    </div>
+
+                    {/* Feedback Type */}
+                    <div style={{ marginBottom:16 }}>
+                      <label style={{ fontSize:13,fontWeight:600,color:"#94a3b8",marginBottom:6,display:"block" }}>What's your feedback about?</label>
+                      <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
+                        {["Content Quality","New Topics","Bug Report","Feature Request","UI/Design","General"].map(cat => (
+                          <button key={cat} onClick={() => setFeedbackForm(f=>({...f,message:f.message?(f.message.startsWith("[")? "["+cat+"] "+f.message.replace(/^\[.*?\]\s*/,"") : "["+cat+"] "+f.message) : "["+cat+"] "}))}
+                            style={{ padding:"7px 14px",borderRadius:20,fontSize:12,fontWeight:600,cursor:"pointer",transition:"all 0.2s",
+                              background:feedbackForm.message.includes("["+cat+"]")?"rgba(0,113,227,0.2)":"rgba(30,41,59,0.6)",
+                              color:feedbackForm.message.includes("["+cat+"]")?"#60a5fa":"#94a3b8",
+                              border:feedbackForm.message.includes("["+cat+"]")?"1px solid rgba(0,113,227,0.4)":"1px solid rgba(255,255,255,0.08)" }}>
+                            {cat}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Message */}
+                    <div style={{ marginBottom:20 }}>
+                      <label style={{ fontSize:13,fontWeight:600,color:"#94a3b8",marginBottom:6,display:"block" }}>Your feedback *</label>
+                      <textarea value={feedbackForm.message} onChange={e=>setFeedbackForm(f=>({...f,message:e.target.value}))}
+                        placeholder="Tell us what you think — what's working, what's not, what you'd like to see..."
+                        rows={5}
+                        style={{ width:"100%",padding:"14px 16px",background:"rgba(30,41,59,0.8)",border:"1.5px solid rgba(255,255,255,0.1)",
+                          borderRadius:12,color:"#f1f5f9",fontSize:15,outline:"none",fontFamily:"inherit",resize:"vertical",lineHeight:1.6 }} />
+                    </div>
+
+                    {/* Submit */}
+                    <button onClick={async () => {
+                      if (!feedbackForm.message.trim()) return;
+                      try {
+                        await supabase.from("feedback").insert({
+                          user_id: user?.id || null,
+                          name: feedbackForm.name.trim() || user?.name || "Anonymous",
+                          email: feedbackForm.email.trim() || user?.email || null,
+                          rating: feedbackForm.rating || null,
+                          message: feedbackForm.message.trim(),
+                          page: "feedback",
+                        });
+                      } catch {}
+                      setFeedbackSent(true);
+                    }}
+                      disabled={!feedbackForm.message.trim()}
+                      style={{ width:"100%",padding:"14px",background:feedbackForm.message.trim()?"linear-gradient(135deg,#0071e3,#7c3aed)":"rgba(30,41,59,0.6)",
+                        color:feedbackForm.message.trim()?"#fff":"#64748b",border:"none",borderRadius:12,fontSize:16,fontWeight:700,
+                        cursor:feedbackForm.message.trim()?"pointer":"not-allowed",fontFamily:"inherit",transition:"all 0.2s",
+                        boxShadow:feedbackForm.message.trim()?"0 4px 20px rgba(0,113,227,0.3)":"none" }}>
+                      Submit Feedback
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Quick Suggestions */}
+              <div className="content-card fi" style={{ animationDelay:"0.1s" }}>
+                <h3 style={{ fontSize:18,fontWeight:800,color:"#f1f5f9",marginBottom:16,letterSpacing:"-0.3px" }}>Quick Suggestions</h3>
+                <p style={{ fontSize:13,color:"#94a3b8",marginBottom:16 }}>Click any suggestion to pre-fill your feedback:</p>
+                <div style={{ display:"flex",flexDirection:"column",gap:8 }}>
+                  {[
+                    "I'd like more content on [specific topic]",
+                    "The Code Lab / AI Assistant could be improved by...",
+                    "I found a bug on the [page name] page",
+                    "It would be great to have a Job Board feature",
+                    "The quiz questions need more [topic] coverage",
+                    "I love the platform! Here's what I'd add...",
+                  ].map((sug,i) => (
+                    <button key={i} onClick={() => setFeedbackForm(f=>({...f,message:sug}))}
+                      style={{ textAlign:"left",padding:"12px 16px",background:"rgba(30,41,59,0.5)",border:"1px solid rgba(255,255,255,0.06)",
+                        borderRadius:10,color:"#cbd5e1",fontSize:13,cursor:"pointer",fontFamily:"inherit",transition:"all 0.2s" }}
+                      onMouseOver={e=>{e.target.style.background="rgba(0,113,227,0.1)";e.target.style.borderColor="rgba(0,113,227,0.2)"}}
+                      onMouseOut={e=>{e.target.style.background="rgba(30,41,59,0.5)";e.target.style.borderColor="rgba(255,255,255,0.06)"}}>
+                      💡 {sug}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          );
+        })()}
 
       </main>
 
