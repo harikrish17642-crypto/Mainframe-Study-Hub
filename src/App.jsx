@@ -302,7 +302,11 @@ export default function App() {
   const TOPIC_IDS = ["jcl","cobol","cics","db2","vsam","rexx","imsdb","zos","security","tso","smf","ca7","linuxonz","modernization","procs"];
 
   // Simple initial page from URL path (no complex logic in useState)
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState(() => {
+    const parts = window.location.pathname.split("/").filter(Boolean);
+    const p = parts[0] || "home";
+    return VALID_PAGES.includes(p) ? p : "home";
+  });
   const [activeTopic, setActiveTopic] = useState(null);
   
   // Topic-specific SEO metadata
