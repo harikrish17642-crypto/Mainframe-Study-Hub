@@ -4215,7 +4215,7 @@ const S = {
   navInner:{ maxWidth:1200,margin:"0 auto",padding:"0 24px",height:52,display:"flex",alignItems:"center" },
   navLogo:{ display:"flex",alignItems:"center",gap:8,background:"none",border:"none",cursor:"pointer",color:"#f1f5f9",fontFamily:FF },
   navLinks:{ display:"flex",gap:0,marginLeft:"auto",overflowX:"auto",overflowY:"hidden",WebkitOverflowScrolling:"touch",scrollbarWidth:"none",msOverflowStyle:"none",maxWidth:"calc(100vw - 200px)",flexShrink:1 },
-  navLink:{ background:"none",border:"none",cursor:"pointer",fontSize:13,padding:"6px 11px",borderRadius:6,fontFamily:FF,transition:"color .2s",whiteSpace:"nowrap",flexShrink:0 },
+  navLink:{ background:"none",border:"none",cursor:"pointer",fontSize:12.5,padding:"6px 9px",borderRadius:6,fontFamily:FF,transition:"color .2s",whiteSpace:"nowrap",flexShrink:0 },
   hamburger:{ display:"flex",flexDirection:"column",background:"none",border:"none",cursor:"pointer",padding:"8px",marginLeft:"auto" },
   drawer:{ position:"fixed",top:0,left:0,right:0,background:"rgba(8,11,22,0.97)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",zIndex:999,padding:"8px 0 24px",boxShadow:"0 8px 30px rgba(0,0,0,0.1)",maxHeight:"90vh",overflowY:"auto" },
   drawerLink:{ display:"block",width:"100%",textAlign:"left",padding:"12px 24px",background:"none",border:"none",fontSize:17,fontWeight:500,cursor:"pointer",fontFamily:FF,color:"#e2e8f0" },
