@@ -1,6 +1,6 @@
-# Serve static pages directly
+# Static HTML pages (served directly)
 /confirm.html    /confirm.html    200
 /reset-password.html    /reset-password.html    200
 
-# SPA fallback - all other routes serve index.html
+# SPA fallback - all routes serve index.html with 200 (not 301!)
 /*    /index.html   200

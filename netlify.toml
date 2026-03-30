@@ -8,6 +8,19 @@
 [functions]
   directory = "netlify/functions"
 
+# Force www → non-www redirect (301 permanent)
+[[redirects]]
+  from = "https://www.mainframestudyhub.com/*"
+  to = "https://mainframestudyhub.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.mainframestudyhub.com/*"
+  to = "https://mainframestudyhub.com/:splat"
+  status = 301
+  force = true
+
 # Security & caching headers
 [[headers]]
   for = "/*"
