@@ -1125,6 +1125,192 @@ A: The ibm.ibm_zos_core Ansible collection provides modules for z/OS automation:
 
 Q: What is SMP/E and why is it important?
 A: SMP/E is the software lifecycle manager for z/OS. It handles installation and maintenance of all z/OS products and fixes. Key commands: RECEIVE (download fixes), APPLY CHECK (verify prerequisites), APPLY (install), ACCEPT (permanent). It tracks all software in a CSI database and manages dependencies between fixes.`
-    }
+    },
+
+    { title:"24 — DevOps for Mainframe", level:"Advanced",
+      content:`DevOps practices adapted for mainframe.
+
+Principles: Git version control, IBM DBB build, zUnit testing, Jenkins/GitLab CI, UrbanCode Deploy, Ansible.
+Toolchain: Git (Rocket/IBM), IDz/VS Code + Zowe, IBM DBB, Jenkins, UrbanCode.
+Challenges: Cultural shift, tooling integration, test environments, change management.
+
+Pro Tip: Start with one application. Prove value with metrics before expanding.`,
+      code:``
+    },
+
+    { title:"25 — VS Code + Zowe Development", level:"Intermediate",
+      content:`Modern mainframe development using VS Code.
+
+Zowe Explorer: Browse datasets, edit COBOL/JCL, submit JCL, view output.
+Zowe CLI: zowe files list/download, zowe jobs submit/list, zowe console issue.
+COBOL extension: Syntax highlighting, IntelliSense, copybook resolution.
+
+Pro Tip: VS Code + Zowe is the fastest way to onboard new developers to mainframe.`,
+      code:``
+    },
+
+    { title:"26 — IBM Wazi and Cloud Development", level:"Advanced",
+      content:`Cloud-based mainframe development and testing.
+
+Components: Wazi Analyze (dependencies), Wazi Code (IDE), Wazi Deploy (pipeline), Wazi Sandbox (personal z/OS on x86).
+Wazi Analyze: Visualize call graphs, identify copybook dependencies, impact analysis.
+
+Pro Tip: Use Wazi Analyze before any legacy COBOL changes — shows all downstream impacts.`,
+      code:``
+    },
+
+    { title:"27 — API-Enabling Legacy Applications", level:"Advanced",
+      content:`Expose mainframe logic as REST APIs without rewriting.
+
+z/OS Connect EE: CICS/IMS transactions to REST/JSON. No COBOL changes. API management built in.
+Flow: JSON request -> z/OS Connect -> COMMAREA -> CICS transaction -> response -> JSON.
+Alternatives: CICS Web Services, MQ gateway, DataPower, Node.js + Zowe SDK.
+
+Pro Tip: Start with read-only APIs (inquiries) — lowest risk.`,
+      code:``
+    },
+
+    { title:"28 — Mainframe Data Modernization", level:"Intermediate",
+      content:`Making mainframe data accessible to modern applications.
+
+Patterns: Real-time API, CDC (Change Data Capture), Batch ETL, Replication, Virtualization.
+CDC: Capture DB2/VSAM changes in real-time, stream to Kafka/cloud. Tools: IBM InfoSphere CDC, Attunity.
+Cloud: AWS/Azure Mainframe Modernization, IBM Cloud Pak for Integration.
+
+Pro Tip: CDC + Kafka is the most popular pattern for real-time mainframe data streaming.`,
+      code:``
+    },
+
+    { title:"29 — Modernization Anti-Patterns", level:"Expert",
+      content:`Common modernization mistakes.
+
+1. Big Bang Rewrite: 75% fail (Gartner). Use incremental approach.
+2. Lift and Shift: Same problems, higher cost. Refactor interfaces instead.
+3. Ignoring Data Gravity: Moving apps without data kills performance. Use CDC.
+4. Technology-First: Start with business problem, not technology choice.
+5. Ignoring Operations: Modernize the entire pipeline, not just development.
+
+Successful pattern: Assess -> API-enable -> Extend -> Refactor -> Never abandon mainframe.
+
+Expert Tip: The most successful modernizations keep the mainframe as a powerful backend service.`,
+      code:``
+    },
+
+    { title:"30 — Modernization Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common modernization interview questions.
+
+Q: What is modernization? A: Making mainframe apps accessible and integrated with modern tech.
+Q: z/OS Connect? A: Exposes CICS/IMS as REST APIs without code changes.
+Q: Zowe? A: Open-source framework for modern mainframe interaction.
+Q: Should we rewrite COBOL? A: Usually no. API-enable and build new features in modern languages.
+
+Cheat Sheet:
+  Zowe — Open-source framework
+  z/OS Connect — REST API gateway
+  IBM DBB — Git-based build
+  Wazi — Cloud dev/test
+  Ansible — z/OS automation
+  CDC — Real-time data streaming
+  Strategy: API-enable > Extend > Refactor`,
+      code:``
+    },
+
+    { title:"24 — DevOps for Mainframe", level:"Advanced",
+      content:`DevOps practices adapted for mainframe.
+
+Key Principles: Version control (Git), automated build (IBM DBB), automated testing (zUnit), CI/CD (Jenkins/GitLab with z/OS plugins), infrastructure as code (Ansible).
+
+Toolchain: Git (Rocket/IBM), IBM DBB (build), zUnit (test), Jenkins/GitLab (pipeline), UrbanCode Deploy/Ansible (deploy).
+
+Challenges: Cultural shift, tooling integration, expensive test environments, change management processes.
+
+💡 Pro Tip: Start with a single application. Prove value with metrics before expanding.`,
+      code:``
+    },
+    { title:"25 — VS Code + Zowe Development", level:"Intermediate",
+      content:`Modern mainframe development using VS Code.
+
+Zowe Explorer: Browse datasets/USS files, edit COBOL/JCL/REXX with syntax highlighting, submit JCL and view output, create/delete datasets.
+
+Zowe CLI: zowe files list, zowe files download, zowe jobs submit, zowe jobs list, zowe console issue command.
+
+COBOL Language Support: Syntax highlighting, IntelliSense, copybook resolution, error diagnostics.
+
+💡 Pro Tip: VS Code + Zowe is the fastest way to onboard new developers to mainframe.`,
+      code:``
+    },
+    { title:"26 — IBM Wazi Cloud Development", level:"Advanced",
+      content:`Cloud-based mainframe development and testing.
+
+Components: Wazi Analyze (understand app structure), Wazi Code (VS Code IDE), Wazi Deploy (automated deployment), Wazi Sandbox (personal z/OS on x86).
+
+Wazi Analyze: Visualize COBOL call graphs, identify dependencies, impact analysis, generate documentation.
+
+Benefits: Developers do not need mainframe access for development. Test environments on demand. Lower cost.
+
+💡 Pro Tip: Use Wazi Analyze before making changes to legacy COBOL — shows all downstream impacts.`,
+      code:``
+    },
+    { title:"27 — API-Enabling Legacy Applications", level:"Advanced",
+      content:`Expose mainframe business logic as modern APIs without rewriting.
+
+z/OS Connect EE: Transforms CICS/IMS transactions into REST/JSON APIs. No changes to COBOL programs. API management with rate limiting and security.
+
+Flow: Existing CICS transaction -> z/OS Connect maps JSON to COMMAREA -> REST endpoint -> Mobile/web calls API.
+
+Alternatives: CICS Web Services, MQ as API gateway, IBM DataPower, custom Node.js + Zowe SDK.
+
+💡 Pro Tip: Start with read-only APIs (inquiries) — lowest risk. Then add update APIs with transaction management.`,
+      code:``
+    },
+    { title:"28 — Mainframe Data Modernization", level:"Intermediate",
+      content:`Making mainframe data accessible to modern applications.
+
+Data Access Patterns: Real-time API (z/OS Connect), CDC/Change Data Capture (stream to Kafka/cloud), batch ETL, replication, data virtualization.
+
+CDC: Capture DB2/VSAM changes in real-time. Stream to Kafka, cloud databases. Tools: IBM InfoSphere CDC, Attunity.
+
+Cloud Integration: AWS/Azure Mainframe Modernization, IBM Cloud Pak, hybrid cloud patterns.
+
+💡 Pro Tip: CDC + Kafka is the most popular pattern. Keeps mainframe as system of record while feeding real-time data to cloud.`,
+      code:``
+    },
+    { title:"29 — Modernization Anti-Patterns", level:"Expert",
+      content:`Common mistakes and how to avoid them.
+
+Big Bang Rewrite: 75% fail (Gartner). Use incremental modernization instead.
+
+Lift and Shift: Same problems, higher cost. Refactor interfaces, keep core on Z.
+
+Ignoring Data Gravity: Moving apps but leaving data causes latency. Co-locate or use CDC.
+
+Technology-First: Start with business problem, not technology choice.
+
+Successful Pattern: Assess -> Expose (API-enable) -> Extend (new features in modern stack) -> Refactor (gradually extract services).
+
+💡 Expert Tip: Most successful modernizations do NOT remove the mainframe. They make it a powerful backend behind modern interfaces.`,
+      code:``
+    },
+    { title:"30 — Modernization Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common interview questions.
+
+Q: What is mainframe modernization? A: Making apps accessible, maintainable, and integrated with modern tech without replacing them.
+
+Q: What is z/OS Connect? A: Exposes CICS/IMS/batch as REST/JSON APIs without code changes.
+
+Q: What is Zowe? A: Open-source framework for modern mainframe interaction.
+
+Q: Should we rewrite COBOL in Java? A: Usually no. API-enable COBOL and build new features in modern languages.
+
+Cheat Sheet:
+  Zowe — Open-source framework
+  z/OS Connect — REST API gateway
+  IBM DBB — Git-based build
+  Wazi — Cloud dev/test
+  Ansible for z/OS — Automation
+  CDC — Change Data Capture
+  Strategies: API-enable > Extend > Refactor`,
+      code:``
+    },
   ]
 };

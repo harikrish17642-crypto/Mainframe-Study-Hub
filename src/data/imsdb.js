@@ -1233,5 +1233,159 @@ Unqualified: segname
 Qualified: segname(field OP value)
 Operators: =, >=, <=, >, <, !=`,
     },
+
+    { title:"25 — IMS Fast Path", level:"Expert",
+      content:`High-performance processing for high-volume transactions.
+
+DEDBs: Optimized for insert/update, divided into areas, VSO for in-memory pinning.
+MSDBs: Entire database in memory. Fastest DL/I access. For rate tables, counters.
+EMH: Bypass message queues for sub-millisecond response.
+
+Expert Tip: Fast Path DEDBs handle millions of transactions per second in banking.`,
+      code:``
+    },
+
+    { title:"26 — IMS and Java Integration", level:"Advanced",
+      content:`Modern Java access to IMS.
+
+IMS Universal Drivers: JDBC/JCA from Java. Standard SQL against IMS databases.
+IMS Connect: TCP/IP gateway for external access.
+IMS Open Database: Present hierarchical data as relational tables.
+Modernization: Keep COBOL transactions, add IMS Connect, build Java front-ends.
+
+Pro Tip: IMS Open Database is the easiest way to integrate IMS with analytics tools.`,
+      code:``
+    },
+
+    { title:"27 — IMS Database Recovery", level:"Advanced",
+      content:`Comprehensive IMS recovery capabilities.
+
+Components: OLDS (active log), SLDS (archived), Image Copy (backup), Change Accumulation, DBRC (recovery control).
+Recovery types: Point-in-time, Current, Batch Backout.
+Utilities: DFSURDB0 (recovery), DFSUCUM0 (change accum), DFSUICP0 (image copy).
+
+Pro Tip: Schedule image copies during low-activity windows. Run change accumulation multiple times daily.`,
+      code:``
+    },
+
+    { title:"28 — IMS System Administration", level:"Advanced",
+      content:`Key IMS admin tasks and commands.
+
+Commands: /DIS TRAN, /DIS DB, /STA TRAN, /STO TRAN, /DBR DB, /DIS ACTIVE.
+Region Types: MPP (online), BMP (batch), IFP (Fast Path), JBP/JMP (Java).
+Scheduling: By transaction class, priority, region availability.
+
+Pro Tip: /DIS ACTIVE shows all running transactions — first command for performance issues.`,
+      code:``
+    },
+
+    { title:"29 — IMS Performance Tuning", level:"Expert",
+      content:`Tuning IMS for optimal performance.
+
+Database: Buffer pools, organization, secondary indexes, randomizer, REORG.
+Transaction: Region count, scheduling priority, DL/I call optimization, qualified SSAs.
+Metrics: Response time (<100ms online), DL/I call rate, buffer hit ratio (>95%), queue depth.
+
+Expert Tip: Unqualified GN scans entire database. Always use qualified SSAs with key values.`,
+      code:``
+    },
+
+    { title:"30 — IMS Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common IMS interview questions.
+
+Q: What is IMS? A: Hierarchical database and transaction manager for high-volume OLTP.
+Q: DL/I calls? A: GU(Get Unique), GN(Get Next), ISRT(Insert), REPL(Replace), DLET(Delete).
+Q: Database types? A: HDAM (direct), HIDAM (indexed), DEDB (Fast Path).
+Q: PCB? A: Program Communication Block — defines database access.
+Q: IMS Connect? A: TCP/IP gateway for external access.
+
+Cheat Sheet:
+  GU/GN/GHU/ISRT/REPL/DLET — DL/I calls
+  /DIS TRAN — Display transaction
+  /STA — Start
+  /STO — Stop
+  /DBR — Recovery mode
+  PCB/PSB/SSA — Key concepts
+  DBRC — Recovery control`,
+      code:``
+    },
+
+    { title:"25 — IMS Fast Path", level:"Expert",
+      content:`High-performance processing for high-volume transactions.
+
+Components: DEDBs (Data Entry Databases, optimized for inserts), MSDBs (Main Storage Databases, entire DB in memory), EMH (bypass message queues), IFP regions.
+
+DEDB: Divided into areas (up to 2048), independently reorganizable, sequential dependent segments, VSO (pin in memory).
+
+MSDB: Entire database in memory. Fastest DL/I access. Used for rate tables, counters.
+
+💡 Expert Tip: Fast Path DEDBs handle millions of transactions per second. Banks use them for ATM and real-time balance updates.`,
+      code:``
+    },
+    { title:"26 — IMS and Java Integration", level:"Advanced",
+      content:`Modern IMS supports Java for new development.
+
+Access Methods: IMS Universal Drivers (JDBC/JCA), IMS TM Resource Adapter (JCA connector), IMS Connect (TCP/IP gateway), Open Database (SQL access).
+
+IMS Open Database: Present hierarchical data as relational tables. Standard SQL queries. No DL/I knowledge needed.
+
+Modernization Path: Keep COBOL/DL/I transactions. Add IMS Connect. Build Java front-ends. IMS database remains system of record.
+
+💡 Pro Tip: IMS Open Database is the easiest way to integrate IMS data with modern analytics tools.`,
+      code:``
+    },
+    { title:"27 — IMS Database Recovery", level:"Advanced",
+      content:`Comprehensive recovery capabilities.
+
+Components: OLDS (Online Log), SLDS (archived logs), Image Copy (full backup), Change Accumulation, DBRC (tracks all recovery assets).
+
+Scenarios: Point-in-time recovery, current recovery, batch backout.
+
+Utilities: DFSURDB0 (recovery), DFSUCUM0 (change accumulation), DFSUICP0 (image copy).
+
+💡 Pro Tip: Schedule image copies during low-activity windows. Change accumulation multiple times daily to reduce recovery time.`,
+      code:``
+    },
+    { title:"28 — IMS System Administration", level:"Advanced",
+      content:`Key IMS admin tasks and commands.
+
+Commands: /DIS TRAN (transaction status), /DIS DB (database status), /STA TRAN (start), /STO TRAN (stop), /DBR DB (recovery mode), /DIS ACTIVE (running regions).
+
+Region Types: MPP (online transactions), BMP (batch with DB access), IFP (Fast Path), JBP/JMP (Java).
+
+💡 Pro Tip: /DIS ACTIVE shows all running transactions — first command for troubleshooting.`,
+      code:``
+    },
+    { title:"29 — IMS Performance Tuning", level:"Expert",
+      content:`Tuning for optimal throughput and response time.
+
+Database: Buffer pools (increase for frequent DBs), organization (minimize GN calls), secondary indexes, randomizer tuning (HDAM), regular REORG.
+
+Transaction: Region count (enough MPPs for peak), scheduling priority, message queue monitoring, DL/I call optimization.
+
+Metrics: Response time (<100ms online), DL/I call rate, buffer hit ratio (>95%), queue depth (near zero).
+
+💡 Expert Tip: A single unqualified GN can scan the entire database. Always use qualified SSAs with specific key values.`,
+      code:``
+    },
+    { title:"30 — IMS Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common interview questions.
+
+Q: What is IMS? A: Hierarchical database and transaction manager for high-volume OLTP.
+
+Q: What is DL/I? A: Data Language/I — programming interface. Calls: GU, GN, GHU, ISRT, REPL, DLET.
+
+Q: What are IMS database types? A: HDAM (direct), HIDAM (indexed), HISAM, HSAM, DEDB (Fast Path).
+
+Q: What is a PCB? A: Program Communication Block — defines database/segment access for a program.
+
+Cheat Sheet:
+  DL/I: GU, GN, GHU, ISRT, REPL, DLET
+  Status: (space)=success, GE=not found
+  /DIS TRAN, /DIS DB, /STA, /STO, /DBR
+  PCB, PSB, SSA, DBRC
+  OLDS/SLDS — Log datasets`,
+      code:``
+    },
   ]
 };

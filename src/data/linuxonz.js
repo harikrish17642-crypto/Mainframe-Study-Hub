@@ -723,6 +723,328 @@ A: Linux on Z boots using zipl (z/VM Initial Program Loader), configured via /et
 
 Q: How does encryption work on IBM Z hardware?
 A: Two levels: (1) CPACF — built into every processor, provides AES, SHA, DES at no additional cost. OpenSSL/libica use it automatically. (2) Crypto Express — dedicated co-processor for RSA operations and secure key management (HSM). Together they enable "Pervasive Encryption" — encrypting all data at rest (LUKS/dm-crypt) and in transit (TLS) with zero performance impact.`
-    }
+    },
+
+    { title:"19 — Linux on Z Performance Tuning", level:"Advanced",
+      content:`Performance optimization for Linux running on IBM Z.
+
+CPU: Use dedicated IFLs, configure SHARE values in z/VM, use SMT on z15+.
+Memory: Large pages for databases, Collaborative Memory Management with z/VM.
+I/O: FCP for SAN, ECKD DASD with PAV, use deadline/noop I/O scheduler.
+Network: HiperSockets for inter-LPAR (memory-speed), OSA-Express external, VSWITCH in z/VM.
+
+Pro Tip: IFLs are priced separately and don't count toward MLC software licensing.`,
+      code:``
+    },
+
+    { title:"20 — RHEL on Z Installation", level:"Intermediate",
+      content:`Red Hat Enterprise Linux is the most popular Linux on Z.
+
+Installation: via z/VM guest, LPAR direct, or KVM.
+Tools: lscss (channel devices), chccwdev (configure CCW), znetconf (network), dasd_configure (DASD).
+Key differences from x86: IPL boot, DASD/FCP storage, HiperSockets/OSA network.
+
+Pro Tip: Always test RHEL upgrades in a z/VM guest clone before production.`,
+      code:``
+    },
+
+    { title:"21 — z/VM Hypervisor Essentials", level:"Intermediate",
+      content:`z/VM enables running hundreds of Linux guests on a single IBM Z.
+
+Architecture: CP (hypervisor), CMS (interactive), Guests (virtual machines).
+Concepts: Virtual Machine, Minidisk, VSWITCH, SHARE weight.
+
+CP Commands:
+  QUERY NAMES — List logged-on guests
+  INDICATE LOAD — Show utilization
+  FORCE userid — Force logoff
+
+Capacity: Thousands of guests, up to 64 vCPUs each, memory overcommitment.
+
+Pro Tip: z/VM memory overcommitment and CPU sharing makes Linux on Z cost-effective.`,
+      code:``
+    },
+
+    { title:"22 — HiperSockets and Virtual Networking", level:"Advanced",
+      content:`HiperSockets provide memory-speed networking between LPARs.
+
+HiperSockets: Internal TCP/IP, ~15 microsecond latency, up to 32 Gbps. No physical hardware needed.
+VSWITCH: z/VM virtual switch connecting guests. VLAN support, port-based isolation.
+
+Network Design:
+  HiperSockets for z/OS to Linux data flows
+  VSWITCH for Linux to Linux
+  OSA-Express for external access
+
+Pro Tip: Use HiperSockets between app tier (Linux) and DB tier (z/OS DB2) for dramatic latency reduction.`,
+      code:``
+    },
+
+    { title:"23 — Containers on IBM Z", level:"Advanced",
+      content:`Container technologies run natively on IBM Z with s390x support.
+
+Platforms: Docker, Podman (RHEL 8+), OpenShift, IBM Cloud Pak.
+OpenShift on Z: Full Kubernetes, hybrid cloud (x86 + Z same cluster).
+Images: Must be built for s390x. Multi-arch images support both architectures.
+
+Benefits: Consolidation, pervasive encryption, hardware crypto acceleration, hybrid deployment.
+
+Pro Tip: Start with stateless microservices in containers. Keep databases on traditional z/OS.`,
+      code:``
+    },
+
+    { title:"24 — Ansible for Linux on Z", level:"Intermediate",
+      content:`Ansible automates Linux on Z management using standard playbooks.
+
+Setup: Control node on any Linux, managed nodes via SSH, no agent.
+Automation: Provisioning, package management, patching, compliance, z/VM guest management.
+z/VM modules: Guest define/start/stop, DASD management, VSWITCH configuration.
+
+Pro Tip: Use Ansible Tower for scheduled patching, compliance checks, on-demand provisioning.`,
+      code:``
+    },
+
+    { title:"25 — Migrating Workloads to Linux on Z", level:"Intermediate",
+      content:`Strategies for moving distributed workloads to Z.
+
+Good candidates: Database servers, Java apps, middleware (MQ, Kafka), web servers, containers.
+Poor candidates: Windows-only, GPU-dependent, tiny workloads.
+
+Approaches: Rehost (as-is), Replatform (minor changes), Refactor (redesign), Hybrid.
+ROI: Server consolidation (10-50 x86 to 1 Z), reduced licensing (IFL-based), lower ops cost.
+
+Pro Tip: Start with Java workloads — they run identically on s390x with no code changes.`,
+      code:``
+    },
+
+    { title:"26 — IBM Secure Execution", level:"Expert",
+      content:`Hardware-based isolation for Linux workloads on Z.
+
+What it does: Encrypts guest memory, hardware isolation, attestation, zero-trust.
+How: Guest image encrypted, Ultravisor verifies integrity, memory pages encrypted by hardware.
+
+Use cases: Multi-tenant cloud, regulated industries, confidential computing.
+
+Expert Tip: Secure Execution is a major Z differentiator — no other platform offers hardware-enforced memory encryption at this level.`,
+      code:``
+    },
+
+    { title:"27 — Monitoring Linux on Z", level:"Intermediate",
+      content:`Standard Linux tools plus Z-specific utilities.
+
+Linux: top, vmstat, iostat, sar, Prometheus + Grafana.
+Z-specific: lscss, lsdasd, lszfcp, vmcp, hyptop (z/VM-aware top).
+z/VM: INDICATE LOAD (system), INDICATE USER (per-guest).
+
+Key Metrics: CPU steal time, DASD response time, HiperSocket throughput, swap usage.
+
+Pro Tip: CPU steal time above 5% means your guest needs more CPU — increase SHARE.`,
+      code:``
+    },
+
+    { title:"28 — High Availability on Linux on Z", level:"Advanced",
+      content:`HA configurations for Linux on IBM Z.
+
+Architectures: z/VM Guest Clustering, Linux HA (Pacemaker/Corosync), GDPS, Stretch Cluster.
+z/VM Live Guest Relocation: Move running guest between z/VM hosts with zero downtime.
+Storage HA: DS8K Metro Mirror (sync), Global Mirror (async), Multipath I/O.
+
+Pro Tip: z/VM Live Guest Relocation is unique to Z — zero downtime hypervisor maintenance.`,
+      code:``
+    },
+
+    { title:"29 — Cost Optimization on Z", level:"Intermediate",
+      content:`Minimizing cost of running Linux on IBM Z.
+
+IFLs: Dedicated Linux processors, don't count toward z/OS MLC cost.
+Consolidation: Replace 50 x86 servers with 4 IFLs — one frame, no switches, central management.
+Licensing: Open source = zero. RHEL per-IFL (not per-guest).
+Rightsizing: Dynamic CPU/memory via z/VM. Monitor with hyptop.
+
+Pro Tip: Break-even is typically 5-10 guests. Below that, distributed may be cheaper.`,
+      code:``
+    },
+
+    { title:"30 — Linux on Z Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common interview questions.
+
+Q: Why Linux on Z? A: Consolidation, co-location with z/OS, hardware encryption, extreme reliability.
+Q: What is IFL? A: Integrated Facility for Linux — dedicated processor, no MLC cost.
+Q: What is z/VM? A: Hypervisor for running multiple virtual machines on Z.
+Q: HiperSockets? A: Memory-speed internal networking, ~15 microsecond latency.
+Q: Containers on Z? A: Docker, Podman, OpenShift all support s390x natively.
+
+Cheat Sheet:
+  IFL — Linux processor
+  z/VM — Hypervisor
+  HiperSockets — Internal networking
+  VSWITCH — Virtual switch
+  OSA-Express — Physical NIC
+  lscss — List devices
+  hyptop — z/VM-aware top
+  Secure Execution — Memory encryption`,
+      code:``
+    },
+
+    { title:"19 — Linux on Z Performance Tuning", level:"Advanced",
+      content:`Performance optimization for Linux on IBM Z hardware.
+
+CPU: Use IFLs (dedicated Linux processors). Configure SHARE values in z/VM. Use SMT on z15+.
+
+Memory: Large pages (1MB) for databases. Collaborative Memory Management with z/VM. Swap should be minimal.
+
+I/O: FCP for SAN storage, ECKD DASD with PAV, multipath I/O, deadline/noop I/O scheduler.
+
+Network: HiperSockets for inter-LPAR (memory-speed), OSA-Express for external, VSWITCH in z/VM.
+
+💡 Pro Tip: IFLs are priced separately and do not count toward MLC software licensing — significant cost savings.`,
+      code:``
+    },
+    { title:"20 — RHEL on Z Installation", level:"Intermediate",
+      content:`Red Hat Enterprise Linux is the most popular distribution on IBM Z.
+
+Installation Methods: z/VM guest, direct LPAR, KVM on Z.
+
+RHEL-Specific Tools: lscss (list channel devices), chccwdev (configure CCW), znetconf (network), dasd_configure (bring DASD online).
+
+Key Differences from x86: Boot via IPL instead of BIOS/UEFI, DASD/FCP storage instead of local disk, HiperSockets/OSA instead of NIC.
+
+💡 Pro Tip: Always test RHEL upgrades in a z/VM guest clone before upgrading production.`,
+      code:``
+    },
+    { title:"21 — z/VM Hypervisor Essentials", level:"Intermediate",
+      content:`z/VM enables running hundreds of Linux guests on a single IBM Z.
+
+Architecture: CP (Control Program/hypervisor kernel), CMS (interactive environment), Guests (virtual machines).
+
+Key Concepts: Virtual Machine (virtual CPU/memory/I/O per guest), Minidisk (virtual DASD), VSWITCH (virtual network), SHARE (CPU allocation weight).
+
+CP Commands: QUERY NAMES (list guests), INDICATE LOAD (system utilization), FORCE userid (force logoff).
+
+💡 Pro Tip: z/VM memory overcommitment and CPU sharing is what makes Linux on Z so cost-effective for consolidation.`,
+      code:``
+    },
+    { title:"22 — HiperSockets and Virtual Networking", level:"Advanced",
+      content:`HiperSockets provide memory-speed networking between LPARs.
+
+HiperSockets: Internal TCP/IP, ~15 microsecond latency, up to 32 Gbps, no physical hardware needed. Used for z/OS to Linux and Linux to Linux communication.
+
+VSWITCH: Software-defined switch in z/VM. Connects guests to each other and external network. VLAN support for segmentation.
+
+Network Design: HiperSockets for z/OS-Linux data flows, VSWITCH for Linux-Linux, OSA-Express for external access.
+
+💡 Pro Tip: Use HiperSockets between app tier (Linux) and database tier (z/OS DB2) for dramatic latency reduction.`,
+      code:``
+    },
+    { title:"23 — Containers on IBM Z", level:"Advanced",
+      content:`Container technologies run natively on IBM Z with s390x architecture.
+
+Supported Platforms: Docker, Podman (preferred for RHEL 8+), OpenShift (enterprise Kubernetes), IBM Cloud Pak.
+
+OpenShift on Z: Full Kubernetes on IBM Z, runs on RHEL/z/VM, supports hybrid cloud (x86 + Z in same cluster).
+
+Benefits: Consolidation (hundreds of containers per LPAR), hardware encryption, high I/O throughput, same container runs on Z and x86.
+
+💡 Pro Tip: Start with stateless microservices in containers. Keep stateful workloads on traditional z/OS until comfortable with container storage.`,
+      code:``
+    },
+    { title:"24 — Ansible for Linux on Z", level:"Intermediate",
+      content:`Ansible automates Linux on Z management using standard playbooks.
+
+Setup: Control node can be any Linux/Mac. Managed nodes are Linux on Z. SSH communication. No agent needed.
+
+Common Automation: System provisioning (deploy new guests), package management, configuration, patching (rolling updates), compliance enforcement.
+
+z/VM Modules: Guest management, DASD management, network configuration.
+
+💡 Pro Tip: Use Ansible Tower/AWX for scheduled automation — weekly patching, daily compliance checks, on-demand provisioning.`,
+      code:``
+    },
+    { title:"25 — Migrating Workloads to Linux on Z", level:"Intermediate",
+      content:`Strategies for moving distributed workloads to IBM Z.
+
+Good Candidates: Database servers (PostgreSQL, MongoDB), app servers (Java, Node.js), middleware (MQ, Kafka), web servers, container workloads.
+
+Poor Candidates: Windows-only apps, GPU-dependent workloads, x86-specific binaries, very small workloads.
+
+ROI Factors: Server consolidation (10-50 x86 servers to 1 Z), reduced licensing (IFL-based), lower operational cost, improved security.
+
+💡 Pro Tip: Start with Java workloads — they run identically on s390x with no code changes and often perform better due to hardware crypto.`,
+      code:``
+    },
+    { title:"26 — IBM Secure Execution", level:"Expert",
+      content:`Hardware-based isolation for Linux workloads on Z.
+
+What It Does: Encrypts guest memory (even z/VM admins cannot read it), hardware isolation, attestation (prove trusted code), zero-trust for cloud.
+
+How It Works: Guest image encrypted with host key. During boot, SE verifies integrity. Memory pages encrypted/decrypted by hardware. Hypervisor sees only encrypted memory.
+
+Ultravisor: Firmware below z/VM that enforces isolation.
+
+💡 Expert Tip: Secure Execution is a major differentiator — no other platform offers hardware-enforced memory encryption at this level.`,
+      code:``
+    },
+    { title:"27 — Monitoring Linux on Z", level:"Intermediate",
+      content:`Standard Linux tools plus Z-specific utilities.
+
+Standard: top/htop, vmstat, iostat, sar, Prometheus + Grafana.
+
+Z-Specific: lscss (channel devices), lsdasd (DASD), vmcp (z/VM commands from Linux), hyptop (z/VM-aware top).
+
+Key Metrics: CPU steal time (time waiting for physical CPU), DASD response time, HiperSocket throughput, swap usage (should be near zero).
+
+💡 Pro Tip: CPU steal time above 5% means your guest is not getting enough CPU — increase SHARE value or add IFLs.`,
+      code:``
+    },
+    { title:"28 — High Availability on Linux on Z", level:"Advanced",
+      content:`HA configurations for Linux on IBM Z.
+
+Architectures: z/VM Guest Clustering, Linux HA (Pacemaker/Corosync), GDPS (site failover), Stretch Cluster (active-active).
+
+z/VM Live Guest Relocation: Move running Linux guest between z/VM hosts with zero downtime. Enables rolling z/VM maintenance.
+
+Storage HA: DS8K Metro Mirror (synchronous), Global Mirror (asynchronous), multipath I/O.
+
+💡 Pro Tip: z/VM Live Guest Relocation is unique to Z — no other platform can live-migrate guests with zero downtime for hypervisor maintenance.`,
+      code:``
+    },
+    { title:"29 — Cost Optimization on Z", level:"Intermediate",
+      content:`Strategies to minimize cost of running Linux on IBM Z.
+
+IFLs: Specialty processors for Linux only. Do NOT count toward z/OS MLC software cost. z/VM license based on IFL count, not guest count.
+
+Consolidation: Replace 50 x86 servers with 4 IFLs. Reduce networking (HiperSockets free), storage connections, admin overhead, power/cooling.
+
+Rightsizing: z/VM allows dynamic CPU/memory adjustment. Monitor with hyptop. Capacity on Demand (CoD) for burst.
+
+💡 Pro Tip: Break-even is typically 5-10 Linux guests. Below that, distributed may be cheaper. Above that, Z wins on TCO.`,
+      code:``
+    },
+    { title:"30 — Linux on Z Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common interview questions.
+
+Q: Why run Linux on IBM Z?
+A: Consolidation, co-location with z/OS data, hardware encryption, extreme reliability.
+
+Q: What is an IFL?
+A: Integrated Facility for Linux — dedicated processor that does not count toward z/OS licensing.
+
+Q: What is z/VM?
+A: IBM hypervisor for running multiple virtual machines on shared hardware.
+
+Q: What are HiperSockets?
+A: Internal memory-speed TCP/IP networking between LPARs (~15 microsecond latency).
+
+Cheat Sheet:
+  IFL — Linux-only processor
+  z/VM — Hypervisor
+  HiperSockets — Memory-speed networking
+  VSWITCH — Virtual network switch
+  lscss — List channel devices
+  hyptop — z/VM-aware top
+  Secure Execution — Hardware memory encryption
+  OSA-Express — Physical network adapter`,
+      code:``
+    },
   ]
 };

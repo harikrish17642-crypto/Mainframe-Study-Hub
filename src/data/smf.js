@@ -722,6 +722,549 @@ A: Monitor I collects data at intervals (15 min) to SMF for long-term trend anal
 
 Q: How does MSU-based pricing work?
 A: IBM z/OS software pricing (MLC) is based on the Rolling 4-Hour Average (R4HA) of MSU (Million Service Units) consumption. The system records MSU usage every 5 minutes, calculates the highest rolling 4-hour average, and software charges are based on this peak. This incentivizes spreading workloads to avoid peaks — batch scheduling, zIIP offload, and WLM tuning all reduce the R4HA and thus software costs.`
-    }
+    },
+
+    { title:"19 — SMF Record Type 30", level:"Advanced",
+      content:`SMF Type 30 records capture detailed information about every address space.
+
+Subtypes:
+  Subtype 1 — Job/session start
+  Subtype 2 — Interval recording
+  Subtype 3 — Step termination
+  Subtype 4 — Job/session end
+  Subtype 5 — TSO step data
+
+Key Fields:
+  SMF30CPS — CPU time (TCB + SRB)
+  SMF30TEX — Elapsed time
+  SMF30IO — EXCP count (I/O operations)
+  SMF30RGN — Region size requested
+  SMF30STG — Storage used above/below the line
+  SMF30WKL — Workload name (WLM service class)
+
+Use Cases:
+  Job-level CPU consumption trending
+  I/O hot-spot identification
+  Memory usage analysis per job class
+  WLM service class performance tracking
+
+Pro Tip: Combine Type 30 subtype 3 (step end) with subtype 4 (job end) for complete job-level performance profiles.`,
+      code:``
+    },
+
+    { title:"20 — SMF Type 70-79 (RMF Performance)", level:"Advanced",
+      content:`SMF Types 70-79 are written by RMF and provide system-level performance data.
+
+Key Record Types:
+  Type 70 — CPU activity (processor utilization, wait states)
+  Type 71 — Paging activity (page rates, UIC, SQA/CSA usage)
+  Type 72 — Workload activity (WLM service class data)
+  Type 73 — Channel path activity
+  Type 74 — Device activity (DASD response times, busy %)
+  Type 75 — Page dataset activity
+  Type 78 — Virtual storage activity
+
+Type 72 Essentials:
+  Execution velocity — How fast work completes vs potential
+  Response time breakdown — CPU, I/O, queue, idle
+  Goal achievement — % meeting WLM goals
+
+Type 74 Essentials:
+  Average response time per device
+  Cache hit percentage
+  Connect time vs disconnect time
+
+Pro Tip: Track Type 72 execution velocity — below 50% means significant delays.`,
+      code:``
+    },
+
+    { title:"21 — SMF Type 101-102 (DB2 Performance)", level:"Advanced",
+      content:`DB2 writes extensive SMF data for SQL performance monitoring.
+
+Type 101 — Accounting Record:
+  Written at thread termination. Contains SQL statement counts, CPU time, elapsed time, lock/latch waits, buffer pool statistics, sort operations, plan and package name.
+
+Type 102 — Performance Trace:
+  Written per SQL statement when trace class 3 is active. Contains individual SQL elapsed time, CPU per statement, rows returned, access path used.
+
+Key Metrics:
+  Getpage-to-read ratio (target >95% from buffer)
+  Thread CPU time trends
+  Lock timeout and deadlock counts
+  Sort overflow frequency
+  Dynamic SQL prepare counts
+
+Pro Tip: Type 101 has low overhead — always keep it active. Type 102 has higher overhead — enable selectively.`,
+      code:``
+    },
+
+    { title:"22 — SMF Type 110 (CICS Performance)", level:"Advanced",
+      content:`CICS writes Type 110 records via CICS Monitoring Facility for transaction-level performance.
+
+Key Fields:
+  Transaction ID and program name
+  Response time breakdown: CPU time, suspend time, I/O wait, timer wait
+  File I/O counts (reads, writes, browses)
+  DB2 call counts and wait times
+  Temporary storage usage
+
+Performance Analysis:
+  1. High CPU — Program logic issue or excessive EXEC CICS calls
+  2. High DB2 wait — SQL tuning needed
+  3. High file wait — VSAM tuning, check CI/CA splits
+  4. High suspend — Resource contention (ENQ, string waits)
+
+Pro Tip: Focus on top 10 transactions by CPU and response time — they account for 80% of CICS workload.`,
+      code:``
+    },
+
+    { title:"23 — Building SMF Reports with DFSORT", level:"Advanced",
+      content:`DFSORT/ICETOOL is the most common method for extracting and reporting SMF data.
+
+Workflow:
+  1. Extract SMF records by type (IFASMFDP)
+  2. Filter and sort with DFSORT
+  3. Reformat with OUTREC/INREC
+  4. Summarize with ICETOOL
+  5. Output to readable reports
+
+Challenges:
+  SMF records have variable-length sections with triplets
+  Timestamps in STCK format need conversion
+  Many fields are packed decimal or binary
+  Section positions vary by record subtype
+
+Pro Tip: Build a library of reusable DFSORT control cards for common SMF extracts.`,
+      code:``
+    },
+
+    { title:"24 — CICS SMF 110 Deep Dive", level:"Expert",
+      content:`Deep analysis of CICS SMF 110 records.
+
+Performance Data Groups:
+  DFHTASK — Task lifetime data
+  DFHSTOR — Storage usage
+  DFHFILE — File control activity
+  DFHTEMP — Temporary storage
+  DFHPROG — Program management
+  DFHSOCK — TCP/IP socket activity
+  DFHWEBB — Web services
+
+Response Time Formula:
+  Total Response = Dispatch Time + Suspend Time
+  Dispatch Time = User CPU + System CPU
+  Suspend Time = I/O Wait + DB2 Wait + MQ Wait + Timer + ENQ
+
+Tuning Priorities:
+  1. Reduce dispatch time — Optimize program logic
+  2. Reduce DB2 wait — Tune SQL, add indexes
+  3. Reduce file wait — Check VSAM strings, CI size
+  4. Reduce suspend — Resolve ENQ contention
+
+Expert Tip: Calculate transaction rates by time-of-day for capacity planning.`,
+      code:``
+    },
+
+    { title:"25 — SMF Data Archival and Management", level:"Intermediate",
+      content:`Managing SMF data is critical for storage and performance.
+
+SMF Data Flow:
+  1. SMF buffers to Active SMF dataset (MANx)
+  2. Switch triggered to dump to sequential dataset
+  3. Archive to tape/compressed DASD
+  4. Retain per policy then purge
+
+SMFPRMxx Settings:
+  ACTIVE — Which MAN datasets are active
+  DSNAME — MAN dataset names
+  MAXDORM — Max time before buffer flush
+  BUFUSEWARN — Buffer usage warning threshold
+  REC(type) — Enable/disable specific record types
+
+Capacity Planning:
+  Estimate daily SMF volume per record type
+  Type 30 typically generates the most data
+  Type 110 can be enormous in high-volume CICS regions
+
+Pro Tip: Review REC() settings quarterly. Disable unnecessary record types.`,
+      code:``
+    },
+
+    { title:"26 — RMF Monitor I vs Monitor III", level:"Intermediate",
+      content:`RMF provides two monitoring modes.
+
+Monitor I (Long-Term):
+  Writes SMF records at defined intervals (15 min typical)
+  Types 70-79 records
+  Used for trend analysis and capacity planning
+  Low overhead (~0.5% CPU)
+  Always-on in production
+
+Monitor III (Real-Time):
+  Interactive display of current system status
+  ISPF-based panels for live monitoring
+  Higher overhead (1-3% CPU)
+  Used for real-time problem diagnosis
+
+Key Monitor III Panels:
+  SYSSUM — System summary (CPU, storage, paging)
+  WLMGL — WLM goal attainment
+  DEV — Device activity and response times
+  PROC — Processor utilization
+  ENQUEUE — ENQ contention
+
+Pro Tip: Monitor III SYSSUM panel is your first stop for any performance issue.`,
+      code:``
+    },
+
+    { title:"27 — z/OS Health Checks and SMF", level:"Intermediate",
+      content:`IBM Health Checker for z/OS uses SMF data to proactively identify issues.
+
+SMF-Related Health Checks:
+  SMF_RECORDING_ACTIVE — Verify recording is on
+  SMF_BUFFER_UTILIZATION — Buffer usage not critical
+  SMF_DATASET_SPACE — MAN datasets have adequate space
+
+SMF for Compliance:
+  Type 80 — RACF security events
+  Type 30 — Job execution records
+  Type 83 — RACF data set access
+  Type 90 — System logger activity
+
+Running Health Checks:
+  Console: F HZSPROC,RUN,CHECK=(IBM,check-name)
+  Batch: HZSPRINT utility
+
+Pro Tip: Schedule weekly health check reports. Address exceptions before incidents.`,
+      code:``
+    },
+
+    { title:"28 — Capacity Planning with SMF", level:"Expert",
+      content:`Using historical SMF data to forecast future resource needs.
+
+Methodology:
+  1. Collect 6-12 months of SMF data
+  2. Establish current resource baselines
+  3. Identify growth rates (linear, seasonal)
+  4. Forecast 3-12 months ahead
+  5. Model hardware changes
+  6. Present options with cost/benefit
+
+Key Metrics:
+  Peak hour CPU utilization (target below 85%)
+  LPAR CPU growth rate (% per month)
+  I/O rate growth per subsystem
+  Batch window duration trends
+  Transaction rate growth (CICS/IMS)
+
+Tools:
+  IBM SCRT — Sub-Capacity Reporting Tool
+  IBM zPCR — Processor Capacity Reference
+  SAS, BMC, Broadcom capacity planning products
+
+Expert Tip: CPU growth of 3-5% per month is typical. Above 8%, investigate.`,
+      code:``
+    },
+
+    { title:"29 — Performance Tuning Methodology", level:"Expert",
+      content:`A structured approach to mainframe performance tuning.
+
+Step 1 — Define the Problem:
+  What changed? When did it start? Which jobs affected?
+
+Step 2 — Collect Data:
+  SMF Type 30 for batch, Type 110 for CICS, Type 101 for DB2
+
+Step 3 — Analyze:
+  Compare current vs baseline performance
+  Break down response time into components
+  Identify largest contributor to degradation
+
+Step 4 — Root Cause:
+  Common causes: bad SQL access paths, VSAM CI/CA splits, undersized buffers, stale RUNSTATS, increased data volumes, CPU constraint
+
+Step 5 — Fix:
+  Change one thing at a time, measure before and after
+
+Expert Tip: 80% of mainframe performance problems are caused by I/O.`,
+      code:``
+    },
+
+    { title:"30 — SMF Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common SMF interview questions.
+
+Q: What is SMF?
+A: System Management Facilities — records system activity data for performance, capacity planning, security, and billing.
+
+Q: Name 5 important SMF record types.
+A: Type 30 (job data), Type 70 (CPU), Type 74 (DASD), Type 101 (DB2), Type 110 (CICS).
+
+Q: What is RMF?
+A: Resource Measurement Facility — writes Types 70-79.
+
+Q: How do you extract SMF records?
+A: IFASMFDP utility dumps from MAN datasets.
+
+Q: Monitor I vs Monitor III?
+A: Monitor I writes SMF records for trends. Monitor III provides real-time interactive displays.
+
+Cheat Sheet:
+  IFASMFDP — Extract SMF data
+  SMFPRMxx — Parmlib controlling recording
+  Type 30 — Address space work
+  Type 70 — CPU activity
+  Type 72 — WLM workload data
+  Type 74 — DASD device activity
+  Type 80 — RACF security events
+  Type 101 — DB2 accounting
+  Type 110 — CICS monitoring`,
+      code:``
+    },
+
+    { title:"19 — SMF Record Type 30 (Common Address Space Work)", level:"Advanced",
+      content:`SMF Type 30 records capture detailed information about every address space on the system.
+
+Subtypes:
+  Subtype 1 — Job/session start
+  Subtype 2 — Interval recording
+  Subtype 3 — Step termination
+  Subtype 4 — Job/session end
+  Subtype 5 — TSO step data
+
+Key Fields:
+  SMF30CPS — CPU time (TCB + SRB)
+  SMF30TEX — Elapsed time
+  SMF30IO — EXCP count (I/O operations)
+  SMF30RGN — Region size requested
+  SMF30WKL — Workload name (WLM service class)
+
+Use Cases:
+  Job-level CPU consumption trending, I/O hot-spot identification, memory usage analysis per job class, WLM service class performance tracking.
+
+💡 Pro Tip: Combine Type 30 subtype 3 (step end) with subtype 4 (job end) for complete job-level performance profiles.`,
+      code:``
+    },
+    { title:"20 — SMF Type 70-79 (RMF System Performance)", level:"Advanced",
+      content:`SMF Types 70-79 are written by RMF and provide comprehensive system-level performance data.
+
+Key Record Types:
+  Type 70 — CPU activity (processor utilization, wait states)
+  Type 71 — Paging activity (page rates, UIC, SQA/CSA usage)
+  Type 72 — Workload activity (WLM service class data)
+  Type 73 — Channel path activity
+  Type 74 — Device activity (DASD response times, busy %)
+  Type 75 — Page dataset activity
+  Type 78 — Virtual storage activity
+
+Type 72 Essentials (WLM Performance):
+  Execution velocity — How fast work completes vs potential
+  Response time breakdown — CPU, I/O, queue, idle
+  Goal achievement — % meeting WLM goals
+
+Type 74 Essentials (DASD Performance):
+  Average response time per device, cache hit percentage, I/O rate per device.
+
+💡 Pro Tip: RMF Type 72 is the foundation of WLM tuning. Track execution velocity — below 50% means significant delays.`,
+      code:``
+    },
+    { title:"21 — SMF Type 101-102 (DB2 Performance)", level:"Advanced",
+      content:`DB2 writes extensive SMF data for SQL performance monitoring.
+
+Type 101 — Accounting Record:
+  Written at thread termination. Contains SQL statement counts, CPU time, elapsed time, lock/latch waits, buffer pool statistics, plan and package name.
+
+Type 102 — Performance Trace:
+  Written per SQL statement (when trace class 3 active). Contains individual SQL elapsed time, CPU per statement, rows returned, access path used.
+
+Key Metrics to Monitor:
+  Getpage-to-read ratio (target >95% from buffer), thread CPU time trends, lock timeout and deadlock counts, sort overflow frequency.
+
+💡 Pro Tip: Type 101 has low overhead — always keep it active. Type 102 has higher overhead — enable selectively for SQL tuning.`,
+      code:``
+    },
+    { title:"22 — SMF Type 110 (CICS Performance)", level:"Advanced",
+      content:`CICS writes Type 110 records via CICS Monitoring Facility (CMF) for transaction-level performance analysis.
+
+Key Fields in Transaction Records:
+  Transaction ID and program name, response time breakdown (CPU time, suspend time, I/O wait time, timer wait time), file I/O counts, DB2 call counts and wait times, temporary storage usage.
+
+Performance Analysis:
+  High CPU — Program logic issue or excessive EXEC CICS calls
+  High DB2 wait — SQL tuning needed
+  High file wait — VSAM tuning, check CI/CA splits
+  High suspend — Resource contention (ENQ, string waits)
+
+💡 Pro Tip: Focus on the top 10 transactions by CPU and response time — they usually account for 80% of CICS workload.`,
+      code:``
+    },
+    { title:"23 — Building SMF Reports with DFSORT", level:"Advanced",
+      content:`DFSORT/ICETOOL is the most common method for extracting and reporting on SMF data without commercial tools.
+
+Workflow:
+  1. Extract SMF records by type (IFASMFDP)
+  2. Filter and sort with DFSORT
+  3. Reformat with OUTREC/INREC
+  4. Summarize with ICETOOL
+  5. Output to readable reports
+
+Challenges:
+  SMF records have variable-length sections with triplets (offset, length, count). Timestamps in STCK format need conversion. Many fields are packed decimal or binary integer.
+
+💡 Pro Tip: Build a library of reusable DFSORT control cards for common SMF extracts. Most shops need daily job stats (Type 30), DASD performance (Type 74), and DB2 accounting (Type 101).`,
+      code:``
+    },
+    { title:"24 — RMF Monitor I vs Monitor III", level:"Intermediate",
+      content:`RMF provides two monitoring modes with different purposes.
+
+Monitor I (Long-Term):
+  Writes SMF records at defined intervals (15 min typical). Types 70-79 records. Used for trend analysis and capacity planning. Low overhead (~0.5% CPU). Always-on in production.
+
+Monitor III (Real-Time):
+  Interactive display of current system status. ISPF-based panels for live monitoring. Higher overhead (1-3% CPU). Used for real-time problem diagnosis.
+
+Monitor III Key Panels:
+  SYSSUM — System summary (CPU, storage, paging)
+  WLMGL — WLM goal attainment
+  DEV — Device activity and response times
+  PROC — Processor utilization
+  ENQUEUE — ENQ contention
+
+💡 Pro Tip: Monitor III SYSSUM panel is your first stop for any performance issue.`,
+      code:``
+    },
+    { title:"25 — SMF Data Archival and Management", level:"Intermediate",
+      content:`Managing SMF data is critical — uncontrolled SMF can consume enormous DASD space.
+
+SMF Data Flow:
+  1. SMF buffers to Active SMF dataset (MANx)
+  2. Switch triggered — Dump to sequential dataset
+  3. Archive to tape/compressed DASD
+  4. Retain per policy, purge after retention period
+
+SMFPRMxx Settings:
+  ACTIVE — Which MAN datasets are active
+  MAXDORM — Max time before buffer flush
+  BUFUSEWARN — Buffer usage warning threshold
+  REC(type) — Enable/disable specific record types
+
+Best Practices:
+  Dual MAN datasets (MAN1/MAN2) with auto-switch. Schedule regular dumps via IFASMFDP. Compress archived data. Define retention periods per record type.
+
+💡 Pro Tip: Review REC() settings quarterly. Disable unnecessary record types to reduce overhead and storage.`,
+      code:``
+    },
+    { title:"26 — z/OS Health Checks and SMF", level:"Intermediate",
+      content:`IBM Health Checker for z/OS uses SMF data and system state to proactively identify issues.
+
+SMF-Related Health Checks:
+  SMF_RECORDING_ACTIVE — Verify recording is on
+  SMF_BUFFER_UTILIZATION — Buffer usage not critical
+  SMF_DATASET_SPACE — MAN datasets have adequate space
+
+SMF for Compliance:
+  Type 80 — RACF security events
+  Type 30 — Job execution records
+  Type 83 — RACF data set access
+  Type 90 — System logger activity
+
+Running Health Checks:
+  Console: F HZSPROC,RUN,CHECK=(IBM,check-name)
+  Batch: HZSPRINT utility
+
+💡 Pro Tip: Schedule weekly health check reports. Address exceptions before they become incidents.`,
+      code:``
+    },
+    { title:"27 — Capacity Planning with SMF", level:"Expert",
+      content:`Capacity planning uses historical SMF data to forecast future resource needs.
+
+Key Data Sources:
+  Type 70 — CPU utilization trends
+  Type 71 — Memory/paging trends
+  Type 72 — Workload growth patterns
+  Type 74 — DASD I/O growth
+  Type 30 — Job-level resource trends
+
+Methodology:
+  1. Collect 6-12 months of SMF data
+  2. Baseline current resource profiles
+  3. Identify growth rates (linear, seasonal)
+  4. Forecast future demand (3-12 months)
+  5. Model hardware changes
+  6. Recommend options with cost/benefit
+
+Key Metrics to Trend:
+  Peak hour CPU utilization (target: stay below 85%), LPAR CPU growth rate, I/O rate growth, batch window duration trends.
+
+💡 Expert Tip: CPU growth of 3-5% per month is typical. If you see >8%, investigate — it might be a workload anomaly.`,
+      code:``
+    },
+    { title:"28 — Performance Tuning Methodology", level:"Expert",
+      content:`A structured approach to mainframe performance tuning using SMF data.
+
+Step 1 — Define the Problem: What changed? When did it start? Which jobs/transactions affected?
+
+Step 2 — Collect Data: SMF Type 30 for batch, Type 110 for CICS, Type 101 for DB2, RMF Monitor III for real-time.
+
+Step 3 — Analyze: Compare current vs baseline. Break down response time into components. Identify largest contributor.
+
+Step 4 — Root Cause: Common causes include new/changed SQL without indexing, VSAM CI/CA splits, undersized buffer pools, stale RUNSTATS, increased data volumes.
+
+Step 5 — Fix: Change one thing at a time. Measure before and after. Document the change.
+
+💡 Expert Tip: 80% of mainframe performance problems are caused by I/O — bad SQL access paths, undersized buffers, or VSAM issues.`,
+      code:``
+    },
+    { title:"29 — SMF and Security Monitoring", level:"Advanced",
+      content:`SMF records are the foundation of z/OS security monitoring and audit compliance.
+
+Security-Critical SMF Records:
+  Type 80 — RACF security events (logon failures, access violations, profile changes)
+  Type 83 — Dataset access records (who accessed what)
+  Type 30 — Job execution (who ran what jobs)
+  Type 110 — CICS transaction audit
+  Type 101 — DB2 access audit
+
+Real-Time Security Monitoring:
+  Feed SMF records to SIEM tools (Splunk, QRadar, ELK) for real-time alerting on: multiple failed logon attempts, privileged user activity, after-hours access, unusual data access patterns.
+
+Compliance Requirements:
+  SOX — Track access to financial data
+  PCI-DSS — Monitor cardholder data access
+  HIPAA — Audit healthcare data access
+  GDPR — Track personal data processing
+
+💡 Pro Tip: Set up automated alerts for any RACF SPECIAL/OPERATIONS authority changes — these are the highest-risk security events.`,
+      code:``
+    },
+    { title:"30 — SMF Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common SMF interview questions and quick reference.
+
+Q: What is SMF?
+A: System Management Facilities — z/OS subsystem that records system activity data for performance, capacity planning, security, and billing.
+
+Q: Name 5 important SMF record types.
+A: Type 30 (job data), Type 70 (CPU), Type 74 (DASD), Type 101 (DB2), Type 110 (CICS).
+
+Q: What is RMF?
+A: Resource Measurement Facility — writes Types 70-79 for system-level performance data.
+
+Q: How do you extract SMF records?
+A: IFASMFDP utility dumps from MAN datasets, filter by type/date/time.
+
+Q: What is the difference between RMF Monitor I and III?
+A: Monitor I writes SMF records for long-term trends. Monitor III provides real-time interactive displays.
+
+Cheat Sheet:
+  IFASMFDP — Extract SMF data
+  SMFPRMxx — SMF recording configuration
+  Type 30 — Jobs/TSO/STC
+  Type 70 — CPU activity
+  Type 72 — WLM workload data
+  Type 74 — DASD device activity
+  Type 80 — RACF security events
+  Type 101 — DB2 accounting
+  Type 110 — CICS monitoring`,
+      code:``
+    },
   ]
 };

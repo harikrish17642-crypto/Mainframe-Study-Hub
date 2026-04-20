@@ -815,5 +815,273 @@ DA — Active jobs   ST — Output   I — Input
 H — Held output    LOG — System log
 PREFIX userid* — Filter jobs`,
     },
+
+    { title:"20 — ISPF Option 3.4 Dataset List", level:"Beginner",
+      content:`ISPF 3.4 is the most-used panel for dataset management.
+
+Usage: Enter pattern like PROD.PAYROLL.** to list matching datasets.
+Line Commands: E(Edit), B(Browse), I(Info), D(Delete), R(Rename), M(Members), Z(Compress PDS).
+
+Pro Tip: Use 3.4 with USER.** to see all your datasets.`,
+      code:``
+    },
+
+    { title:"21 — ISPF Edit Line Commands", level:"Beginner",
+      content:`Line commands typed in the line number area.
+
+Basic: I(Insert), D(Delete), R(Repeat), C(Copy), M(Move), A(After), B(Before).
+Block: DD(delete block), CC(copy block), MM(move block), XX(exclude block).
+Shift: )(right), ((left), ))(block right), (((block left).
+
+Pro Tip: Use XX/XX with DD to delete large blocks efficiently.`,
+      code:``
+    },
+
+    { title:"22 — ISPF Edit Primary Commands", level:"Beginner",
+      content:`Primary commands on the command line.
+
+Search: FIND 'string', FIND 'string' ALL, FIND WORD.
+Replace: CHANGE 'old' 'new' ALL.
+Navigation: TOP, BOTTOM, LOCATE n.
+File: SAVE, CANCEL, CREATE dsn, COPY dsn.
+Display: COLS (ruler), HEX ON (hex view), PROFILE (settings).
+
+Pro Tip: Always FIND ALL first before CHANGE ALL to verify matches.`,
+      code:``
+    },
+
+    { title:"23 — TSO REXX and CLIST Integration", level:"Advanced",
+      content:`TSO supports REXX and CLIST scripting for automation.
+
+REXX: Store in SYSPROC/SYSEXEC. Execute via TSO %MYREXX.
+ISPF Services: ADDRESS ISPEXEC for EDIT, BROWSE, DISPLAY, TBOPEN.
+TSO Commands: ADDRESS TSO for ALLOC, FREE, SUBMIT, LISTDS.
+
+Pro Tip: Combine REXX + ISPF + TSO for powerful automation workflows.`,
+      code:``
+    },
+
+    { title:"24 — ISPF Tables and Panels", level:"Advanced",
+      content:`ISPF provides framework for interactive applications.
+
+Panels: Defined in ISPPLIB. Sections: )ATTR, )BODY, )INIT, )PROC, )END.
+Tables: In-memory or persistent. Operations: TBCREATE, TBADD, TBMOD, TBSCAN, TBSORT, TBCLOSE.
+
+Pro Tip: ISPF tables are mainframe's equivalent of a simple database for configuration.`,
+      code:``
+    },
+
+    { title:"25 — SDSF Advanced Usage", level:"Intermediate",
+      content:`SDSF is more than viewing job output.
+
+Panels: DA(Active), ST(Status), LOG(System log), ENQ(Contention), WHO(TSO users), INIT(Initiators).
+Filtering: PREFIX, OWNER, DEST, SORT.
+Actions: S(Browse), P(Purge), C(Cancel), SJ(View JCL), SE(JES messages).
+
+Pro Tip: Use LOG panel to watch real-time system messages.`,
+      code:``
+    },
+
+    { title:"26 — TSO/ISPF Batch Operations", level:"Intermediate",
+      content:`Run TSO and ISPF in batch mode.
+
+IKJEFT01: Execute TSO commands in batch via SYSTSIN DD.
+ISPF Batch: ISPSTART CMD(%MYREXX) via IKJEFT01.
+Common uses: DB2 BIND, RACF commands, dataset management, REXX execution.
+
+Pro Tip: Batch TSO is how DB2 BIND operations work — IKJEFT01 runs DSN commands.`,
+      code:``
+    },
+
+    { title:"27 — TSO ALLOC/FREE Commands", level:"Intermediate",
+      content:`Dynamic dataset allocation in TSO sessions.
+
+ALLOC: ALLOC DA('dsn') F(ddname) SHR — connect dataset.
+FREE: FREE F(ddname) — disconnect dataset.
+LISTALLC: Show all current allocations.
+REUSE: Allows reallocating existing DD without FREE first.
+
+Pro Tip: ALLOC with REUSE is essential for SYSPROC library switching.`,
+      code:``
+    },
+
+    { title:"28 — ISPF Member Comparison (SuperC)", level:"Intermediate",
+      content:`SuperC (ISRSUPC) compares files and highlights differences.
+
+Access: ISPF Option 3.12.
+Types: Dataset to Dataset, Member to Member, Directory to Directory.
+Markers: I(Inserted), D(Deleted), R(Reformatted), M(Matched).
+Search-For (3.14): Search string across all PDS members — invaluable for impact analysis.
+
+Pro Tip: Always SuperC compare test vs production before promoting code.`,
+      code:``
+    },
+
+    { title:"29 — ISPF Customization", level:"Intermediate",
+      content:`Customize ISPF for productivity.
+
+Settings (Option 0): Terminal type, scrolling defaults, print settings.
+Edit Profile: CAPS, NUM, NULLS, TABS, RECOVERY ON, HILITE ON.
+PF Keys: PF3=END, PF5=RFIND, PF6=RCHANGE, PF7/8=UP/DOWN.
+
+Pro Tip: Set RECOVERY ON in every edit profile — saves work if session drops.`,
+      code:``
+    },
+
+    { title:"30 — TSO/ISPF Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common TSO/ISPF interview questions.
+
+Q: What is TSO? A: Time Sharing Option — interactive CLI to z/OS.
+Q: What is ISPF? A: Interactive System Productivity Facility — screen-based interface.
+Q: Submit JCL? A: SUBMIT command in editor or TSO SUBMIT 'dsn(member)'.
+Q: Compare files? A: ISPF 3.12 (SuperC).
+
+Cheat Sheet:
+  ISPF 2 — Edit
+  ISPF 3.4 — Dataset List
+  PF3 — Exit
+  PF7/8 — Scroll
+  FIND/CHANGE — Search/Replace
+  SUBMIT — Submit JCL
+  COLS — Column ruler
+  HEX ON — Hex display`,
+      code:``
+    },
+
+    { title:"20 — ISPF 3.4 Dataset List Utility", level:"Beginner",
+      content:`ISPF 3.4 is the most-used panel for dataset management. Enter a pattern to list matching datasets.
+
+Line Commands: E (edit), B (browse), I (info/attributes), D (delete), R (rename), M (member list), Z (compress PDS), S (short info).
+
+Wildcards: * (one qualifier), ** (multiple qualifiers), % (one character).
+
+💡 Pro Tip: Use 3.4 with pattern USER.** to see all your datasets. Use I command to check space before submitting large jobs.`,
+      code:``
+    },
+    { title:"21 — ISPF Edit Line Commands", level:"Beginner",
+      content:`Line commands typed in the line number area (columns 1-6).
+
+Basic: I (insert), D (delete), R (repeat), C (copy), M (move), A (after destination), B (before destination), O (overlay).
+
+Block: DD (delete block), CC (copy block), MM (move block), XX (exclude block).
+
+Shift: ) shift right, ( shift left, )) block right, (( block left.
+
+💡 Pro Tip: Use XX/XX with D to delete large blocks. Use CC/CC with A to copy blocks between locations.`,
+      code:``
+    },
+    { title:"22 — ISPF Edit Primary Commands", level:"Beginner",
+      content:`Primary commands on the command line.
+
+Search/Replace: FIND 'string' (find), FIND ALL (all occurrences), CHANGE 'old' 'new' ALL (change all), CHANGE ALL NX (non-excluded only).
+
+Navigation: TOP, BOTTOM, LOCATE n (go to line).
+
+File: SAVE, CANCEL, CREATE dsn, REPLACE dsn, COPY dsn.
+
+Display: COLS (ruler), HEX ON (hex view), PROFILE (settings).
+
+💡 Pro Tip: CHANGE ALL is the most powerful command. Always verify with FIND ALL first.`,
+      code:``
+    },
+    { title:"23 — TSO REXX and CLIST Integration", level:"Advanced",
+      content:`TSO supports REXX and CLIST scripting for automation.
+
+REXX in TSO: Store in SYSPROC/SYSEXEC. Execute with TSO %MYREXX. Access TSO via ADDRESS TSO, ISPF via ADDRESS ISPEXEC.
+
+ISPF Services: EDIT, BROWSE, DISPLAY PANEL, TBOPEN, SELECT PGM.
+
+Common Automation: Dataset management, JCL generation, report generation, batch submission, ISPF table management.
+
+💡 Pro Tip: Combine REXX + ISPF + TSO commands for powerful automation. One exec can query, build JCL, submit, and email results.`,
+      code:``
+    },
+    { title:"24 — ISPF Tables and Panels", level:"Advanced",
+      content:`ISPF provides framework for interactive applications.
+
+Panels: Defined in ISPPLIB. Sections: )ATTR, )BODY, )INIT, )PROC, )END. Display with ISPEXEC DISPLAY PANEL(name).
+
+Tables: In-memory or persistent. Operations: TBCREATE, TBADD, TBMOD, TBDELETE, TBSCAN, TBSORT, TBCLOSE.
+
+Use Cases: Configuration management, menu systems, data entry, reporting.
+
+💡 Pro Tip: ISPF tables are mainframe equivalent of a simple database. Use for frequently changing configuration.`,
+      code:``
+    },
+    { title:"25 — SDSF Advanced Usage", level:"Intermediate",
+      content:`SDSF is more than viewing job output.
+
+Advanced Panels: DA (active jobs), ST (output queue), LOG (system log real-time), SYSLOG (historical), ENQ (contention), WHO (TSO users), INIT (initiators), MAS (Sysplex systems).
+
+Filtering: PREFIX, OWNER, DEST, SORT.
+
+Action Characters: S (browse), P (purge), C (cancel), SJ (view JCL), SE (JES messages).
+
+💡 Pro Tip: Use LOG panel for real-time system messages. PREFIX yourjob* on DA panel to monitor your jobs.`,
+      code:``
+    },
+    { title:"26 — TSO/ISPF Batch Operations", level:"Intermediate",
+      content:`Run TSO commands and ISPF in batch mode.
+
+IKJEFT01 — TSO Batch: PGM=IKJEFT01 with SYSTSPRT (output) and SYSTSIN (commands). Supports LISTDS, SUBMIT, ALLOC, RACF commands.
+
+ISPF Batch: ISPSTART CMD(%MYREXX) runs REXX with ISPF services.
+
+Common Uses: DB2 BIND via TSO, RACF commands in batch, dataset management, REXX execution.
+
+💡 Pro Tip: Batch TSO is how DB2 BIND operations work. IKJEFT01 runs DSN SYSTEM(DB2P) followed by BIND commands.`,
+      code:``
+    },
+    { title:"27 — TSO ALLOC/FREE Commands", level:"Intermediate",
+      content:`ALLOC and FREE manage dynamic dataset allocation.
+
+ALLOC: ALLOC DA('MY.DS') F(INFILE) SHR. Parameters: DA (dataset), F (ddname), SHR/OLD/NEW, SPACE, LRECL, RECFM.
+
+FREE: FREE F(INFILE) or FREE DA('MY.DS') or FREE ALL.
+
+LISTALLC: Shows all currently allocated datasets in your session.
+
+💡 Pro Tip: ALLOC with REUSE allows reallocating an existing DD name without FREE first.`,
+      code:``
+    },
+    { title:"28 — ISPF Member Comparison (SuperC)", level:"Intermediate",
+      content:`SuperC (ISRSUPC) compares files and highlights differences.
+
+Access: ISPF 3.12 or TSO ISRSUPC.
+
+Output Markers: I (inserted), D (deleted), R (reformatted), M (matched).
+
+Search-For (3.14): Search string across all PDS members. Invaluable for impact analysis.
+
+💡 Pro Tip: Before promoting to production, always SuperC compare test vs production. Catches unintended changes.`,
+      code:``
+    },
+    { title:"29 — ISPF Customization", level:"Intermediate",
+      content:`Customize ISPF for maximum productivity.
+
+Edit Profile: CAPS ON/OFF, NUM ON/OFF, RECOVERY ON/OFF, HILITE ON (syntax highlighting for COBOL/JCL/REXX).
+
+PF Keys: PF1=HELP, PF3=END, PF5=RFIND, PF6=RCHANGE, PF7=UP, PF8=DOWN.
+
+Command Tables: Define custom shortcuts in ISPCMDS table.
+
+💡 Pro Tip: Set RECOVERY ON in every edit profile. If your session drops, you can recover edits.`,
+      code:``
+    },
+    { title:"30 — TSO/ISPF Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common interview questions.
+
+Q: What is TSO? A: Time Sharing Option — interactive command-line interface to z/OS.
+
+Q: What is ISPF? A: Interactive System Productivity Facility — screen-based interface for editing, browsing, dataset management.
+
+Q: How do you submit JCL? A: Open in editor, type SUBMIT. Or TSO SUBMIT 'MY.JCL(MEMBER)'.
+
+Cheat Sheet:
+  ISPF 1=View, 2=Edit, 3=Utilities, 6=Command
+  PF3=Exit, PF7/8=Scroll, FIND/CHANGE=Search
+  SUBMIT, SAVE, CANCEL, COLS, HEX ON, RECOVERY ON`,
+      code:``
+    },
   ]
 };

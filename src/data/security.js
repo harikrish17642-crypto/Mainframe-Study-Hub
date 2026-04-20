@@ -871,5 +871,294 @@ SEARCH FILTER(pattern)
 ═══ ACCESS LEVELS ═══
 NONE → READ → UPDATE → CONTROL → ALTER`,
     },
+
+    { title:"20 — RACF Group Administration", level:"Intermediate",
+      content:`RACF groups organize users and simplify access.
+
+Commands: ADDGROUP (AG), LISTGRP (LG), CONNECT (CO), REMOVE (RE).
+Group authority levels: USE, CREATE, CONNECT, JOIN.
+
+Best Practices: Use groups not individual permits. Name descriptively. Review membership quarterly.
+
+Pro Tip: Add users to groups rather than individual permits — makes auditing 10x easier.`,
+      code:``
+    },
+
+    { title:"21 — RACF General Resource Security", level:"Advanced",
+      content:`General resource profiles protect non-dataset resources.
+
+Classes: FACILITY, PROGRAM, SURROGAT, APPL, OPERCMDS, JESSPOOL, TERMINAL, SDSF.
+FACILITY examples: BPX.SUPERUSER, BPX.DAEMON, IRR.DIGTCERT.CREATE.
+
+Commands:
+  RDEFINE class profile UACC(NONE)
+  PERMIT profile CLASS(class) ID(user) ACCESS(READ)
+  SETROPTS RACLIST(class) REFRESH
+
+Pro Tip: Always SETROPTS RACLIST REFRESH after changing general resource profiles.`,
+      code:``
+    },
+
+    { title:"22 — RACF Password and Passphrase Policies", level:"Intermediate",
+      content:`RACF supports passwords (8 char) and passphrases (14-100 char).
+
+Password Rules (SETROPTS): MINLENGTH, HISTORY, INTERVAL, REVOKE, RULES.
+Passphrases: Much more secure, easier to remember. Enable via SETROPTS PASSWORD(PASSPHRASE).
+KDFAES: AES-based password encryption (recommended over legacy DES).
+MFA: IBM MFA for z/OS supports TOTP, smart cards, RSA/Duo integration.
+
+Pro Tip: Migrate to passphrases. 20 characters = effectively unbreakable.`,
+      code:``
+    },
+
+    { title:"23 — RACF and USS/UNIX Security", level:"Advanced",
+      content:`RACF secures UNIX System Services on z/OS.
+
+Mapping: UID to RACF user, GID to RACF group, permissions to rwx.
+Setup: ALTUSER userid OMVS(UID(nnnnn) HOME('/u/userid') PROGRAM('/bin/sh'))
+FACILITY profiles: BPX.SUPERUSER, BPX.DAEMON, BPX.SERVER.
+File security: Both POSIX permissions AND RACF. ACLs via setfacl.
+
+Pro Tip: Never assign UID 0 to regular users. Use BPX.SUPERUSER with PERMIT.`,
+      code:``
+    },
+
+    { title:"24 — RACF Logging and SMF Records", level:"Advanced",
+      content:`RACF logs security events to SMF.
+
+Type 80 subtypes: ACCESS events, DEFINE events, PERMIT events, CONNECT events, PASSWORD events.
+Type 83: Dataset access attempts (success and failure).
+Auditing: UAUDIT (per user), GLOBALAUDIT, AUDIT(SUCCESS/FAILURE/ALL) per profile.
+Compliance: SOX, PCI-DSS, HIPAA, GDPR all require SMF-based audit trails.
+
+Pro Tip: Set UAUDIT on all users with SPECIAL or OPERATIONS authority.`,
+      code:``
+    },
+
+    { title:"25 — RACF Database Administration", level:"Advanced",
+      content:`RACF maintains its own database.
+
+Utilities:
+  IRRUT200 — Backup RACF database
+  IRRUT400 — Restructure/initialize
+  IRRDBU00 — Unload to sequential file for reporting
+  IRRRID00 — Remove residual IDs
+
+Sysplex: RRSFDATA for RACF Remote Sharing. Automatic propagation across systems.
+
+Pro Tip: Run IRRDBU00 weekly and build custom reports — most flexible way to answer audit questions.`,
+      code:``
+    },
+
+    { title:"26 — z/OS Pervasive Encryption", level:"Expert",
+      content:`IBM Z provides encryption at every level.
+
+Layers: Dataset (DFSMS), Network (TLS/IPSec), Database (DB2 column), Tape (hardware), Memory (Secure Execution).
+CPACF: Hardware acceleration for AES, SHA, RSA. No CPU cost — separate crypto engine.
+Key Management: ICSF with PKDS, CKDS, TKDS. Hardware Security Module (Crypto Express).
+
+Expert Tip: With CPACF, encryption is essentially free on Z. No performance reason to NOT encrypt.`,
+      code:``
+    },
+
+    { title:"27 — RACF and CICS Security", level:"Intermediate",
+      content:`RACF controls CICS security at multiple levels.
+
+Layers: Signon (CESN), Transaction (TCICSTRN), Resource (per type), Command (CCICSCMD).
+Classes: TCICSTRN (transactions), CCICSCMD (commands), FCICSFCT (files), MCICSPPT (programs).
+Setup: Create groups per app, permit groups not individual transactions, separate dev/test/prod.
+
+Pro Tip: Use RACF-based security over CICS exits for audit compliance.`,
+      code:``
+    },
+
+    { title:"28 — RACF and DB2 Security", level:"Intermediate",
+      content:`RACF controls DB2 access at multiple levels.
+
+Layers: Connection (DSNR class), Authorization (GRANT/REVOKE), Resource (RACF classes).
+RACF Classes: DSNR (connection), MDSNB (BIND), MDSNS (admin).
+GRANT vs RACF: Most shops use RACF for consistency. Centralizes all security.
+
+Pro Tip: Use RACF for DB2 security rather than DB2 GRANT. Simplifies audits.`,
+      code:``
+    },
+
+    { title:"29 — Security Incident Response", level:"Expert",
+      content:`Responding to security incidents on z/OS.
+
+Detection: Multiple failed logons (SMF 80), unusual access patterns (SMF 83), privilege escalation, after-hours activity.
+
+Response:
+  1. Verify — Confirm real incident
+  2. Contain — ALTUSER userid REVOKE
+  3. Preserve — Capture SMF logs
+  4. Investigate — Extract relevant records
+  5. Remediate — Fix vulnerability
+  6. Report — Document per policy
+
+Expert Tip: Build pre-written SMF extraction JCL for incident response in advance.`,
+      code:``
+    },
+
+    { title:"30 — RACF Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common RACF interview questions.
+
+Q: What is RACF? A: Resource Access Control Facility — z/OS security subsystem.
+Q: Privileged attributes? A: SPECIAL (admin), OPERATIONS (all datasets), AUDITOR (view all).
+Q: Give dataset access? A: PERMIT 'dsn' ID(user) ACCESS(READ|UPDATE|ALTER)
+Q: Generic profile? A: Wildcard profile covering multiple resources.
+Q: Reset password? A: ALTUSER userid PASSWORD(newpw)
+
+Cheat Sheet:
+  AU/ALU/LU — Add/Alter/List User
+  AG/CO/RE — Add Group/Connect/Remove
+  ADDSD/PERMIT — Dataset profiles
+  SETROPTS — System options
+  IRRDBU00 — Unload database`,
+      code:``
+    },
+
+    { title:"20 — RACF Group Administration", level:"Intermediate",
+      content:`RACF groups organize users and simplify access management.
+
+Group Concepts: Every user belongs to a default group. Users can connect to multiple groups. Group authority levels: USE, CREATE, CONNECT, JOIN.
+
+Commands: ADDGROUP (AG), LISTGRP (LG), CONNECT (CO), REMOVE (RE).
+
+Best Practices: Use groups for access, not individual permits. Name descriptively. Review membership quarterly.
+
+💡 Pro Tip: When someone asks for access, add them to the appropriate group rather than individual permits. Makes auditing 10x easier.`,
+      code:``
+    },
+    { title:"21 — RACF General Resource Security", level:"Advanced",
+      content:`General resource profiles protect non-dataset resources.
+
+Common Classes: FACILITY (system facilities), PROGRAM (program access), SURROGAT (surrogate submission), APPL (application access), OPERCMDS (operator commands), JESSPOOL, TERMINAL, SDSF.
+
+FACILITY Examples: BPX.SUPERUSER (UNIX superuser), BPX.DAEMON (daemon authority), IRR.DIGTCERT.CREATE (certificates).
+
+Commands: RDEFINE, PERMIT, RLIST, SETROPTS RACLIST REFRESH.
+
+💡 Pro Tip: After changing general resource profiles, always SETROPTS RACLIST REFRESH. Changes do not take effect until refreshed.`,
+      code:``
+    },
+    { title:"22 — RACF Password and Passphrase Policies", level:"Intermediate",
+      content:`RACF supports traditional passwords and modern passphrases.
+
+Password Rules: MINLENGTH, HISTORY (remember last N), INTERVAL (expiry days), REVOKE (failed attempts).
+
+Passphrases: 14-100 characters, much more secure than 8-char passwords, easier to remember.
+
+MFA: IBM MFA for z/OS supports TOTP, smart cards, RSA/Duo integration.
+
+💡 Pro Tip: Migrate to passphrases. An 8-char password has ~2 trillion combinations. A 20-char passphrase has ~10^28.`,
+      code:``
+    },
+    { title:"23 — RACF and USS/UNIX Security", level:"Advanced",
+      content:`RACF secures UNIX System Services on z/OS.
+
+USS maps UNIX security to RACF: UID to RACF user, GID to RACF group, rwx permissions, superuser via UID 0 or BPX.SUPERUSER.
+
+User Setup: ALTUSER userid OMVS(UID(nnnnn) HOME('/u/userid') PROGRAM('/bin/sh')).
+
+Key FACILITY Profiles: BPX.SUPERUSER, BPX.DAEMON, BPX.SERVER, BPX.FILEATTR.APF.
+
+💡 Pro Tip: Never assign UID 0 to regular users. Use BPX.SUPERUSER FACILITY profile with PERMIT for controlled access.`,
+      code:``
+    },
+    { title:"24 — RACF Logging and SMF Records", level:"Advanced",
+      content:`RACF logs security events to SMF for auditing.
+
+SMF Type 80 Subtypes: ACCESS events, DEFINE events, PERMIT events, CONNECT events, PASSWORD events.
+
+SMF Type 83: Records dataset access attempts for data loss prevention.
+
+Auditing Controls: UAUDIT (audit all actions by a user), GLOBALAUDIT, AUDIT(SUCCESS/FAILURE/ALL) per profile.
+
+💡 Pro Tip: Set UAUDIT on all users with SPECIAL or OPERATIONS authority. Every privileged action should be logged.`,
+      code:``
+    },
+    { title:"25 — RACF Database Administration", level:"Advanced",
+      content:`RACF maintains its own database requiring careful management.
+
+Components: Primary database (active), backup database (auto copy), shared on DASD for Sysplex.
+
+Utilities: IRRUT200 (backup), IRRUT400 (restructure), IRRDBU00 (unload for reporting), IRRRID00 (remove residual IDs).
+
+IRRDBU00: Extracts RACF data to flat file for custom reporting and compliance audits.
+
+💡 Pro Tip: Run IRRDBU00 weekly and build custom reports. Most flexible way to answer audit questions about access.`,
+      code:``
+    },
+    { title:"26 — z/OS Pervasive Encryption", level:"Expert",
+      content:`IBM Z provides encryption at every level.
+
+Layers: Dataset encryption (DFSMS), network (TLS/SSL, AT-TLS), database (DB2 column-level), tape (hardware), memory (Secure Execution).
+
+CPACF: Hardware acceleration for AES, SHA, RSA. No CPU cost — separate crypto engine. Millions of operations per second.
+
+Key Management (ICSF): PKDS (public keys), CKDS (symmetric keys), TKDS (PKCS #11), Crypto Express adapter.
+
+💡 Expert Tip: With CPACF, encryption is essentially free on Z. No performance reason to NOT encrypt.`,
+      code:``
+    },
+    { title:"27 — RACF and CICS Security", level:"Intermediate",
+      content:`RACF controls CICS transaction and resource security.
+
+Security Layers: Signon (CESN), transaction security (TCICSTRN class), resource security, command security (CCICSCMD), surrogate security.
+
+Transaction Security: RDEFINE TCICSTRN tranid UACC(NONE), then PERMIT to groups. READ = permission to execute.
+
+Resource Classes: TCICSTRN (transactions), CCICSCMD (commands), FCICSFCT (files), MCICSPPT (programs).
+
+💡 Pro Tip: Permit transaction groups, not individual transactions. Separate dev/test/prod security profiles.`,
+      code:``
+    },
+    { title:"28 — RACF and DB2 Security", level:"Intermediate",
+      content:`RACF controls DB2 access at multiple levels.
+
+Security Layers: Connection (DSNR class), authorization (GRANT/REVOKE), RACF resource security, row/column access control.
+
+GRANT vs RACF: DB2 supports both. Most shops use RACF for consistency and audit.
+
+Connection: RDEFINE DSNR DB2P.BATCH UACC(NONE), then PERMIT to batch groups.
+
+💡 Pro Tip: Use RACF for DB2 security rather than DB2 GRANT. Centralizes all security, making audits simpler.`,
+      code:``
+    },
+    { title:"29 — Security Incident Response", level:"Expert",
+      content:`Responding to security incidents on z/OS.
+
+Detection: Multiple failed logons (SMF 80), unusual dataset access (SMF 83), privilege escalation, after-hours activity.
+
+Immediate Response: Verify, contain (ALTUSER userid REVOKE), preserve SMF logs, investigate, remediate, report.
+
+Forensics: SMF Type 80 (RACF events), Type 30 (jobs run), Type 83 (dataset access), LISTUSER, IRRDBU00 unload.
+
+💡 Expert Tip: Build pre-written SMF extraction JCL for incident response. Do not waste time writing DFSORT cards during an incident.`,
+      code:``
+    },
+    { title:"30 — RACF Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common RACF interview questions.
+
+Q: What is RACF?
+A: Resource Access Control Facility — z/OS security subsystem controlling access to datasets, resources, and services.
+
+Q: What are RACF privileged attributes?
+A: SPECIAL (full admin), OPERATIONS (access all datasets), AUDITOR (view all profiles/logs).
+
+Q: How do you give dataset access?
+A: PERMIT 'dataset.name' ID(userid) ACCESS(READ|UPDATE|ALTER)
+
+Cheat Sheet:
+  ADDUSER (AU), ALTUSER (ALU), LISTUSER (LU)
+  ADDGROUP (AG), CONNECT (CO)
+  ADDSD, PERMIT, SEARCH, SETROPTS
+  Classes: DATASET, FACILITY, PROGRAM, TCICSTRN, DSNR
+  SMF 80 — Security events
+  SMF 83 — Dataset access
+  IRRDBU00 — Unload database`,
+      code:``
+    },
   ]
 };

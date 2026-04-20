@@ -1,8 +1,8 @@
 # MainframeStudyHub
 
-> Free IBM Z mainframe learning platform with 560+ lessons across 15 topics, AI-powered Code Lab, 200+ quizzes, and live community.
+> Free IBM Z mainframe learning platform with 730+ lessons across 15 topics, AI-powered Code Lab, 200+ quizzes, and live community.
 
-## Tutorials (15 Topics, 560+ Lessons)
+## Tutorials (15 Topics, 730+ Lessons)
 
 - [JCL Tutorial](https://mainframestudyhub.com/topics/jcl) — 86 lessons: JOB, EXEC, DD, procedures, utilities, interview Q&A
 - [COBOL Tutorial](https://mainframestudyhub.com/topics/cobol) — 60 lessons: divisions, file handling, DB2, CICS, performance

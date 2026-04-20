@@ -1338,5 +1338,50 @@ ADDRESS ISPEXEC "DISPLAY PANEL(panelname)"
 PARSE VAR string word1 word2 rest
 PARSE VALUE expr WITH var1 ',' var2`,
     },
+
+    { title:"30 — REXX Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common REXX interview questions.
+
+Q: What is REXX? A: Scripting language built into z/OS for automation.
+Q: Read a file? A: EXECIO * DISKR ddname (STEM line. FINIS
+Q: OUTTRAP? A: Captures TSO command output into stem variable.
+Q: PARSE? A: String parsing. PARSE VAR string word1 word2 rest.
+Q: ISPF from REXX? A: ADDRESS ISPEXEC then ISPF commands.
+
+Cheat Sheet:
+  SAY — Display output
+  PULL — Read input
+  PARSE VAR — Parse string
+  EXECIO — File I/O
+  OUTTRAP — Capture output
+  ADDRESS TSO — TSO commands
+  ADDRESS ISPEXEC — ISPF services
+  SUBSTR/WORD/POS — String functions`,
+      code:``
+    },
+
+    { title:"30 — REXX Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common interview questions.
+
+Q: What is REXX? A: Scripting language built into z/OS for automation and ISPF customization.
+
+Q: How do you read a file? A: EXECIO * DISKR ddname (STEM line. FINIS.
+
+Q: What is OUTTRAP? A: Captures TSO command output into a stem variable.
+
+Q: What is PARSE? A: String parsing instruction. PARSE VAR string word1 word2 rest.
+
+Cheat Sheet:
+  SAY — Display output
+  PULL — Read input
+  PARSE VAR — Parse strings
+  EXECIO — File I/O
+  OUTTRAP — Capture TSO output
+  ADDRESS TSO/ISPEXEC — Execute commands
+  SIGNAL ON ERROR — Error handling
+  SUBSTR, WORD, WORDS, POS, STRIP — String functions
+  DO/IF/SELECT — Control structures`,
+      code:``
+    },
   ]
 };

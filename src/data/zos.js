@@ -452,6 +452,193 @@ SYS1.NUCLEUS — z/OS kernel
     },
     { title:"Interview Questions \u2014 z/OS", level:"All Levels",
       content:"z/OS Fundamentals Interview Questions:\n\nQ: What is an address space?\nA: An isolated virtual memory environment on z/OS. Every batch job, TSO user, CICS region runs in its own address space with up to 2 GB (31-bit) or 16 EB (64-bit) of virtual memory.\n\nQ: What is the difference between \"below the line\" and \"above the bar\"?\nA: \"The line\" = 16 MB boundary (24-bit). \"The bar\" = 2 GB boundary (31-bit). Programs using 24-bit addressing access only first 16 MB. 64-bit programs access beyond 2 GB.\n\nQ: Explain the IPL process.\nA: (1) Hardware loads IPL program from DASD, (2) NIP loads kernel and reads PARMLIB, (3) Master Scheduler starts, (4) JES2 starts, (5) Started tasks begin (CICS, DB2, VTAM).\n\nQ: What is a Parallel Sysplex?\nA: A cluster of up to 32 z/OS systems sharing a Coupling Facility. Benefits: automatic failover, rolling maintenance, workload balancing, DB2 data sharing.\n\nQ: How does RACF protect resources?\nA: RACF uses profiles to define access rules. Checks discrete profile, then generic profile, evaluates access level (NONE/READ/UPDATE/CONTROL/ALTER), logs to SMF Type 80."
-    }
+    },
+
+    { title:"24 — z/OS Parmlib and System Configuration", level:"Advanced",
+      content:`Parmlib controls virtually every z/OS behavior.
+
+Key members: IEASYSxx (system params), SMFPRMxx (SMF), IKJTSOxx (TSO), PROGxx (APF/linklist), COMMNDxx (auto-commands), CLOCKxx (timezone).
+Dynamic changes: SET SMF=xx, SET PROG=xx — no IPL needed.
+
+Pro Tip: Never modify SYS1.PARMLIB directly. Create site-specific members.`,
+      code:``
+    },
+
+    { title:"25 — z/OS Catalog Management", level:"Intermediate",
+      content:`The catalog maps dataset names to physical locations.
+
+Types: Master Catalog (system), User Catalogs (applications), Alias (HLQ routing).
+ICF Structure: BCS (name-to-location) + VVDS (volume-level info).
+Commands: DEFINE USERCATALOG, DEFINE ALIAS, LISTCAT, DELETE, ALTER.
+Problems: NOT CATLG 2 (already cataloged), NOT CATLG 4 (volume not found).
+
+Pro Tip: Use DEFINE NONVSAM to recatalog existing datasets. DELETE NOSCRATCH to uncatalog.`,
+      code:``
+    },
+
+    { title:"26 — z/OS UNIX System Services", level:"Intermediate",
+      content:`z/OS includes a full POSIX-compliant UNIX environment.
+
+Components: Kernel, Shell (/bin/sh, bash), zFS file system, TCP/IP, RACF-mapped security.
+Access: TSO OMVS, ISPF 3.17, SSH.
+Integration: //DD PATH='/u/mydir/file' in JCL, BPXBATCH for UNIX in batch.
+Modern: Java, Python, Node.js, Git all run in USS.
+
+Pro Tip: USS is essential for modern mainframe — every developer should know basic UNIX commands.`,
+      code:``
+    },
+
+    { title:"27 — z/OS Parallel Sysplex", level:"Expert",
+      content:`z/OS clustering for high availability and scalability.
+
+Components: Coupling Facility (shared memory), Sysplex Timer, XCF (cross-system), GRS (global ENQ).
+CF Structures: Lock, Cache (DB2 group buffer pools), List (work queues), Log.
+Benefits: DB2 Data Sharing, WLM workload distribution, rolling maintenance, disaster recovery.
+
+Expert Tip: Parallel Sysplex enables 99.999% availability. Banks depend on it for continuous processing.`,
+      code:``
+    },
+
+    { title:"28 — z/OS System Logger", level:"Advanced",
+      content:`Centralized, recoverable logging service.
+
+Users: DB2 (recovery logs), CICS (system/journal/forward recovery), IMS (OLDS/SLDS), SMF.
+Types: CF-based (shared across Sysplex), DASD-only (single system).
+Commands: DEFINE LOGSTREAM, D LOGGER,L, D LOGGER,STR.
+Space: Staging datasets -> offload datasets -> retention/purge.
+
+Pro Tip: Monitor staging dataset space closely — if full, dependent applications stop.`,
+      code:``
+    },
+
+    { title:"29 — z/OS Performance Basics", level:"Intermediate",
+      content:`Fundamental z/OS performance concepts.
+
+CPU: GP (all workloads), zIIPs (Java/DB2, cheaper), IFLs (Linux only).
+Memory: Real (physical), Auxiliary (page datasets), Above/Below the bar (64-bit/31-bit).
+I/O: Channel subsystem, FICON, PAV (parallel access), zHPF.
+WLM: Classifies work, assigns goals, manages resources automatically.
+
+Pro Tip: Maximize zIIP offload — cheaper processors, doesn't count toward MLC billing.`,
+      code:``
+    },
+
+    { title:"30 — z/OS Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common z/OS interview questions.
+
+Q: What is z/OS? A: IBM's flagship mainframe OS for batch, online, and UNIX workloads.
+Q: What is LPAR? A: Logical Partition — virtual system within physical Z.
+Q: What is WLM? A: Workload Manager — automatic resource management.
+Q: Coupling Facility? A: Shared memory for Sysplex cross-system coordination.
+Q: What is SMS? A: Storage Management Subsystem — automates DASD allocation.
+
+Cheat Sheet:
+  LPAR — Logical Partition
+  WLM — Workload Manager
+  JES2/3 — Job Entry Subsystem
+  RACF — Security
+  USS — UNIX System Services
+  IPL — System boot
+  D A,L — Display active`,
+      code:``
+    },
+
+    { title:"24 — z/OS Parmlib Configuration", level:"Advanced",
+      content:`Parmlib controls virtually every aspect of z/OS behavior.
+
+Key Members: IEASYSxx (system parameters), SMFPRMxx (SMF recording), COMMNDxx (auto-commands at IPL), PROGxx (APF list, linklist, LPA), IKJTSOxx (TSO config), CLOCKxx (time zone).
+
+Dynamic Changes: SET SMF=xx, SET PROG=xx, SET LOAD=xx — many changes without IPL.
+
+Best Practices: Keep site-specific settings in separate suffix. Document every change. Test in test LPAR first.
+
+💡 Pro Tip: Never modify SYS1.PARMLIB directly. Create site-specific members and reference via IEASYSxx.`,
+      code:``
+    },
+    { title:"25 — z/OS Catalog Management", level:"Intermediate",
+      content:`The catalog is z/OS master index mapping dataset names to physical locations.
+
+Types: Master Catalog (one per system, system datasets), User Catalogs (multiple, application datasets), Alias (points HLQ to user catalog).
+
+IDCAMS Commands: DEFINE USERCATALOG, DEFINE ALIAS, LISTCAT, DELETE, ALTER.
+
+Common Problems: NOT CATLG 2 (already cataloged), NOT CATLG 4 (volume not found).
+
+💡 Pro Tip: If dataset exists on disk but not catalog, use DEFINE NONVSAM to recatalog. If in catalog but not disk, DELETE NOSCRATCH.`,
+      code:``
+    },
+    { title:"26 — z/OS UNIX System Services", level:"Intermediate",
+      content:`z/OS includes a full POSIX-compliant UNIX environment.
+
+Components: Kernel, shell (/bin/sh, bash), file system (zFS), utilities (ls, cat, grep, awk), TCP/IP.
+
+Accessing: TSO OMVS command, ISPF 3.17, SSH, Telnet.
+
+Integration: USS files from JCL via PATH=, MVS datasets from USS via //'MY.DS', BPXBATCH runs UNIX in batch. Java, Python, Node.js, Git all run in USS.
+
+💡 Pro Tip: USS is essential for modern mainframe — Java, Node.js, Git, and Zowe all run in USS.`,
+      code:``
+    },
+    { title:"27 — z/OS Parallel Sysplex", level:"Expert",
+      content:`z/OS clustering technology for high availability and scalability.
+
+Components: Coupling Facility (shared memory), Sysplex Timer (clock sync), XCF (inter-system communication), GRS (global resource serialization).
+
+CF Structures: Lock structures, cache structures (DB2 group buffer pools), list structures (work queues).
+
+Benefits: DB2 data sharing, workload distribution (WLM), rolling maintenance, capacity on demand, GDPS disaster recovery.
+
+💡 Expert Tip: Parallel Sysplex enables 99.999% availability. Banks and airlines depend on it.`,
+      code:``
+    },
+    { title:"28 — z/OS System Logger", level:"Advanced",
+      content:`Centralized, recoverable logging service for z/OS applications.
+
+Key Users: DB2 (log records), CICS (system log, journals), IMS (OLDS/SLDS), SMF, z/OS Audit.
+
+Log Stream Types: CF-based (shared across Sysplex), DASD-only (single system).
+
+Commands: DEFINE LOGSTREAM, D LOGGER,L (display status).
+
+💡 Pro Tip: Monitor staging dataset space. If staging fills, the log stream stalls and dependent apps stop.`,
+      code:``
+    },
+    { title:"29 — z/OS Performance Basics", level:"Intermediate",
+      content:`Fundamental performance concepts.
+
+CPU: General Purpose CPs, zIIPs (Java/XML/DB2, cheaper), IFLs (Linux only), ICFs (CF only).
+
+Memory: Real storage, auxiliary storage (page datasets), above the bar (64-bit/2GB+), below the bar (31-bit).
+
+I/O: Channel subsystem, FICON channels, PAV (parallel access), zHPF.
+
+WLM: Classifies work into service classes, assigns goals, manages resources automatically.
+
+💡 Pro Tip: zIIP workload does not count toward MLC software billing. Maximize zIIP offload for cost savings.`,
+      code:``
+    },
+    { title:"30 — z/OS Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common interview questions.
+
+Q: What is z/OS? A: IBM flagship mainframe OS supporting batch, online (CICS/IMS), and UNIX workloads.
+
+Q: What is an LPAR? A: Logical Partition — a virtual system within a physical Z machine.
+
+Q: What is WLM? A: Workload Manager — manages resources to meet performance goals.
+
+Q: What is the Coupling Facility? A: Shared memory in Parallel Sysplex for cross-system coordination.
+
+Cheat Sheet:
+  LPAR — Logical Partition
+  WLM — Workload Manager
+  JES2/JES3 — Job Entry Subsystem
+  SMS — Storage Management
+  RACF — Security
+  Coupling Facility — Sysplex shared memory
+  USS — UNIX System Services
+  IPL — System boot
+  D A,L — Display active address spaces`,
+      code:``
+    },
   ]
 };

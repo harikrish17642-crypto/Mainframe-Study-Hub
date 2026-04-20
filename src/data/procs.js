@@ -1058,6 +1058,260 @@ A: Through symbolic parameters. Define parameters in the PROC statement with def
 
 Q: How would you join two flat files like a SQL JOIN?
 A: Use ICETOOL SPLICE or DFSORT JOINKEYS. SPLICE is simpler for basic joins: SPLICE FROM(MASTER) TO(OUTPUT) ON(1,6,CH) WITH(TRANS) USING(CTL1). JOINKEYS is more powerful for complex joins including outer joins: JOINKEYS FILE=F1,FIELDS=(1,6,A) / JOINKEYS FILE=F2,FIELDS=(1,6,A) / JOIN UNPAIRED,F1,F2.`
-    }
+    },
+
+    { title:"21 — DFSORT IFTHEN Operator", level:"Advanced",
+      content:`IFTHEN is the most powerful DFSORT feature — conditional reformatting in a single pass.
+
+Syntax: OUTREC IFTHEN=(WHEN=(condition),BUILD=(fields))
+Multiple: Chain IFTHEN clauses. WHEN=NONE is the default catch-all.
+
+Use Cases: Different formatting for header/detail/trailer records, conditional field replacement, multi-format file processing.
+
+Pro Tip: Always include IFTHEN=(WHEN=NONE,...) to handle unexpected record types.`,
+      code:``
+    },
+
+    { title:"22 — DFSORT Date Processing", level:"Advanced",
+      content:`DFSORT manipulates dates — convert formats, calculate differences.
+
+Formats: Y2T/Y4T (year), Y2W/Y4W (with separators), Y2D/Y4D (Julian).
+Arithmetic: DATE1(+n) add days, DATE1(-n) subtract, DATE1-DATE2 difference.
+Conversion: BUILD=(5,2,C'/',7,2,C'/',1,4) converts YYYYMMDD to MM/DD/YYYY.
+
+Pro Tip: Use INCLUDE with date conditions to select records by date range.`,
+      code:``
+    },
+
+    { title:"23 — ICETOOL Multi-Operation Processing", level:"Advanced",
+      content:`ICETOOL runs multiple DFSORT operations in one step.
+
+Operators: SORT, COPY, SELECT, STATS, OCCUR, RANGE, VERIFY, SPLICE, UNIQUE, MERGE.
+SPLICE: Join files by matching key — DFSORT's equivalent of database JOIN.
+
+Pro Tip: SPLICE combines records from different files without writing a program.`,
+      code:``
+    },
+
+    { title:"24 — DFSORT SYMNAMES", level:"Intermediate",
+      content:`SYMNAMES assign meaningful names to field positions.
+
+Define: //SYMNAMES DD * with FIELD-NAME,pos,len,format entries.
+Use: SORT FIELDS=(ACCT-NUM,A) instead of SORT FIELDS=(1,10,CH,A).
+Benefits: Self-documenting, easy to maintain, reduces position errors.
+
+Pro Tip: Create SYMNAMES per major file layout. One place to update if layout changes.`,
+      code:``
+    },
+
+    { title:"25 — DFSORT OUTREC Formatting", level:"Intermediate",
+      content:`OUTREC reformats output records with built-in functions.
+
+Numeric: EDIT=(TTTTTT.TT), EDIT=(TTT,TTT.TT), EDIT=(SI,TTT.TT).
+String: CHANGE, SQUEEZE, JUSTIFY, TRAN.
+Constants: C'text', X'hex', nX (spaces).
+Sequence: SEQNUM,n,format,START=1.
+
+Pro Tip: Create formatted reports directly from DFSORT — no COBOL needed for simple reports.`,
+      code:``
+    },
+
+    { title:"26 — DFSORT with VSAM Files", level:"Advanced",
+      content:`DFSORT reads and writes VSAM datasets.
+
+Reading: //SORTIN DD DSN=MY.VSAM.KSDS,DISP=SHR — direct access.
+Writing: Pre-define cluster with IDCAMS, data must be in key sequence for KSDS.
+Tips: VSAM input doesn't need RECFM/LRECL. DFSORT is faster than REPRO for filtered extracts.
+
+Pro Tip: Always SORT by primary key before loading VSAM to avoid CI/CA split storms.`,
+      code:``
+    },
+
+    { title:"27 — DFSORT Performance Optimization", level:"Expert",
+      content:`Optimize DFSORT for maximum throughput.
+
+Work Space: 3+ SORTWKnn datasets on different volumes.
+Memory: MAINSIZE=MAX, REGION=0M.
+I/O: HIPRMAX=OPTIMAL, large block sizes, separate volumes for IN/OUT.
+Avoid waste: COPY when order doesn't matter, INCLUDE before SORT, STOPAFT for testing.
+
+Expert Tip: Target zero merge passes — if >0, add more memory or work space.`,
+      code:``
+    },
+
+    { title:"28 — DFSORT Conditional JCL Patterns", level:"Advanced",
+      content:`Common production DFSORT patterns.
+
+Extract+Sort: INCLUDE then SORT then OUTREC.
+File Split: OUTFIL FNAMES=GOOD/BAD with different INCLUDEs.
+File Merge: MERGE FIELDS from SORTIN01/SORTIN02.
+Dedup: SORT + SUM FIELDS=NONE.
+Header/Trailer: OUTFIL HEADER1=(...), TRAILER1=(COUNT).
+
+Pro Tip: Build a library of tested patterns. Copy and modify rather than coding from scratch.`,
+      code:``
+    },
+
+    { title:"29 — DFSORT vs COBOL Sort", level:"Intermediate",
+      content:`When to use each.
+
+DFSORT: Simple sort/merge/copy, reformatting, splitting, statistics, performance-critical. 2-5x faster than COBOL.
+COBOL SORT: Complex business logic, database reads during sort, error handling, multi-step processing.
+
+Pro Tip: If your COBOL INPUT/OUTPUT PROCEDURE just filters or reformats, move it to DFSORT for dramatic speedup.`,
+      code:``
+    },
+
+    { title:"30 — DFSORT Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common DFSORT interview questions.
+
+Q: What is DFSORT? A: High-performance sort utility for z/OS.
+Q: Remove duplicates? A: SORT + SUM FIELDS=NONE.
+Q: INREC vs OUTREC? A: INREC before sort (reduces volume), OUTREC after.
+Q: What is ICETOOL? A: Multi-operation driver for SORT, STATS, OCCUR, SPLICE.
+
+Cheat Sheet:
+  SORT FIELDS — Sort records
+  INCLUDE/OMIT — Filter
+  INREC/OUTREC — Reformat
+  SUM FIELDS=NONE — Dedup
+  OUTFIL — Multiple outputs
+  JOINKEYS — Join files
+  ICETOOL — Multi-operation
+  SYMNAMES — Field names`,
+      code:``
+    },
+
+    { title:"21 — DFSORT IFTHEN Operator", level:"Advanced",
+      content:`IFTHEN is the most powerful DFSORT feature — conditional reformatting in a single pass.
+
+Syntax: OUTREC IFTHEN=(WHEN=(condition),BUILD=(fields))
+
+Multiple Clauses: Chain IFTHEN with WHEN=(condition) for each record type, WHEN=NONE as default catch-all.
+
+Use Cases: Different formatting for header/detail/trailer records, conditional field replacement, multi-format file processing.
+
+💡 Pro Tip: IFTHEN=(WHEN=NONE,...) acts as default catch-all. Always include it for unexpected record types.`,
+      code:``
+    },
+    { title:"22 — DFSORT Date Processing", level:"Advanced",
+      content:`DFSORT can manipulate dates — convert formats, calculate differences, add/subtract days.
+
+Date Formats: Y2T (2-digit year), Y4T (4-digit year), Y2W/Y4W (with separators), Y2D/Y4D (Julian).
+
+Date Arithmetic: DATE1(+n) add days, DATE1(-n) subtract, DATE1-DATE2 difference.
+
+Common: Convert YYYYMMDD to MM/DD/YYYY, calculate age, filter by date range.
+
+💡 Pro Tip: Use INCLUDE with date conditions: INCLUDE COND=(1,8,CH,GE,C'20260101',AND,1,8,CH,LE,C'20260331')`,
+      code:``
+    },
+    { title:"23 — ICETOOL Multi-Operation Processing", level:"Advanced",
+      content:`ICETOOL runs multiple DFSORT operations in a single job step.
+
+Operators: SORT, COPY, SELECT, STATS (statistics), OCCUR (frequency counting), RANGE (value ranges), VERIFY (data formats), SPLICE (join files), UNIQUE (dedup).
+
+SPLICE: Combine records from two files by matching key — DFSORT equivalent of a database JOIN.
+
+💡 Pro Tip: SPLICE is DFSORT JOIN. Use it to match and combine records from different files without writing a program.`,
+      code:``
+    },
+    { title:"24 — DFSORT SYMNAMES", level:"Intermediate",
+      content:`SYMNAMES assign meaningful names to field positions.
+
+Define: //SYMNAMES DD with entries like ACCT-NUM,1,10,CH and BALANCE,41,8,ZD.
+
+Use: SORT FIELDS=(ACCT-NUM,A) instead of SORT FIELDS=(1,10,CH,A).
+
+Benefits: Self-documenting, copybook-like definitions, easy to maintain when layouts change.
+
+💡 Pro Tip: Create a SYMNAMES member for each file layout. Reference in all DFSORT jobs using that file.`,
+      code:``
+    },
+    { title:"25 — DFSORT OUTREC Formatting", level:"Intermediate",
+      content:`OUTREC reformats output records with built-in functions.
+
+Numeric Editing: EDIT=(TTTTTT.TT), EDIT=(TTT,TTT,TTT.TT), EDIT=(SI,TTT,TTT.TT) for signed.
+
+String: CHANGE, SQUEEZE, JUSTIFY, TRAN (translate characters).
+
+Constants: C'text', X'hex', nX (spaces), SEQNUM (sequence numbers), DATE1 (current date).
+
+💡 Pro Tip: Combine OUTREC with EDIT patterns to create formatted reports directly — no COBOL needed for simple reports.`,
+      code:``
+    },
+    { title:"26 — DFSORT with VSAM Files", level:"Advanced",
+      content:`DFSORT can read and write VSAM datasets.
+
+Reading: //SORTIN DD DSN=MY.VSAM.KSDS,DISP=SHR. DFSORT reads KSDS, ESDS, RRDS directly.
+
+Writing: Must pre-define cluster with IDCAMS. Data must be in key sequence for KSDS.
+
+Common Operations: Sort VSAM by alternate key, copy to flat file, load flat file into VSAM, extract subsets.
+
+💡 Pro Tip: Always SORT by primary key before loading VSAM. Out-of-sequence records cause CI/CA splits.`,
+      code:``
+    },
+    { title:"27 — DFSORT Performance", level:"Expert",
+      content:`Optimize DFSORT for maximum throughput.
+
+Sort Work Space: At least 3 SORTWKnn datasets on different volumes. Size 2-3x input.
+
+Memory: MAINSIZE=MAX, REGION=0M. More memory = fewer merge passes.
+
+I/O: HIPRMAX=OPTIMAL, large block sizes (BLKSIZE=0), separate volumes for SORTIN/SORTOUT.
+
+Avoid: Use COPY instead of SORT when order irrelevant. INCLUDE/OMIT before SORT to reduce volume. STOPAFT=n for testing.
+
+💡 Expert Tip: Target zero merge passes — if DFSORT reports >0, add more memory or sort work space.`,
+      code:``
+    },
+    { title:"28 — DFSORT Conditional JCL Patterns", level:"Advanced",
+      content:`Common production patterns.
+
+Pattern 1 — Extract and Sort: INCLUDE to filter, SORT, OUTREC to format.
+
+Pattern 2 — File Split: OUTFIL FNAMES=GOOD,INCLUDE=(...) and OUTFIL FNAMES=BAD.
+
+Pattern 3 — Dedup: SORT + SUM FIELDS=NONE keeps first occurrence.
+
+Pattern 4 — Header/Trailer: OUTFIL HEADER1=(C'REPORT DATE: ',DATE), TRAILER1=(C'TOTAL: ',COUNT).
+
+💡 Pro Tip: Build a library of tested patterns. Copy and modify rather than coding from scratch.`,
+      code:``
+    },
+    { title:"29 — DFSORT vs COBOL Sort", level:"Intermediate",
+      content:`When to use each.
+
+DFSORT When: Simple sort/merge/copy/extract, reformatting without complex logic, file splitting, performance critical, no compilation needed.
+
+COBOL SORT When: Complex business logic during sort, INPUT/OUTPUT PROCEDURE needs database reads or complex calculations.
+
+Performance: DFSORT is 2-5x faster (assembler-optimized, hardware-assisted, efficient memory management).
+
+💡 Pro Tip: If your COBOL INPUT/OUTPUT PROCEDURE is just filtering or reformatting, move it to DFSORT for dramatic improvement.`,
+      code:``
+    },
+    { title:"30 — DFSORT Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common interview questions.
+
+Q: What is DFSORT? A: IBM high-performance sort utility for z/OS.
+
+Q: How to remove duplicates? A: SORT + SUM FIELDS=NONE.
+
+Q: INREC vs OUTREC? A: INREC reformats BEFORE sort (reduces data), OUTREC reformats AFTER sort.
+
+Cheat Sheet:
+  SORT FIELDS=(pos,len,fmt,A|D)
+  INCLUDE/OMIT COND=(...)
+  INREC/OUTREC FIELDS=(...)
+  SUM FIELDS=NONE — Dedup
+  OUTFIL — Multiple outputs
+  JOINKEYS — Join files
+  SYMNAMES — Symbolic names
+  ICETOOL — Multi-operation
+  Formats: CH, ZD, PD, BI, FI`,
+      code:``
+    },
   ]
 };

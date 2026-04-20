@@ -764,5 +764,385 @@ Schedule ID — Calendar-based trigger
 ═══ COMMON SCHEDULERS ═══
 CA-7 (Broadcom), TWS (IBM), Control-M (BMC), Zeke`,
     },
+
+    { title:"19 — CA-7 Workload Balancing", level:"Advanced",
+      content:`CA-7 provides workload balancing to distribute batch processing across resources.
+
+Load Balancing Methods:
+  Class-based — Direct jobs to specific initiator classes
+  Time-based — Schedule during low-utilization windows
+  System affinity — Route to specific LPARs in Sysplex
+  Resource-based — Check availability before scheduling
+
+Batch Window Management:
+  Define windows: Nightly 22:00-06:00, End-of-month extended, Weekend full 48-hour.
+  CA-7 tracks window utilization and alerts if jobs risk overrunning.
+
+Pro Tip: Review batch window utilization monthly. If consistently >85%, optimize long-running jobs.`,
+      code:``
+    },
+
+    { title:"20 — CA-7 Calendar Management", level:"Intermediate",
+      content:`CA-7 calendars define business days, holidays, and processing schedules.
+
+Calendar Types:
+  Base Calendar — Defines workdays vs non-workdays
+  Schedule Calendar — Job-specific scheduling patterns
+  Holiday Calendar — Company holidays
+  Fiscal Calendar — Month-end, quarter-end dates
+
+Schedule ID (SCHID):
+  SCHID 1 — Run every workday
+  SCHID 2 — Run Monday only
+  SCHID 3 — Run last business day of month
+
+Pro Tip: Build calendars 2 years ahead to avoid year-end emergencies.`,
+      code:``
+    },
+
+    { title:"21 — CA-7 Virtual Resources", level:"Advanced",
+      content:`Virtual resources control concurrent access to shared resources.
+
+Why: Some resources have limited capacity — database tablespaces, tape drives, network bandwidth, application locks.
+
+Defining:
+  RESOURCE NAME=DBUPDATE,COUNT=1 — Only 1 job at a time
+  RESOURCE NAME=TAPEDRV,COUNT=4 — Up to 4 concurrent tape jobs
+
+Job Assignment:
+  JOB: PAYROLL01, RESOURCE: DBUPDATE,REQUIRE=1
+
+Monitoring:
+  /DISPLAY,RESOURCE — Check availability
+  /FORCE — Override in emergency
+
+Pro Tip: Use virtual resources to prevent concurrent VSAM updates.`,
+      code:``
+    },
+
+    { title:"22 — CA-7 Notification and Alerts", level:"Intermediate",
+      content:`CA-7 provides multiple notification mechanisms for job failures.
+
+Notification Methods:
+  Console messages, Email alerts, Pager/SMS, TSO messages, SNMP traps
+
+Alert Triggers:
+  Job ABEND, Job late, SLA breach, Resource contention, Predecessor failure
+
+Escalation Levels:
+  Level 1: Team email — needs attention
+  Level 2: On-call pager — SLA at risk
+  Level 3: Management alert — SLA breached
+
+Pro Tip: Include what failed, impact, and what to do in every alert.`,
+      code:``
+    },
+
+    { title:"23 — CA-7 Batch Flow Diagrams", level:"Intermediate",
+      content:`Understanding and documenting batch flows is essential.
+
+Components: Job, Predecessor, Successor, Critical Path, Parallel Paths
+
+Critical Path Analysis:
+  1. Identify longest dependency chain
+  2. Sum elapsed times along chain
+  3. This determines minimum batch window
+  4. Optimizing non-critical path jobs does not help
+  5. Focus tuning on critical path jobs
+
+CA-7 Reports:
+  LRDY — List ready jobs
+  LJOB — List job details with predecessors
+  LARQ — List auto-request schedule
+
+Pro Tip: If critical path is too long, look for serial jobs that could run in parallel.`,
+      code:``
+    },
+
+    { title:"24 — CA-7 Restart and Recovery", level:"Advanced",
+      content:`CA-7 integrates with z/OS restart capabilities.
+
+Restart Scenarios:
+  1. Simple restart from failed step
+  2. Restart with cleanup — delete partial output first
+  3. Restart from checkpoint
+  4. Restart predecessor first
+  5. Skip and continue — mark complete, run successors
+
+CA-7 Commands:
+  /RESTART,JOB=name — Restart failed job
+  /RESTART,JOB=name,STEP=step — From specific step
+  /RUN,JOB=name — Force immediate execution
+  /DEMAND,JOB=name — Schedule on demand
+
+Pro Tip: Build restart JCL for every production job. Store alongside main JCL.`,
+      code:``
+    },
+
+    { title:"25 — CA-7 Database Maintenance", level:"Advanced",
+      content:`CA-7 maintains its own database requiring regular maintenance.
+
+Daily: Backup database, verify log space, clean old entries
+Weekly: Reorganization, index rebuild, verify calendars
+Monthly: Purge old history, review documentation, validate contacts
+Quarterly: Full integrity check, decommission unused jobs
+
+Backup/Recovery:
+  /DBM,FUNC=BACKUP — Take database backup
+  Recovery: Restore from backup + replay log
+
+Pro Tip: Schedule CA-7 database backup as the FIRST job in your nightly cycle.`,
+      code:``
+    },
+
+    { title:"26 — CA-7 vs Control-M vs TWS", level:"Intermediate",
+      content:`Comparison of three major mainframe job schedulers.
+
+CA-7 (Broadcom): Native z/OS, mature, ~35% market share. Mainframe-only.
+Control-M (BMC): Cross-platform, modern GUI, REST API, ~35% market.
+TWS/OPC (IBM): IBM native, Sysplex-aware, ~20% market.
+
+Key Differences:
+  Cross-platform: No / Yes / Limited
+  Modern GUI: Basic / Modern / Basic
+  REST API: No / Yes / Limited
+
+Interview Tip: Know the scheduler your target company uses. Migration between schedulers is rare and expensive.`,
+      code:``
+    },
+
+    { title:"27 — CA-7 Reporting and Auditing", level:"Intermediate",
+      content:`CA-7 generates reports for operations and audit compliance.
+
+Standard Reports: Job History, Exception Report, Forecast, Resource Utilization, Calendar Report
+
+Audit Requirements (SOX):
+  Proof jobs ran in correct sequence
+  Documentation of manual interventions
+  Evidence of authorized changes only
+  Retention of history (typically 7 years)
+
+CA-7 Audit Trail: Every action logged — who, what, when, before/after values.
+
+Pro Tip: Set up automated weekly reports showing SLA achievement and exception counts.`,
+      code:``
+    },
+
+    { title:"28 — CA-7 Automation and Scripting", level:"Advanced",
+      content:`Automate CA-7 operations to reduce manual effort.
+
+Batch Interface: Submit CA-7 commands via batch JCL using PGM=SASSXX00.
+
+REXX Integration: Build dynamic CA-7 commands for file triggers, calendar updates, reporting.
+
+File Trigger Pattern:
+  1. FTP delivers file
+  2. CA-7 detects dataset creation
+  3. CA-7 starts dependent job automatically
+  4. No operator intervention needed
+
+Pro Tip: File-triggered scheduling eliminates polling jobs — reducing CPU waste.`,
+      code:``
+    },
+
+    { title:"29 — CA-7 Troubleshooting Guide", level:"Advanced",
+      content:`Common CA-7 problems and solutions.
+
+Jobs Not Starting: Check predecessors, resources, class. Use /DISPLAY,JOB=name.
+Jobs Running Late: Check I/O contention, CPU, dataset locks via RMF.
+Predecessor Loop: Circular dependency. Break by removing one dependency.
+Calendar Issues: Verify calendar dates, SCHID assignment.
+Database Full: Purge old history, run maintenance.
+Lost Tracking: Job completed but CA-7 unaware. Use /POST,JOB=name.
+
+Pro Tip: /DISPLAY is your best friend. Start with /DISPLAY,JOB=name for any issue.`,
+      code:``
+    },
+
+    { title:"30 — CA-7 Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common CA-7 interview questions.
+
+Q: What is CA-7? A: Mainframe batch job scheduler for automated scheduling, dependency management, monitoring.
+Q: Predecessors/Successors? A: Predecessors must complete before job starts. Successors are triggered after.
+Q: Run on demand? A: /DEMAND,JOB=name
+Q: Restart failed job? A: /RESTART,JOB=name,STEP=step
+Q: Virtual resources? A: Named resources with limited capacity to prevent contention.
+Q: SCHID? A: Schedule ID linking job to calendar pattern.
+
+Cheat Sheet:
+  /DEMAND — Run immediately
+  /HOLD — Hold job
+  /REL — Release held job
+  /RESTART — Restart failed job
+  /DISPLAY — Show job status
+  /LRDY — List ready jobs
+  /POST — Manually post completion`,
+      code:``
+    },
+
+    { title:"19 — CA-7 Workload Balancing", level:"Advanced",
+      content:`CA-7 provides workload balancing to distribute batch across resources.
+
+Load Balancing Methods: Class-based (direct to specific initiator classes), time-based (schedule during low-utilization windows), system affinity (route to specific LPARs), resource-based (check availability before scheduling).
+
+SYSAFF Routing: Specify which system runs a job. SYSAFF=SYS1 (only SYS1), SYSAFF=(SYS1,SYS2) (either), SYSAFF=ANY (any available).
+
+Batch Window Management: Define windows for different workloads. Track utilization and alert if jobs risk overrunning.
+
+💡 Pro Tip: Review batch window utilization monthly. If consistently >85%, optimize long-running jobs or expand the window.`,
+      code:``
+    },
+    { title:"20 — CA-7 Calendar Management", level:"Intermediate",
+      content:`CA-7 calendars define business days, holidays, and processing schedules.
+
+Calendar Types: Base Calendar (workdays vs non-workdays), Schedule Calendar (job-specific patterns), Holiday Calendar, Fiscal Calendar (month-end, quarter-end).
+
+Schedule ID (SCHID): Each job has a SCHID referencing calendar entries. SCHID 1 = every workday, SCHID 2 = Monday only, SCHID 3 = last business day of month.
+
+Common Patterns: Daily (Mon-Fri), Weekly, Bi-weekly, Monthly (last business day), Quarterly, Annual.
+
+💡 Pro Tip: Build calendars 2 years ahead to avoid year-end emergencies.`,
+      code:``
+    },
+    { title:"21 — CA-7 Virtual Resources", level:"Advanced",
+      content:`Virtual resources control concurrent access to shared resources.
+
+Why Virtual Resources? Some resources have limited capacity: database tablespace (one update job at a time), tape drives (limited number), application locks (one batch cycle at a time).
+
+Defining: RESOURCE NAME=DBUPDATE,COUNT=1 allows only 1 job at a time.
+
+Job Assignment: JOB requests units before running. RESOURCE: DBUPDATE,REQUIRE=1.
+
+Monitoring: /DISPLAY,RESOURCE to check availability. /FORCE can bypass in emergency.
+
+💡 Pro Tip: Use virtual resources to prevent concurrent VSAM updates — two jobs writing to the same KSDS causes CI/CA split storms.`,
+      code:``
+    },
+    { title:"22 — CA-7 Notification and Alerts", level:"Intermediate",
+      content:`CA-7 provides multiple notification mechanisms for job failures.
+
+Notification Methods: Console messages (WTO/WTOR), email alerts (SMTP), pager/SMS for critical failures, TSO messages, SNMP traps for enterprise monitoring.
+
+Alert Triggers: Job ABEND, job late (missed schedule), SLA breach, resource contention, predecessor failure.
+
+Escalation Levels: Level 1 (team email), Level 2 (on-call pager, SLA at risk), Level 3 (management alert, SLA breached).
+
+💡 Pro Tip: The most effective alert includes what failed, impact, and what to do. Include restart instructions in alert messages.`,
+      code:``
+    },
+    { title:"23 — CA-7 Batch Flow and Critical Path", level:"Intermediate",
+      content:`Understanding batch flows is essential for operations and change management.
+
+Batch Flow Components: Job (unit of work), predecessor (must complete first), successor (triggered after), critical path (longest chain), parallel paths (independent chains).
+
+Critical Path Analysis: Identify the longest dependency chain. Sum elapsed times. This determines minimum batch window. Focus tuning on critical path jobs.
+
+CA-7 Reporting: LRDY (list ready jobs), LJOB (list job details with predecessors), LARQ (list auto-request schedule).
+
+💡 Pro Tip: If your critical path is too long, look for serial jobs that could run in parallel with proper dependency restructuring.`,
+      code:``
+    },
+    { title:"24 — CA-7 Restart and Recovery", level:"Advanced",
+      content:`CA-7 integrates with z/OS restart capabilities for job recovery.
+
+Restart Scenarios: Simple restart (rerun from failed step), restart with cleanup (delete partial output), restart from checkpoint, restart predecessor (fix and rerun), skip and continue (mark complete, run successors).
+
+CA-7 Commands: /RESTART,JOB=name (restart failed job), /RUN,JOB=name (force immediate), /DEMAND,JOB=name (schedule on demand).
+
+GDG Recovery: When restarting with GDGs, check generation numbers. Delete incomplete (+1) generation before restart.
+
+💡 Pro Tip: Build restart JCL for every production job. Store alongside main JCL with naming convention JOBNAMEx where x=R.`,
+      code:``
+    },
+    { title:"25 — CA-7 Database Maintenance", level:"Advanced",
+      content:`CA-7 maintains its own database requiring regular maintenance.
+
+Maintenance Tasks:
+  Daily: Backup CA-7 database, verify log space, clean old log entries (>30 days)
+  Weekly: Database reorganization, index rebuild, verify calendar
+  Monthly: Purge old history, review job documentation, validate contacts
+  Quarterly: Full integrity check, decommission unused jobs, update calendars
+
+Backup: /DBM,FUNC=BACKUP takes database backup. Recovery: Restore + replay log.
+
+💡 Pro Tip: Schedule CA-7 database backup as the FIRST job in your nightly cycle.`,
+      code:``
+    },
+    { title:"26 — CA-7 vs Control-M vs TWS", level:"Intermediate",
+      content:`Comparison of the three major mainframe job schedulers.
+
+CA-7 (Broadcom): Native z/OS, mature, widely used (~35% of shops). Mainframe-only.
+
+Control-M (BMC): Cross-platform (mainframe + distributed), modern GUI, REST API (~35% of shops).
+
+TWS/OPC (IBM): IBM native, Sysplex-aware, integrated with z/OS (~20% of shops).
+
+Key Differences: Control-M has best cross-platform support and modern UI. CA-7 has deepest z/OS integration. TWS has best Sysplex awareness.
+
+💡 Interview Tip: Know the scheduler your target company uses. Most shops are deeply committed to one — migration is rare.`,
+      code:``
+    },
+    { title:"27 — CA-7 Reporting and Auditing", level:"Intermediate",
+      content:`CA-7 generates reports for operations management and audit compliance.
+
+Standard Reports: Job History (when jobs ran, duration, return codes), Exception Report (failures, late jobs), Forecast Report, Resource Utilization.
+
+Audit Trail: Every action logged with who, what, when, and change details. SOX compliance requires proof of correct sequence, documentation of interventions, evidence of authorized changes.
+
+💡 Pro Tip: Set up automated weekly reports showing SLA achievement, success rates, and exception counts.`,
+      code:``
+    },
+    { title:"28 — CA-7 Automation and Scripting", level:"Advanced",
+      content:`Automate CA-7 operations to reduce manual effort.
+
+Batch Interface: CA-7 commands via batch using PGM=SASSXX00 with SYSIN DD containing commands like /DEMAND,JOB=name.
+
+REXX Integration: Build dynamic CA-7 commands, generate demand runs based on file arrival, automate holiday calendar updates.
+
+File Trigger Pattern: FTP delivers file, CA-7 detects dataset creation, starts dependent job automatically. No operator intervention needed.
+
+💡 Pro Tip: File-triggered scheduling eliminates polling jobs — reducing CPU waste and improving response time.`,
+      code:``
+    },
+    { title:"29 — CA-7 Troubleshooting Guide", level:"Advanced",
+      content:`Common CA-7 problems and solutions.
+
+Jobs Not Starting: Check predecessors, resource availability, class active. /DISPLAY,JOB=name shows waiting reasons.
+
+Predecessor Loop: Jobs waiting in circular dependency. Break loop by removing one dependency.
+
+Calendar Issues: Job did not trigger on expected day. Verify calendar definition, SCHID assignment, holiday calendar.
+
+Lost Job Tracking: Job completed but CA-7 does not know. /POST,JOB=name manually posts completion.
+
+💡 Pro Tip: /DISPLAY is your best friend. Start with /DISPLAY,JOB=name to see current state and waiting reasons.`,
+      code:``
+    },
+    { title:"30 — CA-7 Interview Q&A + Cheat Sheet", level:"Beginner",
+      content:`Common CA-7 interview questions.
+
+Q: What is CA-7?
+A: A mainframe batch job scheduler for automating job scheduling, dependency management, and monitoring.
+
+Q: What are predecessors and successors?
+A: Predecessors must complete before a job starts. Successors are triggered after completion.
+
+Q: How do you run a job on demand?
+A: /DEMAND,JOB=jobname schedules immediate execution.
+
+Q: What is SCHID?
+A: Schedule ID linking a job to a calendar pattern.
+
+Cheat Sheet:
+  /DEMAND,JOB=name — Run immediately
+  /HOLD,JOB=name — Hold job
+  /REL,JOB=name — Release held job
+  /RESTART,JOB=name — Restart failed job
+  /DISPLAY,JOB=name — Show job status
+  /LJOB,JOB=name — List job details
+  /POST,JOB=name — Manually post completion
+  SCHID — Schedule calendar reference`,
+      code:``
+    },
   ]
 };
