@@ -1200,6 +1200,8 @@ Behavior guidelines:
 
   const renderChatMd = (text) => {
     if (!text) return null;
+    // Escape HTML first to prevent XSS — markdown is then applied to safe text
+    const esc = (s) => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
     // Split by code blocks first
     const parts = text.split(/(```[\s\S]*?```)/g);
     return parts.map((part, pi) => {
@@ -1216,13 +1218,14 @@ Behavior guidelines:
         );
       }
       return part.split("\n").map((line, i) => {
-        let html = line
+        // Escape HTML first, then apply markdown to safe text
+        let html = esc(line)
           .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
           .replace(/`(.+?)`/g, '<code style="background:rgba(0,113,227,0.2);padding:2px 7px;border-radius:4px;font-size:12px;font-family:monospace;color:#60a5fa">$1</code>')
           .replace(/\*(.+?)\*/g, '<em>$1</em>');
         if (/^#{1,3}\s/.test(line)) {
           const level = line.match(/^(#+)/)[1].length;
-          const content = line.replace(/^#+\s*/, "");
+          const content = esc(line.replace(/^#+\s*/, ""));
           html = `<strong style="font-size:${18 - level * 2}px;display:block;margin:8px 0 4px">${content}</strong>`;
         }
         if (line.startsWith("• ") || line.startsWith("- ") || /^\d+[\.\)]\s/.test(line)) {
